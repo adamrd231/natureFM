@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct natureFMApp: App {
+    
+
+    
+    @StateObject var soundsModel = SoundsModel()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SoundsTableView().environmentObject(soundsModel)
         }
     }
 }
