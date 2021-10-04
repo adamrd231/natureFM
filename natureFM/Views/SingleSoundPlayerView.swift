@@ -7,12 +7,40 @@
 
 import SwiftUI
 import URLImage
+import GoogleMobileAds
 
 struct SingleSoundPlayerView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @EnvironmentObject var soundsModel: SoundsModel
+    
+    // Google admob interstitial video stuff
+    @State var interstitial: GADInterstitialAd?
+    var testInterstitialAd = "ca-app-pub-3940256099942544/1033173712"
+    var realInterstitialAd = "ca-app-pub-4186253562269967/3751660097"
+    func playInterstitial() {
+        let request = GADRequest()
+        GADInterstitialAd.load(withAdUnitID: testInterstitialAd,
+            request: request, completionHandler: { [self] ad, error in
+                // Check if there is an error
+                if let error = error {
+                    print("There was an error: \(error)")
+                    return
+                }
+                print("No Errors No errors no errors")
+                // If no errors, create an ad and serve it
+                interstitial = ad
+                print(interstitial)
+                if let interstitalAd = interstitial {
+                    print(interstitalAd)
+                    let root = UIApplication.shared.windows.last?.rootViewController
+                    interstitalAd.present(fromRootViewController: root!)
+                }
+               
+                }
+            )
+    }
     
     var body: some View {
         
@@ -34,6 +62,7 @@ struct SingleSoundPlayerView: View {
                SongPlayerView()
                 
                 Spacer()
+                Banner()
             }
             .navigationTitle(Text("\(soundsModel.name)"))
             .toolbar(content: {
@@ -44,7 +73,12 @@ struct SingleSoundPlayerView: View {
                 }
             })
             
-        }
+        }.onAppear(perform: {
+            if soundsModel.freeSong == true {
+                playInterstitial()
+            }
+            
+        })
         
         
             

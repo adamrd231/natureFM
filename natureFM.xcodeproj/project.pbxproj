@@ -20,6 +20,8 @@
 		66E43FB326C6120100AE012E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66E43FB226C6120100AE012E /* Preview Assets.xcassets */; };
 		66E43FBC26C6125A00AE012E /* SoundsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E43FBB26C6125A00AE012E /* SoundsTableView.swift */; };
 		66E43FBF26C6146000AE012E /* SoundsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E43FBE26C6146000AE012E /* SoundsModel.swift */; };
+		66E85FEC270A8924009F1AEF /* GoogleBannerAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E85FEB270A8924009F1AEF /* GoogleBannerAd.swift */; };
+		FB482CB34D6A39FBEE55B8B9 /* libPods-natureFM.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2F0247C837BDF923BD78839 /* libPods-natureFM.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,10 @@
 		66E43FB426C6120100AE012E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		66E43FBB26C6125A00AE012E /* SoundsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundsTableView.swift; sourceTree = "<group>"; };
 		66E43FBE26C6146000AE012E /* SoundsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundsModel.swift; sourceTree = "<group>"; };
+		66E85FEB270A8924009F1AEF /* GoogleBannerAd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleBannerAd.swift; sourceTree = "<group>"; };
+		69100EA3012BDB2D287C73B9 /* Pods-natureFM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-natureFM.release.xcconfig"; path = "Target Support Files/Pods-natureFM/Pods-natureFM.release.xcconfig"; sourceTree = "<group>"; };
+		7866A4F15E09940DE7E1541E /* Pods-natureFM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-natureFM.debug.xcconfig"; path = "Target Support Files/Pods-natureFM/Pods-natureFM.debug.xcconfig"; sourceTree = "<group>"; };
+		B2F0247C837BDF923BD78839 /* libPods-natureFM.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-natureFM.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,17 +51,28 @@
 			files = (
 				66C3CC0C26FCD7FE00438A55 /* URLImage in Frameworks */,
 				66C3CC0A26FCD7FE00438A55 /* URLImageStore in Frameworks */,
+				FB482CB34D6A39FBEE55B8B9 /* libPods-natureFM.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		12150CDF8D1281CB76B7A1AC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B2F0247C837BDF923BD78839 /* libPods-natureFM.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		66E43F9F26C6120000AE012E = {
 			isa = PBXGroup;
 			children = (
 				66E43FAA26C6120000AE012E /* natureFM */,
 				66E43FA926C6120000AE012E /* Products */,
+				FCA19C66ECB9587E4A83521D /* Pods */,
+				12150CDF8D1281CB76B7A1AC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -70,6 +87,7 @@
 		66E43FAA26C6120000AE012E /* natureFM */ = {
 			isa = PBXGroup;
 			children = (
+				66E85FE8270A88F8009F1AEF /* Monetizing */,
 				66E43FC126C6177600AE012E /* Views */,
 				66E43FBB26C6125A00AE012E /* SoundsTableView.swift */,
 				66E43FAB26C6120000AE012E /* natureFMApp.swift */,
@@ -102,6 +120,23 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		66E85FE8270A88F8009F1AEF /* Monetizing */ = {
+			isa = PBXGroup;
+			children = (
+				66E85FEB270A8924009F1AEF /* GoogleBannerAd.swift */,
+			);
+			path = Monetizing;
+			sourceTree = "<group>";
+		};
+		FCA19C66ECB9587E4A83521D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7866A4F15E09940DE7E1541E /* Pods-natureFM.debug.xcconfig */,
+				69100EA3012BDB2D287C73B9 /* Pods-natureFM.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -109,6 +144,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 66E43FB726C6120100AE012E /* Build configuration list for PBXNativeTarget "natureFM" */;
 			buildPhases = (
+				9824CF758998010B23FE230C /* [CP] Check Pods Manifest.lock */,
 				66E43FA426C6120000AE012E /* Sources */,
 				66E43FA526C6120000AE012E /* Frameworks */,
 				66E43FA626C6120000AE012E /* Resources */,
@@ -173,12 +209,38 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		9824CF758998010B23FE230C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-natureFM-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		66E43FA426C6120000AE012E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				6681E29026FCC60900AC3161 /* SingleSoundPlayerView.swift in Sources */,
+				66E85FEC270A8924009F1AEF /* GoogleBannerAd.swift in Sources */,
 				66E43FBF26C6146000AE012E /* SoundsModel.swift in Sources */,
 				66C3CC0E27022CA100438A55 /* SongPlayerView.swift in Sources */,
 				66C3CC1027024CD200438A55 /* OptionsView.swift in Sources */,
@@ -311,6 +373,7 @@
 		};
 		66E43FB826C6120100AE012E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7866A4F15E09940DE7E1541E /* Pods-natureFM.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -333,6 +396,7 @@
 		};
 		66E43FB926C6120100AE012E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 69100EA3012BDB2D287C73B9 /* Pods-natureFM.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

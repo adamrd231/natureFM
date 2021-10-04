@@ -167,7 +167,7 @@ struct SoundsTableView: View {
                         }
                         
                     }.listStyle(InsetListStyle())
-                    
+                    Banner()
                     
                 }.tabItem { VStack {
                     Text("HOME")
