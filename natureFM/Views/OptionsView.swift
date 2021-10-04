@@ -10,7 +10,6 @@ import SwiftUI
 struct OptionsView: View {
     var body: some View {
             List() {
-                Text("Screen will stay open while the sleep timer counts down, letting the phone go to sleep after you have.")
                 HStack {
                     Text("Sleep Timer")
                     Spacer()
@@ -40,6 +39,7 @@ struct OptionsView: View {
                     Spacer()
                     Text("5 Minutes")
                 }
+                Text("Screen will stay open while the sleep timer counts down, letting the phone go to sleep after you have. Future update for background playing coming soon")
             }
     }
 }

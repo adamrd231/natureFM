@@ -14,8 +14,6 @@ struct SingleSoundPlayerView: View {
     
     @EnvironmentObject var soundsModel: SoundsModel
     
-    
-    
     var body: some View {
         
         NavigationView {

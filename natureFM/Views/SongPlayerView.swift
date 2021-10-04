@@ -12,7 +12,6 @@ struct SongPlayerView: View {
     
     @EnvironmentObject var soundsModel: SoundsModel
     
-    
     @State var audioPlayer: AVAudioPlayer!
     @State var audioPlayerItem: AVPlayerItem?
     
@@ -71,6 +70,7 @@ struct SongPlayerView: View {
             
             // Play Pause Buttons
             HStack {
+                // Play Button
                 Button(action: {
                     if let unwrappedPlayer = self.player {
                         unwrappedPlayer.play()
@@ -79,7 +79,7 @@ struct SongPlayerView: View {
                     Image(systemName: "play.fill").resizable().frame(width: 25, height: 25, alignment: .center).foregroundColor(Color(.systemGray))
                 }.disabled(soundsModel.freeSong == false)
                 
-                // Sound Player
+                // Pause Button
                 Button(action: {
                     if let unwrappedPlayer = self.player {
                         unwrappedPlayer.pause()
@@ -87,6 +87,7 @@ struct SongPlayerView: View {
                 }) {
                     Image(systemName: "pause.fill").resizable().frame(width: 25, height: 25, alignment: .center).foregroundColor(Color(.systemGray))
                 }.disabled(soundsModel.freeSong == false)
+            
             }.padding(.bottom)
         }.padding()
         

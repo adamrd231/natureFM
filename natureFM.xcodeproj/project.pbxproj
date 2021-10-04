@@ -14,6 +14,7 @@
 		66C3CC1027024CD200438A55 /* OptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3CC0F27024CD200438A55 /* OptionsView.swift */; };
 		66C3CC162703C3DF00438A55 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3CC152703C3DF00438A55 /* CategoryModel.swift */; };
 		66C3CC182703CB2500438A55 /* InAppStorePurchasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3CC172703CB2500438A55 /* InAppStorePurchasesView.swift */; };
+		66C3CC1A2703EE8600438A55 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3CC192703EE8600438A55 /* StoreManager.swift */; };
 		66E43FAC26C6120000AE012E /* natureFMApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E43FAB26C6120000AE012E /* natureFMApp.swift */; };
 		66E43FB026C6120100AE012E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66E43FAF26C6120100AE012E /* Assets.xcassets */; };
 		66E43FB326C6120100AE012E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66E43FB226C6120100AE012E /* Preview Assets.xcassets */; };
@@ -27,6 +28,7 @@
 		66C3CC0F27024CD200438A55 /* OptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsView.swift; sourceTree = "<group>"; };
 		66C3CC152703C3DF00438A55 /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		66C3CC172703CB2500438A55 /* InAppStorePurchasesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppStorePurchasesView.swift; sourceTree = "<group>"; };
+		66C3CC192703EE8600438A55 /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
 		66E43FA826C6120000AE012E /* natureFM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = natureFM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66E43FAB26C6120000AE012E /* natureFMApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = natureFMApp.swift; sourceTree = "<group>"; };
 		66E43FAF26C6120100AE012E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -72,10 +74,11 @@
 				66E43FBB26C6125A00AE012E /* SoundsTableView.swift */,
 				66E43FAB26C6120000AE012E /* natureFMApp.swift */,
 				66E43FBE26C6146000AE012E /* SoundsModel.swift */,
+				66C3CC152703C3DF00438A55 /* CategoryModel.swift */,
 				66E43FAF26C6120100AE012E /* Assets.xcassets */,
 				66E43FB426C6120100AE012E /* Info.plist */,
 				66E43FB126C6120100AE012E /* Preview Content */,
-				66C3CC152703C3DF00438A55 /* CategoryModel.swift */,
+				66C3CC192703EE8600438A55 /* StoreManager.swift */,
 			);
 			path = natureFM;
 			sourceTree = "<group>";
@@ -181,6 +184,7 @@
 				66C3CC1027024CD200438A55 /* OptionsView.swift in Sources */,
 				66C3CC162703C3DF00438A55 /* CategoryModel.swift in Sources */,
 				66E43FBC26C6125A00AE012E /* SoundsTableView.swift in Sources */,
+				66C3CC1A2703EE8600438A55 /* StoreManager.swift in Sources */,
 				66C3CC182703CB2500438A55 /* InAppStorePurchasesView.swift in Sources */,
 				66E43FAC26C6120000AE012E /* natureFMApp.swift in Sources */,
 			);

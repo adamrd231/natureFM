@@ -15,9 +15,10 @@ struct SoundsTableView: View {
     @State var viewingSoundPlayer = false
     
     // Variable to track the current search parameter
-    @State var currentCategoryIndex = 0
-    @State var currentCategory = ""
+    @State var currentCategory = CategoryModel()
     @State var categoryModelArray:[CategoryModel] = []
+    
+    @State private var isLoading = false
     
     // Variable to track the current search parameter
     @State private var currentSearchText: String = ""
@@ -44,6 +45,7 @@ struct SoundsTableView: View {
     
     // load data from database into the program
     func loadData() {
+        isLoading = true
         guard let url = URL(string: "https://nature-fm.herokuapp.com/app/sound/") else {
             print("Invalid URL")
             return
@@ -56,36 +58,13 @@ struct SoundsTableView: View {
                     JSONDecoder().decode([SoundsModel].self, from: data) {
                     DispatchQueue.main.async {
                         self.soundsModelArray = response
+                        isLoading = false
                     }
                     return
                 }
             }
         }.resume()
-    }
-    
-    // load data from database into the program
-    func loadDataWithOptions(category: Int, currentText: String) {
         
-        let encodedSearchText = currentText.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-        
-        guard let url = URL(string: "https://nature-fm.herokuapp.com/app/sound/?category=\(category)") else {
-            print("Invalid URL")
-            return
-        }
-        
-        print(url)
-        let request = URLRequest(url: url)
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            if let data = data {
-                if let response = try?
-                    JSONDecoder().decode([SoundsModel].self, from: data) {
-                    DispatchQueue.main.async {
-                        self.soundsModelArray = response
-                    }
-                    return
-                }
-            }
-        }.resume()
     }
     
     
@@ -100,7 +79,7 @@ struct SoundsTableView: View {
                     
                     
                     // Segmented Controller
-                    Picker("Category", selection: $currentCategory) {
+                    Picker("Category", selection: $currentCategory.title) {
                         ForEach(categoryModelArray) { category in
                             Text("\(category.title)")
                         }
@@ -179,6 +158,10 @@ struct SoundsTableView: View {
                                 .sheet(isPresented: $viewingSoundPlayer, content: {
                                     SingleSoundPlayerView()
                                 })
+                                
+                                if isLoading {
+                                    ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .gray)).scaleEffect(3)
+                                }
                                 
                             }
                         }
