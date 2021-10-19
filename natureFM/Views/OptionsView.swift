@@ -8,44 +8,46 @@
 import SwiftUI
 
 struct OptionsView: View {
+    
+    @EnvironmentObject var sleepTimer: SleepTimer
+   
+    
+    func updateSleepTimer(time: Int) {
+        sleepTimer.time = time
+        sleepTimer.usingSleepTimer = true
+        print("time: \(sleepTimer.time)")
+        print("bool: \(sleepTimer.usingSleepTimer)")
+    }
+    
     var body: some View {
             List() {
                 HStack {
                     Text("Sleep Timer")
+                    Text("\(sleepTimer.time)")
                     Spacer()
-                    Text("Off")
+                    (sleepTimer.usingSleepTimer == true) ? Text("On") : Text("Off")
                 }
-                HStack {
-                    Spacer()
+
+                Button(action: {
+                    updateSleepTimer(time: 7200)
+                    
+                }) {
                     Text("2 Hours")
                 }
-                HStack {
-                    Spacer()
-                    Text("1 Hour")
+                
+                Button(action: {
+                    updateSleepTimer(time: 3600)
+                }) {
+                    Text("2 Hours")
                 }
-                HStack {
-                    Spacer()
-                    Text("30 Minutes")
-                }
-                HStack {
-                    Spacer()
-                    Text("15 Minutes")
-                }
-                HStack {
-                    Spacer()
-                    Text("10 Minutes")
-                }
-                HStack {
-                    Spacer()
-                    Text("5 Minutes")
-                }
-                Text("Screen will stay open while the sleep timer counts down, letting the phone go to sleep after you have. Future update for background playing coming soon")
+                Text("Screen will stay open while the sleep timer counts down, letting the phone go to sleep after you have. Future update for background playing coming soon").padding(.trailing)
             }
+       
     }
 }
 
 struct OptionsView_Previews: PreviewProvider {
     static var previews: some View {
-        OptionsView()
+        OptionsView().environmentObject(SleepTimer())
     }
 }

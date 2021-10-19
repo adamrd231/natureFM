@@ -10,18 +10,23 @@ import AVKit
 
 struct SongPlayerView: View {
     
-    @EnvironmentObject var soundsModel: SoundsModel
+    // Core Data Manage Object Container
+    @Environment(\.managedObjectContext) var managedObjectContext
+    // Fetch request to get all categories from CoreData
+    @FetchRequest(entity: PurchasedSubsciption.entity(), sortDescriptors: []) var purchasedSubsciption: FetchedResults<PurchasedSubsciption>
     
-    @State var audioPlayer: AVAudioPlayer!
-    @State var audioPlayerItem: AVPlayerItem?
+    
+    @StateObject var currentSound: SoundsModel
     
     // Audio Player
     @State var player: AVPlayer?
+    @State var audioPlayerItem: AVPlayerItem?
     @State var playerCurrentTime = 0
     @State var playerTotalTime = 0
     public var position: Int = 0
     
     @State var sliderValue = 0.0
+    
     
     
     func converToClockFormat(time: Int) -> Text {
@@ -36,15 +41,16 @@ struct SongPlayerView: View {
         VStack {
             // Information Bar
             VStack {
+                Text(currentSound.name).font(.title).bold()
                 HStack {
                     Text("Location").bold()
                     Spacer()
                     Text("Category").bold()
                 }
                 HStack {
-                    Text("\(soundsModel.locationName)").font(.caption)
+                    Text(currentSound.locationName).font(.caption)
                     Spacer()
-                    Text("\(soundsModel.categoryName)").font(.caption)
+                    Text(currentSound.categoryName).font(.caption)
                 }
             }.padding(.bottom)
             
@@ -57,9 +63,11 @@ struct SongPlayerView: View {
                             set: {(newValue) in
                                   self.sliderValue = newValue
                                 player?.seek(to: CMTimeMakeWithSeconds(newValue, preferredTimescale: 1))
+                                UIApplication.shared.isIdleTimerDisabled = true
                                   
                             }
-                ), in: 0...Double(playerTotalTime)).disabled(soundsModel.freeSong == false)
+                ), in: 0...Double(playerTotalTime))
+                    .disabled(currentSound.freeSong == false)
                 HStack {
                     converToClockFormat(time: playerCurrentTime).font(.caption)
                     Spacer()
@@ -74,21 +82,26 @@ struct SongPlayerView: View {
                 Button(action: {
                     if let unwrappedPlayer = self.player {
                         unwrappedPlayer.play()
+                        UIApplication.shared.isIdleTimerDisabled = true
+                        
                     }
                 }) {
                     Image(systemName: "play.fill").resizable().frame(width: 25, height: 25, alignment: .center).foregroundColor(Color(.systemGray))
-                }.disabled(soundsModel.freeSong == false)
+                }.disabled(currentSound.freeSong == false && purchasedSubsciption.first?.hasPurchased != true)
                 
                 // Pause Button
                 Button(action: {
                     if let unwrappedPlayer = self.player {
                         unwrappedPlayer.pause()
+                        UIApplication.shared.isIdleTimerDisabled = false
+                        
                     }
                 }) {
                     Image(systemName: "pause.fill").resizable().frame(width: 25, height: 25, alignment: .center).foregroundColor(Color(.systemGray))
-                }.disabled(soundsModel.freeSong == false)
-            
+                }.disabled(currentSound.freeSong == false && purchasedSubsciption.first?.hasPurchased != true)
+//                currentSound.freeSong == false && p
             }.padding(.bottom)
+            
         }.padding()
         
         
@@ -96,7 +109,7 @@ struct SongPlayerView: View {
         .onAppear(perform: {
             
             // Create URL String
-            guard let urlString = soundsModel.audioFileLink else {
+            guard let urlString = currentSound.audioFileLink else {
                 print("URL is nil")
                 return
             }
@@ -110,27 +123,29 @@ struct SongPlayerView: View {
             let floatTotalTime = CMTimeGetSeconds(totalTime!)
             playerTotalTime = Int(floatTotalTime)
             
-            player!.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1, preferredTimescale: 1), queue: DispatchQueue.main) { (CMTime) -> Void in
-                print("Test")
+            // Add observer to the player to run the main function
+            player!.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1, preferredTimescale: CMTimeScale(NSEC_PER_SEC)), queue: DispatchQueue.main) { (CMTime) -> Void in
+
+                // Gather the current time of the player
                 let time : Float64 = CMTimeGetSeconds(self.player!.currentTime());
+                // Assign the current time to the state variable
                 playerCurrentTime = Int(time)
                 
-                sliderValue = Double(playerCurrentTime)
-                // Replay the timer when song ends
-                if playerCurrentTime == playerTotalTime {
-                    player?.seek(to: CMTimeMake(value: 0, timescale: 1))
+                // Check if the song has ended and replay it
+                if playerCurrentTime >= playerTotalTime {
+                    playerCurrentTime = 0
+                    player?.seek(to: CMTimeMakeWithSeconds(Float64(playerCurrentTime), preferredTimescale: 1))
                 }
-            
+                
+                // Assign the current time to the slider value
+                sliderValue = Double(playerCurrentTime)
             }
         })
-        
-        .opacity(!soundsModel.freeSong ? 0.3 : 1.0)
+        .onDisappear(perform: player?.pause)
+        .onDisappear(perform: {
+            UIApplication.shared.isIdleTimerDisabled = false
+        })
+        .opacity(currentSound.freeSong == false && purchasedSubsciption.first?.hasPurchased == false ? 0.3 : 1.0)
     }
 }
 
-struct SongPlayerView_Previews: PreviewProvider {
-    static var previews: some View {
-        SongPlayerView().environmentObject(SoundsModel())
-        
-    }
-}

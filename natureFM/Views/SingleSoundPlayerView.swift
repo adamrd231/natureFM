@@ -11,10 +11,29 @@ import GoogleMobileAds
 
 struct SingleSoundPlayerView: View {
     
+    // Core Data Manage Object Container
+    @Environment(\.managedObjectContext) var managedObjectContext
+    // Fetch request to get all categories from CoreData
+    @FetchRequest(entity: PurchasedSubsciption.entity(), sortDescriptors: []) var purchasedSubsciption: FetchedResults<PurchasedSubsciption>
+    
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @EnvironmentObject var soundsModel: SoundsModel
+    @State var currentSound: SoundsModel
     
+    
+    func converToClockFormat(time: Int) -> Text {
+        if time > 3600 {
+            return Text("\(time / 3600):0\(time % 3600):0\(time % 60)")
+        } else {
+            if time % 60 > 9 {
+                return Text("\(time / 60):\(time % 60)")
+            } else {
+                return Text("\(time / 60):0\(time % 60)")
+            }
+        }
+        
+        
+    }
     // Google admob interstitial video stuff
     @State var interstitial: GADInterstitialAd?
     var testInterstitialAd = "ca-app-pub-3940256099942544/1033173712"
@@ -31,7 +50,6 @@ struct SingleSoundPlayerView: View {
                 print("No Errors No errors no errors")
                 // If no errors, create an ad and serve it
                 interstitial = ad
-                print(interstitial)
                 if let interstitalAd = interstitial {
                     print(interstitalAd)
                     let root = UIApplication.shared.windows.last?.rootViewController
@@ -43,50 +61,52 @@ struct SingleSoundPlayerView: View {
     }
     
     var body: some View {
-        
+        GeometryReader { geo in
         NavigationView {
-            VStack() {
-                // Image
-                URLImage(URL(string: "\(soundsModel.imageFileLink)")!) { progress in
-                    // Display progress
-                    Image("placeholder").resizable().aspectRatio(contentMode: .fill)
-                } content: { image in
-                    // Downloaded image
-                    image
-                        .resizable()
-                        .frame(minWidth: 100, idealWidth: .infinity, maxWidth: .infinity, minHeight: 250, idealHeight: .infinity, maxHeight: .infinity, alignment: .center)
-                        .aspectRatio(contentMode: .fit)
+            VStack {
+                    // Image
+                    URLImage(URL(string: "\(currentSound.imageFileLink)")!) {
+                        // Display progress
+                        Image("placeholder").resizable().aspectRatio(contentMode: .fill)
+                    } inProgress: { progress in
+                        // Display progress
+                        Image("placeholder").resizable().aspectRatio(contentMode: .fill)
+                    } failure: { error, retry in
+                        // Display error and retry button
+                        VStack {
+                            Text(error.localizedDescription)
+                            Button("Retry", action: retry)
+                        }
+                    } content: { image in
+                        // Downloaded image
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: geo.size.width, height: geo.size.height / 2)
+                            .clipped()
+                        
+                    }
+                    
+                    SongPlayerView(currentSound: currentSound)
+                   
+                    
+                    Spacer()
+                    if purchasedSubsciption.first?.hasPurchased != true {
+                        Banner()
+                    }
+                }.edgesIgnoringSafeArea(.top)
+            }.navigationViewStyle(StackNavigationViewStyle())
+        
+            .onAppear(perform: {
+                
+                if purchasedSubsciption.first?.hasPurchased != true {
+                    playInterstitial()
                 }
                 
-                
-               SongPlayerView()
-                
-                Spacer()
-                Banner()
-            }
-            .navigationTitle(Text("\(soundsModel.name)"))
-            .toolbar(content: {
-                Button(action: {
-                    presentationMode.wrappedValue.dismiss()
-                }) {
-                    Text("Go Back")
-                }
             })
-            
-        }.onAppear(perform: {
-            if soundsModel.freeSong == true {
-                playInterstitial()
-            }
-            
-        })
-        
-        
-            
+        }
     }
+    
 }
 
-struct SingleSoundPlayerView_Previews: PreviewProvider {
-    static var previews: some View {
-        SingleSoundPlayerView().environmentObject(SoundsModel())
-    }
-}
+

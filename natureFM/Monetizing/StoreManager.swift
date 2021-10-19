@@ -7,6 +7,7 @@
 
 import Foundation
 import StoreKit
+import CoreData
 
 class StoreManager: NSObject, ObservableObject, SKProductsRequestDelegate, SKPaymentTransactionObserver {
     
@@ -21,15 +22,18 @@ class StoreManager: NSObject, ObservableObject, SKProductsRequestDelegate, SKPay
     }
     
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-        print("Did receive response")
-        
         if !response.products.isEmpty {
+            print("product array isnt empy")
             for fetchedProduct in response.products {
+                print("fetching products is working")
                 DispatchQueue.main.async {
+                    print("Adding to products \(fetchedProduct.localizedTitle)")
                     self.myProducts.append(fetchedProduct)
                 }
             }
         }
+        
+        
         
         for invalidIdentifier in response.invalidProductIdentifiers {
             print("Invalid identifiers found: \(invalidIdentifier)")
