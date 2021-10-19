@@ -19,6 +19,7 @@ struct FilteredSoundsListView: View {
     @State var currentText = ""
     
     var fetchRequest: FetchRequest<Sound>
+    
     var sounds: FetchedResults<Sound> {
         fetchRequest.wrappedValue
     }
@@ -40,18 +41,28 @@ struct FilteredSoundsListView: View {
         if searchText == "" {
             if filter == "All" {
             // Search with no sound or categories
-            fetchRequest = FetchRequest<Sound>(entity: Sound.entity(), sortDescriptors: [])
+            fetchRequest = FetchRequest<Sound>(entity: Sound.entity(),
+                                               sortDescriptors: [NSSortDescriptor(keyPath: \Sound.name, ascending: true)])
             } else {
                 // Search for sounds by category only
-                fetchRequest = FetchRequest<Sound>(entity: Sound.entity(), sortDescriptors: [], predicate: NSPredicate(format:"categoryName == %@", filter))
+                fetchRequest = FetchRequest<Sound>(
+                    entity: Sound.entity(),
+                    sortDescriptors: [NSSortDescriptor(keyPath: \Sound.name, ascending: true)],
+                    predicate: NSPredicate(format:"categoryName == %@", filter))
             }
         } else {
             if filter != "All" {
                 // Search for sounds by category and name
-                fetchRequest = FetchRequest<Sound>(entity: Sound.entity(), sortDescriptors: [], predicate: NSCompoundPredicate(andPredicateWithSubpredicates: [NSPredicate(format:"name BEGINSWITH[c] %@", searchText), NSPredicate(format:"categoryName == %@", filter)]))
+                fetchRequest = FetchRequest<Sound>(
+                    entity: Sound.entity(),
+                    sortDescriptors: [NSSortDescriptor(keyPath: \Sound.name, ascending: true)],
+                    predicate: NSCompoundPredicate(andPredicateWithSubpredicates: [NSPredicate(format:"name BEGINSWITH[c] %@", searchText), NSPredicate(format:"categoryName == %@", filter)]))
             } else {
                 // Search for sounds by name only
-                fetchRequest = FetchRequest<Sound>(entity: Sound.entity(), sortDescriptors: [], predicate: NSPredicate(format:"name BEGINSWITH[c] %@", searchText))
+                fetchRequest = FetchRequest<Sound>(
+                    entity: Sound.entity(),
+                    sortDescriptors: [NSSortDescriptor(keyPath: \Sound.name, ascending: true)],
+                    predicate: NSPredicate(format:"name BEGINSWITH[c] %@", searchText))
             }
         }
     }
@@ -61,50 +72,55 @@ struct FilteredSoundsListView: View {
     
     var body: some View {
         ScrollView {
-        ForEach(fetchRequest.wrappedValue, id: \.self) { sound in
-            
-            VStack {
-                ZStack {
-                    ZStack {
-                        ImageWithURL(sound.imageFileLink ?? "placeholder")
-                        Color(.black).opacity(0.5)
-                    }
-
-                    
+            if fetchRequest.wrappedValue.count == 0 {
+                Text("Nothing in Library")
+                    .font(.subheadline)
+                    .padding()
+            } else {
+                ForEach(fetchRequest.wrappedValue, id: \.self) { sound in
                     VStack {
-                        Text(sound.name ?? "").foregroundColor(.white).font(.title2).bold()
-                        Text("Category").foregroundColor(.white).font(.subheadline).bold()
-                        Text(sound.categoryName ?? "").foregroundColor(.white).font(.footnote)
-                        Text("Location").foregroundColor(.white).font(.subheadline).bold()
-                        Text(sound.locationName ?? "").foregroundColor(.white).font(.footnote)
-                        Text((purchasedSubsciption.first?.hasPurchased == true || sound.freeSong == true) ? "Tune-In" : "Get Subcription")
-                            .padding()
-                            .background(Color(.systemGray))
-                            .cornerRadius(15)
-                            .foregroundColor(.white)
+                        ZStack {
+                            ZStack {
+                                ImageWithURL(sound.imageFileLink ?? "placeholder")
+                                Color(.black).opacity(0.5)
+                            }
+                            
+                            VStack {
+                                Text(sound.name ?? "").foregroundColor(.white).font(.title2).bold()
+                                Text("Category").foregroundColor(.white).font(.subheadline).bold()
+                                Text(sound.categoryName ?? "").foregroundColor(.white).font(.footnote)
+                                Text("Location").foregroundColor(.white).font(.subheadline).bold()
+                                Text(sound.locationName ?? "").foregroundColor(.white).font(.footnote)
+                                Text((purchasedSubsciption.first?.hasPurchased == true || sound.freeSong == true) ? "Tune-In" : "Get Subcription")
+                                    .padding()
+                                    .background(Color(.systemGray))
+                                    .cornerRadius(15)
+                                    .foregroundColor(.white)
+                                
+                            }
+                            
+        //                    NavigationLink(destination: SingleSoundPlayerView(currentSound: sound)) {
+        //
+        //                    }.hidden()
                         
+                        }
+                        
+                        HStack {
+                            Text((sound.freeSong == true) ? "Free Song" : "Premium Content").font(.footnote)
+                            Spacer()
+                            Button(action: {
+                                // Add song to coredata
+                                removeObjectFromCoreData(item: sound)
+                            }) {
+                                Text("Remove from Library")
+                            }.font(.footnote).foregroundColor(.black)
+                        }.padding()
                     }
                     
-//                    NavigationLink(destination: SingleSoundPlayerView(currentSound: sound)) {
-//                       
-//                    }.hidden()
-                
+                    
                 }
-                
-                HStack {
-                    Text((sound.freeSong == true) ? "Free Song" : "Premium Content").font(.footnote)
-                    Spacer()
-                    Button(action: {
-                        // Add song to coredata
-                        removeObjectFromCoreData(item: sound)
-                    }) {
-                        Text("Remove from Library")
-                    }.font(.footnote).foregroundColor(.black)
-                }.padding()
             }
-            
-            
-        }
+       
         }
     }
 }

@@ -49,6 +49,7 @@ struct SoundsTableView: View {
     // Array for holding the results from the API database, users can add songs to their phone individually
     @State var APIresultArray:[SoundsModel]  = []
     
+
     
     func updateUserPurchases(hasPurchased: Bool) {
 
@@ -72,7 +73,6 @@ struct SoundsTableView: View {
         }
     }
     
-    
 
     // load data from database into the program
     func loadAPIArrayWithAPIData() {
@@ -89,64 +89,13 @@ struct SoundsTableView: View {
                     JSONDecoder().decode([SoundsModel].self, from: data) {
                     DispatchQueue.main.async {
                         self.APIresultArray = response
+                        self.APIresultArray.sort(by: < )
                     }
                     return
                 }
             }
         }.resume()
     }
-    
-//
-//    // load data from database into the program
-//    func loadDataIntoCoreData() {
-//
-//        guard let url = URL(string: "https://nature-fm.herokuapp.com/app/sound/") else {
-//            print("Invalid URL")
-//            return
-//        }
-//        print(url)
-//        let request = URLRequest(url: url)
-//        URLSession.shared.dataTask(with: request) { data, response, error in
-//            if let data = data {
-//                if let response = try?
-//                    JSONDecoder().decode([SoundsModel].self, from: data) {
-//                    DispatchQueue.main.async {
-//                        for item in response {
-//                            if sounds.contains(where: {$0.name == item.name}) {
-//                                print("Item already in array")
-//
-//                            } else {
-//                                print("item adding to array")
-//                                let newItem = Sound(context: managedObjectContext)
-//                                newItem.name = item.name
-//                                newItem.category = Int64(item.category ?? 0)
-//                                newItem.categoryName = item.categoryName
-//                                newItem.locationName = item.locationName
-//                                newItem.audioFileLink = item.audioFileLink
-//                                newItem.imageFileLink = item.imageFileLink
-//                                newItem.duration = Int64(item.duration)
-//                                newItem.location = Int64(item.location ?? 0)
-//                                newItem.freeSong = item.freeSong
-//
-//                                do {
-//                                    try managedObjectContext.save()
-//                                } catch {
-//                                    let nsError = error as NSError
-//                                    fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-//                                }
-//                            }
-//                            print("item from soundsmodel: \(item)")
-//
-//                        }
-//                    }
-//                    return
-//                }
-//            }
-//        }.resume()
-//    }
-
-    
-    
     
     var body: some View {
         GeometryReader { geo in
@@ -249,7 +198,7 @@ struct SoundsTableView: View {
             }
            
 //            .navigationTitle(Text("Nature FM"))
-        } 
+        }
         }.navigationViewStyle(StackNavigationViewStyle())
     }
 }
