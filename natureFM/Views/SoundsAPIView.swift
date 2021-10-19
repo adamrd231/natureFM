@@ -18,10 +18,40 @@ struct SoundsAPIView: View {
     // Fetch request to get all Sounds from CoreData
     @FetchRequest(entity: Sound.entity(), sortDescriptors: []) var sounds: FetchedResults<Sound>
     
+    func getDocumentsDirectory() -> URL {
+        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    }
+    
+    func saveFile (url: URL) -> URL {
+        
+            let fileData = try? Data.init(contentsOf: url)
+            let fileName = url.lastPathComponent
+            
+            let actualPath = getDocumentsDirectory().appendingPathComponent(fileName)
+        
+            do {
+                try fileData?.write(to: actualPath, options: .atomic)
+                print("success. origin: \(url) target: \(actualPath)")
+            } catch {
+                print("File could not be saved")
+            }
+        return actualPath
+    }
+    
     func addSoundToUserLibrary(sound: SoundsModel) {
         
         // Save the audio file to FileManager and save the path name variable here
-
+        // Create URL String
+        guard let urlString = sound.audioFileLink else {
+            print("URL is nil")
+            return
+        }
+        // Create the player item from URLString
+        var url: URL = URL(string: urlString)!
+        print("url: \(url)")
+        var savedFile = saveFile(url: url)
+        
+        
         
         if sounds.contains(where: {$0.name == sound.name}) {
             return
@@ -33,7 +63,7 @@ struct SoundsAPIView: View {
             newSound.locationName = sound.locationName
             
             // Replace this variable with the link to the internal path
-            newSound.audioFileLink = sound.audioFileLink
+            newSound.audioFileLink = String(describing: savedFile)
             newSound.imageFileLink = sound.imageFileLink
             newSound.duration = Int64(sound.duration)
             newSound.location = Int64(sound.location ?? 0)

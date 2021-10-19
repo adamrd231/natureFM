@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		66180B59271E73580019207F /* CoreDataSoundPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66180B58271E73580019207F /* CoreDataSoundPlayerView.swift */; };
 		662BDF26271E2E3200D41BD7 /* SoundsAPIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662BDF25271E2E3200D41BD7 /* SoundsAPIView.swift */; };
 		663E05B727137213006E0259 /* FilteredSoundsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663E05B627137213006E0259 /* FilteredSoundsListView.swift */; };
 		667F6E132718E810007726D1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 667F6E122718E810007726D1 /* Launch Screen.storyboard */; };
@@ -33,6 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		66180B58271E73580019207F /* CoreDataSoundPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataSoundPlayerView.swift; sourceTree = "<group>"; };
 		662BDF25271E2E3200D41BD7 /* SoundsAPIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundsAPIView.swift; sourceTree = "<group>"; };
 		663E05B627137213006E0259 /* FilteredSoundsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredSoundsListView.swift; sourceTree = "<group>"; };
 		663E05B827139BB6006E0259 /* Noteworthy.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = Noteworthy.ttc; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				6681E28F26FCC60900AC3161 /* SingleSoundPlayerView.swift */,
+				66180B58271E73580019207F /* CoreDataSoundPlayerView.swift */,
 				66C3CC0D27022CA100438A55 /* SongPlayerView.swift */,
 				66C3CC0F27024CD200438A55 /* OptionsView.swift */,
 				66C3CC172703CB2500438A55 /* InAppStorePurchasesView.swift */,
@@ -286,6 +289,7 @@
 				6681E29026FCC60900AC3161 /* SingleSoundPlayerView.swift in Sources */,
 				66E85FEC270A8924009F1AEF /* GoogleBannerAd.swift in Sources */,
 				667F6E17271A2116007726D1 /* ImageWithURLView.swift in Sources */,
+				66180B59271E73580019207F /* CoreDataSoundPlayerView.swift in Sources */,
 				66E43FBF26C6146000AE012E /* SoundsModel.swift in Sources */,
 				66C3CC0E27022CA100438A55 /* SongPlayerView.swift in Sources */,
 				66C3CC1027024CD200438A55 /* OptionsView.swift in Sources */,

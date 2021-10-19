@@ -1,15 +1,15 @@
 //
-//  SingleSoundPlayerView.swift
+//  CoreDataSoundPlayerView.swift
 //  natureFM
 //
-//  Created by Adam Reed on 9/23/21.
+//  Created by Adam Reed on 10/18/21.
 //
 
 import SwiftUI
 import URLImage
 import GoogleMobileAds
 
-struct SingleSoundPlayerView: View {
+struct CoreDataSoundPlayerView: View {
     
     // Core Data Manage Object Container
     @Environment(\.managedObjectContext) var managedObjectContext
@@ -18,7 +18,7 @@ struct SingleSoundPlayerView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @State var currentSound: SoundsModel
+    @State var currentSound: Sound
     
     func converToClockFormat(time: Int) -> Text {
         if time > 3600 {
@@ -30,9 +30,9 @@ struct SingleSoundPlayerView: View {
                 return Text("\(time / 60):0\(time % 60)")
             }
         }
-        
-        
     }
+    
+    
     // Google admob interstitial video stuff
     @State var interstitial: GADInterstitialAd?
     var testInterstitialAd = "ca-app-pub-3940256099942544/1033173712"
@@ -59,51 +59,29 @@ struct SingleSoundPlayerView: View {
             )
     }
     
+    
     var body: some View {
-        GeometryReader { geo in
+
             VStack {
-                // Image
-                URLImage(URL(string: "\(currentSound.imageFileLink)")!) {
-                    // Display progress
-                    Image("placeholder").resizable().aspectRatio(contentMode: .fill)
-                } inProgress: { progress in
-                    // Display progress
-                    Image("placeholder").resizable().aspectRatio(contentMode: .fill)
-                } failure: { error, retry in
-                    // Display error and retry button
-                    VStack {
-                        Text(error.localizedDescription)
-                        Button("Retry", action: retry)
-                    }
-                } content: { image in
-                    // Downloaded image
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: geo.size.width, height: geo.size.height / 2)
-                        .clipped()
-                    
+                    // Image
+                if let link = currentSound.audioFileLink {
+                    ImageWithURL(link)
                 }
+                Text("Test")
                 
-                SongPlayerView(currentSound: currentSound)
-               
+//                SongPlayerView(currentSound: currentSound)
+  
                 
-                Spacer()
                 if purchasedSubsciption.first?.hasPurchased != true {
+                    Spacer()
                     Banner()
                 }
-            }.edgesIgnoringSafeArea(.top)
-        }.navigationViewStyle(StackNavigationViewStyle())
-    
-        .onAppear(perform: {
-            
-            if purchasedSubsciption.first?.hasPurchased != true {
-                playInterstitial()
             }
-            
-        })
+                .onAppear(perform: {
+                    if purchasedSubsciption.first?.hasPurchased != true {
+                    playInterstitial()
+                    }
+                    print(currentSound.name)
+                })
     }
-    
 }
-
-

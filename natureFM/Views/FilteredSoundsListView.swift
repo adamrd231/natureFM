@@ -91,18 +91,14 @@ struct FilteredSoundsListView: View {
                                 Text(sound.categoryName ?? "").foregroundColor(.white).font(.footnote)
                                 Text("Location").foregroundColor(.white).font(.subheadline).bold()
                                 Text(sound.locationName ?? "").foregroundColor(.white).font(.footnote)
-                                Text((purchasedSubsciption.first?.hasPurchased == true || sound.freeSong == true) ? "Tune-In" : "Get Subcription")
-                                    .padding()
-                                    .background(Color(.systemGray))
-                                    .cornerRadius(15)
-                                    .foregroundColor(.white)
-                                
+                                NavigationLink(destination: CoreDataSoundPlayerView(currentSound: sound)) {
+                                    Text((purchasedSubsciption.first?.hasPurchased == true || sound.freeSong == true) ? "Tune-In" : "Get Subcription")
+                                        .padding()
+                                        .background(Color(.systemGray))
+                                        .cornerRadius(15)
+                                        .foregroundColor(.white)
+                                }
                             }
-                            
-        //                    NavigationLink(destination: SingleSoundPlayerView(currentSound: sound)) {
-        //
-        //                    }.hidden()
-                        
                         }
                         
                         HStack {
