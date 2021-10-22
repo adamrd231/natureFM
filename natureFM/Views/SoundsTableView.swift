@@ -25,6 +25,7 @@ struct SoundsTableView: View {
     
     enum CurrentCategory: String, CaseIterable, Identifiable { // <1>
         case All
+        case Outdoors
         case Waves
         case Rain
         case River

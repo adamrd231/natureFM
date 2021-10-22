@@ -59,12 +59,16 @@ struct CoreDataSoundPlayerView: View {
             )
     }
     
+    func createAudioPlayerFromFile() {
+        
+    }
+    
     
     var body: some View {
 
             VStack {
                     // Image
-                if let link = currentSound.audioFileLink {
+                if let link = currentSound.imageFileLink {
                     ImageWithURL(link)
                 }
                 Text("Test")
@@ -81,7 +85,7 @@ struct CoreDataSoundPlayerView: View {
                     if purchasedSubsciption.first?.hasPurchased != true {
                     playInterstitial()
                     }
-                    print(currentSound.name)
+                    print("Audio file link: \(currentSound.audioFileLink)")
                 })
     }
 }
