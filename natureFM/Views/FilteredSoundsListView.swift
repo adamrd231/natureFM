@@ -19,6 +19,7 @@ struct FilteredSoundsListView: View {
     // Current Search Text
     @State var currentText = ""
     
+    @State private var showingCoreDataPlayer = false
     // FetchRequest allows us to apply filters with predicate based on user inputs
     var fetchRequest: FetchRequest<Sound>
     
@@ -99,21 +100,25 @@ struct FilteredSoundsListView: View {
                             
                             // Information about the songtrack
                             VStack {
-                                Text(sound.name ?? "").foregroundColor(.white).font(.title2).bold()
+                                TitleTextView(text: sound.name ?? "")
                                 Text("Category").foregroundColor(.white).font(.subheadline).bold()
                                 Text(sound.categoryName ?? "").foregroundColor(.white).font(.footnote)
                                 Text("Location").foregroundColor(.white).font(.subheadline).bold()
                                 Text(sound.locationName ?? "").foregroundColor(.white).font(.footnote)
-                                NavigationLink(destination: CoreDataSoundPlayerView(currentSound: sound)) {
+                                Button(action: {
+                                    showingCoreDataPlayer.toggle()
+                                }) {
                                     Text((purchasedSubsciption.first?.hasPurchased == true || sound.freeSong == true) ? "Tune-In" : "Get Subcription")
                                         .padding()
                                         .background(Color(.systemGray))
                                         .cornerRadius(15)
                                         .foregroundColor(.white)
                                 }
+                                .sheet(isPresented: $showingCoreDataPlayer) {
+                                    CoreDataSoundPlayerView()
+                                    }
                             }
                         }
-                        
                         // Accessort Information Bar along bottom of stacked image container
                         HStack {
                             // Inform users if content is free or not

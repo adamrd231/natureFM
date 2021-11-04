@@ -19,21 +19,6 @@ struct SoundsTableView: View {
     
     // Store manager variable for in-app purchases
     @StateObject var storeManager: StoreManager
-    
-    // State variable for currently selected category in category Enum
-    @State var selectedCategory = CurrentCategory.All
-    
-    enum CurrentCategory: String, CaseIterable, Identifiable { // <1>
-        case All
-        case Outdoors
-        case Waves
-        case Rain
-        case River
-        case Waterfall
-        case Lightning
-        
-        var id: CurrentCategory { self }
-    }
 
     // State variable for currently selected category in downloaded content Enum
     @State var downloadedContentIndex = DownloadCategory.NatureFM
@@ -43,13 +28,14 @@ struct SoundsTableView: View {
         
         var id: DownloadCategory { self }
     }
-
-    // Current search text variable for user input
-    @State var currentSearchText = ""
     
     // Array for holding the results from the API database, users can add songs to their phone individually
     @State var APIresultArray:[SoundsModel]  = []
     
+    
+    // State variable for currently selected category in category Enum
+    @State var selectedCategory = CurrentCategory.All
+    @State var currentSearchText: String
 
     
     func updateUserPurchases(hasPurchased: Bool) {
@@ -99,108 +85,56 @@ struct SoundsTableView: View {
     }
     
     var body: some View {
-        GeometryReader { geo in
-        NavigationView() {
+
             TabView {
                 // First Page
                 // -----------
-                
                 VStack {
-                    ZStack(alignment: .bottom) {
-                        Image("fall-leaves")
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: geo.size.width, height: 150)
-                            .clipped()
-                            
-                        Color("pickerColor").frame(width: geo.size.width, height: 150).clipped()
-                        VStack(alignment: .center) {
-                            Text("Welcome to Nature FM").font(.title).foregroundColor(.white).bold()
-                            Text("Tune in to the great outdoors").font(.subheadline).foregroundColor(.white).bold().padding(.bottom)
-                        }
-                    }
-
-                    HStack {
-                        TextField("Search", text: $currentSearchText)
-                            
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            
-                        Button("Close") {
-                            UIApplication.shared.endEditing()
-                        }.foregroundColor(Color(.systemGray))
-                    }
-                    .padding(.leading)
-                    .padding(.trailing)
-                    
-                    
-                        
-                // Segmented Controller
-
-                    Picker("Favorite Color", selection: $selectedCategory, content: {
-                                    ForEach(CurrentCategory.allCases, content: { category in
-                                        Text(category.rawValue.capitalized).foregroundColor(Color.white)
-                                    })
-                    })
-                        .pickerStyle(SegmentedPickerStyle())
-                        .padding(.leading)
-                        .padding(.trailing)
-                    
-                    Picker("Downloaded Content", selection: $downloadedContentIndex, content: {
-                        ForEach(DownloadCategory.allCases, content: { category in
-                            Text(category.rawValue.capitalized).foregroundColor(Color.white)
-                        })
-                    })
-                        .pickerStyle(SegmentedPickerStyle())
-                        .padding(.leading)
-                        .padding(.trailing)
-                    
-                    
-                    if downloadedContentIndex.rawValue == "NatureFM" {
-//                        List(APIresultArray, id: \.name) { result in
-//                            Text(result.name)
-//                        }
-                        SoundsAPIView(APIresultArray: $APIresultArray)
-                    } else {
-                        FilteredSoundsListView(filter: selectedCategory.rawValue, searchText: currentSearchText)
-                    }
-                    
-//                    SoundsAPIView(APIresultArray: APIresultArray)
-                
-                    
-                    
-                    
-                    
+                    HeaderView()
+                    SearchBarView(currentSearchText: $currentSearchText)
+                    CategoryPickerView(selectedCategory: $selectedCategory)
+                    SoundsAPIView(APIresultArray: $APIresultArray, searchText: $currentSearchText, selectedCategory: $selectedCategory)
                     if storeManager.purchasedRemoveAds == false {
                         Banner()
                     }
-                }
+                }.edgesIgnoringSafeArea(.top)
                 .tabItem { VStack {
-                    Text("HOME")
-                    Image(systemName: "house.fill")
+                    Text("NATURE FM")
+                    Image(systemName: "antenna.radiowaves.left.and.right")
                 }}
-                .onAppear(perform: {
-                    updateUserPurchases(hasPurchased: storeManager.purchasedRemoveAds)
-                    loadAPIArrayWithAPIData()
-                    print("API Result Array: \(APIresultArray.count)")
-                    
-                })
-                .edgesIgnoringSafeArea(.top)
-
                 
                 // Second Page
                 // -----------
-                InAppStorePurchasesView(storeManager: storeManager)
-                    .tabItem {
-                    VStack {
-                        Text("In-App Purchases")
-                        Image(systemName: "pause.fill")
+                VStack {
+                    HeaderView()
+                    SearchBarView(currentSearchText: $currentSearchText)
+                    CategoryPickerView(selectedCategory: $selectedCategory)
+                    FilteredSoundsListView(filter: selectedCategory.rawValue, searchText: currentSearchText)
+                    if storeManager.purchasedRemoveAds == false {
+                        Banner()
                     }
+                }.edgesIgnoringSafeArea(.top)
+                .tabItem { VStack {
+                    Text("LIBRARY")
+                    Image(systemName: "music.note.house")
+                }}
+                
+
+                // Third Page
+                // -----------
+                InAppStorePurchasesView(storeManager: storeManager)
+                .tabItem {
+                VStack {
+                    Text("In-App Purchases")
+                    Image(systemName: "creditcard")
                 }
             }
-           
-//            .navigationTitle(Text("Nature FM"))
         }
-        }.navigationViewStyle(StackNavigationViewStyle())
+        .navigationViewStyle(StackNavigationViewStyle())
+        .onAppear(perform: {
+            updateUserPurchases(hasPurchased: storeManager.purchasedRemoveAds)
+            loadAPIArrayWithAPIData()
+        })
     }
 }
     
@@ -208,17 +142,7 @@ struct SoundsTableView: View {
 
 
 
-struct SoundsTableView_Previews: PreviewProvider {
-    static var previews: some View {
-        SoundsTableView(storeManager: StoreManager())
-    }
-}
 
-extension UIApplication {
-    func endEditing() {
-        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-    }
-}
 
 
 

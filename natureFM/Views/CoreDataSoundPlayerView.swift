@@ -18,7 +18,10 @@ struct CoreDataSoundPlayerView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @State var currentSound: Sound
+//    @State var currentSound: Sound
+    func createSongFromData() {
+        
+    }
     
     func converToClockFormat(time: Int) -> Text {
         if time > 3600 {
@@ -59,21 +62,16 @@ struct CoreDataSoundPlayerView: View {
             )
     }
     
-    func createAudioPlayerFromFile() {
-        
-    }
-    
     
     var body: some View {
 
             VStack {
                     // Image
-                if let link = currentSound.imageFileLink {
-                    ImageWithURL(link)
-                }
-                Text("Test")
-                
-//                SongPlayerView(currentSound: currentSound)
+//                if let image = currentSound.imageFileLink {
+//                    ImageWithURL(image)
+//                }
+//
+//                SongPlayerView(currentURL: "currentSound.audioFileLink" ?? "nothing", freeSong: currentSound.freeSong)
   
                 
                 if purchasedSubsciption.first?.hasPurchased != true {
@@ -85,7 +83,6 @@ struct CoreDataSoundPlayerView: View {
                     if purchasedSubsciption.first?.hasPurchased != true {
                     playInterstitial()
                     }
-                    print("Audio file link: \(currentSound.audioFileLink)")
                 })
     }
 }

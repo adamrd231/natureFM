@@ -13,46 +13,49 @@ struct SoundsAPIView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
     @Binding var APIresultArray:[SoundsModel]
+    @Binding var searchText: String
+    // State variable for currently selected category in category Enum
+    @Binding var selectedCategory: CurrentCategory
+    
+    var filteredResultArray: [SoundsModel] {
+        if searchText.count == 0 && selectedCategory == .All {
+            return APIresultArray
+        } else if searchText.count == 0 && selectedCategory != .All {
+            return APIresultArray.filter { $0.categoryName == selectedCategory.rawValue }
+        } else if searchText.count > 0 && selectedCategory == .All {
+            return APIresultArray.filter { $0.name.contains(searchText) }
+        } else {
+            return APIresultArray.filter ({ $0.name.contains(searchText) && $0.categoryName == selectedCategory.rawValue})
+        }
+    }
     // CoreData Save if user has made purchase or not
     @FetchRequest(entity: PurchasedSubsciption.entity(), sortDescriptors: []) var purchasedSubsciption: FetchedResults<PurchasedSubsciption>
     // Fetch request to get all Sounds from CoreData
     @FetchRequest(entity: Sound.entity(), sortDescriptors: []) var sounds: FetchedResults<Sound>
     
-    func getDocumentsDirectory() -> URL {
-        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    @State private var showingPlayer = false
+    
+    @State var songVariable = SoundsModel()
+    
+    func documentsDirectory() -> URL {
+      let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+      return paths[0]
+    }
+
+    func dataFilePath() -> URL {
+      return documentsDirectory().appendingPathComponent("Info.plist")
     }
     
-    func saveFile (url: URL) -> URL {
-        
-            let fileData = try? Data.init(contentsOf: url)
-            let fileName = url.lastPathComponent
-            
-            let actualPath = getDocumentsDirectory().appendingPathComponent(fileName)
-        
-            do {
-                try fileData?.write(to: actualPath, options: .atomic)
-                print("success. origin: \(url) target: \(actualPath)")
-            } catch {
-                print("File could not be saved")
-            }
-        return actualPath
-    }
+   
+
     
     func addSoundToUserLibrary(sound: SoundsModel) {
         
         // Save the audio file to FileManager and save the path name variable here
+        guard let data = try? Data(contentsOf: URL(string: sound.audioFileLink ?? "www.rdconcepts.design")!) else { return }
         // Create URL String
-        guard let urlString = sound.audioFileLink else {
-            print("URL is nil")
-            return
-        }
+
         // Create the player item from URLString
-        var url: URL = URL(string: urlString)!
-        print("url: \(url)")
-        var savedFile = saveFile(url: url)
-        
-        
-        
         if sounds.contains(where: {$0.name == sound.name}) {
             return
         } else {
@@ -63,7 +66,7 @@ struct SoundsAPIView: View {
             newSound.locationName = sound.locationName
             
             // Replace this variable with the link to the internal path
-            newSound.audioFileLink = String(describing: savedFile)
+            newSound.audioFile = data
             newSound.imageFileLink = sound.imageFileLink
             newSound.duration = Int64(sound.duration)
             newSound.location = Int64(sound.location ?? 0)
@@ -76,16 +79,25 @@ struct SoundsAPIView: View {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func updateSongVariableInformation(sound: SoundsModel) {
         
-        
+        songVariable.imageFileLink = sound.imageFileLink
+        songVariable.audioFileLink = sound.audioFileLink
+        songVariable.categoryName = sound.categoryName
+        songVariable.duration = sound.duration
+        songVariable.locationName = sound.locationName
+        songVariable.freeSong = sound.freeSong
     }
     
     var body: some View {
+
         ScrollView {
         if APIresultArray.count == 0 {
             Text("Loading Nature FM Sounds...").font(.subheadline).padding()
         } else {
-        ForEach(APIresultArray, id: \.name) { sound in
+        ForEach(filteredResultArray, id: \.name) { sound in
             
                 VStack {
                     ZStack {
@@ -94,23 +106,33 @@ struct SoundsAPIView: View {
                             Color(.black).opacity(0.5)
                         }
                         VStack {
-                            Text(sound.name).foregroundColor(.white).font(.title2).bold()
+                            TitleTextView(text: sound.name)
                             Text("Category").foregroundColor(.white).font(.subheadline).bold()
                             Text(sound.categoryName).foregroundColor(.white).font(.footnote)
                             Text("Location").foregroundColor(.white).font(.subheadline).bold()
                             Text(sound.locationName).foregroundColor(.white).font(.footnote)
-                            NavigationLink(destination: SingleSoundPlayerView(currentSound: sound)) {
-                                HStack {
-                                    Spacer()
+
+                            HStack {
+                                Spacer()
+                                Button(action: {
+                                    // Update state variable with information from selection
+                                    updateSongVariableInformation(sound: sound)
+                                    
+                                    // Show the player after setting up the sound object with current data
+                                    showingPlayer.toggle()
+                                }) {
                                     Text((purchasedSubsciption.first?.hasPurchased == true || sound.freeSong == true) ? "Tune-In" : "Need Subcription")
                                         .padding()
                                         .background(Color(.systemGray))
                                         .cornerRadius(15)
                                         .foregroundColor(.white)
-                                    Spacer()
                                 }
+                                Spacer()
                             }
                         }
+                        .sheet(isPresented: $showingPlayer) {
+                            SingleSoundPlayerView(currentSound: songVariable)
+                            }
                     }
                     
                     HStack {

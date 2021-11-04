@@ -29,7 +29,7 @@ struct natureFMApp: App {
     
     var body: some Scene {
         WindowGroup {
-            SoundsTableView(storeManager: storeManager)
+            SoundsTableView(storeManager: storeManager, currentSearchText: "")
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .onAppear(perform: {
                     SKPaymentQueue.default().add(storeManager)

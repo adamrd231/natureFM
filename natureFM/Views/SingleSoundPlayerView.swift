@@ -60,49 +60,64 @@ struct SingleSoundPlayerView: View {
     }
     
     var body: some View {
-        GeometryReader { geo in
+
+        VStack {
+            // Image
+            URLImage(URL(string: "\(currentSound.imageFileLink)")!) {
+                // Display progress
+                Image("placeholder").resizable().aspectRatio(contentMode: .fill)
+            } inProgress: { progress in
+                // Display progress
+                Image("placeholder").resizable().aspectRatio(contentMode: .fill)
+            } failure: { error, retry in
+                // Display error and retry button
+                VStack {
+                    Text(error.localizedDescription)
+                    Button("Retry", action: retry)
+                }
+            } content: { image in
+                // Downloaded image
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .clipped()
+                
+            }
+            
+            // Information Bar
             VStack {
-                // Image
-                URLImage(URL(string: "\(currentSound.imageFileLink)")!) {
-                    // Display progress
-                    Image("placeholder").resizable().aspectRatio(contentMode: .fill)
-                } inProgress: { progress in
-                    // Display progress
-                    Image("placeholder").resizable().aspectRatio(contentMode: .fill)
-                } failure: { error, retry in
-                    // Display error and retry button
-                    VStack {
-                        Text(error.localizedDescription)
-                        Button("Retry", action: retry)
-                    }
-                } content: { image in
-                    // Downloaded image
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: geo.size.width, height: geo.size.height / 2)
-                        .clipped()
-                    
+                Text(currentSound.name).font(.title).bold()
+                HStack {
+                    Text("Location").bold()
+                    Spacer()
+                    Text("Category").bold()
                 }
-                
-                SongPlayerView(currentSound: currentSound)
-               
-                
-                Spacer()
-                if purchasedSubsciption.first?.hasPurchased != true {
-                    Banner()
+                HStack {
+                    Text(currentSound.locationName).font(.caption)
+                    Spacer()
+                    Text(currentSound.categoryName).font(.caption)
                 }
-            }.edgesIgnoringSafeArea(.top)
-        }.navigationViewStyle(StackNavigationViewStyle())
-    
+            }.padding(.trailing).padding(.leading)
+            
+            SongPlayerView(currentURL: currentSound.audioFileLink ?? "nothing", freeSong: currentSound.freeSong)
+           
+            
+            Spacer()
+            if purchasedSubsciption.first?.hasPurchased != true {
+                Banner()
+            }
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
         .onAppear(perform: {
             
             if purchasedSubsciption.first?.hasPurchased != true {
                 playInterstitial()
             }
+            print("Audio url: \(currentSound.audioFileLink)")
             
         })
     }
+    
     
 }
 

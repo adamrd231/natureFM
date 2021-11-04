@@ -10,14 +10,12 @@ import Foundation
 class SoundsModel: ObservableObject, Identifiable, Codable, CustomStringConvertible, Comparable {
     
     static func == (lhs: SoundsModel, rhs: SoundsModel) -> Bool {
-        return lhs.name < rhs.name
+        return lhs.name == rhs.name
     }
-    
     
     static func < (lhs: SoundsModel, rhs: SoundsModel) -> Bool {
         return lhs.name < rhs.name
     }
-    
     
     
     var description: String {

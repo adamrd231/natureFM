@@ -14,9 +14,6 @@ struct InAppStorePurchasesView: View {
     @StateObject var storeManager: StoreManager
     
     
-
-    
-    
     var body: some View {
 
         VStack(alignment: .leading) {
@@ -29,7 +26,7 @@ struct InAppStorePurchasesView: View {
                     Text("Restore Purchases")
                 }
             }
-            Spacer()
+
             // List of Products in store
             List(self.storeManager.myProducts, id: \.self) { product in
                 VStack(alignment: .leading) {
@@ -55,7 +52,7 @@ struct InAppStorePurchasesView: View {
                             }
                         }
                     }.disabled(storeManager.purchasedRemoveAds)
-                }.padding()
+                }
             }
             // List of Products in store
             VStack(alignment: .leading) {
@@ -68,10 +65,8 @@ struct InAppStorePurchasesView: View {
                     Link("Terms of Use", destination: URL(string: "http://rdconcepts.design/NatureFM")!)
                 }
                 
-            }.padding()
-            
-        }
-        .padding()
+            }
+        }.padding()
     }
 }
 
