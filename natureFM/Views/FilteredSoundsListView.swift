@@ -9,6 +9,8 @@ import SwiftUI
 import CoreData
 import URLImage
 
+
+
 struct FilteredSoundsListView: View {
     
     // Core Data Manage Object Container
@@ -16,10 +18,23 @@ struct FilteredSoundsListView: View {
     // Fetch request to get all categories from CoreData
     @FetchRequest(entity: PurchasedSubsciption.entity(), sortDescriptors: []) var purchasedSubsciption: FetchedResults<PurchasedSubsciption>
     
-    // Current Search Text
-    @State var currentText = ""
+    
+    @State var imageModel: UIImage?
+    
+    @State var songSelectedForPlayer = SoundsModel()
+    
+    func updateSelectedSongInfo(sound: Sound) {
+        songSelectedForPlayer.name = sound.name ?? ""
+        songSelectedForPlayer.categoryName = sound.categoryName ?? ""
+        songSelectedForPlayer.locationName = sound.locationName ?? ""
+        songSelectedForPlayer.duration = Int(sound.duration)
+        songSelectedForPlayer.freeSong = sound.freeSong
+    }
+    
+    var downloadManager = DownloadManagerFromFileManager()
     
     @State private var showingCoreDataPlayer = false
+    
     // FetchRequest allows us to apply filters with predicate based on user inputs
     var fetchRequest: FetchRequest<Sound>
     
@@ -43,6 +58,7 @@ struct FilteredSoundsListView: View {
     
     // Initializing the wrapped value to act as a filter on coredata, accepts category filter and searchtext filter
     init(filter: String, searchText: String) {
+        
         
         // Verify if user has made any inputs
         if searchText == "" {
@@ -79,6 +95,7 @@ struct FilteredSoundsListView: View {
     }
     
     
+    
     var body: some View {
         // Container for the TableView
         ScrollView {
@@ -90,12 +107,17 @@ struct FilteredSoundsListView: View {
             // Otherwise, show all of the content in filtered data model
             } else {
                 // Loop through the items in filtered data model
-                ForEach(fetchRequest.wrappedValue, id: \.self) { sound in
+                
+                    
+                
+                ForEach(fetchRequest.wrappedValue, id: \.name) { sound in
+
                     // Container
                     VStack {
                         // Stacking Image, with color overlay, with key content information
                         ZStack {
-                            ImageWithURL(sound.imageFileLink ?? "placeholder")
+                            ImageFromFileManager(url: sound.name ?? "")
+
                             Color(.black).opacity(0.5)
                             
                             // Information about the songtrack
@@ -105,7 +127,9 @@ struct FilteredSoundsListView: View {
                                 Text(sound.categoryName ?? "").foregroundColor(.white).font(.footnote)
                                 Text("Location").foregroundColor(.white).font(.subheadline).bold()
                                 Text(sound.locationName ?? "").foregroundColor(.white).font(.footnote)
+
                                 Button(action: {
+                                    updateSelectedSongInfo(sound: sound)
                                     showingCoreDataPlayer.toggle()
                                 }) {
                                     Text((purchasedSubsciption.first?.hasPurchased == true || sound.freeSong == true) ? "Tune-In" : "Get Subcription")
@@ -114,12 +138,23 @@ struct FilteredSoundsListView: View {
                                         .cornerRadius(15)
                                         .foregroundColor(.white)
                                 }
+                                .onAppear(perform: {
+//                                    imageModel = downloadManager.getImageFileAsset(urlName: sound.name!)
+                                })
                                 .sheet(isPresented: $showingCoreDataPlayer) {
-                                    CoreDataSoundPlayerView()
-                                    }
+                                    // attach current title so that coredataplayer can pull the right object from core data
+                                    CoreDataSoundPlayerView(currentSound: songSelectedForPlayer)
+                                }
+                               
                             }
+                            
+                            // Present the CoreData Player when user selects button
+//
+
                         }
-                        // Accessort Information Bar along bottom of stacked image container
+                        
+                        
+                        // Accessory Information Bar along bottom of stacked image container
                         HStack {
                             // Inform users if content is free or not
                             Text((sound.freeSong == true) ? "Free Song" : "Premium Content").font(.footnote)

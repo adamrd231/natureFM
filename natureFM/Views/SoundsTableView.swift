@@ -107,9 +107,11 @@ struct SoundsTableView: View {
                 // -----------
                 VStack {
                     HeaderView()
+                    
                     SearchBarView(currentSearchText: $currentSearchText)
                     CategoryPickerView(selectedCategory: $selectedCategory)
                     FilteredSoundsListView(filter: selectedCategory.rawValue, searchText: currentSearchText)
+
                     if storeManager.purchasedRemoveAds == false {
                         Banner()
                     }
@@ -130,6 +132,7 @@ struct SoundsTableView: View {
                 }
             }
         }
+        
         .navigationViewStyle(StackNavigationViewStyle())
         .onAppear(perform: {
             updateUserPurchases(hasPurchased: storeManager.purchasedRemoveAds)

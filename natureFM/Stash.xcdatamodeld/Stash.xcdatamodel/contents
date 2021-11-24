@@ -8,7 +8,7 @@
         <attribute name="hasPurchased" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
     </entity>
     <entity name="Sound" representedClassName="Sound" syncable="YES" codeGenerationType="class">
-        <attribute name="audioFile" optional="YES" attributeType="Binary"/>
+        <attribute name="audioFile" optional="YES" attributeType="String"/>
         <attribute name="category" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="categoryName" optional="YES" attributeType="String"/>
         <attribute name="duration" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>

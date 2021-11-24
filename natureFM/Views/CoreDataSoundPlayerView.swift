@@ -8,20 +8,21 @@
 import SwiftUI
 import URLImage
 import GoogleMobileAds
+import AVKit
 
 struct CoreDataSoundPlayerView: View {
     
     // Core Data Manage Object Container
     @Environment(\.managedObjectContext) var managedObjectContext
-    // Fetch request to get all categories from CoreData
+
+    @State var currentSound: SoundsModel
+    // Get User Purchases
     @FetchRequest(entity: PurchasedSubsciption.entity(), sortDescriptors: []) var purchasedSubsciption: FetchedResults<PurchasedSubsciption>
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
+    var downloadManager = DownloadManagerFromFileManager()
     
-//    @State var currentSound: Sound
-    func createSongFromData() {
-        
-    }
     
     func converToClockFormat(time: Int) -> Text {
         if time > 3600 {
@@ -62,6 +63,7 @@ struct CoreDataSoundPlayerView: View {
             )
     }
     
+
     
     var body: some View {
 
@@ -70,19 +72,36 @@ struct CoreDataSoundPlayerView: View {
 //                if let image = currentSound.imageFileLink {
 //                    ImageWithURL(image)
 //                }
+                ImageFromFileManager(url: currentSound.name)
+                    
+                VStack {
+                    Text(currentSound.name).font(.title).bold()
+                    HStack {
+                        Text("Location").bold()
+                        Spacer()
+                        Text("Category").bold()
+                    }
+                    HStack {
+                        Text(currentSound.locationName).font(.caption)
+                        Spacer()
+                        Text(currentSound.locationName).font(.caption)
+                    }
+                }.padding(.trailing).padding(.leading)
 //
 //                SongPlayerView(currentURL: "currentSound.audioFileLink" ?? "nothing", freeSong: currentSound.freeSong)
-  
+                SongPlayerFromFilesView(songName: currentSound.name, freeSong: currentSound.freeSong)
                 
                 if purchasedSubsciption.first?.hasPurchased != true {
                     Spacer()
                     Banner()
                 }
             }
-                .onAppear(perform: {
-                    if purchasedSubsciption.first?.hasPurchased != true {
-                    playInterstitial()
-                    }
-                })
+            
+            // Play Interstitial ads when opening the player
+            .onAppear(perform: {
+                if purchasedSubsciption.first?.hasPurchased != true {
+                playInterstitial()
+                }
+            })
     }
 }

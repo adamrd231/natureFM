@@ -3,7 +3,7 @@
 //  natureFM
 //
 //  Created by Adam Reed on 8/12/21.
-//
+//  This class SoundsModel is used to create swift objects from a JSON database
 
 import Foundation
 
@@ -17,7 +17,6 @@ class SoundsModel: ObservableObject, Identifiable, Codable, CustomStringConverti
         return lhs.name < rhs.name
     }
     
-    
     var description: String {
         return "\(name)"
     }
@@ -28,7 +27,6 @@ class SoundsModel: ObservableObject, Identifiable, Codable, CustomStringConverti
     var category: Int?
     var audioFileLink:String?
     var imageFileLink = ""
-    
     var categoryName = ""
     var locationName = ""
     var freeSong = false
@@ -46,6 +44,4 @@ class SoundsModel: ObservableObject, Identifiable, Codable, CustomStringConverti
         case freeSong = "free_song"
         
     }
-    
-    
 }

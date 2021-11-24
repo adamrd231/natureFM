@@ -9,14 +9,34 @@ import SwiftUI
 
 struct SoundsAPIView: View {
     
+    // MARK: Data Model
     // Core Data Manage Object Container
     @Environment(\.managedObjectContext) var managedObjectContext
+    // Fetch from Coredata information about if the user has made a purchase or not
+    @FetchRequest(entity: PurchasedSubsciption.entity(), sortDescriptors: []) var purchasedSubsciption: FetchedResults<PurchasedSubsciption>
+    // Fetch request to get all Sounds from CoreData
+    @FetchRequest(entity: Sound.entity(), sortDescriptors: []) var sounds: FetchedResults<Sound>
     
+    // Array to hold results from the API
     @Binding var APIresultArray:[SoundsModel]
+    
+    // State variable for user searches
     @Binding var searchText: String
     // State variable for currently selected category in category Enum
     @Binding var selectedCategory: CurrentCategory
     
+    // State variable to control whether to show the sheet containing the player
+    @State private var showingPlayer = false
+    // State variable modeling a single song for the player to user
+    @State var songVariable = SoundsModel()
+    
+    // I think I need this image placeholder to user to save information to the filemanager
+    @State var image = UIImage(named: "placeholder")
+    
+    
+    var downloadManager = DownloadManagerFromFileManager()
+    
+    // MARK: Filter results from the data model
     var filteredResultArray: [SoundsModel] {
         if searchText.count == 0 && selectedCategory == .All {
             return APIresultArray
@@ -28,32 +48,27 @@ struct SoundsAPIView: View {
             return APIresultArray.filter ({ $0.name.contains(searchText) && $0.categoryName == selectedCategory.rawValue})
         }
     }
-    // CoreData Save if user has made purchase or not
-    @FetchRequest(entity: PurchasedSubsciption.entity(), sortDescriptors: []) var purchasedSubsciption: FetchedResults<PurchasedSubsciption>
-    // Fetch request to get all Sounds from CoreData
-    @FetchRequest(entity: Sound.entity(), sortDescriptors: []) var sounds: FetchedResults<Sound>
     
-    @State private var showingPlayer = false
-    
-    @State var songVariable = SoundsModel()
-    
-    func documentsDirectory() -> URL {
-      let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-      return paths[0]
-    }
 
-    func dataFilePath() -> URL {
-      return documentsDirectory().appendingPathComponent("Info.plist")
-    }
+
     
-   
+    
 
     
     func addSoundToUserLibrary(sound: SoundsModel) {
         
-        // Save the audio file to FileManager and save the path name variable here
-        guard let data = try? Data(contentsOf: URL(string: sound.audioFileLink ?? "www.rdconcepts.design")!) else { return }
-        // Create URL String
+        // Save Image to filemanager, get the directory name for the file and save it as the imageFileLink
+        downloadManager.downloadImageFile(urlString: sound.imageFileLink, urlName: sound.name)
+        let imagePath = downloadManager.getImageFileAssetReturningString(urlName: sound.name)
+        // Save Audio to filemanager, get the directory name for the file and save it as the audioFileLink
+        
+        if let audio = sound.audioFileLink {
+            downloadManager.downloadAudioFile(urlString: audio, urlName: sound.name)
+        }
+        
+        
+        
+        print("the image path is \(imagePath)")
 
         // Create the player item from URLString
         if sounds.contains(where: {$0.name == sound.name}) {
@@ -66,8 +81,8 @@ struct SoundsAPIView: View {
             newSound.locationName = sound.locationName
             
             // Replace this variable with the link to the internal path
-            newSound.audioFile = data
-            newSound.imageFileLink = sound.imageFileLink
+            newSound.audioFile = sound.audioFileLink
+            newSound.imageFileLink = imagePath
             newSound.duration = Int64(sound.duration)
             newSound.location = Int64(sound.location ?? 0)
             newSound.freeSong = sound.freeSong
@@ -79,10 +94,14 @@ struct SoundsAPIView: View {
                 print(error.localizedDescription)
             }
         }
+        
+        // Save the file to local file
+        
     }
     
     func updateSongVariableInformation(sound: SoundsModel) {
-        
+        // Update all the variables needed to run the songPlayer
+        songVariable.name = sound.name
         songVariable.imageFileLink = sound.imageFileLink
         songVariable.audioFileLink = sound.audioFileLink
         songVariable.categoryName = sound.categoryName
@@ -95,7 +114,8 @@ struct SoundsAPIView: View {
 
         ScrollView {
         if APIresultArray.count == 0 {
-            Text("Loading Nature FM Sounds...").font(.subheadline).padding()
+            LoadingFromAPIView()
+            
         } else {
         ForEach(filteredResultArray, id: \.name) { sound in
             
@@ -126,7 +146,8 @@ struct SoundsAPIView: View {
                                         .background(Color(.systemGray))
                                         .cornerRadius(15)
                                         .foregroundColor(.white)
-                                }
+                                        
+                                }.disabled(purchasedSubsciption.first?.hasPurchased == false && sound.freeSong == false)
                                 Spacer()
                             }
                         }

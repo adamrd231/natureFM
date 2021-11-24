@@ -8,6 +8,7 @@
 import SwiftUI
 import URLImage
 import GoogleMobileAds
+import AVKit
 
 struct SingleSoundPlayerView: View {
     
@@ -19,6 +20,10 @@ struct SingleSoundPlayerView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @State var currentSound: SoundsModel
+ 
+    
+    
+    var downloadManager = DownloadManagerFromFileManager()
     
     func converToClockFormat(time: Int) -> Text {
         if time > 3600 {
@@ -30,34 +35,8 @@ struct SingleSoundPlayerView: View {
                 return Text("\(time / 60):0\(time % 60)")
             }
         }
-        
-        
     }
-    // Google admob interstitial video stuff
-    @State var interstitial: GADInterstitialAd?
-    var testInterstitialAd = "ca-app-pub-3940256099942544/1033173712"
-    var realInterstitialAd = "ca-app-pub-4186253562269967/3751660097"
-    func playInterstitial() {
-        let request = GADRequest()
-        GADInterstitialAd.load(withAdUnitID: testInterstitialAd,
-            request: request, completionHandler: { [self] ad, error in
-                // Check if there is an error
-                if let error = error {
-                    print("There was an error: \(error)")
-                    return
-                }
-                print("No Errors No errors no errors")
-                // If no errors, create an ad and serve it
-                interstitial = ad
-                if let interstitalAd = interstitial {
-                    print(interstitalAd)
-                    let root = UIApplication.shared.windows.last?.rootViewController
-                    interstitalAd.present(fromRootViewController: root!)
-                }
-               
-                }
-            )
-    }
+    
     
     var body: some View {
 
@@ -99,7 +78,7 @@ struct SingleSoundPlayerView: View {
                 }
             }.padding(.trailing).padding(.leading)
             
-            SongPlayerView(currentURL: currentSound.audioFileLink ?? "nothing", freeSong: currentSound.freeSong)
+            SongPlayerView(songURL: currentSound.audioFileLink ?? "", freeSong: currentSound.freeSong)
            
             
             Spacer()
@@ -109,16 +88,40 @@ struct SingleSoundPlayerView: View {
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .onAppear(perform: {
-            
             if purchasedSubsciption.first?.hasPurchased != true {
                 playInterstitial()
             }
-            print("Audio url: \(currentSound.audioFileLink)")
             
         })
     }
     
     
+    // Google admob interstitial video stuff
+    // --------------------------------------------------------------
+    @State var interstitial: GADInterstitialAd?
+    var testInterstitialAd = "ca-app-pub-3940256099942544/1033173712"
+    var realInterstitialAd = "ca-app-pub-4186253562269967/3751660097"
+    func playInterstitial() {
+        let request = GADRequest()
+        GADInterstitialAd.load(withAdUnitID: testInterstitialAd,
+            request: request, completionHandler: { [self] ad, error in
+                // Check if there is an error
+                if let error = error {
+                    print("There was an error: \(error)")
+                    return
+                }
+                print("No Errors No errors no errors")
+                // If no errors, create an ad and serve it
+                interstitial = ad
+                if let interstitalAd = interstitial {
+                    print(interstitalAd)
+                    let root = UIApplication.shared.windows.last?.rootViewController
+                    interstitalAd.present(fromRootViewController: root!)
+                }
+               
+                }
+            )
+    }
 }
 
 

@@ -1,14 +1,14 @@
 //
-//  SongPlayerView.swift
+//  SongPlayerFromFilesView.swift
 //  natureFM
 //
-//  Created by Adam Reed on 9/27/21.
+//  Created by Adam Reed on 11/24/21.
 //
 
 import SwiftUI
 import AVKit
 
-struct SongPlayerView: View {
+struct SongPlayerFromFilesView: View {
     
     // Core Data Manage Object Container
     @Environment(\.managedObjectContext) var managedObjectContext
@@ -17,8 +17,9 @@ struct SongPlayerView: View {
     
     
 //    @State var currentURL: String
-    @State var songURL: String
+    @State var songName: String
     @State var freeSong: Bool
+    var downloadManager = DownloadManagerFromFileManager()
     
     // Audio Player
     @State var player: AVPlayer?
@@ -39,16 +40,7 @@ struct SongPlayerView: View {
             return Text("\(time / 60):0\(time % 60)")
         }
     }
-    
-    func getAVPlayerItemFromURL(url: String) -> AVPlayerItem? {
-        var item: AVPlayerItem
-        let url = URL(string: url)
-        if let unwrappedURL = url {
-            item = AVPlayerItem(url: unwrappedURL)
-            return item
-        }
-        return nil
-    }
+
     
     
     var body: some View {
@@ -105,7 +97,7 @@ struct SongPlayerView: View {
         .onAppear(perform: {
             // Create URL String
                 // Create the player item from URLString
-            playerItem = getAVPlayerItemFromURL(url: songURL)
+            playerItem = downloadManager.getAudioFileAsset(urlName: songName)
             
             print("PlayerItem: \(playerItem?.asset)")
             // Add PlayerItem to Player
@@ -115,9 +107,8 @@ struct SongPlayerView: View {
             if let totalTime = totalTime {
                 let floatTotalTime = CMTimeGetSeconds(totalTime)
                 playerTotalTime = Int(floatTotalTime)
+                print("Player Total Time is: \(playerTotalTime)")
             }
-            
-            
             
             // Add observer to the player to player information, like slider position, song position, etc.
             player!.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1, preferredTimescale: CMTimeScale(NSEC_PER_SEC)), queue: DispatchQueue.main) { (CMTime) -> Void in
@@ -143,7 +134,4 @@ struct SongPlayerView: View {
         .opacity(freeSong == false && purchasedSubsciption.first?.hasPurchased == false ? 0.3 : 1.0)
     }
 }
-
-
-
 
