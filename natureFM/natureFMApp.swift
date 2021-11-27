@@ -18,6 +18,7 @@ struct natureFMApp: App {
     
     // Product Id's from App Store Connect
     var productIds = ["natureFMsubscription"]
+    
     // Store Manager object to make In App Purchases
     @StateObject var storeManager = StoreManager()
     

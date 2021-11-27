@@ -14,6 +14,9 @@ struct CoreDataSoundPlayerView: View {
     
     // Core Data Manage Object Container
     @Environment(\.managedObjectContext) var managedObjectContext
+    
+    // Store manager variable for in-app purchases
+    var hasPurchased: Bool
 
     @State var currentSound: SoundsModel
     // Get User Purchases
@@ -91,7 +94,7 @@ struct CoreDataSoundPlayerView: View {
 //                SongPlayerView(currentURL: "currentSound.audioFileLink" ?? "nothing", freeSong: currentSound.freeSong)
                 SongPlayerFromFilesView(songName: currentSound.name, freeSong: currentSound.freeSong)
                 
-                if purchasedSubsciption.first?.hasPurchased != true {
+                if hasPurchased != true {
                     Spacer()
                     Banner()
                 }
@@ -99,7 +102,7 @@ struct CoreDataSoundPlayerView: View {
             
             // Play Interstitial ads when opening the player
             .onAppear(perform: {
-                if purchasedSubsciption.first?.hasPurchased != true {
+                if hasPurchased != true {
                 playInterstitial()
                 }
             })

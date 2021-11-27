@@ -17,10 +17,13 @@ struct FilteredSoundsListView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     // Fetch request to get all categories from CoreData
     
+    // Store manager variable for in-app purchases
+    var hasPurchased: Bool
     
     @State var imageModel: UIImage?
     
     @State var songSelectedForPlayer = SoundsModel()
+    
     
     func updateSelectedSongInfo(sound: Sound) {
         songSelectedForPlayer.name = sound.name ?? ""
@@ -65,9 +68,9 @@ struct FilteredSoundsListView: View {
     }
     
     // Initializing the wrapped value to act as a filter on coredata, accepts category filter and searchtext filter
-    init(filter: String, searchText: String) {
+    init(hasPurchased: Bool, filter: String, searchText: String) {
         
-        
+        self.hasPurchased = hasPurchased
         // Verify if user has made any inputs
         if searchText == "" {
             if filter == "All" {
@@ -140,7 +143,7 @@ struct FilteredSoundsListView: View {
                                     updateSelectedSongInfo(sound: sound)
                                     showingCoreDataPlayer.toggle()
                                 }) {
-                                    Text((sound.freeSong == true) ? "Tune-In" : "Get Subcription")
+                                    Text("Tune-In")
                                         .padding()
                                         .background(Color(.systemGray))
                                         .cornerRadius(15)
@@ -151,7 +154,7 @@ struct FilteredSoundsListView: View {
                                 })
                                 .sheet(isPresented: $showingCoreDataPlayer) {
                                     // attach current title so that coredataplayer can pull the right object from core data
-                                    CoreDataSoundPlayerView(currentSound: songSelectedForPlayer)
+                                    CoreDataSoundPlayerView(hasPurchased: hasPurchased, currentSound: songSelectedForPlayer)
                                 }
                                
                             }

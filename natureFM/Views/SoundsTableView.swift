@@ -87,7 +87,7 @@ struct SoundsTableView: View {
                     
                     SearchBarView(currentSearchText: $currentSearchText)
                     CategoryPickerView(selectedCategory: $selectedCategory)
-                    FilteredSoundsListView(filter: selectedCategory.rawValue, searchText: currentSearchText)
+                    FilteredSoundsListView(hasPurchased: storeManager.purchasedRemoveAds, filter: selectedCategory.rawValue, searchText: currentSearchText)
 
                     if storeManager.purchasedRemoveAds == false {
                         Banner()

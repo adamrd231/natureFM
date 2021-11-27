@@ -145,14 +145,13 @@ struct SoundsAPIView: View {
                                     showingPlayer.toggle()
                                 }) {
                                     // storeManager.transactionState == true ||
-                                    Text((storeManager.transactionState == .purchased || sound.freeSong == true) ? "Tune-In" : "Need Subcription")
+                                    Text((storeManager.purchasedRemoveAds == true || sound.freeSong == true) ? "Tune-In" : "Need Subcription")
                                         .padding()
                                         .background(Color(.systemGray))
                                         .cornerRadius(15)
                                         .foregroundColor(.white)
                                         
-                                        // storeManager.transactionState == true &&
-                                }.disabled(storeManager.transactionState == .purchased || sound.freeSong == false)
+                                }.disabled(storeManager.purchasedRemoveAds == false && sound.freeSong == false)
                                 Spacer()
                             }
                         }
@@ -166,16 +165,16 @@ struct SoundsAPIView: View {
                         Spacer()
                         HStack {
                             // storeManager.transactionState == true ||
-                            Text((storeManager.transactionState == .purchased || sound.freeSong == true) ? "Download to Library" : "Get Subscription to Download").font(.footnote)
+                            Text((storeManager.purchasedRemoveAds == true || sound.freeSong == true) ? "Download to Library" : "Get Subscription to Download").font(.footnote)
                             Button(action: {
                                 // Add song to coredata
                                 addSoundToUserLibrary(sound: sound)
                             }) {
                                 Image(systemName: "arrow.down.app").foregroundColor(.black)
                                 // storeManager.transactionState == true !=
-                            }.disabled(storeManager.transactionState != .purchased && sound.freeSong == false)
+                            }.disabled(storeManager.purchasedRemoveAds != true && sound.freeSong == false)
                         }.onAppear( perform: {
-                            print("Purchased subscription?: \(storeManager.transactionState)")
+                            print("Purchased subscription?: \(storeManager.purchasedRemoveAds)")
                             print("free song?: \(sound.freeSong)")
                         })
                         
