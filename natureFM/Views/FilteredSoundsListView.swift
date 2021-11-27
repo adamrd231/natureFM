@@ -16,7 +16,6 @@ struct FilteredSoundsListView: View {
     // Core Data Manage Object Container
     @Environment(\.managedObjectContext) var managedObjectContext
     // Fetch request to get all categories from CoreData
-    @FetchRequest(entity: PurchasedSubsciption.entity(), sortDescriptors: []) var purchasedSubsciption: FetchedResults<PurchasedSubsciption>
     
     
     @State var imageModel: UIImage?
@@ -47,9 +46,18 @@ struct FilteredSoundsListView: View {
     func removeObjectFromCoreData(item: Sound) {
         // Delete item
         managedObjectContext.delete(item)
+        
+        // Check to make sure name is able to be unwrapped from optional
+        if let name = item.name {
+            // Deelte the image and audio files from the documents folder
+            downloadManager.deleteAudioFile(urlName: name)
+            downloadManager.deleteImageFile(urlName: name)
+        }
         // Save CoreData
         do {
             try managedObjectContext.save()
+            
+            
         } catch {
             // handle the Core Data error
             print("Error deleting and saving the database after")
@@ -132,7 +140,7 @@ struct FilteredSoundsListView: View {
                                     updateSelectedSongInfo(sound: sound)
                                     showingCoreDataPlayer.toggle()
                                 }) {
-                                    Text((purchasedSubsciption.first?.hasPurchased == true || sound.freeSong == true) ? "Tune-In" : "Get Subcription")
+                                    Text((sound.freeSong == true) ? "Tune-In" : "Get Subcription")
                                         .padding()
                                         .background(Color(.systemGray))
                                         .cornerRadius(15)
@@ -162,6 +170,7 @@ struct FilteredSoundsListView: View {
                             Button(action: {
                                 // Remove object from users library
                                 removeObjectFromCoreData(item: sound)
+                                
                             }) {
                                 Text("Remove from Library")
                             }.font(.footnote).foregroundColor(.black)

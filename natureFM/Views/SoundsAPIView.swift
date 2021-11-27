@@ -17,6 +17,9 @@ struct SoundsAPIView: View {
     // Fetch request to get all Sounds from CoreData
     @FetchRequest(entity: Sound.entity(), sortDescriptors: []) var sounds: FetchedResults<Sound>
     
+    // Store manager variable for in-app purchases
+    @StateObject var storeManager: StoreManager
+    
     // Array to hold results from the API
     @Binding var APIresultArray:[SoundsModel]
     
@@ -141,13 +144,15 @@ struct SoundsAPIView: View {
                                     // Show the player after setting up the sound object with current data
                                     showingPlayer.toggle()
                                 }) {
-                                    Text((purchasedSubsciption.first?.hasPurchased == true || sound.freeSong == true) ? "Tune-In" : "Need Subcription")
+                                    // storeManager.transactionState == true ||
+                                    Text((storeManager.transactionState == .purchased || sound.freeSong == true) ? "Tune-In" : "Need Subcription")
                                         .padding()
                                         .background(Color(.systemGray))
                                         .cornerRadius(15)
                                         .foregroundColor(.white)
                                         
-                                }.disabled(purchasedSubsciption.first?.hasPurchased == false && sound.freeSong == false)
+                                        // storeManager.transactionState == true &&
+                                }.disabled(storeManager.transactionState == .purchased || sound.freeSong == false)
                                 Spacer()
                             }
                         }
@@ -160,14 +165,19 @@ struct SoundsAPIView: View {
                         Text((sound.freeSong == true) ? "Free Song" : "Premium Content").font(.footnote)
                         Spacer()
                         HStack {
-                            Text((sound.freeSong) ? "Download to Library" : "Get Subscription to Download").font(.footnote)
+                            // storeManager.transactionState == true ||
+                            Text((storeManager.transactionState == .purchased || sound.freeSong == true) ? "Download to Library" : "Get Subscription to Download").font(.footnote)
                             Button(action: {
                                 // Add song to coredata
                                 addSoundToUserLibrary(sound: sound)
                             }) {
                                 Image(systemName: "arrow.down.app").foregroundColor(.black)
-                            }.disabled(sound.freeSong == false)
-                        }
+                                // storeManager.transactionState == true !=
+                            }.disabled(storeManager.transactionState != .purchased && sound.freeSong == false)
+                        }.onAppear( perform: {
+                            print("Purchased subscription?: \(storeManager.transactionState)")
+                            print("free song?: \(sound.freeSong)")
+                        })
                         
                     }
                         .padding()

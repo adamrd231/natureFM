@@ -36,29 +36,6 @@ struct SoundsTableView: View {
     // State variable for currently selected category in category Enum
     @State var selectedCategory = CurrentCategory.All
     @State var currentSearchText: String
-
-    
-    func updateUserPurchases(hasPurchased: Bool) {
-
-        if purchasedSubsciption.count == 1 {
-            if purchasedSubsciption.first?.hasPurchased != hasPurchased {
-                purchasedSubsciption.first?.hasPurchased = hasPurchased
-            }
-            return
-        } else {
-            let newItem = PurchasedSubsciption(context: managedObjectContext)
-            newItem.hasPurchased = true
-            
-            do {
-                try managedObjectContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
     
 
     // load data from database into the program
@@ -93,7 +70,7 @@ struct SoundsTableView: View {
                     HeaderView()
                     SearchBarView(currentSearchText: $currentSearchText)
                     CategoryPickerView(selectedCategory: $selectedCategory)
-                    SoundsAPIView(APIresultArray: $APIresultArray, searchText: $currentSearchText, selectedCategory: $selectedCategory)
+                    SoundsAPIView(storeManager: storeManager, APIresultArray: $APIresultArray, searchText: $currentSearchText, selectedCategory: $selectedCategory)
                     if storeManager.purchasedRemoveAds == false {
                         Banner()
                     }
@@ -135,7 +112,7 @@ struct SoundsTableView: View {
         
         .navigationViewStyle(StackNavigationViewStyle())
         .onAppear(perform: {
-            updateUserPurchases(hasPurchased: storeManager.purchasedRemoveAds)
+
             loadAPIArrayWithAPIData()
         })
     }

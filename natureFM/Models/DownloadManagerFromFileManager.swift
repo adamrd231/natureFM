@@ -142,6 +142,37 @@ class DownloadManagerFromFileManager: ObservableObject {
         }
     }
     
+    func deleteImageFile(urlName: String) {
+           let docsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+
+           let destinationUrl = docsUrl?.appendingPathComponent("\(urlName).jpg")
+           if let destinationUrl = destinationUrl {
+               guard FileManager().fileExists(atPath: destinationUrl.path) else { return }
+               do {
+                   try FileManager().removeItem(atPath: destinationUrl.path)
+                   print("File deleted successfully")
+                   isDownloadingImage = false
+               } catch let error {
+                   print("Error while deleting video file: ", error)
+               }
+           }
+       }
+    
+    func deleteAudioFile(urlName: String) {
+           let docsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+
+           let destinationUrl = docsUrl?.appendingPathComponent("\(urlName).aif")
+           if let destinationUrl = destinationUrl {
+               guard FileManager().fileExists(atPath: destinationUrl.path) else { return }
+               do {
+                   try FileManager().removeItem(atPath: destinationUrl.path)
+                   print("File deleted successfully")
+                   isDownloadingAudio = false
+               } catch let error {
+                   print("Error while deleting video file: ", error)
+               }
+           }
+       }
 
     
     func getImageFileAssetReturningString(urlName: String) -> String {

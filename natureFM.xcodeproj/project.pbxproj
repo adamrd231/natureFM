@@ -11,7 +11,6 @@
 		662BDF26271E2E3200D41BD7 /* SoundsAPIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662BDF25271E2E3200D41BD7 /* SoundsAPIView.swift */; };
 		663E05B727137213006E0259 /* FilteredSoundsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663E05B627137213006E0259 /* FilteredSoundsListView.swift */; };
 		6647F343274CC72A00CC6DC1 /* DownloadManagerFromFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6647F342274CC72A00CC6DC1 /* DownloadManagerFromFileManager.swift */; };
-		664CF886273C38CA008BAC07 /* LocalFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664CF885273C38CA008BAC07 /* LocalFileManager.swift */; };
 		66531A4B274EB93C0096BE9E /* SongPlayerFromFilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66531A4A274EB93C0096BE9E /* SongPlayerFromFilesView.swift */; };
 		667F6E132718E810007726D1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 667F6E122718E810007726D1 /* Launch Screen.storyboard */; };
 		667F6E17271A2116007726D1 /* ImageWithURLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667F6E16271A2116007726D1 /* ImageWithURLView.swift */; };
@@ -47,7 +46,6 @@
 		663E05B627137213006E0259 /* FilteredSoundsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredSoundsListView.swift; sourceTree = "<group>"; };
 		663E05B827139BB6006E0259 /* Noteworthy.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = Noteworthy.ttc; sourceTree = "<group>"; };
 		6647F342274CC72A00CC6DC1 /* DownloadManagerFromFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManagerFromFileManager.swift; sourceTree = "<group>"; };
-		664CF885273C38CA008BAC07 /* LocalFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileManager.swift; sourceTree = "<group>"; };
 		66531A4A274EB93C0096BE9E /* SongPlayerFromFilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongPlayerFromFilesView.swift; sourceTree = "<group>"; };
 		667F6E122718E810007726D1 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		667F6E16271A2116007726D1 /* ImageWithURLView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWithURLView.swift; sourceTree = "<group>"; };
@@ -117,7 +115,6 @@
 				66E43FBE26C6146000AE012E /* SoundsModel.swift */,
 				66C3CC152703C3DF00438A55 /* CategoryModel.swift */,
 				66E85FED270E0398009F1AEF /* SleepTimerModel.swift */,
-				664CF885273C38CA008BAC07 /* LocalFileManager.swift */,
 				6647F342274CC72A00CC6DC1 /* DownloadManagerFromFileManager.swift */,
 			);
 			path = Models;
@@ -350,7 +347,6 @@
 				66E43FAC26C6120000AE012E /* natureFMApp.swift in Sources */,
 				6693C4AF2728F06900D4FD17 /* CategoryPickerView.swift in Sources */,
 				662BDF26271E2E3200D41BD7 /* SoundsAPIView.swift in Sources */,
-				664CF886273C38CA008BAC07 /* LocalFileManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
