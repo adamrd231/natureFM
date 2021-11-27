@@ -12,8 +12,6 @@ struct SoundsTableView: View {
     // Core Data Manage Object Container
     @Environment(\.managedObjectContext) var managedObjectContext
 
-    // CoreData Save if user has made purchase or not
-    @FetchRequest(entity: PurchasedSubsciption.entity(), sortDescriptors: []) var purchasedSubsciption: FetchedResults<PurchasedSubsciption>
     // Fetch request to get all Sounds from CoreData
     @FetchRequest(entity: Sound.entity(), sortDescriptors: []) var sounds: FetchedResults<Sound>
     

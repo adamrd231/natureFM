@@ -19,8 +19,6 @@ struct CoreDataSoundPlayerView: View {
     var hasPurchased: Bool
 
     @State var currentSound: SoundsModel
-    // Get User Purchases
-    @FetchRequest(entity: PurchasedSubsciption.entity(), sortDescriptors: []) var purchasedSubsciption: FetchedResults<PurchasedSubsciption>
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
@@ -92,7 +90,7 @@ struct CoreDataSoundPlayerView: View {
                 }.padding(.trailing).padding(.leading)
 //
 //                SongPlayerView(currentURL: "currentSound.audioFileLink" ?? "nothing", freeSong: currentSound.freeSong)
-                SongPlayerFromFilesView(songName: currentSound.name, freeSong: currentSound.freeSong)
+                SongPlayerFromFilesView(hasPurchased: hasPurchased, songName: currentSound.name, freeSong: currentSound.freeSong)
                 
                 if hasPurchased != true {
                     Spacer()

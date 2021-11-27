@@ -12,8 +12,6 @@ struct SoundsAPIView: View {
     // MARK: Data Model
     // Core Data Manage Object Container
     @Environment(\.managedObjectContext) var managedObjectContext
-    // Fetch from Coredata information about if the user has made a purchase or not
-    @FetchRequest(entity: PurchasedSubsciption.entity(), sortDescriptors: []) var purchasedSubsciption: FetchedResults<PurchasedSubsciption>
     // Fetch request to get all Sounds from CoreData
     @FetchRequest(entity: Sound.entity(), sortDescriptors: []) var sounds: FetchedResults<Sound>
     
@@ -156,7 +154,7 @@ struct SoundsAPIView: View {
                             }
                         }
                         .sheet(isPresented: $showingPlayer) {
-                            SingleSoundPlayerView(currentSound: songVariable)
+                            SingleSoundPlayerView(hasPurchased: storeManager.purchasedRemoveAds, currentSound: songVariable)
                             }
                     }
                     

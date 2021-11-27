@@ -12,17 +12,11 @@ import AVKit
 
 struct SingleSoundPlayerView: View {
     
-    // Core Data Manage Object Container
-    @Environment(\.managedObjectContext) var managedObjectContext
-    // Fetch request to get all categories from CoreData
-    @FetchRequest(entity: PurchasedSubsciption.entity(), sortDescriptors: []) var purchasedSubsciption: FetchedResults<PurchasedSubsciption>
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
+    @State var hasPurchased: Bool
     @State var currentSound: SoundsModel
- 
-    
-    
     var downloadManager = DownloadManagerFromFileManager()
     
     func converToClockFormat(time: Int) -> Text {
@@ -78,17 +72,17 @@ struct SingleSoundPlayerView: View {
                 }
             }.padding(.trailing).padding(.leading)
             
-            SongPlayerView(songURL: currentSound.audioFileLink ?? "", freeSong: currentSound.freeSong)
+            SongPlayerView(hasPurchased: hasPurchased, songURL: currentSound.audioFileLink ?? "", freeSong: currentSound.freeSong)
            
             
             Spacer()
-            if purchasedSubsciption.first?.hasPurchased != true {
+            if hasPurchased != true {
                 Banner()
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .onAppear(perform: {
-            if purchasedSubsciption.first?.hasPurchased != true {
+            if hasPurchased != true {
                 playInterstitial()
             }
             

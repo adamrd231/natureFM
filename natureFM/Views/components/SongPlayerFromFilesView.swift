@@ -10,11 +10,8 @@ import AVKit
 
 struct SongPlayerFromFilesView: View {
     
-    // Core Data Manage Object Container
-    @Environment(\.managedObjectContext) var managedObjectContext
-    // Fetch request to get all categories from CoreData
-    @FetchRequest(entity: PurchasedSubsciption.entity(), sortDescriptors: []) var purchasedSubsciption: FetchedResults<PurchasedSubsciption>
-    
+    // Store manager variable for in-app purchases
+    var hasPurchased: Bool
     
 //    @State var currentURL: String
     @State var songName: String
@@ -77,7 +74,7 @@ struct SongPlayerFromFilesView: View {
                     }
                 }) {
                     Image(systemName: "play.fill").resizable().frame(width: 25, height: 25, alignment: .center).foregroundColor(Color(.systemGray))
-                }.disabled(freeSong == false && purchasedSubsciption.first?.hasPurchased != true)
+                }
                 
                 // Pause Button
                 Button(action: {
@@ -86,7 +83,7 @@ struct SongPlayerFromFilesView: View {
 
                 }) {
                     Image(systemName: "pause.fill").resizable().frame(width: 25, height: 25, alignment: .center).foregroundColor(Color(.systemGray))
-                }.disabled(freeSong == false && purchasedSubsciption.first?.hasPurchased != true)
+                }
 //                currentSound.freeSong == false && p
             }.padding(.bottom)
             
@@ -131,7 +128,7 @@ struct SongPlayerFromFilesView: View {
         .onDisappear(perform: {
             UIApplication.shared.isIdleTimerDisabled = false
         })
-        .opacity(freeSong == false && purchasedSubsciption.first?.hasPurchased == false ? 0.3 : 1.0)
+        .opacity(freeSong == false && hasPurchased == false ? 0.3 : 1.0)
     }
 }
 
