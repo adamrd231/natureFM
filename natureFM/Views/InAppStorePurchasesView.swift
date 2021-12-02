@@ -18,6 +18,9 @@ struct InAppStorePurchasesView: View {
 
         VStack(alignment: .leading) {
             HStack {
+                Link("Privacy Policy", destination: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!)
+                    .padding(.vertical)
+                    .font(.callout)
                 Spacer()
                 Button(action: {
                     // Restore already purchased products
@@ -59,11 +62,6 @@ struct InAppStorePurchasesView: View {
                 Text("In App Purchases").font(.headline).bold().padding(.top)
                 Text("Thank you! As an independent Developer my income is made through advertising and in-app purchases offered by apps I've developed. Purchasing this feature allows me to continue working more on projects and apps. ").font(.footnote)
                 Text("New feature ideas and bug fixes are always welcome at 'adam@rdconcepts.design'").font(.footnote)
-                HStack {
-                    Link("Privacy Policy", destination: URL(string: "http://rdconcepts.design/NatureFM")!)
-                    Spacer()
-                    Link("Terms of Use", destination: URL(string: "http://rdconcepts.design/NatureFM")!)
-                }
                 
             }
         }.padding()

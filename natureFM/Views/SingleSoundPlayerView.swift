@@ -97,7 +97,7 @@ struct SingleSoundPlayerView: View {
     var realInterstitialAd = "ca-app-pub-4186253562269967/3751660097"
     func playInterstitial() {
         let request = GADRequest()
-        GADInterstitialAd.load(withAdUnitID: testInterstitialAd,
+        GADInterstitialAd.load(withAdUnitID: realInterstitialAd,
             request: request, completionHandler: { [self] ad, error in
                 // Check if there is an error
                 if let error = error {

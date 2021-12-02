@@ -39,7 +39,6 @@ struct natureFMApp: App {
                 })
                 .onAppear(perform: {
                 requestIDFA()
-                print("Home Directory: \(NSHomeDirectory())")
             })
         }
     }

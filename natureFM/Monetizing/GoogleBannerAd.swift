@@ -20,7 +20,7 @@ final private class BannerVC: UIViewControllerRepresentable  {
 
         let viewController = UIViewController()
         // Setup the real or test banner id
-        view.adUnitID = testBannerAdId
+        view.adUnitID = realBannerAdId
         view.rootViewController = viewController
         viewController.view.addSubview(view)
         viewController.view.frame = CGRect(origin: .zero, size: kGADAdSizeBanner.size)

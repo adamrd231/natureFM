@@ -44,7 +44,7 @@ struct CoreDataSoundPlayerView: View {
     var realInterstitialAd = "ca-app-pub-4186253562269967/3751660097"
     func playInterstitial() {
         let request = GADRequest()
-        GADInterstitialAd.load(withAdUnitID: testInterstitialAd,
+        GADInterstitialAd.load(withAdUnitID: realInterstitialAd,
             request: request, completionHandler: { [self] ad, error in
                 // Check if there is an error
                 if let error = error {
@@ -68,41 +68,41 @@ struct CoreDataSoundPlayerView: View {
     
     var body: some View {
 
-            VStack {
-                    // Image
+        VStack {
+                // Image
 //                if let image = currentSound.imageFileLink {
 //                    ImageWithURL(image)
 //                }
-                ImageFromFileManager(url: currentSound.name)
-                    
-                VStack {
-                    Text(currentSound.name).font(.title).bold()
-                    HStack {
-                        Text("Location").bold()
-                        Spacer()
-                        Text("Category").bold()
-                    }
-                    HStack {
-                        Text(currentSound.locationName).font(.caption)
-                        Spacer()
-                        Text(currentSound.locationName).font(.caption)
-                    }
-                }.padding(.trailing).padding(.leading)
+            ImageFromFileManager(url: currentSound.name)
+                
+            VStack {
+                Text(currentSound.name).font(.title).bold()
+                HStack {
+                    Text("Location").bold()
+                    Spacer()
+                    Text("Category").bold()
+                }
+                HStack {
+                    Text(currentSound.locationName).font(.caption)
+                    Spacer()
+                    Text(currentSound.locationName).font(.caption)
+                }
+            }.padding(.trailing).padding(.leading)
 //
 //                SongPlayerView(currentURL: "currentSound.audioFileLink" ?? "nothing", freeSong: currentSound.freeSong)
-                SongPlayerFromFilesView(hasPurchased: hasPurchased, songName: currentSound.name, freeSong: currentSound.freeSong)
-                
-                if hasPurchased != true {
-                    Spacer()
-                    Banner()
-                }
-            }
+            SongPlayerFromFilesView(hasPurchased: hasPurchased, songName: currentSound.name, freeSong: currentSound.freeSong)
             
-            // Play Interstitial ads when opening the player
-            .onAppear(perform: {
-                if hasPurchased != true {
-                playInterstitial()
-                }
-            })
+            if hasPurchased != true {
+                Spacer()
+                Banner()
+            }
+        }
+        
+        // Play Interstitial ads when opening the player
+        .onAppear(perform: {
+            if hasPurchased != true {
+            playInterstitial()
+            }
+        })
     }
 }
