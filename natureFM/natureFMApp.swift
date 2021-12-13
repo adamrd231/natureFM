@@ -23,9 +23,20 @@ struct natureFMApp: App {
     @StateObject var storeManager = StoreManager()
     
     func requestIDFA() {
-      ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
-        // Tracking authorization completed. Start loading ads here.
-      })
+        if #available(iOS 14, *) {
+            ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
+              // Tracking authorization completed. // Permission Granted
+                print("Status \(status.self)")
+            })
+            
+        } else {
+            // iOS 14 is not installed yet
+        }
+        
+        
+        print("Att: \(ATTrackingManager.trackingAuthorizationStatus)")
+        
+      
     }
     
     var body: some Scene {
@@ -39,7 +50,11 @@ struct natureFMApp: App {
                 })
                 .onAppear(perform: {
                 requestIDFA()
-            })
+                    
+                })
+//                .onAppear(perform: {
+//                    ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in })
+//                })
         }
     }
 }

@@ -23,7 +23,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSUserTrackingUsageDescription</key>
-	<string>This app would like to use user information for personalized ads.</string>
+	<string>This app uses personal information to display advertising from google admob.</string>
 	<key>SKAdNetworkItems</key>
 	<array>
 		<dict>
