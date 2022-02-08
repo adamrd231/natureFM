@@ -60,7 +60,8 @@ struct InAppStorePurchasesView: View {
             // List of Products in store
             VStack(alignment: .leading) {
                 Text("In App Purchases").font(.headline).bold().padding(.top)
-                Text("Thank you! As an independent Developer my income is made through advertising and in-app purchases offered by apps I've developed. Purchasing this feature allows me to continue working more on projects and apps. ").font(.footnote)
+                Text("I am an independent designer and devleoper, working on apps that help people solve problems, have fun or automate work is my goal. Purchasing an in-app purchase helps me continue to work on projects and apps.").font(.footnote)
+                Text("Questions, Comments, Suggestions.").font(.subheadline).bold().padding(.top)
                 Text("New feature ideas and bug fixes are always welcome at 'adam@rdconcepts.design'").font(.footnote)
                 
             }

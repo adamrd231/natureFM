@@ -19,6 +19,8 @@ struct natureFMApp: App {
     // Product Id's from App Store Connect
     var productIds = ["natureFMsubscription"]
     
+    @StateObject private var vm = HomeViewModel()
+    
     // Store Manager object to make In App Purchases
     @StateObject var storeManager = StoreManager()
     
@@ -31,30 +33,21 @@ struct natureFMApp: App {
             
         } else {
             // iOS 14 is not installed yet
+            print("Att: \(ATTrackingManager.trackingAuthorizationStatus)")
         }
         
-        
-        print("Att: \(ATTrackingManager.trackingAuthorizationStatus)")
-        
-      
     }
     
     var body: some Scene {
         WindowGroup {
-            SoundsTableView(storeManager: storeManager, currentSearchText: "")
+            HomeView(storeManager: storeManager)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environmentObject(vm)
                 .onAppear(perform: {
                     SKPaymentQueue.default().add(storeManager)
                     storeManager.getProducts(productIDs: productIds) 
-                    
+                    requestIDFA()
                 })
-                .onAppear(perform: {
-                requestIDFA()
-                    
-                })
-//                .onAppear(perform: {
-//                    ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in })
-//                })
         }
     }
 }
