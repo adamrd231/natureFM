@@ -21,6 +21,7 @@ struct SoundImageView: View {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
+                
             } else if vm.isLoading {
                ProgressView()
             } else {

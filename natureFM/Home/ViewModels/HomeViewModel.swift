@@ -13,10 +13,12 @@ class HomeViewModel: ObservableObject {
     @Published var allSounds: [SoundsModel] = []
     @Published var portfolioSounds: [SoundsModel] = []
     
+    var allFreeSounds: [SoundsModel] = []
+    
     private var cancellables = Set<AnyCancellable>()
     
     private let natureSoundDataService = NatureSoundDataService()
-    private let downloadedContentService = DownloadedContentService()
+    let downloadedContentService = DownloadedContentService()
     
     init() {
         addSubcribers()
@@ -45,6 +47,11 @@ class HomeViewModel: ObservableObject {
             .map(mapDownloadedContent)
             .sink { [weak self] (returnedSounds) in
                 self?.portfolioSounds = returnedSounds
+                for sound in returnedSounds {
+                    if sound.freeSong == true && !(self?.allFreeSounds.contains(sound) ?? false) {
+                        self?.allFreeSounds.append(sound)
+                    }
+                }
             }
             .store(in: &cancellables)
         

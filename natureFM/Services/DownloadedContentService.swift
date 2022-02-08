@@ -39,4 +39,43 @@ class DownloadedContentService {
             print("Error Fetching Portfolio: \(error)")
         }
     }
+    
+    func saveSound(sound: SoundsModel) {
+        let soundToSave = Sound(context: container.viewContext)
+        soundToSave.name = sound.name
+        soundToSave.audioFile = sound.audioFileLink
+        soundToSave.imageFileLink = sound.imageFileLink
+        soundToSave.freeSong = sound.freeSong
+        soundToSave.duration = Int64(sound.duration)
+        soundToSave.categoryName = sound.categoryName
+        soundToSave.locationName = sound.locationName
+        
+        applyChanges()
+        
+    }
+    
+    private func save() {
+        do {
+            try container.viewContext.save()
+            
+        } catch let error {
+            print("Error saving to Core Data. \(error)")
+        }
+    }
+    
+    
+    private func applyChanges() {
+        save()
+        getSounds()
+    }
+    
+    func deleteSound(sound: SoundsModel) {
+        if let soundToDelete = savedEntities.first(where: { $0.name == sound.name }) {
+            container.viewContext.delete(soundToDelete)
+            applyChanges()
+        }
+        
+        
+    }
+    
 }

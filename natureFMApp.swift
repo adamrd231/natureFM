@@ -8,13 +8,9 @@
 import SwiftUI
 import AppTrackingTransparency
 import StoreKit
-import CoreData
 
 @main
 struct natureFMApp: App {
-    
-    // Core Data Controller
-    let persistenceController = PersistenceController.shared
     
     // Product Id's from App Store Connect
     var productIds = ["natureFMsubscription"]
@@ -41,7 +37,6 @@ struct natureFMApp: App {
     var body: some Scene {
         WindowGroup {
             HomeView(storeManager: storeManager)
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .environmentObject(vm)
                 .onAppear(perform: {
                     SKPaymentQueue.default().add(storeManager)

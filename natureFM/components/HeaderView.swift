@@ -9,19 +9,17 @@ import SwiftUI
 
 struct HeaderView: View {
     var body: some View {
-        ZStack(alignment: .center) {
-            Image("AppIcon")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: UIScreen.main.bounds.width, height: 150)
-                .clipped()
-                
-            Color("pickerColor").frame(width: UIScreen.main.bounds.width, height: 150).clipped()
-            VStack(alignment: .center) {
-                Text("Welcome to Nature FM").font(.title).foregroundColor(.white).bold()
-                Text("Tune in to the great outdoors").font(.subheadline).foregroundColor(.white).bold().padding(.bottom)
-            }
-        }
+        VStack(alignment: .leading) {
+            Text("Welcome to Nature FM")
+                .font(.title)
+                .foregroundColor(Color.theme.titleColor)
+            Text("Tune in to the great outdoors")
+                .font(.subheadline)
+                .foregroundColor(Color.theme.titleColor)
+                .bold()
+                .padding(.bottom)
+        }.padding(.top)
+        
     }
 }
 
