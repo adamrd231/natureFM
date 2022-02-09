@@ -27,6 +27,7 @@
 		66C3CC162703C3DF00438A55 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3CC152703C3DF00438A55 /* CategoryModel.swift */; };
 		66C3CC182703CB2500438A55 /* InAppStorePurchasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3CC172703CB2500438A55 /* InAppStorePurchasesView.swift */; };
 		66C3CC1A2703EE8600438A55 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3CC192703EE8600438A55 /* StoreManager.swift */; };
+		66CE6FF727B36A440031E7FE /* HorizontalScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CE6FF627B36A440031E7FE /* HorizontalScrollView.swift */; };
 		66E43FAC26C6120000AE012E /* natureFMApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E43FAB26C6120000AE012E /* natureFMApp.swift */; };
 		66E43FB026C6120100AE012E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66E43FAF26C6120100AE012E /* Assets.xcassets */; };
 		66E43FB326C6120100AE012E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66E43FB226C6120100AE012E /* Preview Assets.xcassets */; };
@@ -35,6 +36,7 @@
 		66E85FEC270A8924009F1AEF /* GoogleBannerAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E85FEB270A8924009F1AEF /* GoogleBannerAd.swift */; };
 		66E85FF0270E2AFD009F1AEF /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66E85FEF270E2AFD009F1AEF /* StoreKit.framework */; };
 		66E8600E270E60E6009F1AEF /* Stash.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 66E8600C270E60E6009F1AEF /* Stash.xcdatamodeld */; };
+		66F94AE427B31FDC00B50D28 /* CategoryDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F94AE327B31FDC00B50D28 /* CategoryDataService.swift */; };
 		FB482CB34D6A39FBEE55B8B9 /* libPods-natureFM.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2F0247C837BDF923BD78839 /* libPods-natureFM.a */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +60,7 @@
 		66C3CC152703C3DF00438A55 /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		66C3CC172703CB2500438A55 /* InAppStorePurchasesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppStorePurchasesView.swift; sourceTree = "<group>"; };
 		66C3CC192703EE8600438A55 /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
+		66CE6FF627B36A440031E7FE /* HorizontalScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalScrollView.swift; sourceTree = "<group>"; };
 		66E43FA826C6120000AE012E /* natureFM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = natureFM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66E43FAB26C6120000AE012E /* natureFMApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = natureFMApp.swift; sourceTree = "<group>"; };
 		66E43FAF26C6120100AE012E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -68,6 +71,7 @@
 		66E85FEB270A8924009F1AEF /* GoogleBannerAd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleBannerAd.swift; sourceTree = "<group>"; };
 		66E85FEF270E2AFD009F1AEF /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		66E8600D270E60E6009F1AEF /* Stash.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Stash.xcdatamodel; sourceTree = "<group>"; };
+		66F94AE327B31FDC00B50D28 /* CategoryDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDataService.swift; sourceTree = "<group>"; };
 		69100EA3012BDB2D287C73B9 /* Pods-natureFM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-natureFM.release.xcconfig"; path = "Target Support Files/Pods-natureFM/Pods-natureFM.release.xcconfig"; sourceTree = "<group>"; };
 		7866A4F15E09940DE7E1541E /* Pods-natureFM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-natureFM.debug.xcconfig"; path = "Target Support Files/Pods-natureFM/Pods-natureFM.debug.xcconfig"; sourceTree = "<group>"; };
 		B2F0247C837BDF923BD78839 /* libPods-natureFM.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-natureFM.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				66098BFA27B1C622000041D9 /* NatureSoundDataService.swift */,
+				66F94AE327B31FDC00B50D28 /* CategoryDataService.swift */,
 				664E8D8F27B22E9100699C0B /* DownloadedContentService.swift */,
 				664E8D9127B2436B00699C0B /* SoundImageService.swift */,
 			);
@@ -191,6 +196,7 @@
 				6693C4AE2728F06900D4FD17 /* CategoryPickerView.swift */,
 				6693C4AA2728EF4800D4FD17 /* SearchBarView.swift */,
 				6693C4B42734641B00D4FD17 /* LoadingFromAPIView.swift */,
+				66CE6FF627B36A440031E7FE /* HorizontalScrollView.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -374,6 +380,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				66E85FEC270A8924009F1AEF /* GoogleBannerAd.swift in Sources */,
+				66CE6FF727B36A440031E7FE /* HorizontalScrollView.swift in Sources */,
 				66E43FBF26C6146000AE012E /* SoundsModel.swift in Sources */,
 				664E8D9227B2436B00699C0B /* SoundImageService.swift in Sources */,
 				6693C4AD2728EFCE00D4FD17 /* HeaderView.swift in Sources */,
@@ -388,6 +395,7 @@
 				6693C4AB2728EF4800D4FD17 /* SearchBarView.swift in Sources */,
 				667CD62027B2708B007965D7 /* Color.swift in Sources */,
 				66C3CC1A2703EE8600438A55 /* StoreManager.swift in Sources */,
+				66F94AE427B31FDC00B50D28 /* CategoryDataService.swift in Sources */,
 				664E8D9027B22E9100699C0B /* DownloadedContentService.swift in Sources */,
 				66E8600E270E60E6009F1AEF /* Stash.xcdatamodeld in Sources */,
 				66C3CC182703CB2500438A55 /* InAppStorePurchasesView.swift in Sources */,
