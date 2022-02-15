@@ -14,6 +14,11 @@ class HomeViewModel: ObservableObject {
     @Published var portfolioSounds: [SoundsModel] = []
     
     @Published var allFreeSounds: [SoundsModel] = []
+    @Published var allSubscriptionSounds: [SoundsModel] = []
+    
+    @Published var selectedSound: SoundsModel = SoundsModel()
+    
+    @Published var randomSound: SoundsModel = SoundsModel()
     
     @Published var categories: [CategoryModel] = []
     @Published var selectedCategory: String = "All"
@@ -28,22 +33,21 @@ class HomeViewModel: ObservableObject {
         addSubcribers()
     }
     
-    func printAllSounds() {
-        for sound in portfolioSounds {
-            print(sound.name)
-        }
-    }
     
     func addSubcribers() {
         natureSoundDataService.$allSounds
             .sink { [weak self] (returnedSounds) in
-                
                 self?.allSounds = returnedSounds
                 
-                for sound in self!.allSounds {
-                    print("name is \(sound.name)")
+                // Set up arrays for free and subscription sounds
+                for sound in returnedSounds {
+                    print("checking sounds")
+                    if sound.freeSong == true {
+                        self?.allFreeSounds.append(sound)
+                    } else {
+                        self?.allSubscriptionSounds.append(sound)
+                    }
                 }
-                
             }
             .store(in: &cancellables)
         
@@ -51,12 +55,8 @@ class HomeViewModel: ObservableObject {
             .combineLatest($selectedCategory)
             .map(mapDownloadedContent)
             .sink { [weak self] (returnedSounds) in
+                
                 self?.portfolioSounds = returnedSounds
-                for sound in returnedSounds {
-                    if sound.freeSong == true && !(self?.allFreeSounds.contains(sound) ?? false) {
-                        self?.allFreeSounds.append(sound)
-                    }
-                }
             }
             .store(in: &cancellables)
         
@@ -74,8 +74,6 @@ class HomeViewModel: ObservableObject {
         var sortableCategories = returnedCategories
         sortableCategories.sort(by: ({ $0.title < $1.title}))
         
-        
-        
         return sortableCategories
     }
     
@@ -89,7 +87,7 @@ class HomeViewModel: ObservableObject {
             newSound.locationName = sound.locationName ?? ""
             newSound.freeSong = sound.freeSong
             newSound.duration = Int(sound.duration)
-            newSound.audioFileLink = sound.audioFile
+            newSound.audioFileLink = sound.audioFile ?? ""
             newSound.imageFileLink = sound.imageFileLink ?? ""
             
             if newSound.categoryName == currentCategory || currentCategory == "All" {
@@ -97,7 +95,9 @@ class HomeViewModel: ObservableObject {
             }
             
         }
-    
+        
+        sounds.sort(by: { $0.name < $1.name })
+        
         return sounds
     }
     

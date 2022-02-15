@@ -20,7 +20,8 @@ struct SoundImageView: View {
             if let image = vm.image {
                 Image(uiImage: image)
                     .resizable()
-                    .scaledToFit()
+                    .scaledToFill()
+                    
                 
             } else if vm.isLoading {
                ProgressView()

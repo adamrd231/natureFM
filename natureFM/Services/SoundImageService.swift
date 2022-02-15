@@ -22,20 +22,22 @@ class SoundImageService {
     
     init(soundModel: SoundsModel) {
         self.soundModel = soundModel
-        self.imageName = soundModel.imageFileLink
+        self.imageName = soundModel.name
         getSoundImage()
     }
     
     private func getSoundImage() {
         if let savedImage = fileManager.getImage(imageName: imageName, folderName: folderName) {
             image = savedImage
+
         } else {
             downloadSoundImage()
+
         }
     }
     
     private func downloadSoundImage() {
-
+        
         guard let url = URL(string: soundModel.imageFileLink) else { return }
         
         imageSubscription = NetworkingManager.download(url: url)

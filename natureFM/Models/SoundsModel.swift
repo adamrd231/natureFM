@@ -22,10 +22,10 @@ class SoundsModel: ObservableObject, Identifiable, Codable, CustomStringConverti
     }
     
     var name = ""
-    var duration = 0
+    var duration: Int = 0
     var location: Int?
     var category: Int?
-    var audioFileLink:String?
+    var audioFileLink = ""
     var imageFileLink = ""
     var categoryName = ""
     var locationName = ""

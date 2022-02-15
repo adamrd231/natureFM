@@ -32,6 +32,7 @@ class NatureSoundDataService {
                 self.soundSubcription?.cancel()
 
             })
+            
         
         
     }

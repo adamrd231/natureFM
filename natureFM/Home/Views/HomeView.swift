@@ -13,6 +13,8 @@ struct HomeView: View {
     // Store manager variable for in-app purchases
     @StateObject var storeManager: StoreManager
     
+    @State var showingPlayerView: Bool = false
+    
     var body: some View {
             TabView {
                 // First Page
@@ -22,49 +24,36 @@ struct HomeView: View {
                     HeaderView()
                     // ScrollView for main container
                     ScrollView {
+                        VStack(alignment: .leading) {
+                            Text("About Nature FM").bold()
+                            Text("Nature FM is inspired directly from being outside, the sense of calm and serenity can fill you up if you can slow down, close your eyes and listen. Nature is always producing symphonies of beauty. Nature FM collects these sounds, and gathers them here in this app for users to connect to waves, wind, thunderstorms, or a part of the country they are longing for.").font(.caption)
+                        }
+                        .padding(.vertical)
+                        .padding(.trailing)
+                        Divider()
                         // Sections Container
                         VStack(alignment: .leading) {
                             // Section One
-                            Text("All Sounds")
+                            Text("All Free Sounds")
                                 .foregroundColor(Color.theme.titleColor)
                                 .font(.title2)
                                 .fontWeight(.bold)
-                            
-                            HorizontalScrollView()
+                            HorizontalScrollView(soundArray: vm.allFreeSounds)
                                 .environmentObject(vm)
-            
-                            Divider()
-                            VStack(alignment: .leading) {
-                                Text("About Nature FM").bold()
-                                Text("Nature FM is inspired directly from being outside, the sense of calm and serenity can fill you up if you can slow down, close your eyes and listen. Nature is always producing symphonies of beauty. Nature FM collects these sounds, and gathers them here in this app for users to connect to waves, wind, thunderstorms, or a part of the country they are longing for.").font(.caption)
-                            }
-                            .padding()
-                            Divider()
-                            
                             
                             // Section Two
-                            Text("Featured Sound")
-                                .foregroundColor(Color.theme.titleColor)
-                                .font(.title2)
-                                .fontWeight(.bold)
-                            VStack(alignment: .leading) {
-                                if let sound = vm.allSounds.first {
-                                    SoundImageView(sound: sound)
-                                    Text(sound.name)
-                                    Text(sound.locationName)
-                                    Text(sound.categoryName)
-                                }
+                            Divider()
+                            if let randomSound = vm.allSounds.randomElement() {
+                                FeaturedImageLayoutView(sound: randomSound).padding(.bottom)
                             }
-                            .padding(.bottom)
-                            
-                            
-                            
+    
                             // Section Three
-                            Text("Free Sounds")
+                            Divider()
+                            Text("Subscription Required")
                                 .foregroundColor(Color.theme.titleColor)
                                 .font(.title2)
                                 .fontWeight(.bold)
-                            HorizontalScrollView()
+                            HorizontalScrollView(soundArray: vm.allSubscriptionSounds)
                                 .environmentObject(vm)
                             
                             
@@ -83,6 +72,8 @@ struct HomeView: View {
                 // Second Page
                 // -----------
                 VStack(alignment: .leading) {
+                    
+                    
                     ScrollView(.horizontal) {
                         HStack {
                             ForEach(vm.categories) { category in
@@ -99,36 +90,63 @@ struct HomeView: View {
                         .padding()
                     }
                     
+                    HStack {
+                        Text("\(vm.portfolioSounds.count) Titles")
+                            .foregroundColor(Color.theme.titleColor)
+                            .fontWeight(.bold)
+                        Spacer()
+
+                    }.padding(.horizontal)
                     
+                    Divider()
                     
                     List {
                         ForEach(vm.portfolioSounds) { sound in
                             HStack {
-                                SoundImageView(sound: sound)
-                                    .frame(width: 100, height: 100)
-                                VStack(alignment: .leading) {
-                                    Text(sound.name)
-                                    Text(sound.locationName)
-                                    Text(sound.categoryName)
+                                HStack(spacing: 20) {
+                                    SoundImageView(sound: sound)
+                                        .frame(width: 75, height: 75)
+                                    
+                                    VStack(alignment: .leading, spacing: 2) {
+                                        Text(sound.name)
+                                            .font(.subheadline)
+                                            .fontWeight(.bold)
+                                        Text(sound.locationName)
+                                            .font(.footnote)
+                                        Text(sound.categoryName)
+                                            .font(.footnote)
+                                        HStack(spacing: 5) {
+                                            Text("Length:")
+                                                .font(.footnote)
+                                            Text(sound.duration.returnClockFormatAsString())
+                                                .font(.footnote)
+                                        }
+                                        
+                                    }
+                                }
+                                .onTapGesture {
+                                    self.vm.selectedSound = sound
+                                    print(vm.selectedSound)
+                                    showingPlayerView.toggle()
                                 }
                                 Spacer()
-                                Button(action: {
-                                    vm.downloadedContentService.deleteSound(sound: sound)
-                                }) {
-                                    Image(systemName: "delete.left.fill")
-                                        .resizable()
-                                        .frame(width: 25, height: 25)
-                                }
+                                LibraryMenuView(sound: sound)
+                               
                             }
+                            
                         }
                     }
-
+                    .sheet(isPresented: $showingPlayerView, content: {
+                        SoundPlayerView(sound: vm.selectedSound)
+                    })
+                    Spacer()
                 }
                 .padding()
                 .tabItem { VStack {
                     Text("LIBRARY")
                     Image(systemName: "music.note.house")
                 }}
+                
                 
                 
                 // Third Page
@@ -214,7 +232,9 @@ struct HomeView: View {
     }
 }
 
+extension HomeView {
 
+}
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
