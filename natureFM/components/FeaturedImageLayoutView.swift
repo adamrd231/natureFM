@@ -21,6 +21,7 @@ struct FeaturedImageLayoutView: View {
             VStack(alignment: .leading) {
                       
                 SoundImageView(sound: sound)
+                    .shadow(radius: 3)
         
                 HStack {
                     VStack(alignment: .leading) {
@@ -32,9 +33,12 @@ struct FeaturedImageLayoutView: View {
                         Text(sound.categoryName)
                             .font(.caption)
                         Text(sound.freeSong ? "Free" : "Subscription")
+                            .padding(.horizontal, 3)
                             .background(sound.freeSong ? Color.theme.customYellow : Color.theme.customBlue )
+                            
                             .font(.caption)
                     }
+                    .foregroundColor(Color.theme.titleColor)
                     Spacer()
                     Button(action: {
                         vm.downloadedContentService.saveSound(sound: sound)

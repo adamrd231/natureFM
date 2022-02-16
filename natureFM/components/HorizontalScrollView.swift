@@ -11,6 +11,9 @@ struct HorizontalScrollView: View {
     
     @EnvironmentObject var vm: HomeViewModel
     
+    // Store manager variable for in-app purchases
+    @State var storeManager: StoreManager
+    
     var soundArray: [SoundsModel]
 
     var body: some View {
@@ -22,11 +25,19 @@ struct HorizontalScrollView: View {
                             SoundImageView(sound: sound)
                                 .frame(width: 200, height: 150)
                                 .clipped()
+                                .shadow(radius: 3)
                                
                             HStack {
         
                                 Button(action: {
-                                    vm.downloadedContentService.saveSound(sound: sound)
+                                    // Before saving sound, check if its a free sound or user has membership
+                                    if sound.freeSong || storeManager.purchasedRemoveAds {
+                                        print("Downloadiiiiing")
+                                        vm.downloadedContentService.saveSound(sound: sound)
+                                    } else {
+                                        print("Cant Download")
+                                    }
+                                   
                                 }) {
                                     Image(systemName: "arrow.down.circle.fill")
                                         .resizable()
@@ -43,6 +54,7 @@ struct HorizontalScrollView: View {
                                         
                                    
                                 }
+                                .foregroundColor(Color.theme.titleColor)
                                 Spacer()
                             }
                         }.padding(.trailing, 3)
@@ -55,6 +67,6 @@ struct HorizontalScrollView: View {
 
 struct HorizontalScrollView_Previews: PreviewProvider {
     static var previews: some View {
-        HorizontalScrollView(soundArray: [SoundsModel(), SoundsModel()])
+        HorizontalScrollView(storeManager: StoreManager(), soundArray: [SoundsModel(), SoundsModel()])
     }
 }

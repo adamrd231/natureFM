@@ -35,9 +35,11 @@ final private class BannerVC: UIViewControllerRepresentable  {
 struct Banner:View{
     var body: some View{
         HStack(alignment: .center) {
+            Spacer()
             BannerVC()
                 .background(Color(.systemGray6))
                 .frame(width: 320, height: 60, alignment: .center)
+            Spacer()
         }
     }
 }

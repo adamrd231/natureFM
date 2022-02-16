@@ -34,6 +34,7 @@ struct natureFMApp: App {
         
     }
     
+    
     var body: some Scene {
         WindowGroup {
             HomeView(storeManager: storeManager)

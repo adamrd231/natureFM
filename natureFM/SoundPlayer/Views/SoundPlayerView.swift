@@ -16,9 +16,9 @@ struct SoundPlayerView: View {
 
     @StateObject var playerVM: SoundPlayerViewModel
     
-    @State var soundIsPlaying:Bool = false
-    @State var currentTime: Int = 0
-    @State var timer = Timer.publish(every: 1.0, on: .main, in: .common)
+    @State var currentTime: Double = 0
+    @State var sliderCurrentTime: Double = 0
+    
     
     
     init(sound: SoundsModel) {
@@ -26,97 +26,108 @@ struct SoundPlayerView: View {
     }
     
     func returnRemainingTime() -> Text {
-        let remainingTime = Int(playerVM.audioPlayer.duration) - currentTime
-        return Text(remainingTime.returnClockFormatAsString())
+        let remainingTime = (playerVM.audioPlayer.duration) - currentTime
+        return Text("Time Remaining: \(remainingTime.returnClockFormatAsString())")
     }
     
     var body: some View {
         GeometryReader { geo in
             VStack {
                 HStack {
+                    Text(playerVM.sound.name)
+                        .font(.title)
+                        .fontWeight(.bold)
                     Spacer()
                     Button(action: {
                         presentationMode.wrappedValue.dismiss()
                     }) {
                         Image(systemName: "chevron.down")
-                    }.foregroundColor(Color.theme.customBlue)
+                    }
                     
-                }.padding()
+                    .foregroundColor(Color.theme.customBlue)
+                    
+                }.padding(.horizontal).padding(.top)
                 
-                SoundImageView(sound: playerVM.sound)
-                    .frame(width: UIScreen.main.bounds.width)
-                Text(playerVM.sound.name)
-                    .font(.callout)
-                    .fontWeight(.bold)
-                    .padding(.top)
+                VStack {
+                    SoundImageView(sound: playerVM.sound)
+                        
+                   
+
+                }.frame(width: geo.size.width, height: geo.size.height * 0.55)
+                
                 
                 
                 // Sound Player tracker.
                 VStack {
-                    
+                    if let totalTime = Double(playerVM.audioPlayer.duration) {
+                        Slider(value: $currentTime, in: 0...totalTime, onEditingChanged: { val in
+                            print("Value changed \(val)")
+                            playerVM.audioPlayer.currentTime = currentTime
+                        })
+                        .accentColor(Color.theme.customBlue)
+                        .onChange(of: totalTime, perform: { value in
+                            print("tapped")
+                        })
                    
-                    
+                    }
                     HStack {
                         Text("\(currentTime.returnClockFormatAsString())")
+                            
                         Spacer()
                         returnRemainingTime()
                         Spacer()
                         Text("\(playerVM.audioPlayer.duration.returnClockFormatAsString())")
                         
-                    }.padding()
+                    }.font(.caption)
                 }
-                .onReceive(timer, perform: { _ in
-                    self.currentTime = Int(playerVM.audioPlayer.currentTime)
+                .padding(.horizontal)
+                .onReceive(playerVM.timer, perform: { _ in
+                    self.currentTime = playerVM.audioPlayer.currentTime
+       
                 })
                
                 
                 
                 HStack(spacing: 25) {
                     Button(action: {
-                        playerVM.audioPlayer.currentTime -= 30
-                    }) {
-                        Image(systemName: "gobackward.30")
-                            .resizable()
-                            .frame(width: 40, height: 40)
-                    }
-                    Button(action: {
-                        if soundIsPlaying {
-                            playerVM.audioPlayer.pause()
-                            timer.connect().cancel()
-                            soundIsPlaying = false
+                        if playerVM.audioPlayer.currentTime < 30 {
+                            playerVM.audioPlayer.currentTime = 0
                         } else {
-                            self.timer = Timer.publish(every: 1, on: .main, in: .common)
-                            playerVM.audioPlayer.play()
-                            timer.connect()
-                            soundIsPlaying = true
+                            playerVM.audioPlayer.currentTime -= 30
                         }
                         
                     }) {
-                        if soundIsPlaying {
-                            Image(systemName: "pause.fill")
-                                .resizable()
-                                .frame(width: 40, height: 40)
-                            
-                        } else {
-                            Image(systemName: "play.fill")
-                                .resizable()
-                                .frame(width: 40, height: 40)
-                        }
-                       
+                        Image(systemName: "gobackward.30")
+                            .resizable()
+                            .frame(width: 35, height: 35)
                     }
+                    
                     Button(action: {
-                        playerVM.audioPlayer.currentTime += 30
+                        playerVM.startStopAudioPlayer()
+                    }) {
+                        playerVM.audioIsPlaying ? Image(systemName: "pause.circle.fill").resizable() : Image(systemName: "play.circle.fill").resizable()
+                        
+                    }
+                    .frame(width: 50, height: 50)
+
+                    Button(action: {
+                        self.currentTime = 0
+                        playerVM.skipForwardThirtySeconds()
+                        
                     }) {
                         Image(systemName: "goforward.30")
                             .resizable()
-                            .frame(width: 40, height: 40)
+                            .frame(width: 35, height: 35)
                     }
                 }.foregroundColor(Color.theme.customBlue)
                 
                 Spacer()
+                Banner()
             }
             
-        }
+        }.onDisappear(perform: {
+            playerVM.stopAudioPlayer()
+        })
         
        
     }

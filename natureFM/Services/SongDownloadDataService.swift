@@ -60,6 +60,8 @@ class SongDataDownloadService {
                 guard let self = self, let downloadedData = returnedData else { return }
                 self.downloadedSound = downloadedData
                 self.songSubscription?.cancel()
+                
+                // Update this to not save if playing from main screen
                 self.fileManager.saveSound(soundData: downloadedData, soundName: self.soundName, folderName: self.folderName)
             })
           
