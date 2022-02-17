@@ -57,10 +57,16 @@ struct ProfileView: View {
                             .cornerRadius(20)
                             .clipped()
                             
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("This app was developed by Adam Reed of rdConcepts. It uses an MVVM design pattern and uses Combine to manage data. I also built the custom API (Django hosted on Heroku w/ Amazon S3) in order to host the songs and allow for new content to be uploaded without a new app submission, or making the user store all of the content on their phones.")
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Thanks for using my app.")
+                                .fontWeight(.medium)
+                            
+                            Text("This app was developed by Adam Reed of rdConcepts. It uses an MVVM design pattern and uses Combine, CoreData, and FileManager to manage data. Frontend design for this app is developed with SwiftUI.")
                                 .font(.callout)
-                            Text("Please visit my website, make an in-app purchase or download some of my other apps on the App Store.").font(.caption)
+                            Text("The backend API was built using Python 3, the Django web framework, hosted on Heroku, and supported by Amazon S3 Storages to manage image and audio file hosting. This project made sense to have it's own API to store and serve content, so user's can download only the things they want onto their device. This also sets up the possibilty of an android or web-app versions that can interact with the same data set.")
+                                .font(.callout)
+                            Text("Please visit my website, make an in-app purchase or download some of my other apps on the App Store.")
+                                .font(.callout)
                             
         
                         }
@@ -87,16 +93,9 @@ struct ProfileView: View {
                         
                     }.padding()
                 }
-                Section(header: Text("Links")) {
+                Section(header: Text("Github")) {
                     VStack(alignment: .leading) {
-                        VStack(alignment: .leading) {
-                            Text("My Social Media Links.")
-                            Text("Check out what I am up to recently.")
-                                .font(.caption)
-                        }
-                        
                         if colorScheme == .dark {
-       
                             Link(destination: URL(string: "https://github.com/adamrd231")!, label: {
                                 Image("github-light")
                                     .resizable()
@@ -104,22 +103,77 @@ struct ProfileView: View {
                                     .frame(width: 30, height: 30)
                             })
                             
-                            Link(destination: URL(string: "https://rdconcepts.design/")!, label: {
-                                Image("github-light")
+                        } else {
+                            Link(destination: URL(string: "https://github.com/adamrd231")!, label: {
+                                Image("github-dark")
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 30, height: 30)
                             })
-                        
-                            
-                        } else {
-                            Image("github-dark")
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 30, height: 30)
                         }
                         
-           
+                        VStack(alignment: .leading) {
+                            Text("Dev Projects")
+                            Text("Swift, iOS, Xcode, Python, React, HTML, CSS, Javascript.")
+                                
+                                .font(.caption)
+                        }
+
+                    }
+                    .padding()
+                }
+                
+                Section(header: Text("Website")) {
+                    VStack(alignment: .leading) {
+                        if colorScheme == .dark {
+                            Link(destination: URL(string: "https://rdconcepts.design/")!, label: {
+                                Image("web-light")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 30, height: 30)
+                            })
+                        } else {
+                            Link(destination: URL(string: "https://rdconcepts.design/")!, label: {
+                                Image("web-dark")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 30, height: 30)
+                            })
+                        }
+                        VStack(alignment: .leading) {
+                            Text("Portfolio Website")
+                            Text("My recent projects and blogs, built with React.js, backend hosted on Heroku and built with Python and Django.")
+                                
+                                .font(.caption)
+                                
+                        }
+                    }
+                    .padding()
+                }
+                
+                Section(header: Text("rdConcepts on App Store")) {
+                    VStack(alignment: .leading) {
+                        if colorScheme == .dark {
+                            Link(destination: URL(string: "https://apps.apple.com/us/developer/rd-concepts/id1293498470")!, label: {
+                                Image("app-store-light")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 30, height: 30)
+                            })
+                        } else {
+                            Link(destination: URL(string: "https://apps.apple.com/us/developer/rd-concepts/id1293498470")!, label: {
+                                Image("app-store-dark")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 30, height: 30)
+                            })
+                        }
+                        VStack(alignment: .leading) {
+                            Text("All Apps I've Developed.")
+                            Text("I have launched eight applications to the App Store, calculators, workout timers, crypto trading games and more.")
+                                .font(.caption)
+                                
+                        }
                     }
                     .padding()
                 }

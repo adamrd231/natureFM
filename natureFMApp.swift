@@ -20,30 +20,42 @@ struct natureFMApp: App {
     // Store Manager object to make In App Purchases
     @StateObject var storeManager = StoreManager()
     
-    func requestIDFA() {
-        if #available(iOS 14, *) {
-            ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
-              // Tracking authorization completed. // Permission Granted
-                print("Status \(status.self)")
-            })
-            
-        } else {
-            // iOS 14 is not installed yet
-            print("Att: \(ATTrackingManager.trackingAuthorizationStatus)")
-        }
-        
+    @State private var showLaunchView:Bool = true
+    
+    // App Tracking Transparency - Request permission and play ads on open only
+    private func requestIDFA() {
+      ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
+        // Tracking authorization completed. Start loading ads here.
+ 
+      })
     }
     
     
     var body: some Scene {
         WindowGroup {
-            HomeView(storeManager: storeManager)
-                .environmentObject(vm)
-                .onAppear(perform: {
-                    SKPaymentQueue.default().add(storeManager)
-                    storeManager.getProducts(productIDs: productIds) 
+            ZStack {
+                HomeView(storeManager: storeManager)
+                    .environmentObject(vm)
+                    .onAppear(perform: {
+                        SKPaymentQueue.default().add(storeManager)
+                        storeManager.getProducts(productIDs: productIds)
+                    })
+                
+                ZStack {
+                    if showLaunchView {
+                        LaunchScreenView(showLaunchView: $showLaunchView)
+                            .transition(.move(edge: .leading))
+                            
+                    }
+                }
+                .zIndex(2.0)
+            }
+            .onAppear(perform: {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     requestIDFA()
-                })
+                }
+            })
+            
         }
     }
 }

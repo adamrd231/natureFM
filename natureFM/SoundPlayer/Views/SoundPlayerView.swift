@@ -16,13 +16,14 @@ struct SoundPlayerView: View {
 
     @StateObject var playerVM: SoundPlayerViewModel
     
+    var purchasedRemoveAds: Bool
     @State var currentTime: Double = 0
     @State var sliderCurrentTime: Double = 0
     
     
-    
-    init(sound: SoundsModel) {
+    init(sound: SoundsModel, purchasedRemoveAds: Bool) {
         _playerVM = StateObject(wrappedValue: SoundPlayerViewModel(sound: sound))
+        self.purchasedRemoveAds = purchasedRemoveAds
     }
     
     func returnRemainingTime() -> Text {
@@ -51,9 +52,12 @@ struct SoundPlayerView: View {
                 VStack {
                     SoundImageView(sound: playerVM.sound)
                         
+                        .frame(width: geo.size.width, height: geo.size.height * 0.55)
+                        .clipped()
                    
 
-                }.frame(width: geo.size.width, height: geo.size.height * 0.55)
+                }
+                
                 
                 
                 
@@ -122,7 +126,9 @@ struct SoundPlayerView: View {
                 }.foregroundColor(Color.theme.customBlue)
                 
                 Spacer()
-                Banner()
+                if purchasedRemoveAds != true {
+                    Banner()
+                }
             }
             
         }.onDisappear(perform: {
@@ -135,6 +141,6 @@ struct SoundPlayerView: View {
 
 struct SoundPlayerView_Previews: PreviewProvider {
     static var previews: some View {
-        SoundPlayerView(sound: SoundsModel())
+        SoundPlayerView(sound: SoundsModel(), purchasedRemoveAds: true)
     }
 }

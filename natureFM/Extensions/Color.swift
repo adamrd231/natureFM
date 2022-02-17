@@ -18,5 +18,6 @@ struct ColorTheme {
     let titleColor = Color("titleColor")
     let customBlue = Color("CustomBlue")
     let customYellow = Color("CustomYellow")
+    let backgroundColor = Color("BackgroundColor")
     
 }

@@ -45,9 +45,8 @@ struct InAppStorePurchasesView: View {
                             if storeManager.purchasedRemoveAds == true {
                                 Text("Purchased")
                             } else {
-                                Text("UNLOCK IT ALL")
-                                    .bold()
-                                    .frame(minWidth: 50, idealWidth: .infinity, maxWidth: .infinity, minHeight: 15, idealHeight: 25, maxHeight: 35, alignment: .center)
+                                Text("Get NatureFM Subscription")
+                                    .fontWeight(.medium)
                                     .padding()
                                     .background(Color(.systemGray))
                                     .foregroundColor(.white)

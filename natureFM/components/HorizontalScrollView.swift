@@ -15,6 +15,13 @@ struct HorizontalScrollView: View {
     @State var storeManager: StoreManager
     
     var soundArray: [SoundsModel]
+    
+    @State private var showingAlert: Bool = false
+    
+    var subscriptionNotPurchasedAlert = Alert(
+        title: Text("Not Available."),
+        message: Text("You must have a subscription to access this premium content."),
+        dismissButton: .default(Text("Done")))
 
     var body: some View {
         HStack(spacing: 50) {
@@ -36,13 +43,18 @@ struct HorizontalScrollView: View {
                                         vm.downloadedContentService.saveSound(sound: sound)
                                     } else {
                                         print("Cant Download")
+                                        showingAlert = true
+                                        
                                     }
+                                    
                                    
                                 }) {
                                     Image(systemName: "arrow.down.circle.fill")
                                         .resizable()
                                         .frame(width: 25, height: 25)
-                                }.foregroundColor(Color.theme.titleColor)
+                                }
+                                
+                                .foregroundColor(Color.theme.titleColor)
                                 
                                 VStack(alignment: .leading) {
                                     Text(sound.name).font(.subheadline)
@@ -54,6 +66,11 @@ struct HorizontalScrollView: View {
                                         
                                    
                                 }
+                                .alert(isPresented: $showingAlert, content: {
+                                    // decide which alert to show
+                                   return subscriptionNotPurchasedAlert
+                                    
+                                })
                                 .foregroundColor(Color.theme.titleColor)
                                 Spacer()
                             }

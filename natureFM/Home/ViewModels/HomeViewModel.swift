@@ -41,7 +41,7 @@ class HomeViewModel: ObservableObject {
                 
                 // Set up arrays for free and subscription sounds
                 for sound in returnedSounds {
-                    print("checking sounds")
+           
                     if sound.freeSong == true {
                         self?.allFreeSounds.append(sound)
                     } else {

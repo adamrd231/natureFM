@@ -6,8 +6,51 @@
 //
 
 import SwiftUI
+import GoogleMobileAds
 
 struct HomeView: View {
+    
+    @State var InterstitialAdCounter = 0 {
+        didSet {
+            if InterstitialAdCounter >= 5 {
+                if storeManager.purchasedRemoveAds != true {
+                    loadInterstitialAd()
+                    InterstitialAdCounter = 0
+                }
+            }
+        }
+    }
+    
+    @State var interstitial: GADInterstitialAd?
+
+    #if targetEnvironment(simulator)
+        // Test Ad
+        var googleBannerInterstitialAdID = "ca-app-pub-3940256099942544/1033173712"
+    #else
+        // Real Ad
+        var googleBannerInterstitialAdID = "ca-app-pub-4186253562269967/5364863972"
+    #endif
+    
+    // App Tracking Transparency - Request permission and play ads on open only
+    private func loadInterstitialAd() {
+
+        // Tracking authorization completed. Start loading ads here.
+        let request = GADRequest()
+            GADInterstitialAd.load(
+                withAdUnitID: googleBannerInterstitialAdID,
+                request: request,
+                completionHandler: { [self] ad, error in
+                    
+                    // Check if there is an error
+                    if let error = error {
+                        return
+                    }
+                    interstitial = ad
+                    let root = UIApplication.shared.windows.first?.rootViewController
+                    self.interstitial?.present(fromRootViewController: root!)
+
+                })
+      }
 
     // Main viewmodel for app - handles api calls, data storage, modeling JSON, etc
     @EnvironmentObject var vm: HomeViewModel
@@ -23,21 +66,38 @@ struct HomeView: View {
             // Home View
             firstPage
                 .tabItem { firstPageTabItem }
+                .onAppear(perform: {
+                    InterstitialAdCounter += 1
+                    print(InterstitialAdCounter)
+                })
             
             // Library View
             secondPage
                 .tabItem { secondPageTabItem }
+                .onAppear(perform: {
+                    InterstitialAdCounter += 1
+                    print(InterstitialAdCounter)
+                })
             
             // In App Purchases
             InAppStorePurchasesView(storeManager: storeManager)
                 .tabItem { thirdPageTabItem }
-
+                .onAppear(perform: {
+                    InterstitialAdCounter += 1
+                    print(InterstitialAdCounter)
+                })
+                
             // User profile and App Information
             ProfileView(storeManager: storeManager)
                 .environmentObject(vm)
                 .tabItem { fourthPageTabItem }
+                .onAppear(perform: {
+                    InterstitialAdCounter += 1
+                    print(InterstitialAdCounter)
+                })
         }
         .navigationViewStyle(StackNavigationViewStyle())
+
     }
 }
 
@@ -85,7 +145,9 @@ extension HomeView {
                         .environmentObject(vm)
                 }
             }
-            Banner()
+            if storeManager.purchasedRemoveAds != true {
+                Banner()
+            }
         }
         .padding()
     }
@@ -158,9 +220,12 @@ extension HomeView {
                 }
             }
             .sheet(isPresented: $showingPlayerView, content: {
-                SoundPlayerView(sound: vm.selectedSound)
+                SoundPlayerView(sound: vm.selectedSound, purchasedRemoveAds: storeManager.purchasedRemoveAds)
             })
             Spacer()
+            if storeManager.purchasedRemoveAds != true {
+                Banner()
+            }
         }
         .padding(.vertical)
     }
@@ -179,6 +244,7 @@ extension HomeView {
             Text("LIBRARY")
             Image(systemName: "music.note.house")
         }
+
     }
     
     var thirdPageTabItem: some View {
@@ -193,6 +259,7 @@ extension HomeView {
             Text("Profile")
             Image(systemName: "person.crop.circle")
         }
+        
     }
     
 }
