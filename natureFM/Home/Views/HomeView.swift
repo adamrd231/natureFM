@@ -23,13 +23,13 @@ struct HomeView: View {
     
     @State var interstitial: GADInterstitialAd?
 
-    #if targetEnvironment(simulator)
+
         // Test Ad
-        var googleBannerInterstitialAdID = "ca-app-pub-3940256099942544/1033173712"
-    #else
+//        var googleBannerInterstitialAdID = "ca-app-pub-3940256099942544/1033173712"
+
         // Real Ad
         var googleBannerInterstitialAdID = "ca-app-pub-4186253562269967/5364863972"
-    #endif
+
     
     // App Tracking Transparency - Request permission and play ads on open only
     private func loadInterstitialAd() {
@@ -145,9 +145,6 @@ extension HomeView {
                         .environmentObject(vm)
                 }
             }
-            if storeManager.purchasedRemoveAds != true {
-                Banner()
-            }
         }
         .padding()
     }
@@ -222,10 +219,6 @@ extension HomeView {
             .sheet(isPresented: $showingPlayerView, content: {
                 SoundPlayerView(sound: vm.selectedSound, purchasedRemoveAds: storeManager.purchasedRemoveAds)
             })
-            Spacer()
-            if storeManager.purchasedRemoveAds != true {
-                Banner()
-            }
         }
         .padding(.vertical)
     }
