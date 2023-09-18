@@ -1,10 +1,3 @@
-//
-//  NatureSoundDataService.swift
-//  natureFM
-//
-//  Created by Adam Reed on 2/7/22.
-//
-
 import Foundation
 import Combine
 

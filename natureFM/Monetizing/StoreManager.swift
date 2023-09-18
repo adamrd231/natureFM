@@ -1,15 +1,10 @@
-//
-//  StoreManager.swift
-//  adamsCalc
-//
-//  Created by Adam Reed on 6/29/21.
-//
-
 import Foundation
 import StoreKit
 import CoreData
 
 class StoreManager: NSObject, ObservableObject, SKProductsRequestDelegate, SKPaymentTransactionObserver {
+    
+    
     
     @Published var myProducts = [SKProduct]()
     var request: SKProductsRequest!

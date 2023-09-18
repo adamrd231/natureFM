@@ -1,9 +1,11 @@
+//  App: Nature FM
+//  Description: natureFM is an app for listening to the great outdoors wherever you go.
 //
-//  natureFMApp.swift
-//  natureFM
+//  Stack:
+//  Backend developed by Adam Reed using Django deployed on Heroku
+//  Developed using swift + swiftUI
 //
 //  Created by Adam Reed on 8/12/21.
-//
 
 import SwiftUI
 import AppTrackingTransparency
