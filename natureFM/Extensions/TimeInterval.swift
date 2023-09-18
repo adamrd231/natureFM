@@ -1,10 +1,3 @@
-//
-//  TimeInterval.swift
-//  natureFM
-//
-//  Created by Adam Reed on 2/11/22.
-//
-
 import Foundation
 import SwiftUI
 

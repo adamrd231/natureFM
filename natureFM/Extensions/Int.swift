@@ -1,10 +1,3 @@
-//
-//  Double.swift
-//  natureFM
-//
-//  Created by Adam Reed on 2/9/22.
-//
-
 import Foundation
 
 extension Int {

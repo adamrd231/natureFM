@@ -1,10 +1,3 @@
-//
-//  LaunchScreenView.swift
-//  natureFM
-//
-//  Created by Adam Reed on 2/16/22.
-//
-
 import SwiftUI
 
 struct LaunchScreenView: View {
