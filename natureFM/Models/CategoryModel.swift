@@ -1,4 +1,3 @@
-
 import Foundation
 
 class CategoryModel: ObservableObject, Identifiable, Codable, CustomStringConvertible {

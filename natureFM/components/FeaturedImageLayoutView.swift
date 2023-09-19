@@ -1,10 +1,3 @@
-//
-//  FeaturedImageLayoutView.swift
-//  natureFM
-//
-//  Created by Adam Reed on 2/14/22.
-//
-
 import SwiftUI
 
 struct FeaturedImageLayoutView: View {

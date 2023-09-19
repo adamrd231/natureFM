@@ -1,10 +1,3 @@
-//
-//  LoadingFromAPIView.swift
-//  natureFM
-//
-//  Created by Adam Reed on 11/4/21.
-//
-
 import SwiftUI
 
 struct LoadingFromAPIView: View {

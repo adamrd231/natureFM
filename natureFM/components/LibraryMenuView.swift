@@ -1,13 +1,4 @@
-//
-//  LibraryMenuView.swift
-//  natureFM
-//
-//  Created by Adam Reed on 2/9/22.
-//
-
 import SwiftUI
-
-
 
 struct LibraryMenuView: View {
     

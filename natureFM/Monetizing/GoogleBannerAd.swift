@@ -1,10 +1,3 @@
-//
-//  GoogleBannerAd.swift
-//  natureFM
-//
-//  Created by Adam Reed on 10/3/21.
-//
-
 import SwiftUI
 import GoogleMobileAds
 import UIKit

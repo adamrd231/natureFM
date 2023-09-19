@@ -1,10 +1,3 @@
-//
-//  HeaderView.swift
-//  natureFM
-//
-//  Created by Adam Reed on 10/26/21.
-//
-
 import SwiftUI
 
 struct HeaderView: View {

@@ -1,10 +1,3 @@
-//
-//  HorizontalScrollView.swift
-//  natureFM
-//
-//  Created by Adam Reed on 2/8/22.
-//
-
 import SwiftUI
 
 struct HorizontalScrollView: View {

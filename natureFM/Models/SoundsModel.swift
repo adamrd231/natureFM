@@ -1,10 +1,3 @@
-//
-//  SoundsModel.swift
-//  natureFM
-//
-//  Created by Adam Reed on 8/12/21.
-//  This class SoundsModel is used to create swift objects from a JSON database
-
 import Foundation
 
 class SoundsModel: ObservableObject, Identifiable, Codable, CustomStringConvertible, Comparable {

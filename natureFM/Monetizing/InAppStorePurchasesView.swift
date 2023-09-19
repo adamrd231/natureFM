@@ -1,18 +1,9 @@
-//
-//  InAppStorePurchasesView.swift
-//  edibly
-//
-//  Created by Adam Reed on 9/11/21.
-//
-
 import SwiftUI
-
 
 struct InAppStorePurchasesView: View {
     
     // Store Manager object for making in app purchases
     @StateObject var storeManager: StoreManager
-    
     
     var body: some View {
 
