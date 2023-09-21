@@ -150,7 +150,6 @@ extension HomeView {
                         }
                         Spacer()
                         LibraryMenuView(sound: sound)
-                       
                     }
                     
                 }
@@ -161,10 +160,6 @@ extension HomeView {
         }
         .padding(.vertical)
     }
-    
-    
-    
-    
 }
 
 struct HomeView_Previews: PreviewProvider {
