@@ -2,10 +2,8 @@ import SwiftUI
 import GoogleMobileAds
 
 struct HomeView: View {
-
-    // Main viewmodel for app - handles api calls, data storage, modeling JSON, etc
     @EnvironmentObject var vm: HomeViewModel
-    
+
     // Store manager variable for in-app purchases
     @State var storeManager: StoreManager
     
@@ -16,31 +14,33 @@ struct HomeView: View {
         TabView {
             // Home View
             firstPage
-                .tabItem { firstPageTabItem }
-                .onAppear(perform: {
-                    InterstitialAdCounter += 1
-                    print(InterstitialAdCounter)
-                })
+                .tabItem {
+                    TabItemView(text: "Home", image: "antenna.radiowaves.left.and.right")
+                }
             
             // Library View
             secondPage
-                .tabItem { secondPageTabItem }
+                .tabItem {
+                    TabItemView(text: "Library", image: "music.note.house")
+                }
             
             // In App Purchases
             InAppStorePurchasesView(storeManager: storeManager)
-                .tabItem { thirdPageTabItem }
+                .tabItem {
+                    TabItemView(text: "In-App Purchases", image: "creditcard")
+                }
                 
             // User profile and App Information
             ProfileView(storeManager: storeManager)
                 .environmentObject(vm)
-                .tabItem { fourthPageTabItem }
+                .tabItem {
+                    TabItemView(text: "Profile", image: "person.crop.circle")
+                }
         }
         .navigationViewStyle(StackNavigationViewStyle())
 
     }
 }
-
-
 
 extension HomeView {
     
@@ -163,36 +163,7 @@ extension HomeView {
     }
     
     
-    // MARK: Tab Items
-    var firstPageTabItem: some View {
-        VStack {
-            Text("NATURE FM")
-            Image(systemName: "antenna.radiowaves.left.and.right")
-        }
-    }
     
-    var secondPageTabItem: some View {
-        VStack {
-            Text("LIBRARY")
-            Image(systemName: "music.note.house")
-        }
-
-    }
-    
-    var thirdPageTabItem: some View {
-        VStack {
-            Text("In-App Purchases")
-            Image(systemName: "creditcard")
-        }
-    }
-    
-    var fourthPageTabItem: some View {
-        VStack {
-            Text("Profile")
-            Image(systemName: "person.crop.circle")
-        }
-        
-    }
     
 }
 
