@@ -16,12 +16,28 @@ struct SoundImageView: View {
                     .scaledToFill()
                     
                 
-            } else if vm.isLoading {
-               ProgressView()
-            } else {
-                Image(systemName: "questionmark")
-                   
+            } else  {
+                ZStack {
+                    ProgressView()
+                    Rectangle()
+                        
+                        .foregroundColor(.gray)
+                        .opacity(0.2)
+                }
+                .frame(width: 117, height: 100)
             }
+               
+//            } else {
+//                ZStack {
+//                    Image(systemName: "questionmark")
+//                     Rectangle()
+//                         .frame(width: 117, height: 100)
+//                         .foregroundColor(.gray)
+//                         .opacity(0.2)
+//                }
+//
+//
+//            }
         }
     }
 }

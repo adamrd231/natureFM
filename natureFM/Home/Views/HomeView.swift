@@ -60,37 +60,32 @@ extension HomeView {
                     .padding(.vertical)
                     .padding(.trailing)
        
-                    if vm.allFreeSounds.count == 0 {
-                        ScrollView {
-                            Text("Loading...")
+                    // Sections Container
+                    VStack(alignment: .leading) {
+                        // Section One
+                        Text("All Free Sounds")
+                            .foregroundColor(Color.theme.titleColor)
+                            .font(.title2)
+                            .fontWeight(.bold)
+                        HorizontalScrollView(storeManager: storeManager, soundArray: vm.allFreeSounds)
+                            .environmentObject(vm)
+                        
+                        // Section Two
+                        Divider()
+                        if let randomSound = vm.allSounds.randomElement() {
+                            FeaturedImageLayoutView(sound: randomSound).padding(.bottom)
                         }
-                    } else {
-                        // Sections Container
-                        VStack(alignment: .leading) {
-                            // Section One
-                            Text("All Free Sounds")
-                                .foregroundColor(Color.theme.titleColor)
-                                .font(.title2)
-                                .fontWeight(.bold)
-                            HorizontalScrollView(storeManager: storeManager, soundArray: vm.allFreeSounds)
-                                .environmentObject(vm)
-                            
-                            // Section Two
-                            Divider()
-                            if let randomSound = vm.allSounds.randomElement() {
-                                FeaturedImageLayoutView(sound: randomSound).padding(.bottom)
-                            }
 
-                            // Section Three
-                            Divider()
-                            Text("Subscription Required")
-                                .foregroundColor(Color.theme.titleColor)
-                                .font(.title2)
-                                .fontWeight(.bold)
-                            HorizontalScrollView(storeManager: storeManager, soundArray: vm.allSubscriptionSounds)
-                                .environmentObject(vm)
-                        }
-                }
+                        // Section Three
+                        Divider()
+                        Text("Subscription Required")
+                            .foregroundColor(Color.theme.titleColor)
+                            .font(.title2)
+                            .fontWeight(.bold)
+                        HorizontalScrollView(storeManager: storeManager, soundArray: vm.allSubscriptionSounds)
+                            .environmentObject(vm)
+                    }
+                
             }
         }
     }
@@ -172,6 +167,7 @@ extension HomeView {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView(storeManager: StoreManager())
+            .environmentObject(HomeViewModel())
     }
 }
     

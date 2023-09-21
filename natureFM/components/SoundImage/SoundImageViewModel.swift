@@ -8,23 +8,26 @@ class SoundImageViewModel: ObservableObject {
     @Published var image: UIImage? = nil
     @Published var isLoading: Bool = false
     
-    
     private let sound: SoundsModel
     private let dataService: SoundImageService
     private var cancellables = Set<AnyCancellable>()
     
     init(sound: SoundsModel) {
+        self.isLoading = true
         self.sound = sound
         self.dataService = SoundImageService(soundModel: sound)
-        self.addSubcribers()
-        self.isLoading = true
+        self.addSubscribers()
     }
     
-    private func addSubcribers() {
+    private func addSubscribers() {
         dataService.$image
             .sink { [weak self] (_) in
+                print("Setting isloading to false")
                 self?.isLoading = false
+
             } receiveValue: { [weak self] (returnedImage) in
+                print("Returning image")
+                print("is loading \(self?.isLoading)")
                 self?.image = returnedImage
             }
             .store(in: &cancellables)
