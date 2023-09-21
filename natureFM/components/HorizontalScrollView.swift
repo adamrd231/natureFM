@@ -31,14 +31,14 @@ struct HorizontalScrollView: View {
         
                                 Button(action: {
                                     // Before saving sound, check if its a free sound or user has membership
-                                    if sound.freeSong || storeManager.purchasedRemoveAds {
-                                        print("Downloadiiiiing")
-                                        vm.downloadedContentService.saveSound(sound: sound)
-                                    } else {
-                                        print("Cant Download")
-                                        showingAlert = true
-                                        
-                                    }
+//                                    if sound.freeSong || storeManager.purchasedRemoveAds {
+//                                        print("Downloadiiiiing")
+//                                        vm.downloadedContentService.saveSound(sound: sound)
+//                                    } else {
+//                                        print("Cant Download")
+//                                        showingAlert = true
+//                                        
+//                                    }
                                     
                                    
                                 }) {

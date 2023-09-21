@@ -155,7 +155,7 @@ extension HomeView {
                 }
             }
             .sheet(isPresented: $showingPlayerView, content: {
-                SoundPlayerView(sound: vm.selectedSound, purchasedRemoveAds: storeManager.purchasedRemoveAds)
+//                SoundPlayerView(sound: vm.selectedSound, purchasedRemoveAds: storeManager.purchasedRemoveAds)
             })
         }
         .padding(.vertical)

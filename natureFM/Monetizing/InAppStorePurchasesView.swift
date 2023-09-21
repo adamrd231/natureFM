@@ -1,4 +1,5 @@
 import SwiftUI
+import StoreKit
 
 struct InAppStorePurchasesView: View {
     
@@ -6,7 +7,15 @@ struct InAppStorePurchasesView: View {
     @StateObject var storeManager: StoreManager
     
     var body: some View {
-        Text("Hello")
+        List {
+            Section(header: Text("Subscription")) {
+                if AppStore.canMakePayments {
+                    ForEach(storeManager.products, id: \.id) { product in
+                        Text(product.displayName)
+                    }
+                }
+            }
+        }
     }
 }
 

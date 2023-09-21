@@ -21,9 +21,9 @@ struct ProfileView: View {
                 .fontWeight(.bold)
             Text("Downloaded on Jan 1 2021")
                 .font(.caption)
-            Text(storeManager.purchasedRemoveAds ? "Member" : "Free User")
-                .font(.caption)
-                .fontWeight(.bold)
+//            Text(storeManager.purchasedRemoveAds ? "Member" : "Free User")
+//                .font(.caption)
+//                .fontWeight(.bold)
             
             HStack(spacing: 15) {
                 VStack {

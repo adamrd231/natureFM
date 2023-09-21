@@ -1,10 +1,3 @@
-//
-//  TabItemView.swift
-//  natureFM
-//
-//  Created by Adam Reed on 9/21/23.
-//
-
 import SwiftUI
 
 struct TabItemView: View {
@@ -20,6 +13,6 @@ struct TabItemView: View {
 
 struct TabItemView_Previews: PreviewProvider {
     static var previews: some View {
-        TabItemView()
+        TabItemView(text: "Hello", image: "creditcard")
     }
 }

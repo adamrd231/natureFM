@@ -38,10 +38,10 @@ struct natureFMApp: App {
             ZStack {
                 HomeView(storeManager: storeManager)
                     .environmentObject(vm)
-                    .onAppear(perform: {
-                        SKPaymentQueue.default().add(storeManager)
-                        storeManager.getProducts(productIDs: productIds)
-                    })
+//                    .onAppear(perform: {
+//                        SKPaymentQueue.default().add(storeManager)
+//                        storeManager.getProducts(productIDs: productIds)
+//                    })
                 
                 ZStack {
                     if showLaunchView {
