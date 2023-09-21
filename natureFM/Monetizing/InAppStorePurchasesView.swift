@@ -21,11 +21,22 @@ struct InAppStorePurchasesView: View {
                             Spacer()
                             Button {
                                 // Buy product
+                                Task {
+                                    try await storeManager.purchase(product)
+                                }
                             } label: {
                                 Text(product.displayPrice)
                             }
                         }
                        
+                    }
+                }
+            }
+            Section(header: Text("Restore")) {
+                Text("Already purchased these? Just click below to restore all the things.")
+                Button("Restore purchases") {
+                    Task {
+                        try await storeManager.restorePurchases()
                     }
                 }
             }

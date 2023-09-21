@@ -48,44 +48,51 @@ extension HomeView {
     var firstPage: some View {
         VStack(alignment: .leading) {
             HeaderView()
-            // ScrollView for main container
-            ScrollView {
-                VStack(alignment: .leading) {
-                    Text("About Nature FM").bold()
-                    Text("Nature FM is inspired directly from being outside, the sense of calm and serenity can fill you up if you can slow down, close your eyes and listen. Nature is always producing symphonies of beauty. Nature FM collects these sounds, and gathers them here in this app for users to connect to waves, wind, thunderstorms, or a part of the country they are longing for.").font(.caption)
-                }
-                .foregroundColor(Color.theme.titleColor)
-                .padding(.vertical)
-                .padding(.trailing)
-                Divider()
-                // Sections Container
-                VStack(alignment: .leading) {
-                    // Section One
-                    Text("All Free Sounds")
-                        .foregroundColor(Color.theme.titleColor)
-                        .font(.title2)
-                        .fontWeight(.bold)
-                    HorizontalScrollView(storeManager: storeManager, soundArray: vm.allFreeSounds)
-                        .environmentObject(vm)
-                    
-                    // Section Two
-                    Divider()
-                    if let randomSound = vm.allSounds.randomElement() {
-                        FeaturedImageLayoutView(sound: randomSound).padding(.bottom)
+            
+            
+                // ScrollView for main container
+                ScrollView {
+                    VStack(alignment: .leading) {
+                        Text("About Nature FM").bold()
+                        Text("Nature FM is inspired directly from being outside, the sense of calm and serenity can fill you up if you can slow down, close your eyes and listen. Nature is always producing symphonies of beauty. Nature FM collects these sounds, and gathers them here in this app for users to connect to waves, wind, thunderstorms, or a part of the country they are longing for.").font(.caption)
                     }
+                    .foregroundColor(Color.theme.titleColor)
+                    .padding(.vertical)
+                    .padding(.trailing)
+       
+                    if vm.allFreeSounds.count == 0 {
+                        ScrollView {
+                            Text("Loading...")
+                        }
+                    } else {
+                        // Sections Container
+                        VStack(alignment: .leading) {
+                            // Section One
+                            Text("All Free Sounds")
+                                .foregroundColor(Color.theme.titleColor)
+                                .font(.title2)
+                                .fontWeight(.bold)
+                            HorizontalScrollView(storeManager: storeManager, soundArray: vm.allFreeSounds)
+                                .environmentObject(vm)
+                            
+                            // Section Two
+                            Divider()
+                            if let randomSound = vm.allSounds.randomElement() {
+                                FeaturedImageLayoutView(sound: randomSound).padding(.bottom)
+                            }
 
-                    // Section Three
-                    Divider()
-                    Text("Subscription Required")
-                        .foregroundColor(Color.theme.titleColor)
-                        .font(.title2)
-                        .fontWeight(.bold)
-                    HorizontalScrollView(storeManager: storeManager, soundArray: vm.allSubscriptionSounds)
-                        .environmentObject(vm)
+                            // Section Three
+                            Divider()
+                            Text("Subscription Required")
+                                .foregroundColor(Color.theme.titleColor)
+                                .font(.title2)
+                                .fontWeight(.bold)
+                            HorizontalScrollView(storeManager: storeManager, soundArray: vm.allSubscriptionSounds)
+                                .environmentObject(vm)
+                        }
                 }
             }
         }
-        .padding()
     }
     
     
