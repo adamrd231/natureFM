@@ -22,7 +22,7 @@ struct HorizontalScrollView: View {
                 HStack {
                     if soundArray.count == 0 {
                         HStack(spacing: 10) {
-                            ForEach(0..<Int.random(in: 1...3), id: \.self) { _ in 
+                            ForEach(0..<Int.random(in: 1...3), id: \.self) { _ in
                                 ZStack {
                                     ProgressView()
                                     Rectangle()
@@ -32,7 +32,6 @@ struct HorizontalScrollView: View {
                                 }
                             }
                         }
-                      
                     }
                     else {
                         ForEach(soundArray) { sound in
@@ -85,7 +84,6 @@ struct HorizontalScrollView: View {
                             }.padding(.trailing, 3)
                         }
                     }
-                    
                 }
             }
         }
