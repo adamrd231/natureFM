@@ -93,6 +93,7 @@ extension HomeView {
     
     var secondPage: some View {
         VStack(alignment: .leading) {
+            // Title categry picker
             ScrollView(.horizontal) {
                 HStack {
                     ForEach(vm.categories) { category in
@@ -115,9 +116,9 @@ extension HomeView {
                     .fontWeight(.bold)
                 Spacer()
 
-            }.padding(.horizontal)
-            
-            Divider()
+            }
+            .padding(.horizontal)
+
             
             List {
                 ForEach(vm.portfolioSounds) { sound in
@@ -156,11 +157,11 @@ extension HomeView {
                     
                 }
             }
+            .listStyle(.plain)
             .sheet(isPresented: $showingPlayerView, content: {
 //                SoundPlayerView(sound: vm.selectedSound, purchasedRemoveAds: storeManager.purchasedRemoveAds)
             })
         }
-        .padding(.vertical)
     }
 }
 
