@@ -117,11 +117,8 @@ struct SoundPlayerView: View {
                             .frame(width: 35, height: 35)
                     }
                 }.foregroundColor(Color.theme.customBlue)
-                
-                Spacer()
-                if purchasedRemoveAds != true {
-                    Banner()
-                }
+   
+       
             }
             
         }.onDisappear(perform: {

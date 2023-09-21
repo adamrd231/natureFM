@@ -2,48 +2,6 @@ import SwiftUI
 import GoogleMobileAds
 
 struct HomeView: View {
-    
-    @State var InterstitialAdCounter = 0 {
-        didSet {
-            if InterstitialAdCounter >= 5 {
-                if storeManager.purchasedRemoveAds != true {
-                    loadInterstitialAd()
-                    InterstitialAdCounter = 0
-                }
-            }
-        }
-    }
-    
-    @State var interstitial: GADInterstitialAd?
-
-
-        // Test Ad
-//        var googleBannerInterstitialAdID = "ca-app-pub-3940256099942544/1033173712"
-
-        // Real Ad
-        var googleBannerInterstitialAdID = "ca-app-pub-4186253562269967/5364863972"
-
-    
-    // App Tracking Transparency - Request permission and play ads on open only
-    private func loadInterstitialAd() {
-
-        // Tracking authorization completed. Start loading ads here.
-        let request = GADRequest()
-            GADInterstitialAd.load(
-                withAdUnitID: googleBannerInterstitialAdID,
-                request: request,
-                completionHandler: { [self] ad, error in
-                    
-                    // Check if there is an error
-                    if let error = error {
-                        return
-                    }
-                    interstitial = ad
-                    let root = UIApplication.shared.windows.first?.rootViewController
-                    self.interstitial?.present(fromRootViewController: root!)
-
-                })
-      }
 
     // Main viewmodel for app - handles api calls, data storage, modeling JSON, etc
     @EnvironmentObject var vm: HomeViewModel
@@ -67,27 +25,15 @@ struct HomeView: View {
             // Library View
             secondPage
                 .tabItem { secondPageTabItem }
-                .onAppear(perform: {
-                    InterstitialAdCounter += 1
-                    print(InterstitialAdCounter)
-                })
             
             // In App Purchases
             InAppStorePurchasesView(storeManager: storeManager)
                 .tabItem { thirdPageTabItem }
-                .onAppear(perform: {
-                    InterstitialAdCounter += 1
-                    print(InterstitialAdCounter)
-                })
                 
             // User profile and App Information
             ProfileView(storeManager: storeManager)
                 .environmentObject(vm)
                 .tabItem { fourthPageTabItem }
-                .onAppear(perform: {
-                    InterstitialAdCounter += 1
-                    print(InterstitialAdCounter)
-                })
         }
         .navigationViewStyle(StackNavigationViewStyle())
 

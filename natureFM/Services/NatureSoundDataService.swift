@@ -14,7 +14,11 @@ class NatureSoundDataService {
     func getSounds() {
         // Attempt to get URL, if not possible then return
         guard let url = URL(string: "https://nature-fm.herokuapp.com/app/sound/")
-     else { return }
+     else {
+            print("Error getting URL String")
+            return
+            
+        }
         
         soundSubcription = NetworkingManager.download(url: url)
             .decode(type: [SoundsModel].self, decoder: JSONDecoder())
