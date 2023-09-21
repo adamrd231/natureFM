@@ -27,7 +27,7 @@ struct HorizontalScrollView: View {
                                 Rectangle()
                                     .foregroundColor(.gray)
                                     .opacity(0.1)
-                                    .frame(width: 100, height: 100)
+                                    .frame(width: 185, height: 117)
                             }
                            
                             ZStack {
@@ -35,7 +35,7 @@ struct HorizontalScrollView: View {
                                 Rectangle()
                                     .foregroundColor(.gray)
                                     .opacity(0.1)
-                                    .frame(width: 100, height: 100)
+                                    .frame(width: 185, height: 117)
                             }
                            
                             ZStack {
@@ -43,7 +43,7 @@ struct HorizontalScrollView: View {
                                 Rectangle()
                                     .foregroundColor(.gray)
                                     .opacity(0.1)
-                                    .frame(width: 100, height: 100)
+                                    .frame(width: 185, height: 117)
                             }
                         }
                       
@@ -52,7 +52,7 @@ struct HorizontalScrollView: View {
                         ForEach(soundArray) { sound in
                             VStack(alignment: .leading, spacing: 10) {
                                 SoundImageView(sound: sound)
-                                    
+                                    .frame(width: 185, height: 117)
                                     .clipped()
                                     .shadow(radius: 2)
                                    
