@@ -3,7 +3,7 @@ import StoreKit
 import Combine
 
 struct StoreIDs {
-    static var NatureFM = "NatureFM"
+    static var NatureFM = "natureFMsubscription"
 }
 
 class StoreManager: ObservableObject {

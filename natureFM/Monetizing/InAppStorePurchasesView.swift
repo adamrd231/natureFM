@@ -11,7 +11,21 @@ struct InAppStorePurchasesView: View {
             Section(header: Text("Subscription")) {
                 if AppStore.canMakePayments {
                     ForEach(storeManager.products, id: \.id) { product in
-                        Text(product.displayName)
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(product.displayName)
+                                    .bold()
+                                Text(product.description)
+                                    .font(.footnote)
+                            }
+                            Spacer()
+                            Button {
+                                // Buy product
+                            } label: {
+                                Text(product.displayPrice)
+                            }
+                        }
+                       
                     }
                 }
             }
