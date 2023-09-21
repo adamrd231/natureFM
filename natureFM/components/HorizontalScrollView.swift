@@ -22,28 +22,14 @@ struct HorizontalScrollView: View {
                 HStack {
                     if soundArray.count == 0 {
                         HStack(spacing: 10) {
-                            ZStack {
-                                ProgressView()
-                                Rectangle()
-                                    .foregroundColor(.gray)
-                                    .opacity(0.1)
-                                    .frame(width: 185, height: 117)
-                            }
-                           
-                            ZStack {
-                                ProgressView()
-                                Rectangle()
-                                    .foregroundColor(.gray)
-                                    .opacity(0.1)
-                                    .frame(width: 185, height: 117)
-                            }
-                           
-                            ZStack {
-                                ProgressView()
-                                Rectangle()
-                                    .foregroundColor(.gray)
-                                    .opacity(0.1)
-                                    .frame(width: 185, height: 117)
+                            ForEach(0..<Int.random(in: 1...3), id: \.self) { _ in 
+                                ZStack {
+                                    ProgressView()
+                                    Rectangle()
+                                        .foregroundColor(.gray)
+                                        .opacity(0.1)
+                                        .frame(width: 185, height: 117)
+                                }
                             }
                         }
                       
