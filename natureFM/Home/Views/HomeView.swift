@@ -15,7 +15,7 @@ struct HomeView: View {
             // Home View
             firstPage
                 .tabItem {
-                    TabItemView(text: "Home", image: "antenna.radiowaves.left.and.right")
+                    TabItemView(text: "Browse", image: "antenna.radiowaves.left.and.right")
                 }
             
             // Library View
@@ -159,7 +159,7 @@ extension HomeView {
             }
             .listStyle(.plain)
             .sheet(isPresented: $showingPlayerView, content: {
-//                SoundPlayerView(sound: vm.selectedSound, purchasedRemoveAds: storeManager.purchasedRemoveAds)
+                SoundPlayerView(sound: vm.selectedSound, purchasedRemoveAds: false)
             })
         }
     }

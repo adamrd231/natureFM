@@ -6,12 +6,9 @@ class HomeViewModel: ObservableObject {
     
     @Published var allSounds: [SoundsModel] = []
     @Published var portfolioSounds: [SoundsModel] = []
-    
     @Published var allFreeSounds: [SoundsModel] = []
     @Published var allSubscriptionSounds: [SoundsModel] = []
-    
     @Published var selectedSound: SoundsModel = SoundsModel()
-    
     @Published var randomSound: SoundsModel = SoundsModel()
     
     @Published var categories: [CategoryModel] = []
