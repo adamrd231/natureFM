@@ -160,6 +160,7 @@ extension HomeView {
             .listStyle(.plain)
             .sheet(isPresented: $showingPlayerView, content: {
                 SoundPlayerView(sound: vm.selectedSound, purchasedRemoveAds: false)
+                    .presentationDetents([.height(150), .medium, .large])
             })
         }
     }
