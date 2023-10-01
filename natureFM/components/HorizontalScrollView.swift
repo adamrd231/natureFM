@@ -10,6 +10,7 @@ struct HorizontalScrollView: View {
     
     @Binding var audioPlayerCurrentSong: SoundsModel?
     @Binding var isShowingAudioPlayer: Bool
+    @Binding var isShowingAudioPlayerTab: Bool
     @Binding var isPlaying: Bool
     
     @State private var showingAlert: Bool = false
@@ -65,7 +66,7 @@ struct HorizontalScrollView: View {
                                             print("Show player")
                                             print("Sound: \(sound)")
                                             audioPlayerCurrentSong = sound
-                                            isShowingAudioPlayer = true
+                                            isShowingAudioPlayerTab = true
                                         }) {
                                             Text(sound.name).font(.subheadline)
                                         }
@@ -102,6 +103,7 @@ struct HorizontalScrollView_Previews: PreviewProvider {
             soundArray: [],
             audioPlayerCurrentSong: .constant(SoundsModel()),
             isShowingAudioPlayer: .constant(false),
+            isShowingAudioPlayerTab: .constant(false),
             isPlaying: .constant(false)
         )
             .environmentObject(HomeViewModel())

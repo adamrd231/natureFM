@@ -71,6 +71,7 @@ extension HomeView {
                             soundArray: vm.allFreeSounds,
                             audioPlayerCurrentSong: $audioPlayerVM.sound,
                             isShowingAudioPlayer: $audioPlayerVM.isShowingAudioPlayer,
+                            isShowingAudioPlayerTab: $audioPlayerVM.isShowingAudioPlayer,
                             isPlaying: $audioPlayerVM.audioIsPlaying
                         )
                         .environmentObject(vm)
@@ -92,6 +93,7 @@ extension HomeView {
                             soundArray: vm.allSubscriptionSounds,
                             audioPlayerCurrentSong: $audioPlayerVM.sound,
                             isShowingAudioPlayer: $audioPlayerVM.isShowingAudioPlayer,
+                            isShowingAudioPlayerTab: $audioPlayerVM.isShowingAudioPlayer,
                             isPlaying: $audioPlayerVM.audioIsPlaying
                         )
                         .environmentObject(vm)
@@ -100,7 +102,7 @@ extension HomeView {
         }
         .overlay(alignment: .bottom, content: {
             // TODO: Add playing now tab
-            if audioPlayerVM.isShowingAudioPlayer {
+            if audioPlayerVM.isShowingAudioPlayerTab {
                 if let song = audioPlayerVM.sound {
                     PlayingNowBar(title: song.name, sound: song)
                 }

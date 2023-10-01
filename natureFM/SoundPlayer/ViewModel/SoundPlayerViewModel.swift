@@ -10,6 +10,7 @@ class SoundPlayerViewModel: ObservableObject {
     @Published var sound: SoundsModel?
     @Published var timer = Timer.publish(every: 1.0, on: .main, in: .common)
     @Published var audioIsPlaying: Bool = false
+    @Published var isShowingAudioPlayerTab: Bool = false
     @Published var isShowingAudioPlayer: Bool = false
     
     // Information to get the url
