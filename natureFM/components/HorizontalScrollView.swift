@@ -66,7 +66,9 @@ struct HorizontalScrollView: View {
                                             print("Show player")
                                             print("Sound: \(sound)")
                                             audioPlayerCurrentSong = sound
+                                
                                             isShowingAudioPlayerTab = true
+                                            print("isAudioTab = \(isShowingAudioPlayerTab)")
                                         }) {
                                             Text(sound.name).font(.subheadline)
                                         }

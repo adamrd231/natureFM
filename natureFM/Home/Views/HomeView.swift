@@ -71,7 +71,7 @@ extension HomeView {
                             soundArray: vm.allFreeSounds,
                             audioPlayerCurrentSong: $audioPlayerVM.sound,
                             isShowingAudioPlayer: $audioPlayerVM.isShowingAudioPlayer,
-                            isShowingAudioPlayerTab: $audioPlayerVM.isShowingAudioPlayer,
+                            isShowingAudioPlayerTab: $audioPlayerVM.isShowingAudioPlayerTab,
                             isPlaying: $audioPlayerVM.audioIsPlaying
                         )
                         .environmentObject(vm)
@@ -93,22 +93,31 @@ extension HomeView {
                             soundArray: vm.allSubscriptionSounds,
                             audioPlayerCurrentSong: $audioPlayerVM.sound,
                             isShowingAudioPlayer: $audioPlayerVM.isShowingAudioPlayer,
-                            isShowingAudioPlayerTab: $audioPlayerVM.isShowingAudioPlayer,
+                            isShowingAudioPlayerTab: $audioPlayerVM.isShowingAudioPlayerTab,
                             isPlaying: $audioPlayerVM.audioIsPlaying
                         )
                         .environmentObject(vm)
                     }
             }
-        }
-        .overlay(alignment: .bottom, content: {
-            // TODO: Add playing now tab
-            if audioPlayerVM.isShowingAudioPlayerTab {
-                if let song = audioPlayerVM.sound {
-                    PlayingNowBar(title: song.name, sound: song)
+            .sheet(isPresented: $audioPlayerVM.isShowingAudioPlayer, content: {
+                if let currentSound = audioPlayerVM.sound {
+                    SoundPlayerView(sound: currentSound)
+                        .presentationDetents([.height(150), .medium, .large])
                 }
-               
-            }
-        })
+            })
+            .overlay(alignment: .bottom, content: {
+                if audioPlayerVM.isShowingAudioPlayerTab {
+                    if let song = audioPlayerVM.sound {
+                        PlayingNowBar(
+                            title: song.name,
+                            sound: song,
+                            isShowingAudioPlayer: $audioPlayerVM.isShowingAudioPlayer,
+                            isShowingAudioPlayerTab: $audioPlayerVM.isShowingAudioPlayerTab
+                        )
+                    }
+                }
+            })
+        }
     }
     
     
@@ -173,10 +182,6 @@ extension HomeView {
                 }
             }
             .listStyle(.plain)
-            .sheet(isPresented: $showingPlayerView, content: {
-                SoundPlayerView()
-                    .presentationDetents([.height(150), .medium, .large])
-            })
         }
     }
 }

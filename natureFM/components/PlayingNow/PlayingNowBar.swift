@@ -12,7 +12,8 @@ struct PlayingNowBar: View {
     let buttonSize: CGFloat = 25
     let title: String
     let sound: SoundsModel
-    
+    @Binding var isShowingAudioPlayer: Bool
+    @Binding var isShowingAudioPlayerTab: Bool
     
     var body: some View {
         HStack(spacing: 10) {
@@ -45,6 +46,9 @@ struct PlayingNowBar: View {
         }
         .onTapGesture {
             print("Teehee")
+            isShowingAudioPlayer = true
+            isShowingAudioPlayerTab = false
+            
         }
         .frame(width: UIScreen.main.bounds.width, height: 75)
         .background(Color.theme.backgroundColor.opacity(0.9))
@@ -53,6 +57,11 @@ struct PlayingNowBar: View {
 
 struct PlayingNowBar_Previews: PreviewProvider {
     static var previews: some View {
-        PlayingNowBar(title: "Testing a title", sound: SoundsModel())
+        PlayingNowBar(
+            title: "Testing a title",
+            sound: SoundsModel(),
+            isShowingAudioPlayer: .constant(false),
+            isShowingAudioPlayerTab: .constant(false)
+        )
     }
 }
