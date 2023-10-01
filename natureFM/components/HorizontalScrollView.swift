@@ -69,9 +69,6 @@ struct HorizontalScrollView: View {
                                         }) {
                                             Text(sound.name).font(.subheadline)
                                         }
-                                        .sheet(isPresented: $isShowingAudioPlayer, content: {
-                                            Text("Hello")
-                                        })
                                        
                                         Text(sound.freeSong ? "Free" : "Subscription")
                                             .font(.caption2)

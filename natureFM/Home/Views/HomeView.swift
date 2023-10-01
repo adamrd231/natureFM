@@ -100,8 +100,11 @@ extension HomeView {
         }
         .overlay(alignment: .bottom, content: {
             // TODO: Add playing now tab
-            if audioPlayerVM.audioIsPlaying {
-                PlayingNowBar(title: "Testing", sound: vm.selectedSound)
+            if audioPlayerVM.isShowingAudioPlayer {
+                if let song = audioPlayerVM.sound {
+                    PlayingNowBar(title: song.name, sound: song)
+                }
+               
             }
         })
     }
@@ -159,14 +162,7 @@ extension HomeView {
                                     Text(sound.duration.returnClockFormatAsString())
                                         .font(.footnote)
                                 }
-                                
-                                
                             }.foregroundColor(Color.theme.titleColor)
-                        }
-                        .onTapGesture {
-                            self.vm.selectedSound = sound
-                            print(vm.selectedSound)
-                            showingPlayerView.toggle()
                         }
                         Spacer()
                         LibraryMenuView(sound: sound)
