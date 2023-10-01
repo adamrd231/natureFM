@@ -3,6 +3,7 @@ import GoogleMobileAds
 
 struct HomeView: View {
     @EnvironmentObject var vm: HomeViewModel
+    @StateObject var audioPlayerVM = SoundPlayerViewModel()
 
     // Store manager variable for in-app purchases
     @State var storeManager: StoreManager
@@ -13,7 +14,6 @@ struct HomeView: View {
     var body: some View {
         TabView {
             // Home View
-       
             firstPage
                 .tabItem {
                     TabItemView(text: "Browse", image: "antenna.radiowaves.left.and.right")
@@ -88,7 +88,9 @@ extension HomeView {
         }
         .overlay(alignment: .bottom, content: {
             // TODO: Add playing now tab
-            PlayingNowBar(title: "Testing", sound: vm.selectedSound)
+            if audioPlayerVM.audioIsPlaying {
+                PlayingNowBar(title: "Testing", sound: vm.selectedSound)
+            }
         })
     }
     
@@ -162,7 +164,7 @@ extension HomeView {
             }
             .listStyle(.plain)
             .sheet(isPresented: $showingPlayerView, content: {
-                SoundPlayerView(sound: vm.selectedSound, purchasedRemoveAds: false)
+                SoundPlayerView()
                     .presentationDetents([.height(150), .medium, .large])
             })
         }

@@ -3,7 +3,7 @@ import Combine
 import SwiftUI
 
 class HomeViewModel: ObservableObject {
-    
+
     @Published var allSounds: [SoundsModel] = []
     @Published var portfolioSounds: [SoundsModel] = []
     @Published var allFreeSounds: [SoundsModel] = []

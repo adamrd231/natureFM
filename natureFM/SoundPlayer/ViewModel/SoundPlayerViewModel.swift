@@ -7,38 +7,37 @@ class SoundPlayerViewModel: ObservableObject {
     
     @Published var audioPlayer = AVAudioPlayer()
     
-    @Published var sound: SoundsModel
+    @Published var sound: SoundsModel?
     @Published var timer = Timer.publish(every: 1.0, on: .main, in: .common)
     @Published var audioIsPlaying: Bool = false
     
-  
-    
     // Information to get the url
-    var songDataDownloadService: SongDataDownloadService
+    @Published var songDataDownloadService: SongDataDownloadService?
     
-    private var soundCancellables = Set<AnyCancellable>()
+    @Published var soundCancellables = Set<AnyCancellable>()
     
-    init(sound: SoundsModel) {
-        self.sound = sound
-        self.songDataDownloadService = SongDataDownloadService(soundModel: sound)
-        
+    init() {
+//      TODO: Need to hook up download service when we are ready to play a song
+//      self.songDataDownloadService = SongDataDownloadService(soundModel: sound)
+
         addSubscribers()
-        
     }
     
     func addSubscribers() {
-        
-        songDataDownloadService.$downloadedSound
-            .sink { returnedData in
-                if let data = returnedData {
-                    do {
-                        self.audioPlayer = try AVAudioPlayer(data: data)
-                    } catch {
-                        print("Error")
+        if let downloadService = songDataDownloadService {
+            downloadService.$downloadedSound
+                .sink { returnedData in
+                    if let data = returnedData {
+                        do {
+                            self.audioPlayer = try AVAudioPlayer(data: data)
+                        } catch {
+                            print("Error")
+                        }
                     }
                 }
-            }
-            .store(in: &soundCancellables)
+                .store(in: &soundCancellables)
+        }
+        
     }
     
     // MARK: Player Functions
