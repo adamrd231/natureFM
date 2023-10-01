@@ -13,6 +13,7 @@ struct HomeView: View {
     var body: some View {
         TabView {
             // Home View
+       
             firstPage
                 .tabItem {
                     TabItemView(text: "Browse", image: "antenna.radiowaves.left.and.right")
@@ -48,8 +49,6 @@ extension HomeView {
     var firstPage: some View {
         VStack(alignment: .leading) {
             HeaderView()
-            
-            
                 // ScrollView for main container
                 ScrollView {
                     VStack(alignment: .leading) {
@@ -85,9 +84,17 @@ extension HomeView {
                         HorizontalScrollView(storeManager: storeManager, soundArray: vm.allSubscriptionSounds)
                             .environmentObject(vm)
                     }
-                
             }
         }
+        .overlay(alignment: .bottom, content: {
+            Rectangle()
+                .foregroundColor(.red)
+                .frame(width: UIScreen.main.bounds.width, height: 75)
+                .tag(0)
+                .tabItem {
+                    Label("Listen now", systemImage: "circle")
+                }
+        })
     }
     
     
@@ -143,6 +150,7 @@ extension HomeView {
                                     Text(sound.duration.returnClockFormatAsString())
                                         .font(.footnote)
                                 }
+                                
                                 
                             }.foregroundColor(Color.theme.titleColor)
                         }
