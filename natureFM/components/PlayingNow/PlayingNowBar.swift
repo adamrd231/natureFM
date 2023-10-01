@@ -11,10 +11,12 @@ struct PlayingNowBar: View {
     
     let buttonSize: CGFloat = 25
     let title: String
+    let sound: SoundsModel
+    
     
     var body: some View {
         HStack(spacing: 10) {
-            Rectangle()
+            SoundImageView(sound: sound)
                 .frame(width: 50, height: 50, alignment: .center)
                 .padding(.leading)
             Text(title)
@@ -40,6 +42,6 @@ struct PlayingNowBar: View {
 
 struct PlayingNowBar_Previews: PreviewProvider {
     static var previews: some View {
-        PlayingNowBar(title: "Testing a title")
+        PlayingNowBar(title: "Testing a title", sound: SoundsModel())
     }
 }

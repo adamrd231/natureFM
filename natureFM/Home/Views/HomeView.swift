@@ -88,7 +88,7 @@ extension HomeView {
         }
         .overlay(alignment: .bottom, content: {
             // TODO: Add playing now tab
-            PlayingNowBar(title: "Testing")
+            PlayingNowBar(title: "Testing", sound: vm.selectedSound)
         })
     }
     
