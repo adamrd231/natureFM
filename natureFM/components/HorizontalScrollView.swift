@@ -3,11 +3,14 @@ import SwiftUI
 struct HorizontalScrollView: View {
     
     @EnvironmentObject var vm: HomeViewModel
-    
+
     // Store manager variable for in-app purchases
     @State var storeManager: StoreManager
-    
     var soundArray: [SoundsModel]
+    
+    @Binding var audioPlayerCurrentSong: SoundsModel?
+    @Binding var isShowingAudioPlayer: Bool
+    @Binding var isPlaying: Bool
     
     @State private var showingAlert: Bool = false
     
@@ -57,7 +60,19 @@ struct HorizontalScrollView: View {
                                     .foregroundColor(Color.theme.titleColor)
                                     
                                     VStack(alignment: .leading) {
-                                        Text(sound.name).font(.subheadline)
+                                        Button(action: {
+                                            // select song and play
+                                            print("Show player")
+                                            print("Sound: \(sound)")
+                                            audioPlayerCurrentSong = sound
+                                            isShowingAudioPlayer = true
+                                        }) {
+                                            Text(sound.name).font(.subheadline)
+                                        }
+                                        .sheet(isPresented: $isShowingAudioPlayer, content: {
+                                            Text("Hello")
+                                        })
+                                       
                                         Text(sound.freeSong ? "Free" : "Subscription")
                                             .font(.caption2)
                                             .fontWeight(.bold)
@@ -85,7 +100,13 @@ struct HorizontalScrollView: View {
 
 struct HorizontalScrollView_Previews: PreviewProvider {
     static var previews: some View {
-        HorizontalScrollView(storeManager: StoreManager(), soundArray: [])
+        HorizontalScrollView(
+            storeManager: StoreManager(),
+            soundArray: [],
+            audioPlayerCurrentSong: .constant(SoundsModel()),
+            isShowingAudioPlayer: .constant(false),
+            isPlaying: .constant(false)
+        )
             .environmentObject(HomeViewModel())
     }
 }

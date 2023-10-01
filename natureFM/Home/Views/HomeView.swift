@@ -66,8 +66,14 @@ extension HomeView {
                             .foregroundColor(Color.theme.titleColor)
                             .font(.title2)
                             .fontWeight(.bold)
-                        HorizontalScrollView(storeManager: storeManager, soundArray: vm.allFreeSounds)
-                            .environmentObject(vm)
+                        HorizontalScrollView(
+                            storeManager: storeManager,
+                            soundArray: vm.allFreeSounds,
+                            audioPlayerCurrentSong: $audioPlayerVM.sound,
+                            isShowingAudioPlayer: $audioPlayerVM.isShowingAudioPlayer,
+                            isPlaying: $audioPlayerVM.audioIsPlaying
+                        )
+                        .environmentObject(vm)
                         
                         // Section Two
                         Divider()
@@ -81,8 +87,14 @@ extension HomeView {
                             .foregroundColor(Color.theme.titleColor)
                             .font(.title2)
                             .fontWeight(.bold)
-                        HorizontalScrollView(storeManager: storeManager, soundArray: vm.allSubscriptionSounds)
-                            .environmentObject(vm)
+                        HorizontalScrollView(
+                            storeManager: storeManager,
+                            soundArray: vm.allSubscriptionSounds,
+                            audioPlayerCurrentSong: $audioPlayerVM.sound,
+                            isShowingAudioPlayer: $audioPlayerVM.isShowingAudioPlayer,
+                            isPlaying: $audioPlayerVM.audioIsPlaying
+                        )
+                        .environmentObject(vm)
                     }
             }
         }
