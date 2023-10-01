@@ -87,13 +87,8 @@ extension HomeView {
             }
         }
         .overlay(alignment: .bottom, content: {
-            Rectangle()
-                .foregroundColor(.red)
-                .frame(width: UIScreen.main.bounds.width, height: 75)
-                .tag(0)
-                .tabItem {
-                    Label("Listen now", systemImage: "circle")
-                }
+            // TODO: Add playing now tab
+            PlayingNowBar(title: "Testing")
         })
     }
     
