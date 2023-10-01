@@ -44,17 +44,10 @@ struct HorizontalScrollView: View {
                                 HStack {
             
                                     Button(action: {
-                                        // Before saving sound, check if its a free sound or user has membership
-    //                                    if sound.freeSong || storeManager.purchasedRemoveAds {
-    //                                        print("Downloadiiiiing")
-    //                                        vm.downloadedContentService.saveSound(sound: sound)
-    //                                    } else {
-    //                                        print("Cant Download")
-    //                                        showingAlert = true
-    //
-    //                                    }
+                                        // TODO: Check if content requires premium membership
+                                        // TODO: Perform check and allow or throw alert
+                                            vm.downloadedContentService.saveSound(sound: sound)
                                         
-                                       
                                     }) {
                                         Image(systemName: "arrow.down.circle.fill")
                                             .resizable()
