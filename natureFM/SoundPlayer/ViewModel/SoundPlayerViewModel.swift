@@ -44,31 +44,26 @@ class SoundPlayerViewModel: ObservableObject {
         
         $audioIsPlaying
             .sink { isPlaying in
-                print("isPlaying: \(isPlaying)")
-                print("sound: \(self.sound)")
                 if isPlaying {
-                    print("Start")
-//                    self.startAudioPlayer()
-
-                    self.audioPlayer.play()
-                    self.timer = Timer.publish(every: 1, on: .main, in: .common)
-                    self.timer.connect()
+                    self.startPlayer()
                 } else {
-                    print("Stop")
-//                    self.stopAudioPlayer()
-                    self.audioPlayer.pause()
-                    self.timer.connect().cancel()
-                    print("audio is playing \( self.audioIsPlaying)")
+                    self.stopPlayer()
                 }
             }
             .store(in: &soundCancellables)
     }
     
-    func startPlayer() {
-        self.audioPlayer.play()
-        self.timer = Timer.publish(every: 1, on: .main, in: .common)
-        self.timer.connect()
+    func stopPlayer() {
+        audioPlayer.pause()
+        timer.connect().cancel()
     }
+    func startPlayer() {
+        audioPlayer.play()
+        timer = Timer.publish(every: 1, on: .main, in: .common)
+        timer.connect()
+    }
+    
+    
 
 
     func skipForwardThirtySeconds() {
