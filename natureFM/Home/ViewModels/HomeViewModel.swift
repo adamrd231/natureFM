@@ -11,12 +11,11 @@ class HomeViewModel: ObservableObject {
 
     @Published var randomSound: SoundsModel = SoundsModel()
     
-    @Published var selectedSound: SoundsModel?
-    
     @Published var categories: [CategoryModel] = []
     @Published var selectedCategory: String = "All"
     
     @Published var isViewingSongPlayer: Bool = false
+    @Published var isViewingSongPlayerTab: Bool = false
     
     private var cancellables = Set<AnyCancellable>()
     

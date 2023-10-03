@@ -15,6 +15,7 @@ class SoundImageViewModel: ObservableObject {
     init(sound: SoundsModel) {
         self.isLoading = true
         self.sound = sound
+        print("getting sound \(sound.name)")
         self.dataService = SoundImageService(soundModel: sound)
         self.addSubscribers()
     }
@@ -27,7 +28,7 @@ class SoundImageViewModel: ObservableObject {
 
             } receiveValue: { [weak self] (returnedImage) in
                 print("Returning image")
-                print("is loading \(self?.isLoading)")
+                print("is loading \(returnedImage)")
                 self?.image = returnedImage
             }
             .store(in: &cancellables)

@@ -6,24 +6,21 @@ import SwiftUI
 class SongDataDownloadService {
     
     @Published var downloadedSound: Data? = nil
-    private let soundModel: SoundsModel
-    private var songSubscription: AnyCancellable?
-    
+    @Published var soundModel: SoundsModel?
+
     private let fileManager = LocalFileManager.instance
     private let folderName = "sound_audio"
-    private let soundName: String
     
-    init(soundModel: SoundsModel) {
-        self.soundModel = soundModel
-        self.soundName = soundModel.name
-       
-        getSound(urlString: self.soundModel.audioFileLink ?? "")
-        
-    }
+    private var songSubscription: AnyCancellable?
+    
+  
     
     // Download or pull up all sounds currently in library
     func getSound(urlString: String) {
-
+        print("Getting sound")
+        guard let sound = soundModel else { return }
+        print("Checking if we have sound")
+        let soundName = sound.name
         if let savedSoundURL = fileManager.getSoundURL(soundName: soundName, folderName: folderName) {
             
             let savedSong = fileManager.getSound(url: savedSoundURL, soundName: soundName, folderName: folderName)
@@ -41,8 +38,10 @@ class SongDataDownloadService {
     
     
     private func downloadSound() {
-        print("Url: \(soundModel.audioFileLink)")
-        guard let url = URL(string: soundModel.audioFileLink) else { return }
+        guard let sound = soundModel else { return }
+        let soundName = sound.name
+        print("Url: \(sound.audioFileLink)")
+        guard let url = URL(string: sound.audioFileLink) else { return }
         
         songSubscription = NetworkingManager.download(url: url)
             .tryMap({ (data) -> Data? in
@@ -55,7 +54,7 @@ class SongDataDownloadService {
                 self.songSubscription?.cancel()
                 
                 // Update this to not save if playing from main screen
-                self.fileManager.saveSound(soundData: downloadedData, soundName: self.soundName, folderName: self.folderName)
+                self.fileManager.saveSound(soundData: downloadedData, soundName: soundName, folderName: self.folderName)
             })
           
             

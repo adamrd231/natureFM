@@ -9,17 +9,29 @@ import SwiftUI
 
 struct PlayingNowBar: View {
     
+    @EnvironmentObject var soundVM: SoundPlayerViewModel
     let buttonSize: CGFloat = 25
-    let sound: SoundsModel
-    @StateObject var soundVM: SoundPlayerViewModel
-    @Binding var isViewingSongPlayer: Bool
     
     var body: some View {
         HStack(spacing: 15) {
-            SoundImageView(sound: sound)
-                .frame(width: 66, height: 50, alignment: .center)
-                .clipped()
-            Text(sound.name)
+            AsyncImage(
+                url: URL(string: soundVM.sound?.imageFileLink ?? ""),
+                content: { image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 66, height: 50, alignment: .center)
+                        .clipped()
+                        .contentShape(Rectangle())
+                }) {
+                    ProgressView()
+                }
+
+
+
+                
+
+            Text(soundVM.sound?.name ?? "")
                 .bold()
                 .foregroundColor(Color.theme.titleColor)
             Spacer()
@@ -32,26 +44,21 @@ struct PlayingNowBar: View {
                         .resizable()
                         .frame(width: buttonSize, height: buttonSize, alignment: .center)
                 }
-
-               
             }
         }
         .padding(.horizontal)
-        .onTapGesture {
-            print("Teehee")
-            isViewingSongPlayer.toggle()
-        }
-        .frame(width: UIScreen.main.bounds.width, height: 75)
-        .background(Color.theme.backgroundColor.opacity(0.9))
-    }
-}
 
-struct PlayingNowBar_Previews: PreviewProvider {
-    static var previews: some View {
-        PlayingNowBar(
-            sound: SoundsModel(),
-            soundVM: SoundPlayerViewModel(sound: SoundsModel()),
-            isViewingSongPlayer: .constant(false)
-        )
+        .background(Color.theme.backgroundColor.opacity(0.9))
+        .frame(width: UIScreen.main.bounds.width, height: 75)
     }
+
 }
+//
+//struct PlayingNowBar_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PlayingNowBar(
+//            sound: .constant(SoundsModel()),
+//            isViewingSongPlayer: .constant(false)
+//        )
+//    }
+//}

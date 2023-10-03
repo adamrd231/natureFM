@@ -2,25 +2,29 @@ import Combine
 import AVKit
 import SwiftUI
 
+@MainActor
 class SoundPlayerViewModel: ObservableObject {
     @Published var audioPlayer = AVAudioPlayer()
-    @Published var sound: SoundsModel
+    @Published var sound: SoundsModel?
     @Published var timer = Timer.publish(every: 1.0, on: .main, in: .common)
     @Published var audioIsPlaying: Bool = false
     
     // Information to get the url
-    @Published var songDataDownloadService: SongDataDownloadService
+    @Published var songDataDownloadService = SongDataDownloadService()
     @Published var soundCancellables = Set<AnyCancellable>()
     
-    init(sound: SoundsModel) {
-//      TODO: Need to hook up download service when we are ready to play a song
-        self.sound = sound
-        self.songDataDownloadService = SongDataDownloadService(soundModel: sound)
+    init() {
         addSubscribers()
         
     }
     
     func addSubscribers() {
+        $sound
+            .sink { returnedSound in
+                print("returned sound \(returnedSound)")
+            }
+            .store(in: &soundCancellables)
+        
         songDataDownloadService.$downloadedSound
             .sink { returnedData in
                 print("data is returned from songdownloda service")
@@ -39,6 +43,7 @@ class SoundPlayerViewModel: ObservableObject {
         $audioIsPlaying
             .sink { isPlaying in
                 if isPlaying {
+                    print("playing")
                     self.startPlayer()
                 } else {
                     self.stopPlayer()

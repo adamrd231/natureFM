@@ -3,6 +3,7 @@ import SwiftUI
 struct HorizontalScrollView: View {
     
     @EnvironmentObject var vm: HomeViewModel
+    @EnvironmentObject var soundVM: SoundPlayerViewModel
 
     // Store manager variable for in-app purchases
     @State var storeManager: StoreManager
@@ -36,17 +37,28 @@ struct HorizontalScrollView: View {
                     else {
                         ForEach(soundArray) { sound in
                             VStack(alignment: .leading, spacing: 10) {
-                                SoundImageView(sound: sound)
-                                    .frame(width: 185, height: 117)
-                                    .clipped()
-                                    .shadow(radius: 2)
-                                   
+//                                SoundImageView(sound: sound)
+                          
+                                AsyncImage(
+                                    url: URL(string: sound.imageFileLink),
+                                    content: { image in
+                                        image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(width: 185, height: 117)
+                                            .clipped()
+                                            .contentShape(Rectangle())
+                                    }) {
+                                        ProgressView()
+                                    }
+     
                                 HStack {
             
                                     Button(action: {
                                         // TODO: Check if content requires premium membership
                                         // TODO: Perform check and allow or throw alert
                                             vm.downloadedContentService.saveSound(sound: sound)
+                                        print("Downloading")
                                         
                                     }) {
                                         Image(systemName: "arrow.down.circle.fill")
@@ -59,19 +71,20 @@ struct HorizontalScrollView: View {
                                     VStack(alignment: .leading) {
                                         Button(action: {
                                             // select song and play
-                                            vm.selectedSound = sound
+                                            print("Selecting sound \(sound.name)")
+                                            soundVM.sound = sound
+                                            vm.isViewingSongPlayerTab = true
                                    
                                         }) {
-                                            Text(sound.name).font(.subheadline)
-                                        }
-                                       
-                                        Text(sound.freeSong ? "Free" : "Subscription")
-                                            .font(.caption2)
-                                            .fontWeight(.bold)
-                                            .padding(.horizontal, 5)
-                                            .background(sound.freeSong ? Color.theme.customYellow : Color.theme.customBlue)
-                                            
-                                       
+                                            VStack(alignment: .leading) {
+                                                Text(sound.name).font(.subheadline)
+                                                Text(sound.freeSong ? "Free" : "Subscription")
+                                                    .font(.caption2)
+                                                    .fontWeight(.bold)
+                                                    .padding(.horizontal, 5)
+                                                    .background(sound.freeSong ? Color.theme.customYellow : Color.theme.customBlue)
+                                            }
+                                        } 
                                     }
                                     .alert(isPresented: $showingAlert, content: {
                                         // decide which alert to show
@@ -79,7 +92,6 @@ struct HorizontalScrollView: View {
                                         
                                     })
                                     .foregroundColor(Color.theme.titleColor)
-                                    Spacer()
                                 }
                             }.padding(.trailing, 3)
                         }

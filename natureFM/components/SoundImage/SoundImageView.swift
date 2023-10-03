@@ -1,10 +1,13 @@
 import SwiftUI
 
 struct SoundImageView: View {
-    
+    let sound: SoundsModel
     @StateObject var vm: SoundImageViewModel
+
     
     init(sound: SoundsModel) {
+
+        self.sound = sound
         _vm = StateObject(wrappedValue: SoundImageViewModel(sound: sound))
     }
     
@@ -14,30 +17,15 @@ struct SoundImageView: View {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFill()
-                    
-                
             } else  {
                 ZStack {
                     ProgressView()
                     Rectangle()
-                        
                         .foregroundColor(.gray)
                         .opacity(0.2)
                 }
                 .frame(width: 117, height: 100)
             }
-               
-//            } else {
-//                ZStack {
-//                    Image(systemName: "questionmark")
-//                     Rectangle()
-//                         .frame(width: 117, height: 100)
-//                         .foregroundColor(.gray)
-//                         .opacity(0.2)
-//                }
-//
-//
-//            }
         }
     }
 }

@@ -3,6 +3,7 @@ import GoogleMobileAds
 
 struct HomeView: View {
     @EnvironmentObject var vm: HomeViewModel
+    @StateObject var soundVM = SoundPlayerViewModel()
 
     // Store manager variable for in-app purchases
     @State var storeManager: StoreManager
@@ -70,6 +71,7 @@ extension HomeView {
                             soundArray: vm.allFreeSounds
                         )
                         .environmentObject(vm)
+                        .environmentObject(soundVM)
                         
                         // Section Two
                         Divider()
@@ -91,18 +93,15 @@ extension HomeView {
                     }
             }
             .sheet(isPresented: $vm.isViewingSongPlayer, content: {
-                if let currentSound = vm.selectedSound {
+                if let currentSound = soundVM.sound {
                     SoundPlayerView(sound: currentSound)
                         .presentationDetents([.medium, .large])
                 }
             })
             .overlay(alignment: .bottom, content: {
-                    if let sound = vm.selectedSound {
-                        PlayingNowBar(
-                            sound: sound,
-                            soundVM: SoundPlayerViewModel(sound: sound),
-                            isViewingSongPlayer: $vm.isViewingSongPlayer
-                        )
+                    if vm.isViewingSongPlayerTab {
+                        PlayingNowBar()
+                            .environmentObject(soundVM)
                     }
                 }
             )
@@ -177,8 +176,12 @@ extension HomeView {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(storeManager: StoreManager())
+        HomeView(
+            soundVM: SoundPlayerViewModel(),
+            storeManager: StoreManager()
+        )
             .environmentObject(HomeViewModel())
+
     }
 }
     
