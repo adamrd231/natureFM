@@ -12,6 +12,7 @@ struct PlayingNowBar: View {
     let buttonSize: CGFloat = 25
     let title: String
     let sound: SoundsModel
+    @Binding var isPlaying: Bool
     @Binding var isShowingAudioPlayer: Bool
     @Binding var isShowingAudioPlayerTab: Bool
     
@@ -34,7 +35,7 @@ struct PlayingNowBar: View {
                 }
                 Button {
                     print("play button")
-                    
+                    isPlaying.toggle()
                 } label: {
                     Image(systemName: "play.fill")
                         .resizable()
@@ -61,6 +62,7 @@ struct PlayingNowBar_Previews: PreviewProvider {
         PlayingNowBar(
             title: "Testing a title",
             sound: SoundsModel(),
+            isPlaying: .constant(false),
             isShowingAudioPlayer: .constant(false),
             isShowingAudioPlayerTab: .constant(false)
         )
