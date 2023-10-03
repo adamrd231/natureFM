@@ -16,6 +16,8 @@ class HomeViewModel: ObservableObject {
     @Published var categories: [CategoryModel] = []
     @Published var selectedCategory: String = "All"
     
+    @Published var isViewingSongPlayer: Bool = false
+    
     private var cancellables = Set<AnyCancellable>()
     
     private let natureSoundDataService = NatureSoundDataService()

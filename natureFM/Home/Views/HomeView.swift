@@ -90,17 +90,18 @@ extension HomeView {
                         .environmentObject(vm)
                     }
             }
-//            .sheet(isPresented: $audioPlayerVM.isShowingAudioPlayer, content: {
-//                if let currentSound = audioPlayerVM.sound {
-//                    SoundPlayerView(sound: currentSound)
-//                        .presentationDetents([.height(150), .medium, .large])
-//                }
-//            })
+            .sheet(isPresented: $vm.isViewingSongPlayer, content: {
+                if let currentSound = vm.selectedSound {
+                    SoundPlayerView(sound: currentSound)
+                        .presentationDetents([.medium, .large])
+                }
+            })
             .overlay(alignment: .bottom, content: {
                     if let sound = vm.selectedSound {
                         PlayingNowBar(
                             sound: sound,
-                            soundVM: SoundPlayerViewModel(sound: sound)
+                            soundVM: SoundPlayerViewModel(sound: sound),
+                            isViewingSongPlayer: $vm.isViewingSongPlayer
                         )
                     }
                 }

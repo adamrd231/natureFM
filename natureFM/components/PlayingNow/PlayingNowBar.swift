@@ -11,7 +11,8 @@ struct PlayingNowBar: View {
     
     let buttonSize: CGFloat = 25
     let sound: SoundsModel
-    let soundVM: SoundPlayerViewModel
+    @StateObject var soundVM: SoundPlayerViewModel
+    @Binding var isViewingSongPlayer: Bool
     
     var body: some View {
         HStack(spacing: 15) {
@@ -23,28 +24,22 @@ struct PlayingNowBar: View {
                 .foregroundColor(Color.theme.titleColor)
             Spacer()
             HStack(spacing: 30) {
+                // Play button
                 Button {
-                    print("Pause button")
-                } label: {
-                    Image(systemName: "pause.fill")
-                        .resizable()
-                        .frame(width: buttonSize, height: buttonSize, alignment: .center)
-                }
-                Button {
-                    print("play button")
                     soundVM.audioIsPlaying.toggle()
-                    
-                    
                 } label: {
-                    Image(systemName: "play.fill")
+                    Image(systemName:soundVM.audioIsPlaying ? "pause.fill" : "play.fill")
                         .resizable()
                         .frame(width: buttonSize, height: buttonSize, alignment: .center)
                 }
+
+               
             }
         }
         .padding(.horizontal)
         .onTapGesture {
             print("Teehee")
+            isViewingSongPlayer.toggle()
         }
         .frame(width: UIScreen.main.bounds.width, height: 75)
         .background(Color.theme.backgroundColor.opacity(0.9))
@@ -55,7 +50,8 @@ struct PlayingNowBar_Previews: PreviewProvider {
     static var previews: some View {
         PlayingNowBar(
             sound: SoundsModel(),
-            soundVM: SoundPlayerViewModel(sound: SoundsModel())
+            soundVM: SoundPlayerViewModel(sound: SoundsModel()),
+            isViewingSongPlayer: .constant(false)
         )
     }
 }

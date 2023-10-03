@@ -1,21 +1,15 @@
-import Foundation
 import Combine
 import AVKit
 import SwiftUI
 
 class SoundPlayerViewModel: ObservableObject {
-    
     @Published var audioPlayer = AVAudioPlayer()
-    
     @Published var sound: SoundsModel
     @Published var timer = Timer.publish(every: 1.0, on: .main, in: .common)
     @Published var audioIsPlaying: Bool = false
-    @Published var isShowingAudioPlayerTab: Bool = false
-    @Published var isShowingAudioPlayer: Bool = false
     
     // Information to get the url
     @Published var songDataDownloadService: SongDataDownloadService
-    
     @Published var soundCancellables = Set<AnyCancellable>()
     
     init(sound: SoundsModel) {
@@ -63,9 +57,6 @@ class SoundPlayerViewModel: ObservableObject {
         timer.connect()
     }
     
-    
-
-
     func skipForwardThirtySeconds() {
         if audioPlayer.currentTime + 30 > audioPlayer.duration {
             audioPlayer.currentTime = 0
@@ -77,19 +68,4 @@ class SoundPlayerViewModel: ObservableObject {
             audioPlayer.currentTime += 30
         }
     }
-    
-    func playerButtonLabel() -> some View {
-        if audioIsPlaying {
-            return Image(systemName: "pause.fill")
-                .resizable()
-                .frame(width: 40, height: 40)
-            
-        } else {
-            return Image(systemName: "play.fill")
-                .resizable()
-                .frame(width: 40, height: 40)
-        }
-    }
-    
-    
 }
