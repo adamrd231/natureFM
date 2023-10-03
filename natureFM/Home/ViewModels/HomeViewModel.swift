@@ -11,6 +11,8 @@ class HomeViewModel: ObservableObject {
 
     @Published var randomSound: SoundsModel = SoundsModel()
     
+    @Published var selectedSound: SoundsModel?
+    
     @Published var categories: [CategoryModel] = []
     @Published var selectedCategory: String = "All"
     

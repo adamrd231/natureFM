@@ -8,10 +8,6 @@ struct HorizontalScrollView: View {
     @State var storeManager: StoreManager
     var soundArray: [SoundsModel]
     
-    @Binding var audioPlayerCurrentSong: SoundsModel?
-    @Binding var isShowingAudioPlayer: Bool
-    @Binding var isShowingAudioPlayerTab: Bool
-    @Binding var isPlaying: Bool
     
     @State private var showingAlert: Bool = false
     
@@ -63,12 +59,8 @@ struct HorizontalScrollView: View {
                                     VStack(alignment: .leading) {
                                         Button(action: {
                                             // select song and play
-                                            print("Show player")
-                                            print("Sound: \(sound)")
-                                            audioPlayerCurrentSong = sound
-                                
-                                            isShowingAudioPlayerTab = true
-                                            print("isAudioTab = \(isShowingAudioPlayerTab)")
+                                            vm.selectedSound = sound
+                                   
                                         }) {
                                             Text(sound.name).font(.subheadline)
                                         }
@@ -102,11 +94,7 @@ struct HorizontalScrollView_Previews: PreviewProvider {
     static var previews: some View {
         HorizontalScrollView(
             storeManager: StoreManager(),
-            soundArray: [],
-            audioPlayerCurrentSong: .constant(SoundsModel()),
-            isShowingAudioPlayer: .constant(false),
-            isShowingAudioPlayerTab: .constant(false),
-            isPlaying: .constant(false)
+            soundArray: []
         )
             .environmentObject(HomeViewModel())
     }

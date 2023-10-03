@@ -3,7 +3,6 @@ import GoogleMobileAds
 
 struct HomeView: View {
     @EnvironmentObject var vm: HomeViewModel
-    @StateObject var audioPlayerVM = SoundPlayerViewModel()
 
     // Store manager variable for in-app purchases
     @State var storeManager: StoreManager
@@ -68,11 +67,7 @@ extension HomeView {
                             .fontWeight(.bold)
                         HorizontalScrollView(
                             storeManager: storeManager,
-                            soundArray: vm.allFreeSounds,
-                            audioPlayerCurrentSong: $audioPlayerVM.sound,
-                            isShowingAudioPlayer: $audioPlayerVM.isShowingAudioPlayer,
-                            isShowingAudioPlayerTab: $audioPlayerVM.isShowingAudioPlayerTab,
-                            isPlaying: $audioPlayerVM.audioIsPlaying
+                            soundArray: vm.allFreeSounds
                         )
                         .environmentObject(vm)
                         
@@ -90,34 +85,26 @@ extension HomeView {
                             .fontWeight(.bold)
                         HorizontalScrollView(
                             storeManager: storeManager,
-                            soundArray: vm.allSubscriptionSounds,
-                            audioPlayerCurrentSong: $audioPlayerVM.sound,
-                            isShowingAudioPlayer: $audioPlayerVM.isShowingAudioPlayer,
-                            isShowingAudioPlayerTab: $audioPlayerVM.isShowingAudioPlayerTab,
-                            isPlaying: $audioPlayerVM.audioIsPlaying
+                            soundArray: vm.allSubscriptionSounds
                         )
                         .environmentObject(vm)
                     }
             }
-            .sheet(isPresented: $audioPlayerVM.isShowingAudioPlayer, content: {
-                if let currentSound = audioPlayerVM.sound {
-                    SoundPlayerView(sound: currentSound)
-                        .presentationDetents([.height(150), .medium, .large])
-                }
-            })
+//            .sheet(isPresented: $audioPlayerVM.isShowingAudioPlayer, content: {
+//                if let currentSound = audioPlayerVM.sound {
+//                    SoundPlayerView(sound: currentSound)
+//                        .presentationDetents([.height(150), .medium, .large])
+//                }
+//            })
             .overlay(alignment: .bottom, content: {
-                if audioPlayerVM.isShowingAudioPlayerTab {
-                    if let song = audioPlayerVM.sound {
+                    if let sound = vm.selectedSound {
                         PlayingNowBar(
-                            title: song.name,
-                            sound: song,
-                            isPlaying: $audioPlayerVM.audioIsPlaying,
-                            isShowingAudioPlayer: $audioPlayerVM.isShowingAudioPlayer,
-                            isShowingAudioPlayerTab: $audioPlayerVM.isShowingAudioPlayerTab
+                            sound: sound,
+                            soundVM: SoundPlayerViewModel(sound: sound)
                         )
                     }
                 }
-            })
+            )
         }
     }
     

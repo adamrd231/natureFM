@@ -7,71 +7,69 @@ class SoundPlayerViewModel: ObservableObject {
     
     @Published var audioPlayer = AVAudioPlayer()
     
-    @Published var sound: SoundsModel?
+    @Published var sound: SoundsModel
     @Published var timer = Timer.publish(every: 1.0, on: .main, in: .common)
     @Published var audioIsPlaying: Bool = false
     @Published var isShowingAudioPlayerTab: Bool = false
     @Published var isShowingAudioPlayer: Bool = false
     
     // Information to get the url
-    @Published var songDataDownloadService: SongDataDownloadService?
+    @Published var songDataDownloadService: SongDataDownloadService
     
     @Published var soundCancellables = Set<AnyCancellable>()
     
-    init() {
+    init(sound: SoundsModel) {
 //      TODO: Need to hook up download service when we are ready to play a song
-//      self.songDataDownloadService = SongDataDownloadService(soundModel: sound)
-
+        self.sound = sound
+        self.songDataDownloadService = SongDataDownloadService(soundModel: sound)
         addSubscribers()
+        
     }
     
     func addSubscribers() {
-        if let downloadService = songDataDownloadService {
-            downloadService.$downloadedSound
-                .sink { returnedData in
-                    if let data = returnedData {
-                        do {
-                            self.audioPlayer = try AVAudioPlayer(data: data)
-                        } catch {
-                            print("Error")
-                        }
+        songDataDownloadService.$downloadedSound
+            .sink { returnedData in
+                print("data is returned from songdownloda service")
+                if let data = returnedData {
+                    do {
+                        print("Got the audio player")
+                        self.audioPlayer = try AVAudioPlayer(data: data)
+                    } catch {
+                        print("Error fetching audio player")
                     }
-                }
-                .store(in: &soundCancellables)
-        }
-        
-        $audioIsPlaying
-            .sink { isPlaying in
-                print("isPlaying: \(isPlaying)")
-                if isPlaying {
-                    print("Start")
-                    self.startAudioPlayer()
-                } else {
-                    print("Stop")
-                    self.stopAudioPlayer()
                 }
             }
             .store(in: &soundCancellables)
         
-    }
-    
-    func startAudioPlayer() {
-        audioPlayer.play()
-        timer = Timer.publish(every: 1, on: .main, in: .common)
-        timer.connect()
+        
+        $audioIsPlaying
+            .sink { isPlaying in
+                print("isPlaying: \(isPlaying)")
+                print("sound: \(self.sound)")
+                if isPlaying {
+                    print("Start")
+//                    self.startAudioPlayer()
 
+                    self.audioPlayer.play()
+                    self.timer = Timer.publish(every: 1, on: .main, in: .common)
+                    self.timer.connect()
+                } else {
+                    print("Stop")
+//                    self.stopAudioPlayer()
+                    self.audioPlayer.pause()
+                    self.timer.connect().cancel()
+                    print("audio is playing \( self.audioIsPlaying)")
+                }
+            }
+            .store(in: &soundCancellables)
     }
     
-    
-    // MARK: Player Functions
-    
-    func stopAudioPlayer() {
-        audioPlayer.pause()
-        timer.connect().cancel()
-        audioIsPlaying = false
-        print("audio is playing \(audioIsPlaying)")
+    func startPlayer() {
+        self.audioPlayer.play()
+        self.timer = Timer.publish(every: 1, on: .main, in: .common)
+        self.timer.connect()
     }
-    
+
 
     func skipForwardThirtySeconds() {
         if audioPlayer.currentTime + 30 > audioPlayer.duration {
