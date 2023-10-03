@@ -111,6 +111,7 @@ extension HomeView {
                         PlayingNowBar(
                             title: song.name,
                             sound: song,
+                            isPlaying: $audioPlayerVM.audioIsPlaying,
                             isShowingAudioPlayer: $audioPlayerVM.isShowingAudioPlayer,
                             isShowingAudioPlayerTab: $audioPlayerVM.isShowingAudioPlayerTab
                         )

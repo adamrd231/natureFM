@@ -34,6 +34,7 @@ struct PlayingNowBar: View {
                 }
                 Button {
                     print("play button")
+                    
                 } label: {
                     Image(systemName: "play.fill")
                         .resizable()
