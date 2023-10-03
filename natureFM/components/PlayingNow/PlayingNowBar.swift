@@ -27,10 +27,6 @@ struct PlayingNowBar: View {
                     ProgressView()
                 }
 
-
-
-                
-
             Text(soundVM.sound?.name ?? "")
                 .bold()
                 .foregroundColor(Color.theme.titleColor)

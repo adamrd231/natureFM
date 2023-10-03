@@ -6,7 +6,7 @@ import SwiftUI
 class SongDataDownloadService {
     
     @Published var downloadedSound: Data? = nil
-    @Published var soundModel: SoundsModel?
+//    @Published var soundModel: SoundsModel?
 
     private let fileManager = LocalFileManager.instance
     private let folderName = "sound_audio"
@@ -16,9 +16,9 @@ class SongDataDownloadService {
   
     
     // Download or pull up all sounds currently in library
-    func getSound(urlString: String) {
+    func getSound(sound: SoundsModel) {
         print("Getting sound")
-        guard let sound = soundModel else { return }
+    
         print("Checking if we have sound")
         let soundName = sound.name
         if let savedSoundURL = fileManager.getSoundURL(soundName: soundName, folderName: folderName) {
@@ -30,15 +30,14 @@ class SongDataDownloadService {
   
         } else {
             print("Download song")
-            downloadSound()
+            downloadSound(sound: sound)
         }
     }
     
     
     
     
-    private func downloadSound() {
-        guard let sound = soundModel else { return }
+    private func downloadSound(sound: SoundsModel) {
         let soundName = sound.name
         print("Url: \(sound.audioFileLink)")
         guard let url = URL(string: sound.audioFileLink) else { return }

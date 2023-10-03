@@ -22,6 +22,10 @@ class SoundPlayerViewModel: ObservableObject {
         $sound
             .sink { returnedSound in
                 print("returned sound \(returnedSound)")
+                if let unwrappedSound = returnedSound {
+                    self.songDataDownloadService.getSound(sound: unwrappedSound)
+                }
+               
             }
             .store(in: &soundCancellables)
         

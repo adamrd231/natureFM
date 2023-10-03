@@ -90,6 +90,7 @@ extension HomeView {
                             soundArray: vm.allSubscriptionSounds
                         )
                         .environmentObject(vm)
+                        .environmentObject(soundVM)
                     }
             }
             .sheet(isPresented: $vm.isViewingSongPlayer, content: {
