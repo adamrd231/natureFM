@@ -45,9 +45,9 @@ struct HorizontalScrollView: View {
                                         image
                                             .resizable()
                                             .aspectRatio(contentMode: .fit)
-                                            .frame(width: 185, height: 117)
                                             .clipped()
                                             .contentShape(Rectangle())
+                                            .frame(width: 185, height: 117)
                                     }) {
                                         ProgressView()
                                     }

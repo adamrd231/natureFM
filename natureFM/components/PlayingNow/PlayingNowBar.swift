@@ -19,13 +19,16 @@ struct PlayingNowBar: View {
                 content: { image in
                     image
                         .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 66, height: 50, alignment: .center)
+                        .aspectRatio(contentMode: .fill)
                         .clipped()
                         .contentShape(Rectangle())
-                }) {
-                    ProgressView()
-                }
+                        .background(.blue)
+                        .frame(width: 90, height: 75)
+
+            }) {
+                ProgressView()
+            }
+            .background(.red)
 
             Text(soundVM.sound?.name ?? "")
                 .bold()
@@ -43,18 +46,16 @@ struct PlayingNowBar: View {
             }
         }
         .padding(.horizontal)
-
         .background(Color.theme.backgroundColor.opacity(0.9))
         .frame(width: UIScreen.main.bounds.width, height: 75)
     }
 
 }
 //
-//struct PlayingNowBar_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PlayingNowBar(
-//            sound: .constant(SoundsModel()),
-//            isViewingSongPlayer: .constant(false)
-//        )
-//    }
-//}
+struct PlayingNowBar_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        PlayingNowBar()
+            .environmentObject(SoundPlayerViewModel())
+    }
+}
