@@ -2,7 +2,6 @@ import Combine
 import AVKit
 import SwiftUI
 
-@MainActor
 class SoundPlayerViewModel: ObservableObject {
     @Published var audioPlayer = AVAudioPlayer()
     @Published var sound: SoundsModel?

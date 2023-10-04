@@ -38,8 +38,3 @@ class SoundsModel: ObservableObject, Identifiable, Codable, CustomStringConverti
         
     }
 }
-
-extension SoundsModel {
-    static var TestSound = SoundsModel()
-
-}
