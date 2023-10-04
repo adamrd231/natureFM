@@ -22,17 +22,16 @@ struct PlayingNowBar: View {
                         .aspectRatio(contentMode: .fill)
                         .clipped()
                         .contentShape(Rectangle())
-                        .background(.blue)
-                        .frame(width: 90, height: 75)
+                        .frame(maxWidth: 75)
 
             }) {
                 ProgressView()
             }
-            .background(.red)
-
+            
             Text(soundVM.sound?.name ?? "")
                 .bold()
                 .foregroundColor(Color.theme.titleColor)
+            Text(soundVM.sound?.categoryName ?? "")
             Spacer()
             HStack(spacing: 30) {
                 // Play button
@@ -56,6 +55,6 @@ struct PlayingNowBar_Previews: PreviewProvider {
     
     static var previews: some View {
         PlayingNowBar()
-            .environmentObject(SoundPlayerViewModel())
+            .environmentObject(dev.soundVM)
     }
 }
