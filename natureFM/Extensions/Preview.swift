@@ -15,7 +15,7 @@ class DeveloperPreview {
     let homeVM = HomeViewModel()
     let soundVM = SoundPlayerViewModel()
     let testSound = SoundsModel(
-        name: "Adams song",
+        name: "Adams song is a long title yo!",
         duration: 100,
         audioFileLink: "",
         imageFileLink: "http://via.placeholder.com/640x360",

@@ -64,6 +64,8 @@ struct PlayingNowBar: View {
                     .font(.callout)
                     .fontWeight(.heavy)
                     .foregroundColor(Color.theme.titleColor)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
                 Text(soundVM.sound?.categoryName ?? "")
                     .font(.caption)
                     .fontWeight(.medium)
