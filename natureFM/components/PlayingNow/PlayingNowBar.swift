@@ -31,12 +31,45 @@ struct PlayingNowBar: View {
                     .frame(maxWidth: 90)
                     .foregroundColor(Color.theme.titleColor)
             }
-            .background(.red)
             
-            Text(soundVM.sound?.name ?? "")
-                .font(.footnote)
-                .fontWeight(.heavy)
-                .foregroundColor(Color.theme.titleColor)
+            VStack(alignment: .leading) {
+                VStack(spacing: 3) {
+                    Rectangle()
+                        .frame(height: 1)
+                        .foregroundColor(Color(.lightGray))
+                        .cornerRadius(5)
+                        .opacity(0.8)
+                        .gesture(
+                            DragGesture()
+                                .onEnded {drag in
+                                    print("done dragging")
+                                    // TODO: Show player if user drags up here.
+                                }
+                        )
+                    Rectangle()
+                        .frame(height: 1)
+                        .foregroundColor(Color(.lightGray))
+                        .cornerRadius(5)
+                        .opacity(0.5)
+                        .gesture(
+                            DragGesture()
+                                .onEnded {drag in
+                                    print("done dragging")
+                                    // TODO: Show player if user drags up here.
+                                }
+                        )
+                }
+            
+                Text(soundVM.sound?.name ?? "")
+                    .font(.callout)
+                    .fontWeight(.heavy)
+                    .foregroundColor(Color.theme.titleColor)
+                Text(soundVM.sound?.categoryName ?? "")
+                    .font(.caption)
+                    .fontWeight(.medium)
+         
+            }
+           
 
             Spacer()
 
