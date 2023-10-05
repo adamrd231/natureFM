@@ -11,7 +11,7 @@ struct SoundPlayerView: View {
     
     struct SoundPlayerView_Previews: PreviewProvider {
         static var previews: some View {
-            SoundPlayerView(sound: SoundsModel())
+            SoundPlayerView(sound: dev.testSound)
         }
     }
 }

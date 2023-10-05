@@ -34,6 +34,6 @@ struct SoundImageView: View {
 
 struct SoundImageView_Previews: PreviewProvider {
     static var previews: some View {
-        SoundImageView(sound: SoundsModel())
+        SoundImageView(sound: dev.testSound)
     }
 }

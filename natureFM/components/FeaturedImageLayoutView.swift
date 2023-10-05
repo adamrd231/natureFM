@@ -48,6 +48,6 @@ struct FeaturedImageLayoutView: View {
 
 struct FeaturedImageLayoutView_Previews: PreviewProvider {
     static var previews: some View {
-        FeaturedImageLayoutView(sound: SoundsModel())
+        FeaturedImageLayoutView(sound: dev.testSound)
     }
 }

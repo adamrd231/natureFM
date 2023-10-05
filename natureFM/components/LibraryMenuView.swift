@@ -41,6 +41,6 @@ struct LibraryMenuView: View {
 
 struct LibraryMenuView_Previews: PreviewProvider {
     static var previews: some View {
-        LibraryMenuView(sound: SoundsModel())
+        LibraryMenuView(sound: dev.testSound)
     }
 }

@@ -18,7 +18,7 @@ class DeveloperPreview {
         name: "Adams song",
         duration: 100,
         audioFileLink: "",
-        imageFileLink: "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579",
+        imageFileLink: "http://via.placeholder.com/640x360",
         categoryName: "Rain",
         locationName: "Portland",
         freeSong: false

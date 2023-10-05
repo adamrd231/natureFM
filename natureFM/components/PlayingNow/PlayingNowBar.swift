@@ -20,33 +20,40 @@ struct PlayingNowBar: View {
                     image
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .clipped()
                         .contentShape(Rectangle())
-                        .frame(maxWidth: 75)
+                        .frame(height: 80)
+                        .frame(maxWidth: 90)
+                        .clipped()
 
             }) {
-                ProgressView()
+               Rectangle()
+                    .frame(height: 80)
+                    .frame(maxWidth: 90)
+                    .foregroundColor(Color.theme.titleColor)
             }
+            .background(.red)
             
             Text(soundVM.sound?.name ?? "")
-                .bold()
+                .font(.footnote)
+                .fontWeight(.heavy)
                 .foregroundColor(Color.theme.titleColor)
-            Text(soundVM.sound?.categoryName ?? "")
+
             Spacer()
-            HStack(spacing: 30) {
-                // Play button
-                Button {
-                    soundVM.audioIsPlaying.toggle()
-                } label: {
-                    Image(systemName:soundVM.audioIsPlaying ? "pause.fill" : "play.fill")
-                        .resizable()
-                        .frame(width: buttonSize, height: buttonSize, alignment: .center)
-                }
+
+            // Play button
+            Button {
+                soundVM.audioIsPlaying.toggle()
+            } label: {
+                Image(systemName:soundVM.audioIsPlaying ? "pause.fill" : "play.fill")
+                    .resizable()
+                    .frame(width: buttonSize, height: buttonSize, alignment: .center)
             }
+            .padding(.trailing)
         }
-        .padding(.horizontal)
+
+
+        .frame(width: UIScreen.main.bounds.width, height: 80)
         .background(Color.theme.backgroundColor.opacity(0.9))
-        .frame(width: UIScreen.main.bounds.width, height: 75)
     }
 
 }
@@ -55,6 +62,13 @@ struct PlayingNowBar_Previews: PreviewProvider {
     
     static var previews: some View {
         PlayingNowBar()
+            .preferredColorScheme(.light)
             .environmentObject(dev.soundVM)
+            .previewLayout(.sizeThatFits)
+        
+        PlayingNowBar()
+            .preferredColorScheme(.dark)
+            .environmentObject(dev.soundVM)
+            .previewLayout(.sizeThatFits)
     }
 }
