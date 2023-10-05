@@ -9,7 +9,7 @@ class HomeViewModel: ObservableObject {
     @Published var allFreeSounds: [SoundsModel] = []
     @Published var allSubscriptionSounds: [SoundsModel] = []
 
-    @Published var randomSound: SoundsModel = SoundsModel()
+    @Published var randomSound: SoundsModel?
     
     @Published var categories: [CategoryModel] = []
     @Published var selectedCategory: String = "All"
@@ -74,14 +74,15 @@ class HomeViewModel: ObservableObject {
         var sounds: [SoundsModel] = []
         
         for sound in returnedSounds {
-            let newSound = SoundsModel()
-            newSound.name = sound.name ?? ""
-            newSound.categoryName = sound.categoryName ?? ""
-            newSound.locationName = sound.locationName ?? ""
-            newSound.freeSong = sound.freeSong
-            newSound.duration = Int(sound.duration)
-            newSound.audioFileLink = sound.audioFile ?? ""
-            newSound.imageFileLink = sound.imageFileLink ?? ""
+            let newSound = SoundsModel(
+                name: sound.name ?? "",
+                duration: Int(sound.duration),
+                audioFileLink: sound.audioFile ?? "",
+                imageFileLink: sound.imageFileLink ?? "",
+                categoryName: sound.categoryName ?? "",
+                locationName: sound.locationName ?? "",
+                freeSong: sound.freeSong
+            )
             
             if newSound.categoryName == currentCategory || currentCategory == "All" {
                 sounds.append(newSound)

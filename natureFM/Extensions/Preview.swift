@@ -9,15 +9,21 @@ extension PreviewProvider {
 class DeveloperPreview {
     static let instance = DeveloperPreview()
     private init() {
-        testSound.imageFileLink = imageFileLink
-        soundVM.sound?.name = "Adam is cool"
-        soundVM.sound?.audioFileLink = audioLink ?? ""
-        soundVM.sound?.categoryName = "Adam"
+        soundVM.sound = testSound
     }
     
     let homeVM = HomeViewModel()
     let soundVM = SoundPlayerViewModel()
-    let testSound = SoundsModel()
+    let testSound = SoundsModel(
+        name: "Adams song",
+        duration: 100,
+        audioFileLink: "",
+        imageFileLink: "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579",
+        categoryName: "Rain",
+        locationName: "Portland",
+        freeSong: false
+    )
+    
     
     let audioLink = Bundle.main.path(forResource: "launchimage", ofType: "jpg")
     let imageFileLink = ""

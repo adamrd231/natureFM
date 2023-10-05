@@ -1,28 +1,29 @@
 import Foundation
 
-class SoundsModel: ObservableObject, Identifiable, Codable, CustomStringConvertible, Comparable {
+struct SoundsModel: Identifiable, Codable  {
     
     static func == (lhs: SoundsModel, rhs: SoundsModel) -> Bool {
         return lhs.name == rhs.name
     }
-    
+
     static func < (lhs: SoundsModel, rhs: SoundsModel) -> Bool {
         return lhs.name < rhs.name
     }
-    
+
     var description: String {
         return "\(name)"
     }
     
-    var name = ""
-    var duration: Int = 0
+    let id = UUID()
+    var name: String
+    var duration: Int
     var location: Int?
     var category: Int?
-    var audioFileLink = ""
-    var imageFileLink = ""
-    var categoryName = ""
-    var locationName = ""
-    var freeSong = false
+    var audioFileLink: String
+    var imageFileLink: String
+    var categoryName: String
+    var locationName: String
+    var freeSong: Bool
     
     enum CodingKeys: String, CodingKey {
         // Complete set of coding keys
