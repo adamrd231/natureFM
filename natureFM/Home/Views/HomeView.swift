@@ -67,6 +67,7 @@ extension HomeView {
                             .font(.title2)
                             .fontWeight(.bold)
                         HorizontalScrollView(
+                            soundChoice: .free,
                             storeManager: storeManager
                         )
                         .environmentObject(vm)
@@ -85,6 +86,7 @@ extension HomeView {
                             .font(.title2)
                             .fontWeight(.bold)
                         HorizontalScrollView(
+                            soundChoice: .subscription,
                             storeManager: storeManager
                         )
                         .environmentObject(vm)
@@ -92,12 +94,11 @@ extension HomeView {
                     }
             }
             .sheet(isPresented: $vm.isViewingSongPlayer, content: {
-                if let currentSound = soundVM.sound {
-                    SoundPlayerView()
-                        .environmentObject(soundVM)
-                        .environmentObject(vm)
-                        .presentationDetents([.medium, .large])
-                }
+                SoundPlayerView()
+                    .environmentObject(soundVM)
+                    .environmentObject(vm)
+                    .presentationDetents([.medium, .large])
+                
             })
             .overlay(alignment: .bottom, content: {
                     if vm.isViewingSongPlayerTab {

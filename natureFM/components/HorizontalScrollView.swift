@@ -1,13 +1,23 @@
 import SwiftUI
 
+enum SoundChoices {
+    case free
+    case subscription
+}
+
 struct HorizontalScrollView: View {
     @EnvironmentObject var vm: HomeViewModel
     @EnvironmentObject var soundVM: SoundPlayerViewModel
+    let soundChoice: SoundChoices
 
     // Store manager variable for in-app purchases
     @State var storeManager: StoreManager
     var soundArray: [SoundsModel] {
-        return vm.allFreeSounds
+        switch soundChoice {
+        case .free: return vm.allFreeSounds
+        case .subscription: return vm.allSubscriptionSounds
+        }
+        
     }
     
     @State private var showingAlert: Bool = false
@@ -29,7 +39,7 @@ struct HorizontalScrollView: View {
                                     Rectangle()
                                         .foregroundColor(.gray)
                                         .opacity(0.1)
-                                        .frame(width: 185, height: 117)
+                                        .frame(width: 200, height: 120)
                                 }
                             }
                         }
@@ -44,16 +54,22 @@ struct HorizontalScrollView: View {
                                     content: { image in
                                         image
                                             .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .clipped()
+                                            .aspectRatio(contentMode: .fill)
                                             .contentShape(Rectangle())
-                                            .frame(width: 185, height: 117)
+                                            .frame(width: 200, height: 120)
+                                            .clipped()
+                                        
                                     }) {
-                                        ProgressView()
+                                        ZStack {
+                                            Rectangle()
+                                                .foregroundColor(Color.theme.backgroundColor)
+                                                .frame(width: 200, height: 120)
+                                            ProgressView()
+                                        }
+                                       
                                     }
      
-                                HStack {
-            
+                                HStack(spacing: 5) {
                                     Button(action: {
                                         // TODO: Check if content requires premium membership
                                         // TODO: Perform check and allow or throw alert
@@ -65,7 +81,6 @@ struct HorizontalScrollView: View {
                                             .resizable()
                                             .frame(width: 25, height: 25)
                                     }
-                                    
                                     .foregroundColor(Color.theme.titleColor)
                                     
                                     VStack(alignment: .leading) {
@@ -93,7 +108,8 @@ struct HorizontalScrollView: View {
                                     })
                                     .foregroundColor(Color.theme.titleColor)
                                 }
-                            }.padding(.trailing, 3)
+                            }
+                            .frame(maxWidth: 200)
                         }
                     }
                 }
@@ -105,6 +121,7 @@ struct HorizontalScrollView: View {
 struct HorizontalScrollView_Previews: PreviewProvider {
     static var previews: some View {
         HorizontalScrollView(
+            soundChoice: .free,
             storeManager: StoreManager()
         )
         .environmentObject(dev.homeVM)
