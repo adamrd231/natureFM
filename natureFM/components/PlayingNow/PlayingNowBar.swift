@@ -10,6 +10,7 @@ import SwiftUI
 struct PlayingNowBar: View {
     
     @EnvironmentObject var soundVM: SoundPlayerViewModel
+    @EnvironmentObject var homeVM: HomeViewModel
     let buttonSize: CGFloat = 25
     
     var body: some View {
@@ -39,25 +40,16 @@ struct PlayingNowBar: View {
                         .foregroundColor(Color(.lightGray))
                         .cornerRadius(5)
                         .opacity(0.8)
-                        .gesture(
-                            DragGesture()
-                                .onEnded {drag in
-                                    print("done dragging")
-                                    // TODO: Show player if user drags up here.
-                                }
-                        )
                     Rectangle()
                         .frame(height: 1)
                         .foregroundColor(Color(.lightGray))
                         .cornerRadius(5)
                         .opacity(0.5)
-                        .gesture(
-                            DragGesture()
-                                .onEnded {drag in
-                                    print("done dragging")
-                                    // TODO: Show player if user drags up here.
-                                }
-                        )
+                        
+                }
+                
+                .onTapGesture {
+                    homeVM.isViewingSongPlayer = true
                 }
             
                 Text(soundVM.sound?.name ?? "")
@@ -71,7 +63,12 @@ struct PlayingNowBar: View {
                     .fontWeight(.medium)
          
             }
-           
+            .gesture(
+                DragGesture()
+                    .onEnded {drag in
+                        homeVM.isViewingSongPlayer = true
+                    }
+            )
 
             Spacer()
 
@@ -99,11 +96,13 @@ struct PlayingNowBar_Previews: PreviewProvider {
         PlayingNowBar()
             .preferredColorScheme(.light)
             .environmentObject(dev.soundVM)
+            .environmentObject(dev.homeVM)
             .previewLayout(.sizeThatFits)
         
         PlayingNowBar()
             .preferredColorScheme(.dark)
             .environmentObject(dev.soundVM)
+            .environmentObject(dev.homeVM)
             .previewLayout(.sizeThatFits)
     }
 }

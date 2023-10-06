@@ -3,15 +3,16 @@ import AVKit
 
 struct SoundPlayerView: View {
     
-    let sound: SoundsModel
+    @EnvironmentObject var soundVM: SoundPlayerViewModel
     
     var body: some View {
-        Text(sound.name)
+        Text(soundVM.sound?.name ?? "N/A")
     }
     
     struct SoundPlayerView_Previews: PreviewProvider {
         static var previews: some View {
-            SoundPlayerView(sound: dev.testSound)
+            SoundPlayerView()
+                .environmentObject(dev.soundVM)
         }
     }
 }

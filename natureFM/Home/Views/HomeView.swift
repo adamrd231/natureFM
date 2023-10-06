@@ -95,7 +95,9 @@ extension HomeView {
             }
             .sheet(isPresented: $vm.isViewingSongPlayer, content: {
                 if let currentSound = soundVM.sound {
-                    SoundPlayerView(sound: currentSound)
+                    SoundPlayerView()
+                        .environmentObject(soundVM)
+                        .environmentObject(vm)
                         .presentationDetents([.medium, .large])
                 }
             })
@@ -103,6 +105,7 @@ extension HomeView {
                     if vm.isViewingSongPlayerTab {
                         PlayingNowBar()
                             .environmentObject(soundVM)
+                            .environmentObject(vm)
                     }
                 }
             )
