@@ -15,6 +15,7 @@ struct PlayingNowBar: View {
     
     var body: some View {
         HStack(spacing: 15) {
+
             AsyncImage(
                 url: URL(string: soundVM.sound?.imageFileLink ?? ""),
                 content: { image in
@@ -27,11 +28,31 @@ struct PlayingNowBar: View {
                         .clipped()
 
             }) {
-               Rectangle()
-                    .frame(height: 80)
-                    .frame(maxWidth: 90)
-                    .foregroundColor(Color.theme.titleColor)
+                ZStack {
+                    Rectangle()
+                         .frame(height: 80)
+                         .frame(maxWidth: 90)
+                         .foregroundColor(Color.theme.titleColor)
+                    ProgressView()
+                        .tint(Color.theme.backgroundColor)
+                  
+                }
+             
             }
+            .overlay(alignment: .topLeading) {
+                Button {
+                    // close the playing now bar
+                    print("Pressed")
+                    homeVM.isViewingSongPlayerTab = false
+                } label: {
+                    Image(systemName: "cross.circle.fill")
+                        .rotationEffect(Angle(degrees: 45))
+                        .foregroundColor(Color.theme.backgroundColor)
+                        .frame(width: 15, height: 15, alignment: .center)
+                        .padding(7)
+                }
+            }
+           
             
             VStack(alignment: .leading) {
                 VStack(spacing: 3) {

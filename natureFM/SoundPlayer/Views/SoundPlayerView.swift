@@ -14,7 +14,7 @@ struct SoundPlayerView: View {
                     content: { image in
                         image
                             .resizable()
-                            .aspectRatio(contentMode: .fit)
+                            .aspectRatio(contentMode: .fill)
                             .clipped()
                             .contentShape(Rectangle())
                             
@@ -50,9 +50,6 @@ struct SoundPlayerView: View {
                 .font(.caption)
             }
           
-            
-            
-            
             HStack(spacing: 25) {
                 Button {
                     soundVM.skipBackward15()
