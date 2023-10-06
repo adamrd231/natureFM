@@ -5,22 +5,33 @@ import SwiftUI
 class SoundPlayerViewModel: ObservableObject {
     @Published var audioPlayer = AVAudioPlayer()
     @Published var sound: SoundsModel?
-    @Published var timer = Timer.publish(every: 1.0, on: .main, in: .common)
+    @Published var timer = Timer()
     @Published var audioIsPlaying: Bool = false
     
     // Information to get the url
     @Published var songDataDownloadService = SongDataDownloadService()
     @Published var soundCancellables = Set<AnyCancellable>()
+    @Published var percentagePlayed: Double = 0
     
     init() {
         addSubscribers()
         
     }
     
+    func runTimer() {
+        self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true ) { _ in
+            self.percentagePlayed = self.audioPlayer.currentTime / self.audioPlayer.duration
+        }
+    }
+    
+    func stopTimer() {
+        self.timer.invalidate()
+    }
+  
+    
     func addSubscribers() {
         $sound
             .sink { returnedSound in
-                print("returned sound \(returnedSound)")
                 if let unwrappedSound = returnedSound {
                     self.songDataDownloadService.getSound(sound: unwrappedSound)
                 }
@@ -30,10 +41,8 @@ class SoundPlayerViewModel: ObservableObject {
         
         songDataDownloadService.$downloadedSound
             .sink { returnedData in
-                print("data is returned from songdownloda service")
                 if let data = returnedData {
                     do {
-                        print("Got the audio player")
                         self.audioPlayer = try AVAudioPlayer(data: data)
                     } catch {
                         print("Error fetching audio player")
@@ -57,18 +66,18 @@ class SoundPlayerViewModel: ObservableObject {
     
     func stopPlayer() {
         audioPlayer.pause()
-        timer.connect().cancel()
+        stopTimer()
+        
     }
     func startPlayer() {
         audioPlayer.play()
-        timer = Timer.publish(every: 1, on: .main, in: .common)
-        timer.connect()
+        runTimer()
     }
     
     func skipForwardThirtySeconds() {
         if audioPlayer.currentTime + 30 > audioPlayer.duration {
             audioPlayer.currentTime = 0
-            timer.connect().cancel()
+            runTimer()
             audioIsPlaying = false
             audioPlayer.pause()
             

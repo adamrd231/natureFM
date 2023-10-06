@@ -28,20 +28,17 @@ struct SoundPlayerView: View {
            
             Text(soundVM.sound?.name ?? "N/A")
             
-            ZStack(alignment: .center) {
+            ZStack(alignment: .leading) {
                 Rectangle()
-                    .frame(height: 5)
-                    
-                    .foregroundColor(Color.blue)
+                    .foregroundColor(Color.theme.backgroundColor)
+                    .frame(width: UIScreen.main.bounds.width * 0.9)
                 Rectangle()
-                    .trim(from: 0, to: 0.5)
-                    .frame(height: 5)
-                    
-                    .foregroundColor(Color.red)
-      
-         
-                    
+                    .foregroundColor(Color.theme.customBlue)
+                    .frame(width: (UIScreen.main.bounds.width * soundVM.percentagePlayed))
+            
             }
+            .frame(height: 5)
+            .cornerRadius(5)
             .padding(.horizontal)
             
             
@@ -49,17 +46,19 @@ struct SoundPlayerView: View {
                 Image(systemName: "gobackward.15")
                     .resizable()
                     .frame(width: buttonSize, height: buttonSize)
-                Image(systemName: "play.fill")
-                    .resizable()
-                    .frame(width: buttonSize, height: buttonSize)
+                Button {
+                    soundVM.audioIsPlaying.toggle()
+                } label: {
+                    Image(systemName: soundVM.audioIsPlaying ? "pause.fill" : "play.fill")
+                        .resizable()
+                        .frame(width: buttonSize, height: buttonSize)
+                }
+               
                 Image(systemName: "goforward.15")
                     .resizable()
                     .frame(width: buttonSize, height: buttonSize)
             }
             .padding()
-            
-           
-            
         }
     }
     
