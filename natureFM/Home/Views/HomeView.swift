@@ -169,10 +169,30 @@ extension HomeView {
                         Spacer()
                         LibraryMenuView(sound: sound)
                     }
-                    
+                    .onTapGesture {
+                        if !vm.isViewingSongPlayerTab {
+                            vm.isViewingSongPlayerTab = true
+                        }
+                        soundVM.sound = sound
+                    }
                 }
             }
             .listStyle(.plain)
+            .sheet(isPresented: $vm.isViewingSongPlayer, content: {
+                SoundPlayerView()
+                    .environmentObject(soundVM)
+                    .environmentObject(vm)
+                    .presentationDetents([.medium, .large])
+                
+            })
+            .overlay(alignment: .bottom, content: {
+                    if vm.isViewingSongPlayerTab {
+                        PlayingNowBar()
+                            .environmentObject(soundVM)
+                            .environmentObject(vm)
+                    }
+                }
+            )
         }
     }
 }
