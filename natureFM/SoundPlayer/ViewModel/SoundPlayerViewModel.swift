@@ -15,12 +15,15 @@ class SoundPlayerViewModel: ObservableObject {
     
     init() {
         addSubscribers()
-        
     }
     
     func runTimer() {
         self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true ) { _ in
+            print("Timer \(self.audioPlayer.currentTime) \(self.audioPlayer.duration)")
             self.percentagePlayed = self.audioPlayer.currentTime / self.audioPlayer.duration
+            if self.audioPlayer.currentTime == 0 {
+                self.audioIsPlaying = false
+            }
         }
     }
     
@@ -55,7 +58,6 @@ class SoundPlayerViewModel: ObservableObject {
         $audioIsPlaying
             .sink { isPlaying in
                 if isPlaying {
-                    print("playing")
                     self.startPlayer()
                 } else {
                     self.stopPlayer()
@@ -74,15 +76,14 @@ class SoundPlayerViewModel: ObservableObject {
         runTimer()
     }
     
-    func skipForwardThirtySeconds() {
-        if audioPlayer.currentTime + 30 > audioPlayer.duration {
+    func skipForward15() {
+        if audioPlayer.currentTime + 15 >= audioPlayer.duration {
             audioPlayer.currentTime = 0
-            runTimer()
+            percentagePlayed = 0
             audioIsPlaying = false
-            audioPlayer.pause()
             
         } else {
-            audioPlayer.currentTime += 30
+            audioPlayer.currentTime += 15
         }
     }
 }

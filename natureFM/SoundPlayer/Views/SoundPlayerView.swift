@@ -34,7 +34,7 @@ struct SoundPlayerView: View {
                     .frame(width: UIScreen.main.bounds.width * 0.9)
                 Rectangle()
                     .foregroundColor(Color.theme.customBlue)
-                    .frame(width: (UIScreen.main.bounds.width * soundVM.percentagePlayed))
+                    .frame(width: ((UIScreen.main.bounds.width * 0.9) * soundVM.percentagePlayed))
             
             }
             .frame(height: 5)
@@ -53,10 +53,13 @@ struct SoundPlayerView: View {
                         .resizable()
                         .frame(width: buttonSize, height: buttonSize)
                 }
-               
-                Image(systemName: "goforward.15")
-                    .resizable()
-                    .frame(width: buttonSize, height: buttonSize)
+                Button {
+                    soundVM.skipForward15()
+                } label: {
+                    Image(systemName: "goforward.15")
+                        .resizable()
+                        .frame(width: buttonSize, height: buttonSize)
+                }
             }
             .padding()
         }
