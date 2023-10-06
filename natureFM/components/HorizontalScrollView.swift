@@ -1,14 +1,14 @@
 import SwiftUI
 
 struct HorizontalScrollView: View {
-    
     @EnvironmentObject var vm: HomeViewModel
     @EnvironmentObject var soundVM: SoundPlayerViewModel
 
     // Store manager variable for in-app purchases
     @State var storeManager: StoreManager
-    var soundArray: [SoundsModel]
-    
+    var soundArray: [SoundsModel] {
+        return vm.allFreeSounds
+    }
     
     @State private var showingAlert: Bool = false
     
@@ -105,9 +105,9 @@ struct HorizontalScrollView: View {
 struct HorizontalScrollView_Previews: PreviewProvider {
     static var previews: some View {
         HorizontalScrollView(
-            storeManager: StoreManager(),
-            soundArray: []
+            storeManager: StoreManager()
         )
-            .environmentObject(HomeViewModel())
+        .environmentObject(dev.homeVM)
+        .environmentObject(dev.soundVM)
     }
 }

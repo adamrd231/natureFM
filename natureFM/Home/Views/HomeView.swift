@@ -67,8 +67,7 @@ extension HomeView {
                             .font(.title2)
                             .fontWeight(.bold)
                         HorizontalScrollView(
-                            storeManager: storeManager,
-                            soundArray: vm.allFreeSounds
+                            storeManager: storeManager
                         )
                         .environmentObject(vm)
                         .environmentObject(soundVM)
@@ -86,8 +85,7 @@ extension HomeView {
                             .font(.title2)
                             .fontWeight(.bold)
                         HorizontalScrollView(
-                            storeManager: storeManager,
-                            soundArray: vm.allSubscriptionSounds
+                            storeManager: storeManager
                         )
                         .environmentObject(vm)
                         .environmentObject(soundVM)
