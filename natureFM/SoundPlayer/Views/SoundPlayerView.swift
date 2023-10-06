@@ -54,9 +54,14 @@ struct SoundPlayerView: View {
             
             
             HStack(spacing: 25) {
-                Image(systemName: "gobackward.15")
-                    .resizable()
-                    .frame(width: buttonSize, height: buttonSize)
+                Button {
+                    soundVM.skipBackward15()
+                } label: {
+                    Image(systemName: "gobackward.15")
+                        .resizable()
+                        .frame(width: buttonSize, height: buttonSize)
+                }
+               
                 Button {
                     soundVM.audioIsPlaying.toggle()
                 } label: {

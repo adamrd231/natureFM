@@ -86,4 +86,13 @@ class SoundPlayerViewModel: ObservableObject {
             audioPlayer.currentTime += 15
         }
     }
+    func skipBackward15() {
+        if audioPlayer.currentTime - 15 <= 0 {
+            audioPlayer.currentTime = 0
+            percentagePlayed = 0
+            
+        } else {
+            audioPlayer.currentTime -= 15
+        }
+    }
 }
