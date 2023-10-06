@@ -28,18 +28,29 @@ struct SoundPlayerView: View {
            
             Text(soundVM.sound?.name ?? "N/A")
             
-            ZStack(alignment: .leading) {
-                Rectangle()
-                    .foregroundColor(Color.theme.backgroundColor)
-                    .frame(width: UIScreen.main.bounds.width * 0.9)
-                Rectangle()
-                    .foregroundColor(Color.theme.customBlue)
-                    .frame(width: ((UIScreen.main.bounds.width * 0.9) * soundVM.percentagePlayed))
-            
+            VStack {
+                ZStack(alignment: .leading) {
+                    Rectangle()
+                        .foregroundColor(Color.theme.backgroundColor)
+                        .frame(width: UIScreen.main.bounds.width * 0.9)
+                    Rectangle()
+                        .foregroundColor(Color.theme.customBlue)
+                        .frame(width: ((UIScreen.main.bounds.width * 0.9) * soundVM.percentagePlayed))
+                
+                }
+                .frame(height: 5)
+                .cornerRadius(5)
+                .padding(.horizontal)
+                HStack {
+                    ClockDisplayView(time: Int(soundVM.audioPlayer.currentTime), font: .caption)
+                    Spacer()
+                    ClockDisplayView(time: Int(soundVM.audioPlayer.duration), font: .caption)
+                }
+                .padding(.horizontal)
+                .font(.caption)
             }
-            .frame(height: 5)
-            .cornerRadius(5)
-            .padding(.horizontal)
+          
+            
             
             
             HStack(spacing: 25) {
