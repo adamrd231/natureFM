@@ -4,12 +4,16 @@ import Combine
 
 struct StoreIDs {
     static var NatureFM = "natureFMsubscription"
+    static var natureSongDownload = "natureSongDownload"
+    static var natureRemoveAdvertising = "natureRemoveAdvertising"
 }
 
 class StoreManager: ObservableObject {
     
     private var productIDs = [
-        StoreIDs.NatureFM
+        StoreIDs.NatureFM,
+        StoreIDs.natureSongDownload,
+        StoreIDs.natureRemoveAdvertising
     ]
     
     @Published var products:[Product] = []

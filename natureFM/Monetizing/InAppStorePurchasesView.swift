@@ -8,6 +8,28 @@ struct InAppStorePurchasesView: View {
     
     var body: some View {
         List {
+            Section(header: Text("Purchases")) {
+                HStack {
+                    VStack(alignment: .leading) {
+                        HStack(spacing: 3) {
+                            Text("0")
+                            Image(systemName: "leaf.circle.fill")
+                        }
+                        Text("Coins")
+                    }
+                    
+                    Spacer()
+                    VStack(spacing: 3) {
+                        Text("Member")
+                        Image(systemName: "checkmark.circle.fill")
+                    }
+                    Spacer()
+                    VStack {
+                        Text("Ads")
+                        Image(systemName: "xmark.circle.fill")
+                    }
+                }
+            }
             Section(header: Text("Subscription")) {
                 if AppStore.canMakePayments {
                     ForEach(storeManager.products, id: \.id) { product in
@@ -28,7 +50,6 @@ struct InAppStorePurchasesView: View {
                                 Text(product.displayPrice)
                             }
                         }
-                       
                     }
                 }
             }
