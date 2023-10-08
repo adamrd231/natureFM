@@ -8,7 +8,7 @@ class HomeViewModel: ObservableObject {
     @Published var portfolioSounds: [SoundsModel] = []
     @Published var allFreeSounds: [SoundsModel] = []
     @Published var allSubscriptionSounds: [SoundsModel] = []
-    @Published var natureFMCoins: Int = 0
+    @AppStorage("natureFMCoins") var natureFMCoins: Int = 0
 
     @Published var randomSound: SoundsModel?
     
@@ -26,6 +26,23 @@ class HomeViewModel: ObservableObject {
     
     init() {
         addSubcribers()
+        loadPersist()
+    }
+    
+    func persist(coinCount: Int) {
+        print("persisting")
+        if let encoded = try? JSONEncoder().encode(coinCount) {
+            UserDefaults.standard.set(encoded, forKey: "natureFMCoins")
+        }
+    }
+    
+    func loadPersist() {
+        if let data = UserDefaults.standard.data(forKey: "natureFMCoins") {
+            if let decoded = try? JSONDecoder().decode(Int.self, from: data) {
+                natureFMCoins = decoded
+                return
+            }
+        }
     }
     
     func addSubcribers() {

@@ -31,6 +31,7 @@ struct HomeView: View {
             
             // In App Purchases
             InAppStorePurchasesView(storeManager: storeManager)
+                .environmentObject(vm)
                 .tabItem {
                     TabItemView(text: "In-App Purchases", image: "creditcard")
                 }

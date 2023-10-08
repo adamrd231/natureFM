@@ -15,6 +15,7 @@ struct ProductView: View {
 struct InAppStorePurchasesView: View {
     // Store Manager object for making in app purchases
     @StateObject var storeManager: StoreManager
+    @EnvironmentObject var vm: HomeViewModel
     
     var body: some View {
         List {
@@ -52,6 +53,11 @@ struct InAppStorePurchasesView: View {
                                 // Buy product
                                 Task {
                                     try await storeManager.purchase(product)
+                                    if product.id == StoreIDs.natureSongDownload {
+                                        vm.natureFMCoins += 1
+                                        vm.persist(coinCount: vm.natureFMCoins)
+                                    }
+                                    
                                 }
                             } label: {
                                 if storeManager.purchasedNonConsumables.contains(where: {$0.id == product.id}) || storeManager.purchasedSubscriptions.contains(where: {$0.id ==  product.id }) {

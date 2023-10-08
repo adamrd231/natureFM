@@ -32,7 +32,6 @@ struct natureFMApp: App {
       })
     }
     
-    
     var body: some Scene {
         WindowGroup {
             ZStack {
