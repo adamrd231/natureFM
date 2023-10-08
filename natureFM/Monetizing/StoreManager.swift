@@ -18,7 +18,7 @@ class StoreManager: ObservableObject {
     
     @Published var products:[Product] = []
     @Published var purchasedNonConsumables: Set<Product> = []
-    @Published var purchasedConsumables: Set<Product> = []
+    @Published var purchasedConsumables: [Product] = []
     @Published var purchasedSubscriptions: Set<Product> = []
     
     // Listen for transactions that might be successful but not recorded
@@ -50,10 +50,10 @@ class StoreManager: ObservableObject {
         switch result {
         case .success(.verified(let transaction)):
             switch product.id {
-            case StoreIDs.NatureFM: purchasedSubscriptions.insert(product)
-            case StoreIDs.natureSongDownload: purchasedConsumables.insert(product)
-            case StoreIDs.natureRemoveAdvertising: purchasedNonConsumables.insert(product)
-            default: print("Error adding purchased product to history")
+                case StoreIDs.NatureFM: purchasedSubscriptions.insert(product)
+                case StoreIDs.natureSongDownload: purchasedConsumables.append(product)
+                case StoreIDs.natureRemoveAdvertising: purchasedNonConsumables.insert(product)
+                default: print("Error adding purchased product to history")
             }
             
             await transaction.finish()
@@ -73,6 +73,7 @@ class StoreManager: ObservableObject {
     
     private func updateCurrentEntitlements() async {
         for await result in Transaction.currentEntitlements {
+            print("result \(result)")
             await self.handle(transactionVerification: result)
         }
     }
@@ -88,7 +89,12 @@ class StoreManager: ObservableObject {
         switch result {
             case let.verified(transaction):
                 guard let product = self.products.first(where: { $0.id == transaction.productID }) else { return }
-                self.purchasedNonConsumables.insert(product)
+                switch product.id {
+                    case StoreIDs.NatureFM: purchasedSubscriptions.insert(product)
+                    case StoreIDs.natureSongDownload: purchasedConsumables.append(product)
+                    case StoreIDs.natureRemoveAdvertising: purchasedNonConsumables.insert(product)
+                    default: print("Error adding purchased product to history")
+                }
                 await transaction.finish()
             default: return
         }

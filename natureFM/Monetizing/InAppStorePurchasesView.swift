@@ -13,7 +13,6 @@ struct ProductView: View {
 }
 
 struct InAppStorePurchasesView: View {
-    
     // Store Manager object for making in app purchases
     @StateObject var storeManager: StoreManager
     
@@ -22,19 +21,19 @@ struct InAppStorePurchasesView: View {
             Section(header: Text("Purchases")) {
                 HStack {
                     VStack(alignment: .leading) {
-                        ProductView(count: storeManager.purchasedNonConsumables.count, icon: "circle.fill")
+                        ProductView(count: storeManager.purchasedConsumables.count, icon: "circle.fill")
                         Text("Coins")
                     }
                     
                     Spacer()
                     VStack(spacing: 3) {
                         Text("Member")
-                        Image(systemName: "checkmark.circle.fill")
+                        Image(systemName: storeManager.purchasedSubscriptions.count > 0 ? "checkmark.circle.fill" : "xmark.circle.fill")
                     }
                     Spacer()
                     VStack {
                         Text("Ads")
-                        Image(systemName: "xmark.circle.fill")
+                        Image(systemName: storeManager.purchasedNonConsumables.contains(where: { $0.id == StoreIDs.natureRemoveAdvertising}) ? "checkmark.circle.fill" : "xmark.circle.fill")
                     }
                 }
             }
@@ -55,8 +54,16 @@ struct InAppStorePurchasesView: View {
                                     try await storeManager.purchase(product)
                                 }
                             } label: {
-                                Text(product.displayPrice)
+                                if storeManager.purchasedNonConsumables.contains(where: {$0.id == product.id}) || storeManager.purchasedSubscriptions.contains(where: {$0.id ==  product.id }) {
+                                    Text("purchased")
+                                } else {
+                                    Text(product.displayPrice)
+                                }
                             }
+                            .disabled(storeManager.purchasedNonConsumables.contains(where: {$0.id == product.id}) || storeManager.purchasedSubscriptions.contains(where: {$0.id ==  product.id })
+                            )
+//                            .opacity(storeManager.purchasedNonConsumables.contains(where: {$0.id == product.id}) || storeManager.purchasedSubscriptions.contains(where: {$0.id ==  product.id }) ? 0.8 : 1.0
+//                            )
                         }
                     }
                 }
