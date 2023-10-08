@@ -1,13 +1,10 @@
 import Foundation
 
-class CategoryModel: ObservableObject, Identifiable, Codable, CustomStringConvertible {
-    
-    var description: String = ""
+class CategoryModel: ObservableObject, Identifiable, Codable {
     
     var title = ""
     
     enum CodingKeys: String, CodingKey {
-        // Complete set of coding keys
         case title = "title"
     }
     

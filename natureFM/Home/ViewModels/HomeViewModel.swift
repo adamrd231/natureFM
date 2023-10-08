@@ -67,7 +67,11 @@ class HomeViewModel: ObservableObject {
         var sortableCategories = returnedCategories
         sortableCategories.sort(by: ({ $0.title < $1.title}))
         
-        return sortableCategories
+        // get all current category names
+        let categories = portfolioSounds.map{ $0.categoryName }
+        
+        let filtered = sortableCategories.filter { categories.contains($0.title) }
+        return filtered
     }
     
     func mapDownloadedContent(returnedSounds: [Sound], currentCategory: String) -> [SoundsModel] {
