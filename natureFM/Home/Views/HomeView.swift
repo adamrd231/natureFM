@@ -86,7 +86,8 @@ extension HomeView {
                         if let randomSound = vm.allSounds.randomElement() {
                             FeaturedImageLayoutView(
                                 sound: randomSound,
-                                storeManager: storeManager
+                                storeManager: storeManager,
+                                tabSelection: $tabSelection
                             )
                             .padding()
                         }
