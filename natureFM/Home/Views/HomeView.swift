@@ -20,7 +20,9 @@ struct HomeView: View {
                 }
             
             // Library View
-            secondPage
+            LibraryView()
+                .environmentObject(vm)
+                .environmentObject(soundVM)
                 .tabItem {
                     TabItemView(text: "Library", image: "music.note.house")
                 }
@@ -93,91 +95,6 @@ extension HomeView {
                         .environmentObject(soundVM)
                     }
             }
-            .sheet(isPresented: $vm.isViewingSongPlayer, content: {
-                SoundPlayerView()
-                    .environmentObject(soundVM)
-                    .environmentObject(vm)
-                    .presentationDetents([.medium, .large])
-                
-            })
-            .overlay(alignment: .bottom, content: {
-                    if vm.isViewingSongPlayerTab {
-                        PlayingNowBar()
-                            .environmentObject(soundVM)
-                            .environmentObject(vm)
-                    }
-                }
-            )
-        }
-    }
-    
-    
-    var secondPage: some View {
-        VStack(alignment: .leading) {
-            // Title categry picker
-            ScrollView(.horizontal) {
-                HStack {
-                    ForEach(vm.categories) { category in
-                        Text("\(category.title)")
-                            .fontWeight((category.title == vm.selectedCategory) ? .medium : .light)
-                            .padding(.horizontal)
-                            .offset(y: (category.title == vm.selectedCategory) ? -2.0 : 0)
-                            .scaleEffect((category.title == vm.selectedCategory ? 1.5 : 1.0))
-                            .onTapGesture {
-                                vm.selectedCategory = category.title
-                            }
-                    }
-                }
-                .padding()
-            }
-            
-            HStack {
-                Text("\(vm.portfolioSounds.count) Titles")
-                    .foregroundColor(Color.theme.titleColor)
-                    .fontWeight(.bold)
-                Spacer()
-
-            }
-            .padding(.horizontal)
-
-            
-            List {
-                ForEach(vm.portfolioSounds) { sound in
-                    HStack {
-                        HStack(spacing: 10) {
-                            SoundImageView(sound: sound)
-                                .frame(width: 110, height: 75)
-                                .clipped()
-                                .shadow(radius: 3)
-                            
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text(sound.name)
-                                    .font(.subheadline)
-                                    .fontWeight(.bold)
-                                Text(sound.locationName)
-                                    .font(.footnote)
-                                Text(sound.categoryName)
-                                    .font(.footnote)
-                                HStack(spacing: 5) {
-                                    Text("Length:")
-                                        .font(.footnote)
-                                    Text(sound.duration.returnClockFormatAsString())
-                                        .font(.footnote)
-                                }
-                            }.foregroundColor(Color.theme.titleColor)
-                        }
-                        Spacer()
-                        LibraryMenuView(sound: sound)
-                    }
-                    .onTapGesture {
-                        if !vm.isViewingSongPlayerTab {
-                            vm.isViewingSongPlayerTab = true
-                        }
-                        soundVM.sound = sound
-                    }
-                }
-            }
-            .listStyle(.plain)
             .sheet(isPresented: $vm.isViewingSongPlayer, content: {
                 SoundPlayerView()
                     .environmentObject(soundVM)

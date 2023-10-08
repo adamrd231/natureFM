@@ -10,6 +10,7 @@ class DeveloperPreview {
     static let instance = DeveloperPreview()
     private init() {
         soundVM.sound = testSound
+        homeVM.allSubscriptionSounds.append(testSound)
     }
     
     let homeVM = HomeViewModel()
