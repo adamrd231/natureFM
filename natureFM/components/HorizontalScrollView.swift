@@ -113,6 +113,7 @@ struct HorizontalScrollView: View {
                 }
             }
         }
+        .padding(.leading)
     }
 }
 

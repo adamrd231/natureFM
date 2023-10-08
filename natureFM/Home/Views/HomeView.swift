@@ -14,7 +14,7 @@ struct HomeView: View {
     var body: some View {
         TabView {
             // Home View
-            firstPage
+            homeView
                 .tabItem {
                     TabItemView(text: "Browse", image: "antenna.radiowaves.left.and.right")
                 }
@@ -48,23 +48,18 @@ struct HomeView: View {
 extension HomeView {
     
     // MARK: Page Views
-    var firstPage: some View {
-        VStack(alignment: .leading) {
-            HeaderView()
+    var homeView: some View {
+        VStack(alignment: .leading, spacing: 0) {
+
                 // ScrollView for main container
                 ScrollView {
-                    VStack(alignment: .leading) {
-                        Text("About Nature FM").bold()
-                        Text("Nature FM is inspired directly from being outside, the sense of calm and serenity can fill you up if you can slow down, close your eyes and listen. Nature is always producing symphonies of beauty. Nature FM collects these sounds, and gathers them here in this app for users to connect to waves, wind, thunderstorms, or a part of the country they are longing for.").font(.caption)
-                    }
-                    .foregroundColor(Color.theme.titleColor)
-                    .padding(.vertical)
-                    .padding(.trailing)
-       
+                    HeaderView()
+                        .edgesIgnoringSafeArea(.all)
                     // Sections Container
                     VStack(alignment: .leading) {
                         // Section One
                         Text("All Free Sounds")
+                            .padding(.leading)
                             .foregroundColor(Color.theme.titleColor)
                             .font(.title2)
                             .fontWeight(.bold)
@@ -75,18 +70,24 @@ extension HomeView {
                         .environmentObject(vm)
                         .environmentObject(soundVM)
                         
+                        VStack(alignment: .leading) {
+                            Text("About Nature FM").bold()
+                            Text("Nature FM is inspired directly from being outside, the sense of calm and serenity can fill you up if you can slow down, close your eyes and listen. Nature is always producing symphonies of beauty. Nature FM collects these sounds, and gathers them here in this app for users to connect to waves, wind, thunderstorms, or a part of the country they are longing for.").font(.caption)
+                        }
+                        .foregroundColor(Color.theme.titleColor)
+                        .padding()
+                        
                         // Section Two
-                        Divider()
                         if let randomSound = vm.allSounds.randomElement() {
-                            FeaturedImageLayoutView(sound: randomSound).padding(.bottom)
+                            FeaturedImageLayoutView(sound: randomSound).padding()
                         }
 
                         // Section Three
-                        Divider()
                         Text("Subscription Required")
                             .foregroundColor(Color.theme.titleColor)
                             .font(.title2)
                             .fontWeight(.bold)
+                            .padding(.leading)
                         HorizontalScrollView(
                             soundChoice: .subscription,
                             storeManager: storeManager
@@ -94,23 +95,24 @@ extension HomeView {
                         .environmentObject(vm)
                         .environmentObject(soundVM)
                     }
-            }
-            .sheet(isPresented: $vm.isViewingSongPlayer, content: {
-                SoundPlayerView()
-                    .environmentObject(soundVM)
-                    .environmentObject(vm)
-                    .presentationDetents([.medium, .large])
-                
-            })
-            .overlay(alignment: .bottom, content: {
-                    if vm.isViewingSongPlayerTab {
-                        PlayingNowBar()
-                            .environmentObject(soundVM)
-                            .environmentObject(vm)
-                    }
                 }
-            )
-        }
+                .edgesIgnoringSafeArea(.top)
+                .sheet(isPresented: $vm.isViewingSongPlayer, content: {
+                    SoundPlayerView()
+                        .environmentObject(soundVM)
+                        .environmentObject(vm)
+                        .presentationDetents([.medium, .large])
+                    
+                })
+                .overlay(alignment: .bottom, content: {
+                        if vm.isViewingSongPlayerTab {
+                            PlayingNowBar()
+                                .environmentObject(soundVM)
+                                .environmentObject(vm)
+                        }
+                    }
+                )
+            }
     }
 }
 
