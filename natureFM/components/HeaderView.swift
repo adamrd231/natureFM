@@ -1,15 +1,19 @@
 import SwiftUI
 
 struct HeaderView: View {
+    let natureCoins: Int
+    
     var body: some View {
         VStack(alignment: .leading) {
             Spacer()
-            HStack {
+            HStack(spacing: 3) {
                 Text("Welcome to Nature FM")
                     .font(.title)
                     .foregroundColor(Color.theme.titleColor)
                     .fontWeight(.bold)
                 Spacer()
+                    Image(systemName: "circle")
+                    Text(natureCoins, format: .number)
             }
             HStack {
                 Text("Tune in to the great outdoors")
@@ -17,12 +21,8 @@ struct HeaderView: View {
                     .foregroundColor(Color.theme.titleColor)
                 Spacer()
             }
-           
-          
         }
         .padding()
-//        .frame(width: UIScreen.main.bounds.width)
-//        .frame(minHeight: 130, maxHeight: 150)
         .frame(maxWidth: .infinity, minHeight: 130, maxHeight: 150)
         .background(Color.theme.backgroundColor)
 
@@ -32,6 +32,6 @@ struct HeaderView: View {
 
 struct HeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        HeaderView()
+        HeaderView(natureCoins: 3)
     }
 }

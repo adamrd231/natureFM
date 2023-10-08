@@ -8,6 +8,7 @@ class HomeViewModel: ObservableObject {
     @Published var portfolioSounds: [SoundsModel] = []
     @Published var allFreeSounds: [SoundsModel] = []
     @Published var allSubscriptionSounds: [SoundsModel] = []
+    @Published var natureFMCoins: Int = 0
 
     @Published var randomSound: SoundsModel?
     

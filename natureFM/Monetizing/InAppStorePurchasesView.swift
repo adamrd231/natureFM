@@ -21,8 +21,8 @@ struct InAppStorePurchasesView: View {
             Section(header: Text("Purchases")) {
                 HStack {
                     VStack(alignment: .leading) {
-                        ProductView(count: storeManager.purchasedConsumables.count, icon: "circle.fill")
                         Text("Coins")
+                        ProductView(count: storeManager.purchasedConsumables.count, icon: "circle.fill")
                     }
                     
                     Spacer()
@@ -62,8 +62,6 @@ struct InAppStorePurchasesView: View {
                             }
                             .disabled(storeManager.purchasedNonConsumables.contains(where: {$0.id == product.id}) || storeManager.purchasedSubscriptions.contains(where: {$0.id ==  product.id })
                             )
-//                            .opacity(storeManager.purchasedNonConsumables.contains(where: {$0.id == product.id}) || storeManager.purchasedSubscriptions.contains(where: {$0.id ==  product.id }) ? 0.8 : 1.0
-//                            )
                         }
                     }
                 }

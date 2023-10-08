@@ -57,7 +57,7 @@ extension HomeView {
 
                 // ScrollView for main container
                 ScrollView {
-                    HeaderView()
+                    HeaderView(natureCoins: vm.natureFMCoins)
                         .edgesIgnoringSafeArea(.all)
                     // Sections Container
                     VStack(alignment: .leading) {
