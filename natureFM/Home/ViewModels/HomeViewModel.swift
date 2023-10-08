@@ -48,7 +48,6 @@ class HomeViewModel: ObservableObject {
             .combineLatest($selectedCategory)
             .map(mapDownloadedContent)
             .sink { [weak self] (returnedSounds) in
-                print("updating portfolio sounds")
                 self?.portfolioSounds = returnedSounds
             }
             .store(in: &cancellables)

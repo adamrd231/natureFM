@@ -74,7 +74,6 @@ struct HorizontalScrollView: View {
                                         // TODO: Check if content requires premium membership
                                         // TODO: Perform check and allow or throw alert
                                             vm.downloadedContentService.saveSound(sound: sound)
-                                        print("Downloading")
                                         
                                     }) {
                                         Image(systemName: "arrow.down.circle.fill")
@@ -86,7 +85,6 @@ struct HorizontalScrollView: View {
                                     VStack(alignment: .leading) {
                                         Button(action: {
                                             // select song and play
-                                            print("Selecting sound \(sound.name)")
                                             soundVM.sound = sound
                                             vm.isViewingSongPlayerTab = true
                                    

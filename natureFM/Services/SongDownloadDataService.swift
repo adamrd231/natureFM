@@ -25,7 +25,6 @@ class SongDataDownloadService {
     
     private func downloadSound(sound: SoundsModel) {
         let soundName = sound.name
-        print("Url: \(sound.audioFileLink)")
         guard let url = URL(string: sound.audioFileLink) else { return }
         
         songSubscription = NetworkingManager.download(url: url)

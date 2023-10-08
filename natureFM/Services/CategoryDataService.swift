@@ -7,7 +7,6 @@ class CategoryDataService {
     var categorySubscription: AnyCancellable?
     
     init() {
-        print("getting categories from database")
         getCategories()
     }
     

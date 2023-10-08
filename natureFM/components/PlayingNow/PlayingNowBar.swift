@@ -41,8 +41,6 @@ struct PlayingNowBar: View {
             }
             .overlay(alignment: .topLeading) {
                 Button {
-                    // close the playing now bar
-                    print("Pressed")
                     homeVM.isViewingSongPlayerTab = false
                 } label: {
                     Image(systemName: "cross.circle.fill")

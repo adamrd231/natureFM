@@ -7,7 +7,6 @@ class LocalFileManager {
     static let instance = LocalFileManager()
     private init() { }
     
-    
     // MARK: Images
     func saveImage(image: UIImage, imageName: String, folderName: String) {
         // Create Folder
@@ -27,8 +26,6 @@ class LocalFileManager {
         }
         
     }
-    
-
     
     func getImage(imageName: String, folderName: String) -> UIImage? {
         guard let url = getURLForImage(imageName: imageName, folderName: folderName),
@@ -67,26 +64,15 @@ class LocalFileManager {
     }
     
     func saveSound(soundData: Data, soundName: String, folderName: String) {
-        
         createFolderIfNeeded(folderName: folderName)
-        guard
-            let url = getURLForAudio(audioName: soundName, folderName: folderName)
-            
-        else { return }
+        guard let url = getURLForAudio(audioName: soundName, folderName: folderName) else { return }
         
         do {
-
             try soundData.write(to: url)
             print("Saved Audio Successfully...?")
         } catch let error {
             print("Error saving Audio: \(error)")
         }
-        
-        
-        print("local url: \(url)")
-        
-        print("Data \(soundData)")
-        
     }
     
     private func createFolderIfNeeded(folderName: String) {
@@ -114,12 +100,10 @@ class LocalFileManager {
     
     // MARK: Helper Functions
     private func getURLForFolder(folderName: String) -> URL? {
-        
         guard let url = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
             return nil
             
         }
         return url.appendingPathComponent(folderName)
     }
-    
 }

@@ -7,7 +7,6 @@ class NatureSoundDataService {
     var soundSubcription: AnyCancellable?
     
     init() {
-        print("getting songs from database")
         getSounds()
     }
     

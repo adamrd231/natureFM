@@ -19,7 +19,6 @@ class SoundPlayerViewModel: ObservableObject {
     
     func runTimer() {
         self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true ) { _ in
-            print("Timer \(self.audioPlayer.currentTime) \(self.audioPlayer.duration)")
             self.percentagePlayed = self.audioPlayer.currentTime / self.audioPlayer.duration
             if self.audioPlayer.currentTime == 0 {
                 self.audioIsPlaying = false
