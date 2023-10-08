@@ -5,9 +5,12 @@ struct FeaturedImageLayoutView: View {
     @EnvironmentObject var vm: HomeViewModel
     @State var sound: SoundsModel
     
+    // Store manager variable for in-app purchases
+    @State var storeManager: StoreManager
+    
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Featured Sound")
+            Text("Check this out!")
                 .foregroundColor(Color.theme.titleColor)
                 .font(.title2)
                 .fontWeight(.bold)
@@ -34,7 +37,17 @@ struct FeaturedImageLayoutView: View {
                     .foregroundColor(Color.theme.titleColor)
                     Spacer()
                     Button(action: {
-                        vm.downloadedContentService.saveSound(sound: sound)
+                        let isSoundFree = sound.freeSong
+                        let userHasSubscription = !storeManager.products.contains(where: { $0.id == StoreIDs.NatureFM })
+                        print("isFree: \(isSoundFree)")
+                        print("has subscription: \(userHasSubscription)")
+                        
+                        if isSoundFree || userHasSubscription {
+                            vm.downloadedContentService.saveSound(sound: sound)
+                        } else {
+                            showingAlert.toggle()
+                            // Could prompt user to subscription page
+                        }
                     }) {
                         Image(systemName: "arrow.down.circle.fill")
                             .resizable()

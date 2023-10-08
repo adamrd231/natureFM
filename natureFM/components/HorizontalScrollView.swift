@@ -12,20 +12,17 @@ struct HorizontalScrollView: View {
 
     // Store manager variable for in-app purchases
     @State var storeManager: StoreManager
+    
+    // Tab selection
+    @Binding var tabSelection: Int
     var soundArray: [SoundsModel] {
         switch soundChoice {
         case .free: return vm.allFreeSounds
         case .subscription: return vm.allSubscriptionSounds
         }
-        
     }
     
     @State private var showingAlert: Bool = false
-    
-    var subscriptionNotPurchasedAlert = Alert(
-        title: Text("Not Available."),
-        message: Text("You must have a subscription to access this premium content."),
-        dismissButton: .default(Text("Done")))
 
     var body: some View {
         HStack(spacing: 50) {
@@ -47,8 +44,6 @@ struct HorizontalScrollView: View {
                     else {
                         ForEach(soundArray) { sound in
                             VStack(alignment: .leading, spacing: 10) {
-//                                SoundImageView(sound: sound)
-                          
                                 AsyncImage(
                                     url: URL(string: sound.imageFileLink),
                                     content: { image in
@@ -66,15 +61,21 @@ struct HorizontalScrollView: View {
                                                 .frame(width: 200, height: 120)
                                             ProgressView()
                                         }
-                                       
                                     }
      
                                 HStack(spacing: 5) {
                                     Button(action: {
-                                        // TODO: Check if content requires premium membership
-                                        // TODO: Perform check and allow or throw alert
-                                            vm.downloadedContentService.saveSound(sound: sound)
+                                        let isSoundFree = sound.freeSong
+                                        let userHasSubscription = !storeManager.products.contains(where: { $0.id == StoreIDs.NatureFM })
+                                        print("isFree: \(isSoundFree)")
+                                        print("has subscription: \(userHasSubscription)")
                                         
+                                        if isSoundFree || userHasSubscription {
+                                            vm.downloadedContentService.saveSound(sound: sound)
+                                        } else {
+                                            showingAlert.toggle()
+                                            // Could prompt user to subscription page
+                                        }
                                     }) {
                                         Image(systemName: "arrow.down.circle.fill")
                                             .resizable()
@@ -101,7 +102,14 @@ struct HorizontalScrollView: View {
                                     }
                                     .alert(isPresented: $showingAlert, content: {
                                         // decide which alert to show
-                                       return subscriptionNotPurchasedAlert
+                                        Alert(
+                                            title: Text("Currently not available"),
+                                            message: Text("You must have a subscription for this premium content."),
+                                            primaryButton: .default(Text("Store")) {
+                                                tabSelection = 3
+                                            },
+                                            secondaryButton: .cancel(Text("No thanks"))
+                                        )
                                         
                                     })
                                     .foregroundColor(Color.theme.titleColor)
@@ -121,7 +129,8 @@ struct HorizontalScrollView_Previews: PreviewProvider {
     static var previews: some View {
         HorizontalScrollView(
             soundChoice: .free,
-            storeManager: StoreManager()
+            storeManager: StoreManager(),
+            tabSelection: .constant(1)
         )
         .environmentObject(dev.homeVM)
         .environmentObject(dev.soundVM)

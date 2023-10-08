@@ -7,17 +7,18 @@ struct HomeView: View {
 
     // Store manager variable for in-app purchases
     @State var storeManager: StoreManager
-    
+    @State var tabSelection = 1
     // Variable to control when to show the player view
     @State var showingPlayerView: Bool = false
     
     var body: some View {
-        TabView {
+        TabView(selection: $tabSelection) {
             // Home View
             homeView
                 .tabItem {
                     TabItemView(text: "Browse", image: "antenna.radiowaves.left.and.right")
                 }
+                .tag(1)
             
             // Library View
             LibraryView()
@@ -26,12 +27,14 @@ struct HomeView: View {
                 .tabItem {
                     TabItemView(text: "Library", image: "music.note.house")
                 }
+                .tag(2)
             
             // In App Purchases
             InAppStorePurchasesView(storeManager: storeManager)
                 .tabItem {
                     TabItemView(text: "In-App Purchases", image: "creditcard")
                 }
+                .tag(3)
                 
             // User profile and App Information
             ProfileView(storeManager: storeManager)
@@ -39,6 +42,7 @@ struct HomeView: View {
                 .tabItem {
                     TabItemView(text: "Profile", image: "person.crop.circle")
                 }
+                .tag(4)
         }
         .navigationViewStyle(StackNavigationViewStyle())
 
@@ -58,14 +62,15 @@ extension HomeView {
                     // Sections Container
                     VStack(alignment: .leading) {
                         // Section One
-                        Text("All Free Sounds")
+                        Text("Listen now")
                             .padding(.leading)
                             .foregroundColor(Color.theme.titleColor)
                             .font(.title2)
                             .fontWeight(.bold)
                         HorizontalScrollView(
                             soundChoice: .free,
-                            storeManager: storeManager
+                            storeManager: storeManager,
+                            tabSelection: $tabSelection
                         )
                         .environmentObject(vm)
                         .environmentObject(soundVM)
@@ -79,18 +84,23 @@ extension HomeView {
                         
                         // Section Two
                         if let randomSound = vm.allSounds.randomElement() {
-                            FeaturedImageLayoutView(sound: randomSound).padding()
+                            FeaturedImageLayoutView(
+                                sound: randomSound,
+                                storeManager: storeManager
+                            )
+                            .padding()
                         }
 
                         // Section Three
-                        Text("Subscription Required")
+                        Text("Tickets, please.")
                             .foregroundColor(Color.theme.titleColor)
                             .font(.title2)
                             .fontWeight(.bold)
                             .padding(.leading)
                         HorizontalScrollView(
                             soundChoice: .subscription,
-                            storeManager: storeManager
+                            storeManager: storeManager,
+                            tabSelection: $tabSelection
                         )
                         .environmentObject(vm)
                         .environmentObject(soundVM)
