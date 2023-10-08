@@ -1,10 +1,3 @@
-//
-//  ClockDisplayView.swift
-//  natureFM
-//
-//  Created by Adam Reed on 10/6/23.
-//
-
 import SwiftUI
 
 struct ClockDisplayView: View {
@@ -12,22 +5,17 @@ struct ClockDisplayView: View {
     let font: Font
 
     var body: some View {
-        HStack(spacing: .zero) {
-            if time / 60 > 9 {
-                Text(time / 60, format: .number)
-            } else {
-                Text("0")
-                Text(time / 60, format: .number)
+        HStack(spacing: 3) {
+            if time / 60 > 0 {
+                HStack(spacing: 0) {
+                    Text(time / 60, format: .number)
+                    Text("m")
+                }
             }
-            Text("m")
-            Text(":")
-            if time % 60 > 10 {
+            HStack(spacing: 0) {
                 Text(time % 60, format: .number)
-            } else {
-                Text("0")
-                Text(time % 60, format: .number)
+                Text("s")
             }
-            Text("s")
         }
         .font(font)
     }
@@ -35,6 +23,6 @@ struct ClockDisplayView: View {
 
 struct ClockDisplayView_Previews: PreviewProvider {
     static var previews: some View {
-        ClockDisplayView(time: 565, font: .caption)
+        ClockDisplayView(time: 603, font: .caption)
     }
 }

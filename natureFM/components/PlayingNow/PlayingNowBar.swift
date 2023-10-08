@@ -54,7 +54,7 @@ struct PlayingNowBar: View {
             }
            
             
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 2) {
 
                 Text(soundVM.sound?.name ?? "")
                     .font(.callout)
@@ -62,16 +62,14 @@ struct PlayingNowBar: View {
                     .foregroundColor(Color.theme.titleColor)
                     .lineLimit(1)
                     .truncationMode(.tail)
+            
                 HStack(spacing: 5) {
                     ClockDisplayView(time: Int(soundVM.audioPlayer.duration - soundVM.audioPlayer.currentTime), font: .caption)
                     Text("left")
-                    Text("|")
-                    Text(soundVM.sound?.categoryName ?? "")
+                   
                 }
-                .font(.caption)
-              
             }
-      
+            .font(.caption2)
             .gesture(
                 DragGesture()
                     .onEnded { drag in
