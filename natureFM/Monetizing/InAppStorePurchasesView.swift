@@ -1,6 +1,17 @@
 import SwiftUI
 import StoreKit
 
+struct ProductView: View {
+    let count: Int
+    let icon: String
+    var body: some View {
+        HStack(spacing: 3) {
+            Text(count, format: .number)
+            Image(systemName: icon)
+        }
+    }
+}
+
 struct InAppStorePurchasesView: View {
     
     // Store Manager object for making in app purchases
@@ -11,10 +22,7 @@ struct InAppStorePurchasesView: View {
             Section(header: Text("Purchases")) {
                 HStack {
                     VStack(alignment: .leading) {
-                        HStack(spacing: 3) {
-                            Text("0")
-                            Image(systemName: "leaf.circle.fill")
-                        }
+                        ProductView(count: storeManager.purchasedNonConsumables.count, icon: "circle.fill")
                         Text("Coins")
                     }
                     

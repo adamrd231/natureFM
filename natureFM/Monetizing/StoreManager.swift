@@ -18,6 +18,8 @@ class StoreManager: ObservableObject {
     
     @Published var products:[Product] = []
     @Published var purchasedNonConsumables: Set<Product> = []
+    @Published var purchasedConsumables: Set<Product> = []
+    @Published var purchasedSubscriptions: Set<Product> = []
     
     // Listen for transactions that might be successful but not recorded
     var transactionListener: Task <Void, Error>?
@@ -47,7 +49,13 @@ class StoreManager: ObservableObject {
         let result = try await product.purchase()
         switch result {
         case .success(.verified(let transaction)):
-            purchasedNonConsumables.insert(product)
+            switch product.id {
+            case StoreIDs.NatureFM: purchasedSubscriptions.insert(product)
+            case StoreIDs.natureSongDownload: purchasedConsumables.insert(product)
+            case StoreIDs.natureRemoveAdvertising: purchasedNonConsumables.insert(product)
+            default: print("Error adding purchased product to history")
+            }
+            
             await transaction.finish()
             return transaction
             
