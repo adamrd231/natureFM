@@ -19,6 +19,7 @@ struct ClockDisplayView: View {
                 Text("0")
                 Text(time / 60, format: .number)
             }
+            Text("m")
             Text(":")
             if time % 60 > 10 {
                 Text(time % 60, format: .number)
@@ -26,6 +27,7 @@ struct ClockDisplayView: View {
                 Text("0")
                 Text(time % 60, format: .number)
             }
+            Text("s")
         }
         .font(font)
     }

@@ -47,7 +47,7 @@ struct PlayingNowBar: View {
                 } label: {
                     Image(systemName: "cross.circle.fill")
                         .rotationEffect(Angle(degrees: 45))
-                        .foregroundColor(Color.theme.backgroundColor)
+                        .foregroundColor(Color.theme.titleColor.opacity(0.8))
                         .frame(width: 15, height: 15, alignment: .center)
                         .padding(7)
                 }
@@ -55,38 +55,26 @@ struct PlayingNowBar: View {
            
             
             VStack(alignment: .leading) {
-                VStack(spacing: 3) {
-                    Rectangle()
-                        .frame(height: 1)
-                        .foregroundColor(Color(.lightGray))
-                        .cornerRadius(5)
-                        .opacity(0.8)
-                    Rectangle()
-                        .frame(height: 1)
-                        .foregroundColor(Color(.lightGray))
-                        .cornerRadius(5)
-                        .opacity(0.5)
-                        
-                }
-                
-                .onTapGesture {
-                    homeVM.isViewingSongPlayer = true
-                }
-            
+
                 Text(soundVM.sound?.name ?? "")
                     .font(.callout)
                     .fontWeight(.heavy)
                     .foregroundColor(Color.theme.titleColor)
                     .lineLimit(1)
                     .truncationMode(.tail)
-                Text(soundVM.sound?.categoryName ?? "")
-                    .font(.caption)
-                    .fontWeight(.medium)
-         
+                HStack(spacing: 5) {
+                    ClockDisplayView(time: Int(soundVM.audioPlayer.duration - soundVM.audioPlayer.currentTime), font: .caption)
+                    Text("left")
+                    Text("|")
+                    Text(soundVM.sound?.categoryName ?? "")
+                }
+                .font(.caption)
+              
             }
+      
             .gesture(
                 DragGesture()
-                    .onEnded {drag in
+                    .onEnded { drag in
                         homeVM.isViewingSongPlayer = true
                     }
             )
@@ -103,7 +91,9 @@ struct PlayingNowBar: View {
             }
             .padding(.trailing)
         }
-
+        .onTapGesture {
+            homeVM.isViewingSongPlayer = true
+        }
 
         .frame(width: UIScreen.main.bounds.width, height: 80)
         .background(Color.theme.backgroundColor.opacity(0.9))
