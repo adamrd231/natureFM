@@ -1,17 +1,17 @@
 import SwiftUI
 import GoogleMobileAds
+import Combine
 
 struct HomeView: View {
     // View model for home / getting sounds
     @StateObject private var vm = HomeViewModel()
     // Store manager / in app purchases and subscriptions
     @StateObject var storeManager = StoreManager()
-    // VM for playing sounds
-    @StateObject var soundVM = SoundPlayerViewModel()
 
     @State var tabSelection = 1
     // Variable to control when to show the player view
     @State var showingPlayerView: Bool = false
+    private var cancellable = Set<AnyCancellable>()
     
     var body: some View {
         TabView(selection: $tabSelection) {
@@ -25,7 +25,6 @@ struct HomeView: View {
             // Library View
             LibraryView()
                 .environmentObject(vm)
-                .environmentObject(soundVM)
                 .tabItem {
                     TabItemView(text: "Library", image: "music.note.house")
                 }
@@ -78,7 +77,6 @@ extension HomeView {
                             tabSelection: $tabSelection
                         )
                         .environmentObject(vm)
-                        .environmentObject(soundVM)
                         
                         VStack(alignment: .leading) {
                             Text("About Nature FM").bold()
@@ -109,13 +107,11 @@ extension HomeView {
                             tabSelection: $tabSelection
                         )
                         .environmentObject(vm)
-                        .environmentObject(soundVM)
                     }
                 }
                 .edgesIgnoringSafeArea(.top)
                 .sheet(isPresented: $vm.isViewingSongPlayer, content: {
                     SoundPlayerView()
-                        .environmentObject(soundVM)
                         .environmentObject(vm)
                         .presentationDetents([.medium, .large])
                     
@@ -123,7 +119,6 @@ extension HomeView {
                 .overlay(alignment: .bottom, content: {
                         if vm.isViewingSongPlayerTab {
                             PlayingNowBar()
-                                .environmentObject(soundVM)
                                 .environmentObject(vm)
                         }
                     }
@@ -134,10 +129,7 @@ extension HomeView {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(
-            soundVM: SoundPlayerViewModel(),
-            storeManager: StoreManager()
-        )
+        HomeView()
             .environmentObject(HomeViewModel())
 
     }

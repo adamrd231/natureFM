@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct PlayingNowBar: View {
-    
-    @EnvironmentObject var soundVM: SoundPlayerViewModel
     @EnvironmentObject var homeVM: HomeViewModel
     let buttonSize: CGFloat = 25
     
@@ -17,7 +15,7 @@ struct PlayingNowBar: View {
         HStack(spacing: 15) {
 
             AsyncImage(
-                url: URL(string: soundVM.sound?.imageFileLink ?? ""),
+                url: URL(string: homeVM.sound?.imageFileLink ?? ""),
                 content: { image in
                     image
                         .resizable()
@@ -54,7 +52,7 @@ struct PlayingNowBar: View {
             
             VStack(alignment: .leading, spacing: 2) {
 
-                Text(soundVM.sound?.name ?? "")
+                Text(homeVM.sound?.name ?? "")
                     .font(.callout)
                     .fontWeight(.heavy)
                     .foregroundColor(Color.theme.titleColor)
@@ -62,7 +60,7 @@ struct PlayingNowBar: View {
                     .truncationMode(.tail)
             
                 HStack(spacing: 5) {
-                    ClockDisplayView(time: Int(soundVM.audioPlayer.duration - soundVM.audioPlayer.currentTime), font: .caption)
+                    ClockDisplayView(time: Int(homeVM.audioPlayer.duration - homeVM.audioPlayer.currentTime), font: .caption)
                     Text("left")
                    
                 }
@@ -79,9 +77,9 @@ struct PlayingNowBar: View {
 
             // Play button
             Button {
-                soundVM.audioIsPlaying.toggle()
+                homeVM.audioIsPlaying.toggle()
             } label: {
-                Image(systemName:soundVM.audioIsPlaying ? "pause.fill" : "play.fill")
+                Image(systemName: homeVM.audioIsPlaying ? "pause.fill" : "play.fill")
                     .resizable()
                     .frame(width: buttonSize, height: buttonSize, alignment: .center)
             }
@@ -102,13 +100,11 @@ struct PlayingNowBar_Previews: PreviewProvider {
     static var previews: some View {
         PlayingNowBar()
             .preferredColorScheme(.light)
-            .environmentObject(dev.soundVM)
             .environmentObject(dev.homeVM)
             .previewLayout(.sizeThatFits)
         
         PlayingNowBar()
             .preferredColorScheme(.dark)
-            .environmentObject(dev.soundVM)
             .environmentObject(dev.homeVM)
             .previewLayout(.sizeThatFits)
     }

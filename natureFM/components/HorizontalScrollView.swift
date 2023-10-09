@@ -7,7 +7,6 @@ enum SoundChoices {
 
 struct HorizontalScrollView: View {
     @EnvironmentObject var vm: HomeViewModel
-    @EnvironmentObject var soundVM: SoundPlayerViewModel
     let soundChoice: SoundChoices
 
     // Store manager variable for in-app purchases
@@ -86,7 +85,7 @@ struct HorizontalScrollView: View {
                                     VStack(alignment: .leading) {
                                         Button(action: {
                                             // select song and play
-                                            soundVM.sound = sound
+                                            vm.sound = sound
                                             vm.isViewingSongPlayerTab = true
                                    
                                         }) {
@@ -133,6 +132,5 @@ struct HorizontalScrollView_Previews: PreviewProvider {
             tabSelection: .constant(1)
         )
         .environmentObject(dev.homeVM)
-        .environmentObject(dev.soundVM)
     }
 }

@@ -9,12 +9,11 @@ extension PreviewProvider {
 class DeveloperPreview {
     static let instance = DeveloperPreview()
     private init() {
-        soundVM.sound = testSound
+        homeVM.sound = testSound
         homeVM.allSubscriptionSounds.append(testSound)
     }
     
     let homeVM = HomeViewModel()
-    let soundVM = SoundPlayerViewModel()
     let testSound = SoundsModel(
         name: "Adams song is a long title yo!",
         duration: 100,
