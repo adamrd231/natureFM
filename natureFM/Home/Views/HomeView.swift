@@ -2,11 +2,13 @@ import SwiftUI
 import GoogleMobileAds
 
 struct HomeView: View {
-    @EnvironmentObject var vm: HomeViewModel
+    // View model for home / getting sounds
+    @StateObject private var vm = HomeViewModel()
+    // Store manager / in app purchases and subscriptions
+    @StateObject var storeManager = StoreManager()
+    // VM for playing sounds
     @StateObject var soundVM = SoundPlayerViewModel()
 
-    // Store manager variable for in-app purchases
-    @State var storeManager: StoreManager
     @State var tabSelection = 1
     // Variable to control when to show the player view
     @State var showingPlayerView: Bool = false
@@ -30,7 +32,9 @@ struct HomeView: View {
                 .tag(2)
             
             // In App Purchases
-            InAppStorePurchasesView(storeManager: storeManager)
+            InAppStorePurchasesView(
+                storeManager: storeManager
+            )
                 .environmentObject(vm)
                 .tabItem {
                     TabItemView(text: "In-App Purchases", image: "creditcard")

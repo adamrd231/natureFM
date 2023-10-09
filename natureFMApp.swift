@@ -17,10 +17,7 @@ struct natureFMApp: App {
     // Product Id's from App Store Connect
     var productIds = ["natureFMsubscription"]
     
-    @StateObject private var vm = HomeViewModel()
-    
-    // Store Manager object to make In App Purchases
-    @StateObject var storeManager = StoreManager()
+
     
     @State private var showLaunchView:Bool = true
     
@@ -35,8 +32,7 @@ struct natureFMApp: App {
     var body: some Scene {
         WindowGroup {
             ZStack {
-                HomeView(storeManager: storeManager)
-                    .environmentObject(vm)
+                HomeView()
 //                    .onAppear(perform: {
 //                        SKPaymentQueue.default().add(storeManager)
 //                        storeManager.getProducts(productIDs: productIds)

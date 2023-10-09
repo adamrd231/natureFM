@@ -20,6 +20,15 @@ class SoundPlayerViewModel: ObservableObject {
     func runTimer() {
         self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true ) { _ in
             self.percentagePlayed = self.audioPlayer.currentTime / self.audioPlayer.duration
+            // lets try to play the next song instead of just stopping..
+            // stop player
+            self.audioPlayer.pause()
+            // NEW SONG --
+            // get index of previous song
+//            let currentIndex =
+            // get next index, or if last start over
+            // get new song
+            // start new song
             if self.audioPlayer.currentTime == 0 {
                 self.audioIsPlaying = false
             }
