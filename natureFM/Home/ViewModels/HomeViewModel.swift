@@ -1,6 +1,7 @@
 import Foundation
 import Combine
 import SwiftUI
+import AVKit
 
 class HomeViewModel: ObservableObject {
 
@@ -8,7 +9,7 @@ class HomeViewModel: ObservableObject {
     @Published var portfolioSounds: [SoundsModel] = []
     @Published var allFreeSounds: [SoundsModel] = []
     @Published var allSubscriptionSounds: [SoundsModel] = []
-    @AppStorage("natureFMCoins") var natureFMCoins: Int = 0
+    @Published var natureFMCoins: Int = 0
 
     @Published var randomSound: SoundsModel?
     
@@ -18,34 +19,27 @@ class HomeViewModel: ObservableObject {
     @Published var isViewingSongPlayer: Bool = false
     @Published var isViewingSongPlayerTab: Bool = false
     
-    private var cancellables = Set<AnyCancellable>()
-    
     private let natureSoundDataService = NatureSoundDataService()
     private let categoryDataService = CategoryDataService()
     let downloadedContentService = DownloadedContentService()
     
+    @Published var audioPlayer = AVAudioPlayer()
+    @Published var sound: SoundsModel?
+    @Published var soundsPlaylist: [SoundsModel] = []
+    @Published var timer = Timer()
+    @Published var audioIsPlaying: Bool = false
+    
+    // Information to get the url
+    @Published var songDataDownloadService = SongDataDownloadService()
+    private var cancellable = Set<AnyCancellable>()
+    @Published var percentagePlayed: Double = 0
+    
     init() {
-        addSubcribers()
+        addSubscribers()
         loadPersist()
     }
     
-    func persist(coinCount: Int) {
-        print("persisting")
-        if let encoded = try? JSONEncoder().encode(coinCount) {
-            UserDefaults.standard.set(encoded, forKey: "natureFMCoins")
-        }
-    }
-    
-    func loadPersist() {
-        if let data = UserDefaults.standard.data(forKey: "natureFMCoins") {
-            if let decoded = try? JSONDecoder().decode(Int.self, from: data) {
-                natureFMCoins = decoded
-                return
-            }
-        }
-    }
-    
-    func addSubcribers() {
+    func addSubscribers() {
         natureSoundDataService.$allSounds
             .sink { [weak self] (returnedSounds) in
                 self?.allSounds = returnedSounds
@@ -60,7 +54,7 @@ class HomeViewModel: ObservableObject {
                     }
                 }
             }
-            .store(in: &cancellables)
+            .store(in: &cancellable)
         
         downloadedContentService.$savedEntities
             .combineLatest($selectedCategory)
@@ -68,7 +62,7 @@ class HomeViewModel: ObservableObject {
             .sink { [weak self] (returnedSounds) in
                 self?.portfolioSounds = returnedSounds
             }
-            .store(in: &cancellables)
+            .store(in: &cancellable)
         
         categoryDataService.$allCategories
             .map(sortCategories)
@@ -76,9 +70,107 @@ class HomeViewModel: ObservableObject {
                 
                 self.categories = returnedCategories
             }
-            .store(in: &cancellables)
+            .store(in: &cancellable)
+        
+        $sound
+            .sink { returnedSound in
+                if let unwrappedSound = returnedSound {
+                    self.songDataDownloadService.getSound(sound: unwrappedSound)
+                }
+               
+            }
+            .store(in: &cancellable)
+        
+        songDataDownloadService.$downloadedSound
+            .sink { returnedData in
+                if let data = returnedData {
+                    do {
+                        self.audioPlayer = try AVAudioPlayer(data: data)
+                    } catch {
+                        print("Error fetching audio player")
+                    }
+                }
+            }
+            .store(in: &cancellable)
+        
+        
+        $audioIsPlaying
+            .sink { isPlaying in
+                if isPlaying {
+                    self.startPlayer()
+                } else {
+                    self.stopPlayer()
+                }
+            }
+            .store(in: &cancellable)
     }
     
+    func runTimer() {
+        self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true ) { _ in
+            self.percentagePlayed = self.audioPlayer.currentTime / self.audioPlayer.duration
+            // lets try to play the next song instead of just stopping..
+            // stop player
+//            self.audioPlayer.pause()
+            // NEW SONG --
+            // get index of previous song
+//            let currentIndex =
+            // get next index, or if last start over
+            // get new song
+            // start new song
+            if self.audioPlayer.currentTime == 0 {
+                self.audioIsPlaying = false
+            }
+        }
+    }
+    
+    func stopTimer() {
+        self.timer.invalidate()
+    }
+    
+    func stopPlayer() {
+        audioPlayer.pause()
+        stopTimer()
+        
+    }
+    func startPlayer() {
+        audioPlayer.play()
+        runTimer()
+    }
+    
+    func skipForward15() {
+        if audioPlayer.currentTime + 15 >= audioPlayer.duration {
+            audioPlayer.currentTime = 0
+            percentagePlayed = 0
+            audioIsPlaying = false
+            
+        } else {
+            audioPlayer.currentTime += 15
+        }
+    }
+    func skipBackward15() {
+        if audioPlayer.currentTime - 15 <= 0 {
+            audioPlayer.currentTime = 0
+            percentagePlayed = 0
+            
+        } else {
+            audioPlayer.currentTime -= 15
+        }
+    }
+    
+    func persist(coinCount: Int) {
+        if let encoded = try? JSONEncoder().encode(coinCount) {
+            UserDefaults.standard.set(encoded, forKey: "natureFMCoins")
+        }
+    }
+    
+    func loadPersist() {
+        if let data = UserDefaults.standard.data(forKey: "natureFMCoins") {
+            if let decoded = try? JSONDecoder().decode(Int.self, from: data) {
+                natureFMCoins = decoded
+                return
+            }
+        }
+    }
 
     func sortCategories(returnedCategories: [CategoryModel]) -> [CategoryModel] {
         var sortableCategories = returnedCategories
@@ -94,7 +186,6 @@ class HomeViewModel: ObservableObject {
     
     func mapDownloadedContent(returnedSounds: [Sound], currentCategory: String) -> [SoundsModel] {
         var sounds: [SoundsModel] = []
-        
         for sound in returnedSounds {
             let newSound = SoundsModel(
                 name: sound.name ?? "",
@@ -109,12 +200,8 @@ class HomeViewModel: ObservableObject {
             if newSound.categoryName == currentCategory || currentCategory == "All" {
                 sounds.append(newSound)
             }
-            
         }
-        
         sounds.sort(by: { $0.name < $1.name })
-        
         return sounds
     }
-    
 }
