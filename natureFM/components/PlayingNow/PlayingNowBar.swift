@@ -77,9 +77,14 @@ struct PlayingNowBar: View {
 
             // Play button
             Button {
-                homeVM.audioIsPlaying.toggle()
+                if homeVM.audioPlayer.isPlaying {
+                    homeVM.stopPlayer()
+                } else {
+                    homeVM.startPlayer()
+                }
+               
             } label: {
-                Image(systemName: homeVM.audioIsPlaying ? "pause.fill" : "play.fill")
+                Image(systemName: homeVM.audioPlayer.isPlaying ? "pause.fill" : "play.fill")
                     .resizable()
                     .frame(width: buttonSize, height: buttonSize, alignment: .center)
             }

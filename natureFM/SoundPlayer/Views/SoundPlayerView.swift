@@ -60,9 +60,9 @@ struct SoundPlayerView: View {
                 }
                
                 Button {
-                    vm.audioIsPlaying.toggle()
+                    vm.audioPlayer.isPlaying ? vm.stopPlayer() : vm.startPlayer()
                 } label: {
-                    Image(systemName: vm.audioIsPlaying ? "pause.fill" : "play.fill")
+                    Image(systemName: vm.audioPlayer.isPlaying ? "pause.fill" : "play.fill")
                         .resizable()
                         .frame(width: buttonSize, height: buttonSize)
                 }

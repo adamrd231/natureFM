@@ -27,8 +27,7 @@ class HomeViewModel: ObservableObject {
     @Published var sound: SoundsModel?
     @Published var soundsPlaylist: [SoundsModel] = []
     @Published var timer = Timer()
-    @Published var audioIsPlaying: Bool = false
-    
+
     // Information to get the url
     @Published var songDataDownloadService = SongDataDownloadService()
     private var cancellable = Set<AnyCancellable>()
@@ -37,6 +36,7 @@ class HomeViewModel: ObservableObject {
     init() {
         addSubscribers()
         loadPersist()
+//        audioPlayer.
     }
     
     func addSubscribers() {
@@ -93,16 +93,6 @@ class HomeViewModel: ObservableObject {
             }
             .store(in: &cancellable)
         
-        
-        $audioIsPlaying
-            .sink { isPlaying in
-                if isPlaying {
-                    self.startPlayer()
-                } else {
-                    self.stopPlayer()
-                }
-            }
-            .store(in: &cancellable)
     }
     
     func runTimer() {
@@ -117,9 +107,6 @@ class HomeViewModel: ObservableObject {
             // get next index, or if last start over
             // get new song
             // start new song
-            if self.audioPlayer.currentTime == 0 {
-                self.audioIsPlaying = false
-            }
         }
     }
     
@@ -141,7 +128,6 @@ class HomeViewModel: ObservableObject {
         if audioPlayer.currentTime + 15 >= audioPlayer.duration {
             audioPlayer.currentTime = 0
             percentagePlayed = 0
-            audioIsPlaying = false
             
         } else {
             audioPlayer.currentTime += 15
