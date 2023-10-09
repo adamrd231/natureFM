@@ -12,7 +12,7 @@ class StoreManager: ObservableObject {
     
     private var productIDs = [
         StoreIDs.NatureFM,
-        StoreIDs.natureSongDownload,
+//        StoreIDs.natureSongDownload,
         StoreIDs.natureRemoveAdvertising
     ]
     

@@ -1,4 +1,5 @@
 import SwiftUI
+import AVKit
 
 struct ClockDisplayView: View {
     let time: Int
@@ -23,6 +24,6 @@ struct ClockDisplayView: View {
 
 struct ClockDisplayView_Previews: PreviewProvider {
     static var previews: some View {
-        ClockDisplayView(time: 603, font: .caption)
+        ClockDisplayView( time: 603, font: .caption)
     }
 }

@@ -60,7 +60,9 @@ struct PlayingNowBar: View {
                     .truncationMode(.tail)
             
                 HStack(spacing: 5) {
-                    ClockDisplayView(time: Int(homeVM.audioPlayer.duration - homeVM.audioPlayer.currentTime), font: .caption)
+                    ClockDisplayView(
+                        time: Int(homeVM.audioPlayer.duration - homeVM.audioPlayer.currentTime),
+                        font: .caption)
                     Text("left")
                    
                 }

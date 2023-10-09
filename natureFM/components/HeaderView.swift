@@ -11,9 +11,6 @@ struct HeaderView: View {
                     .font(.title)
                     .foregroundColor(Color.theme.titleColor)
                     .fontWeight(.bold)
-                Spacer()
-                    Image(systemName: "circle")
-                    Text(natureCoins, format: .number)
             }
             HStack {
                 Text("Tune in to the great outdoors")
@@ -25,8 +22,6 @@ struct HeaderView: View {
         .padding()
         .frame(maxWidth: .infinity, minHeight: 130, maxHeight: 150)
         .background(Color.theme.backgroundColor)
-
-
     }
 }
 

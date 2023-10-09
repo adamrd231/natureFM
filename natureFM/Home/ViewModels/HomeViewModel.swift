@@ -4,49 +4,42 @@ import SwiftUI
 import AVKit
 
 class HomeViewModel: ObservableObject {
-
+    // Services
+    private let natureSoundDataService = NatureSoundDataService()
+    private let categoryDataService = CategoryDataService()
+    let downloadedContentService = DownloadedContentService()
+    @Published var songDataDownloadService = SongDataDownloadService()
+    // Published
     @Published var allSounds: [SoundsModel] = []
     @Published var portfolioSounds: [SoundsModel] = []
     @Published var allFreeSounds: [SoundsModel] = []
     @Published var allSubscriptionSounds: [SoundsModel] = []
     @Published var natureFMCoins: Int = 0
-
     @Published var randomSound: SoundsModel?
-    
     @Published var categories: [CategoryModel] = []
     @Published var selectedCategory: String = "All"
-    
     @Published var isViewingSongPlayer: Bool = false
     @Published var isViewingSongPlayerTab: Bool = false
-    
-    private let natureSoundDataService = NatureSoundDataService()
-    private let categoryDataService = CategoryDataService()
-    let downloadedContentService = DownloadedContentService()
-    
     @Published var audioPlayer = AVAudioPlayer()
     @Published var sound: SoundsModel?
     @Published var soundsPlaylist: [SoundsModel] = []
     @Published var timer = Timer()
-
-    // Information to get the url
-    @Published var songDataDownloadService = SongDataDownloadService()
-    private var cancellable = Set<AnyCancellable>()
     @Published var percentagePlayed: Double = 0
+
+    // Cancellable
+    private var cancellable = Set<AnyCancellable>()
     
     init() {
         addSubscribers()
         loadPersist()
-//        audioPlayer.
     }
     
     func addSubscribers() {
         natureSoundDataService.$allSounds
             .sink { [weak self] (returnedSounds) in
                 self?.allSounds = returnedSounds
-                
                 // Set up arrays for free and subscription sounds
                 for sound in returnedSounds {
-           
                     if sound.freeSong == true {
                         self?.allFreeSounds.append(sound)
                     } else {
@@ -67,7 +60,6 @@ class HomeViewModel: ObservableObject {
         categoryDataService.$allCategories
             .map(sortCategories)
             .sink { (returnedCategories) in
-                
                 self.categories = returnedCategories
             }
             .store(in: &cancellable)
@@ -77,7 +69,6 @@ class HomeViewModel: ObservableObject {
                 if let unwrappedSound = returnedSound {
                     self.songDataDownloadService.getSound(sound: unwrappedSound)
                 }
-               
             }
             .store(in: &cancellable)
         
@@ -92,7 +83,6 @@ class HomeViewModel: ObservableObject {
                 }
             }
             .store(in: &cancellable)
-        
     }
     
     func runTimer() {
@@ -128,7 +118,6 @@ class HomeViewModel: ObservableObject {
         if audioPlayer.currentTime + 15 >= audioPlayer.duration {
             audioPlayer.currentTime = 0
             percentagePlayed = 0
-            
         } else {
             audioPlayer.currentTime += 15
         }
@@ -137,7 +126,6 @@ class HomeViewModel: ObservableObject {
         if audioPlayer.currentTime - 15 <= 0 {
             audioPlayer.currentTime = 0
             percentagePlayed = 0
-            
         } else {
             audioPlayer.currentTime -= 15
         }
