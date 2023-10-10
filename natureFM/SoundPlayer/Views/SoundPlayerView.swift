@@ -2,13 +2,12 @@ import SwiftUI
 import AVKit
 
 struct SoundPlayerView: View {
-    
-    @EnvironmentObject var vm: HomeViewModel
+    @EnvironmentObject var homeVM: HomeViewModel
     private let buttonSize: CGFloat = 30
     
     var body: some View {
         VStack {
-            if let imageLink = vm.sound?.imageFileLink {
+            if let imageLink = homeVM.sound?.imageFileLink {
                 AsyncImage(
                     url: URL(string: imageLink),
                     content: { image in
@@ -26,7 +25,7 @@ struct SoundPlayerView: View {
                     .foregroundColor(Color.theme.backgroundColor)
             }
            
-            Text(vm.sound?.name ?? "N/A")
+            Text(homeVM.sound?.name ?? "N/A")
             
             VStack {
                 ZStack(alignment: .leading) {
@@ -35,16 +34,19 @@ struct SoundPlayerView: View {
                         .frame(width: UIScreen.main.bounds.width * 0.9)
                     Rectangle()
                         .foregroundColor(Color.theme.customBlue)
-                        .frame(width: ((UIScreen.main.bounds.width * 0.9) * vm.percentagePlayed))
-                
+                        .frame(width: ((UIScreen.main.bounds.width * 0.9) * homeVM.percentagePlayed))
+                    Circle()
+                        .foregroundColor(Color.theme.customBlue)
+                        .offset(x: homeVM.percentagePlayed)
                 }
                 .frame(height: 5)
                 .cornerRadius(5)
                 .padding(.horizontal)
                 HStack {
-                    ClockDisplayView(time: Int(vm.audioPlayer.currentTime), font: .caption)
+                    ClockDisplayView(time: Int(homeVM.audioPlayer.currentTime().seconds), font: .caption)
                     Spacer()
-                    ClockDisplayView(time: Int(vm.audioPlayer.duration), font: .caption)
+                    ClockDisplayView(time: Int(homeVM.audioPlayer.currentItem?.asset.duration.seconds ?? 0), font: .caption)
+                
                 }
                 .padding(.horizontal)
                 .font(.caption)
@@ -52,7 +54,7 @@ struct SoundPlayerView: View {
           
             HStack(spacing: 25) {
                 Button {
-                    vm.skipBackward15()
+//                    homeVM.skipBackward15()
                 } label: {
                     Image(systemName: "gobackward.15")
                         .resizable()
@@ -60,14 +62,14 @@ struct SoundPlayerView: View {
                 }
                
                 Button {
-                    vm.audioPlayer.isPlaying ? vm.stopPlayer() : vm.startPlayer()
+                    homeVM.startPlayer()
                 } label: {
-                    Image(systemName: vm.audioPlayer.isPlaying ? "pause.fill" : "play.fill")
+                    Image(systemName: homeVM.audioPlayer.timeControlStatus == .playing ? "pause.fill" : "play.fill")
                         .resizable()
                         .frame(width: buttonSize, height: buttonSize)
                 }
                 Button {
-                    vm.skipForward15()
+//                    homeVM.skipForward15()
                 } label: {
                     Image(systemName: "goforward.15")
                         .resizable()

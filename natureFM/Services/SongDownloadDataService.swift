@@ -6,6 +6,7 @@ import SwiftUI
 class SongDataDownloadService {
     
     @Published var downloadedSound: Data? = nil
+    @Published var downlaodedSoundItem: AVPlayerItem? = nil
 
     private let fileManager = LocalFileManager.instance
     private let folderName = "sound_audio"
@@ -17,6 +18,8 @@ class SongDataDownloadService {
         if let savedSoundURL = fileManager.getSoundURL(soundName: soundName, folderName: folderName) {
             let savedSong = fileManager.getSound(url: savedSoundURL, soundName: soundName, folderName: folderName)
             downloadedSound = savedSong
+            let avPlayerItem = AVPlayerItem(url: savedSoundURL)
+            downlaodedSoundItem = avPlayerItem
   
         } else {
             downloadSound(sound: sound)

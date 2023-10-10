@@ -4,7 +4,7 @@ import Combine
 
 struct HomeView: View {
     // View model for home / getting sounds
-    @StateObject private var vm = HomeViewModel()
+    @StateObject var vm = HomeViewModel()
     // Store manager / in app purchases and subscriptions
     @StateObject var storeManager = StoreManager()
 

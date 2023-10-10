@@ -60,9 +60,9 @@ struct PlayingNowBar: View {
                     .truncationMode(.tail)
             
                 HStack(spacing: 5) {
-                    ClockDisplayView(
-                        time: Int(homeVM.audioPlayer.duration - homeVM.audioPlayer.currentTime),
-                        font: .caption)
+//                    ClockDisplayView(
+//                        time: Int(homeVM.audioPlayer.currentItem?.duration.seconds ?? 0 - homeVM.audioPlayer.currentTime().seconds),
+//                        font: .caption)
                     Text("left")
                    
                 }
@@ -79,14 +79,14 @@ struct PlayingNowBar: View {
 
             // Play button
             Button {
-                if homeVM.audioPlayer.isPlaying {
+                if homeVM.audioPlayer.timeControlStatus == .playing {
                     homeVM.stopPlayer()
                 } else {
                     homeVM.startPlayer()
                 }
                
             } label: {
-                Image(systemName: homeVM.audioPlayer.isPlaying ? "pause.fill" : "play.fill")
+                Image(systemName: homeVM.audioPlayer.timeControlStatus == .playing ? "pause.fill" : "play.fill")
                     .resizable()
                     .frame(width: buttonSize, height: buttonSize, alignment: .center)
             }
