@@ -79,12 +79,12 @@ struct PlayingNowBar: View {
 
             // Play button
             Button {
-                if let player = homeVM.audioPlayer {
-                    if player.isPlaying {
-                        homeVM.stopPlayer()
-                    } else {
-                        homeVM.startPlayer()
-                    }
+                if homeVM.isPlaying {
+                    print("stop player")
+                    homeVM.stopPlayer()
+                } else {
+                    print("Start player")
+                    homeVM.startPlayer()
                 }
                
             } label: {
@@ -99,9 +99,6 @@ struct PlayingNowBar: View {
                 }
             }
             .padding(.trailing)
-            Button("Check") {
-                print(homeVM.audioPlayer?.isPlaying)
-            }
         }
         .onTapGesture {
             homeVM.isViewingSongPlayer = true

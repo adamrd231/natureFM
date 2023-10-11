@@ -25,8 +25,12 @@ class HomeViewModel: ObservableObject {
     @Published var sound: SoundsModel?
     @Published var soundsPlaylist: [SoundsModel] = []
     @Published var timer = Timer()
-    @Published var percentagePlayed: Double = 0
+    
     @Published var isPlaying: Bool = false
+    @Published var percentagePlayed: Double = 0
+    @Published var currentTime: Double = 0
+    @Published var duration: Double = 0
+
     // Player
     var audioPlayer: AVAudioPlayer?
     
@@ -41,24 +45,6 @@ class HomeViewModel: ObservableObject {
         addSubscribers()
         loadPersist()
     }
-    
-    private func activateSession() {
-            do {
-                try session.setCategory(
-                    .playback,
-                    mode: .default,
-                    options: []
-                )
-            } catch _ {}
-            
-            do {
-                try session.setActive(true, options: .notifyOthersOnDeactivation)
-            } catch _ {}
-            
-            do {
-                try session.overrideOutputAudioPort(.speaker)
-            } catch _ {}
-        }
     
     func addSubscribers() {
         natureSoundDataService.$allSounds
@@ -115,16 +101,11 @@ class HomeViewModel: ObservableObject {
     
     func runTimer() {
         self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true ) { _ in
-//            self.percentagePlayed = self.audioPlayer.currentTime / self.audioPlayer.duration
-            // lets try to play the next song instead of just stopping..
-            // stop player
-//            self.audioPlayer.pause()
-            // NEW SONG --
-            // get index of previous song
-//            let currentIndex =
-            // get next index, or if last start over
-            // get new song
-            // start new song
+            // Update timer elements
+            if let player = self.audioPlayer {
+                self.currentTime = player.currentTime
+                self.percentagePlayed = player.currentTime / player.duration 
+            }
         }
     }
     
@@ -135,35 +116,39 @@ class HomeViewModel: ObservableObject {
     func stopPlayer() {
         if let player = audioPlayer {
             isPlaying = false
+            stopTimer()
             player.pause()
         }
     }
     
     func startPlayer() {
         if let player = audioPlayer {
-            print("Trying to play")
-            activateSession()
             isPlaying = true
+            runTimer()
             player.play()
         }
     }
     
-//    func skipForward15() {
-//        if audioPlayer.currentTime + 15 >= audioPlayer.duration {
-//            audioPlayer.currentTime = 0
-//            percentagePlayed = 0
-//        } else {
-//            audioPlayer.currentTime += 15
-//        }
-//    }
-//    func skipBackward15() {
-//        if audioPlayer.currentTime - 15 <= 0 {
-//            audioPlayer.currentTime = 0
-//            percentagePlayed = 0
-//        } else {
-//            audioPlayer.currentTime -= 15
-//        }
-//    }
+    func skipForward15() {
+        if let player = audioPlayer {
+            if player.currentTime + 15 >= player.duration {
+                player.currentTime = 0
+            } else {
+                player.currentTime += 15
+            }
+        }
+       
+    }
+    
+    func skipBackward15() {
+        if let player = audioPlayer {
+            if player.currentTime - 15 <= 0 {
+                player.currentTime = 0
+            } else {
+                player.currentTime -= 15
+            }
+        }
+    }
     
     func persist(coinCount: Int) {
         if let encoded = try? JSONEncoder().encode(coinCount) {
