@@ -43,10 +43,13 @@ struct SoundPlayerView: View {
                 .cornerRadius(5)
                 .padding(.horizontal)
                 HStack {
-                    ClockDisplayView(time: Int(homeVM.audioPlayer.currentTime().seconds), font: .caption)
-                    Spacer()
-                    ClockDisplayView(time: Int(homeVM.audioPlayer.currentItem?.asset.duration.seconds ?? 0), font: .caption)
-                
+                    if let player = homeVM.audioPlayer {
+                        ClockDisplayView(time: Int(player.currentTime().seconds), font: .caption)
+                        Spacer()
+                        ClockDisplayView(time: Int(player.currentItem?.asset.duration.seconds ?? 0), font: .caption)
+                    } else {
+                        Text("0s")
+                    }
                 }
                 .padding(.horizontal)
                 .font(.caption)
@@ -64,9 +67,15 @@ struct SoundPlayerView: View {
                 Button {
                     homeVM.startPlayer()
                 } label: {
-                    Image(systemName: homeVM.audioPlayer.timeControlStatus == .playing ? "pause.fill" : "play.fill")
-                        .resizable()
-                        .frame(width: buttonSize, height: buttonSize)
+                    if let player = homeVM.audioPlayer {
+                        Image(systemName: player.timeControlStatus == .playing ? "pause.fill" : "play.fill")
+                            .resizable()
+                            .frame(width: buttonSize, height: buttonSize)
+                    } else {
+                        Image(systemName: "pause.fill")
+                            .resizable()
+                            .frame(width: buttonSize, height: buttonSize)
+                    }
                 }
                 Button {
 //                    homeVM.skipForward15()

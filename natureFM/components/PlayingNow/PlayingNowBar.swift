@@ -79,16 +79,24 @@ struct PlayingNowBar: View {
 
             // Play button
             Button {
-                if homeVM.audioPlayer.timeControlStatus == .playing {
-                    homeVM.stopPlayer()
-                } else {
-                    homeVM.startPlayer()
+                if let player = homeVM.audioPlayer {
+                    if player.timeControlStatus == .playing {
+                        homeVM.stopPlayer()
+                    } else {
+                        homeVM.startPlayer()
+                    }
                 }
                
             } label: {
-                Image(systemName: homeVM.audioPlayer.timeControlStatus == .playing ? "pause.fill" : "play.fill")
-                    .resizable()
-                    .frame(width: buttonSize, height: buttonSize, alignment: .center)
+                if let player = homeVM.audioPlayer {
+                    Image(systemName: player.timeControlStatus == .playing ? "pause.fill" : "play.fill")
+                        .resizable()
+                        .frame(width: buttonSize, height: buttonSize, alignment: .center)
+                } else {
+                    Image(systemName: "pause.fill")
+                        .resizable()
+                        .frame(width: buttonSize, height: buttonSize, alignment: .center)
+                }
             }
             .padding(.trailing)
         }

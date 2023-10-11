@@ -6,7 +6,7 @@ import SwiftUI
 class SongDataDownloadService {
     
     @Published var downloadedSound: Data? = nil
-    @Published var downlaodedSoundItem: AVPlayerItem? = nil
+    @Published var downloadedSoundItem: AVPlayerItem? = nil
 
     private let fileManager = LocalFileManager.instance
     private let folderName = "sound_audio"
@@ -16,10 +16,11 @@ class SongDataDownloadService {
     func getSound(sound: SoundsModel) {
         let soundName = sound.name
         if let savedSoundURL = fileManager.getSoundURL(soundName: soundName, folderName: folderName) {
-            let savedSong = fileManager.getSound(url: savedSoundURL, soundName: soundName, folderName: folderName)
-            downloadedSound = savedSong
+//            let savedSong = fileManager.getSound(url: savedSoundURL, soundName: soundName, folderName: folderName)
+//            downloadedSound = savedSong
+            print("retrieved from filemanager: \(savedSoundURL)")
             let avPlayerItem = AVPlayerItem(url: savedSoundURL)
-            downlaodedSoundItem = avPlayerItem
+            downloadedSoundItem = avPlayerItem
   
         } else {
             downloadSound(sound: sound)
@@ -27,6 +28,7 @@ class SongDataDownloadService {
     }
     
     private func downloadSound(sound: SoundsModel) {
+        print("Downloading sound")
         let soundName = sound.name
         guard let url = URL(string: sound.audioFileLink) else { return }
         
@@ -37,6 +39,7 @@ class SongDataDownloadService {
     
             .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { [weak self] (returnedData) in
                 guard let self = self, let downloadedData = returnedData else { return }
+        
                 self.downloadedSound = downloadedData
                 self.songSubscription?.cancel()
                 

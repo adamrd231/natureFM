@@ -45,7 +45,7 @@ class LocalFileManager {
     
     // MARK: Sounds
     func getSoundURL(soundName: String, folderName: String) -> URL? {
-        guard let url = getURLForAudio(audioName: soundName, folderName: folderName),
+        guard let url = getURLForFolder(folderName: folderName),
               FileManager.default.fileExists(atPath: url.path)
         else {
             return nil
@@ -54,7 +54,7 @@ class LocalFileManager {
     }
     
     func getSound(url: URL, soundName: String, folderName: String) -> Data? {
-       guard let url = getURLForAudio(audioName: soundName, folderName: folderName),
+       guard let url = getURLForFolder(folderName: folderName),
              FileManager.default.fileExists(atPath: url.path)
        else {
         return nil
@@ -65,11 +65,12 @@ class LocalFileManager {
     
     func saveSound(soundData: Data, soundName: String, folderName: String) {
         createFolderIfNeeded(folderName: folderName)
-        guard let url = getURLForAudio(audioName: soundName, folderName: folderName) else { return }
+        guard let url = getURLForFolder(folderName: folderName) else { return }
+        print("Creating url to save = \(url)")
         
         do {
             try soundData.write(to: url)
-            print("Saved Audio Successfully...?")
+            print("Saved Audio Successfully")
         } catch let error {
             print("Error saving Audio: \(error)")
         }
@@ -90,12 +91,12 @@ class LocalFileManager {
         }
     }
     
-    private func getURLForAudio(audioName: String, folderName: String) -> URL? {
-        guard let folderURL = getURLForFolder(folderName: folderName) else {
-            return nil
-        }
-        return folderURL.appendingPathComponent(audioName)
-    }
+//    private func getURLForAudio(audioName: String, folderName: String) -> URL? {
+//        guard let folderURL = getURLForFolder(folderName: folderName) else {
+//            return nil
+//        }
+//        return folderURL.appendingPathComponent(folderName)
+//    }
     
     
     // MARK: Helper Functions

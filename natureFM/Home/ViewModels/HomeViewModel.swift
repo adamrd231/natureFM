@@ -1,7 +1,9 @@
 import Foundation
 import Combine
 import SwiftUI
-import AVKit
+//import AVKit
+import AVFoundation
+
 
 class HomeViewModel: ObservableObject {
     // Services
@@ -27,7 +29,8 @@ class HomeViewModel: ObservableObject {
     @Published var percentagePlayed: Double = 0
     @Published var isAudioPlaying = false
     // Player
-    @Published var audioPlayer = AVPlayer()
+    var audioPlayer: AVPlayer?
+
     private var session = AVAudioSession.sharedInstance()
     // Cancellable
     private var cancellable = Set<AnyCancellable>()
@@ -105,11 +108,16 @@ class HomeViewModel: ObservableObject {
 //            }
 //            .store(in: &cancellable)
         
-        songDataDownloadService.$downlaodedSoundItem
+        songDataDownloadService.$downloadedSoundItem
             .sink { returnedAVPlayerItem in
-                if let avItem = returnedAVPlayerItem {
-      
-                        self.audioPlayer = AVPlayer(playerItem: avItem)
+                if let playerItem = returnedAVPlayerItem {
+                    print("Updating audio player with player item \(playerItem)")
+                    if let player = self.audioPlayer {
+                        player.replaceCurrentItem(with: playerItem)
+                    } else {
+                        self.audioPlayer = AVPlayer(playerItem: playerItem)
+                    }
+                   
 
                 }
             }
@@ -136,14 +144,21 @@ class HomeViewModel: ObservableObject {
     }
     
     func stopPlayer() {
-        audioPlayer.pause()
+        if let player = audioPlayer {
+            player.pause()
+        }
     }
+    
     func startPlayer() {
-        print("Trying to play")
-        print("Checking... \(audioPlayer.status)")
-        activateSession()
-        audioPlayer.play()
-
+        if let player = audioPlayer {
+            print("Trying to play")
+            print("Checking... \(player.status)")
+            print("Checking... \(String(describing: player.currentItem))")
+            print("Checking... \(String(describing: player.volume))")
+//            activateSession()
+            player.play()
+            print(player.reasonForWaitingToPlay)
+        }
     }
     
 //    func skipForward15() {
