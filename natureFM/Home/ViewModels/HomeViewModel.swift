@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 import SwiftUI
-//import AVKit
+import AVKit
 import AVFoundation
 
 
@@ -16,7 +16,6 @@ class HomeViewModel: ObservableObject {
     @Published var portfolioSounds: [SoundsModel] = []
     @Published var allFreeSounds: [SoundsModel] = []
     @Published var allSubscriptionSounds: [SoundsModel] = []
-    @Published var natureFMCoins: Int = 0
     @Published var randomSound: SoundsModel?
     @Published var categories: [CategoryModel] = []
     @Published var selectedCategory: String = "All"
@@ -27,9 +26,12 @@ class HomeViewModel: ObservableObject {
     @Published var soundsPlaylist: [SoundsModel] = []
     @Published var timer = Timer()
     @Published var percentagePlayed: Double = 0
-    @Published var isAudioPlaying = false
+    @Published var isPlaying: Bool = false
     // Player
-    var audioPlayer: AVPlayer?
+    var audioPlayer: AVAudioPlayer?
+    
+    // Coins
+    @Published var natureFMCoins: Int = 0
 
     private var session = AVAudioSession.sharedInstance()
     // Cancellable
@@ -96,29 +98,16 @@ class HomeViewModel: ObservableObject {
             }
             .store(in: &cancellable)
         
-//        songDataDownloadService.$downloadedSound
-//            .sink { returnedData in
-//                if let data = returnedData {
-//                    do {
-//                        self.audioPlayer = try AVPlayer(playerItem: )
-//                    } catch {
-//                        print("Error fetching audio player")
-//                    }
-//                }
-//            }
-//            .store(in: &cancellable)
-        
-        songDataDownloadService.$downloadedSoundItem
-            .sink { returnedAVPlayerItem in
-                if let playerItem = returnedAVPlayerItem {
-                    print("Updating audio player with player item \(playerItem)")
-                    if let player = self.audioPlayer {
-                        player.replaceCurrentItem(with: playerItem)
-                    } else {
-                        self.audioPlayer = AVPlayer(playerItem: playerItem)
+        songDataDownloadService.$downloadedSound
+            .sink { returnedPlayerData in
+                if let data = returnedPlayerData {
+                    do {
+                        try self.audioPlayer = AVAudioPlayer(data: data)
+                    } catch {
+                        print("Error setting up audio player HOMEVIEWMODEL")
                     }
                    
-
+                    
                 }
             }
             .store(in: &cancellable)
@@ -145,6 +134,7 @@ class HomeViewModel: ObservableObject {
     
     func stopPlayer() {
         if let player = audioPlayer {
+            isPlaying = false
             player.pause()
         }
     }
@@ -152,12 +142,9 @@ class HomeViewModel: ObservableObject {
     func startPlayer() {
         if let player = audioPlayer {
             print("Trying to play")
-            print("Checking... \(player.status)")
-            print("Checking... \(String(describing: player.currentItem))")
-            print("Checking... \(String(describing: player.volume))")
-//            activateSession()
+            activateSession()
+            isPlaying = true
             player.play()
-            print(player.reasonForWaitingToPlay)
         }
     }
     

@@ -80,7 +80,7 @@ struct PlayingNowBar: View {
             // Play button
             Button {
                 if let player = homeVM.audioPlayer {
-                    if player.timeControlStatus == .playing {
+                    if player.isPlaying {
                         homeVM.stopPlayer()
                     } else {
                         homeVM.startPlayer()
@@ -89,7 +89,7 @@ struct PlayingNowBar: View {
                
             } label: {
                 if let player = homeVM.audioPlayer {
-                    Image(systemName: player.timeControlStatus == .playing ? "pause.fill" : "play.fill")
+                    Image(systemName: player.isPlaying ? "pause.fill" : "play.fill")
                         .resizable()
                         .frame(width: buttonSize, height: buttonSize, alignment: .center)
                 } else {
@@ -99,6 +99,9 @@ struct PlayingNowBar: View {
                 }
             }
             .padding(.trailing)
+            Button("Check") {
+                print(homeVM.audioPlayer?.isPlaying)
+            }
         }
         .onTapGesture {
             homeVM.isViewingSongPlayer = true

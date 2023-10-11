@@ -31,41 +31,19 @@ class LocalFileManager {
         guard let url = getURLForImage(imageName: imageName, folderName: folderName),
               FileManager.default.fileExists(atPath: url.path)
         else {
+            print("Image return nil")
             return nil
         }
+        print("returning image")
         return UIImage(contentsOfFile: url.path)
     }
     
-    private func getURLForImage(imageName: String, folderName: String) -> URL? {
-        guard let folderURL = getURLForFolder(folderName: folderName) else {
-            return nil
-        }
-        return folderURL.appendingPathComponent(imageName)
-    }
+
     
     // MARK: Sounds
-    func getSoundURL(soundName: String, folderName: String) -> URL? {
-        guard let url = getURLForFolder(folderName: folderName),
-              FileManager.default.fileExists(atPath: url.path)
-        else {
-            return nil
-        }
-        return url
-    }
-    
-    func getSound(url: URL, soundName: String, folderName: String) -> Data? {
-       guard let url = getURLForFolder(folderName: folderName),
-             FileManager.default.fileExists(atPath: url.path)
-       else {
-        return nil
-       }
-        let data = try? Data(contentsOf: url)
-        return data
-    }
-    
     func saveSound(soundData: Data, soundName: String, folderName: String) {
         createFolderIfNeeded(folderName: folderName)
-        guard let url = getURLForFolder(folderName: folderName) else { return }
+        guard let url = getURLForAudio(audioName: soundName, folderName: folderName) else { return }
         print("Creating url to save = \(url)")
         
         do {
@@ -75,6 +53,38 @@ class LocalFileManager {
             print("Error saving Audio: \(error)")
         }
     }
+    
+    func getSoundURL(soundName: String, folderName: String) -> URL? {
+        guard let url = getURLForAudio(audioName: soundName, folderName: folderName),
+              FileManager.default.fileExists(atPath: url.path)
+        else {
+            return nil
+        }
+        return url
+    }
+    
+    func getSoundPath(soundName: String, folderName: String) -> String? {
+        guard let url = getURLForAudio(audioName: soundName, folderName: folderName),
+             FileManager.default.fileExists(atPath: url.path)
+       else {
+        print("not able to find url on filemanager")
+        return nil
+       }
+        return url.pathExtension
+    }
+    
+    func getSound(url: URL, soundName: String, folderName: String) -> Data? {
+        guard let url = getURLForAudio(audioName: soundName, folderName: folderName),
+             FileManager.default.fileExists(atPath: url.path)
+       else {
+        print("Returning nil from local filemanager")
+        return nil
+       }
+        let data = try? Data(contentsOf: url)
+        return data
+    }
+    
+
     
     private func createFolderIfNeeded(folderName: String) {
         guard let url = getURLForFolder(folderName: folderName) else { return }
@@ -91,14 +101,6 @@ class LocalFileManager {
         }
     }
     
-//    private func getURLForAudio(audioName: String, folderName: String) -> URL? {
-//        guard let folderURL = getURLForFolder(folderName: folderName) else {
-//            return nil
-//        }
-//        return folderURL.appendingPathComponent(folderName)
-//    }
-    
-    
     // MARK: Helper Functions
     private func getURLForFolder(folderName: String) -> URL? {
         guard let url = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
@@ -107,4 +109,21 @@ class LocalFileManager {
         }
         return url.appendingPathComponent(folderName)
     }
+    
+    private func getURLForImage(imageName: String, folderName: String) -> URL? {
+        guard let folderURL = getURLForFolder(folderName: folderName) else {
+            return nil
+        }
+        return folderURL.appendingPathComponent(imageName)
+    }
+    
+    private func getURLForAudio(audioName: String, folderName: String) -> URL? {
+        guard let folderURL = getURLForFolder(folderName: folderName) else {
+            return nil
+        }
+        return folderURL.appendingPathComponent(audioName)
+    }
+    
+    
+
 }

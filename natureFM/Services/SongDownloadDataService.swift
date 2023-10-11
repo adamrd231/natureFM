@@ -4,26 +4,18 @@ import Combine
 import SwiftUI
 
 class SongDataDownloadService {
-    
     @Published var downloadedSound: Data? = nil
-    @Published var downloadedSoundItem: AVPlayerItem? = nil
 
     private let fileManager = LocalFileManager.instance
-    private let folderName = "sound_audio"
+    private let folderName = "soundAudio"
     private var songSubscription: AnyCancellable?
     
     // Download or pull up all sounds currently in library
     func getSound(sound: SoundsModel) {
         let soundName = sound.name
-        if let savedSoundURL = fileManager.getSoundURL(soundName: soundName, folderName: folderName) {
-//            let savedSong = fileManager.getSound(url: savedSoundURL, soundName: soundName, folderName: folderName)
-//            downloadedSound = savedSong
-            print("retrieved from filemanager: \(savedSoundURL)")
-            let avPlayerItem = AVPlayerItem(url: savedSoundURL)
-            downloadedSoundItem = avPlayerItem
-  
-        } else {
-            downloadSound(sound: sound)
+        if let savedSoundPath = fileManager.getSoundURL(soundName: soundName, folderName: folderName) {
+            let soundData = fileManager.getSound(url: savedSoundPath, soundName: soundName, folderName: folderName)
+            downloadedSound = soundData
         }
     }
     

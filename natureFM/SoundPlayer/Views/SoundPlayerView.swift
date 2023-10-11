@@ -44,9 +44,9 @@ struct SoundPlayerView: View {
                 .padding(.horizontal)
                 HStack {
                     if let player = homeVM.audioPlayer {
-                        ClockDisplayView(time: Int(player.currentTime().seconds), font: .caption)
+                        ClockDisplayView(time: Int(player.currentTime), font: .caption)
                         Spacer()
-                        ClockDisplayView(time: Int(player.currentItem?.asset.duration.seconds ?? 0), font: .caption)
+                        ClockDisplayView(time: Int(player.duration ?? 0), font: .caption)
                     } else {
                         Text("0s")
                     }
@@ -68,7 +68,7 @@ struct SoundPlayerView: View {
                     homeVM.startPlayer()
                 } label: {
                     if let player = homeVM.audioPlayer {
-                        Image(systemName: player.timeControlStatus == .playing ? "pause.fill" : "play.fill")
+                        Image(systemName: player.isPlaying ? "pause.fill" : "play.fill")
                             .resizable()
                             .frame(width: buttonSize, height: buttonSize)
                     } else {
