@@ -19,7 +19,7 @@ struct natureFMApp: App {
     
 
     
-    @State private var showLaunchView:Bool = true
+    @State private var showLaunchView:Bool = false
     
     // App Tracking Transparency - Request permission and play ads on open only
     private func requestIDFA() {

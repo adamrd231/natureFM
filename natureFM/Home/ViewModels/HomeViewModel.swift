@@ -30,6 +30,9 @@ class HomeViewModel: ObservableObject {
     @Published var percentagePlayed: Double = 0
     @Published var currentTime: Double = 0
     @Published var duration: Double = 0
+    
+    @Published var isRepeating: Bool = true
+    @Published var isShuffling: Bool = false
 
     // Player
     var audioPlayer: AVAudioPlayer?
@@ -104,8 +107,22 @@ class HomeViewModel: ObservableObject {
             // Update timer elements
             if let player = self.audioPlayer {
                 self.currentTime = player.currentTime
-                self.percentagePlayed = player.currentTime / player.duration 
+                self.percentagePlayed = player.currentTime / player.duration
+                // Either reset song or play through next ones
+                // if repeat play song again
+                print("Current time: \(self.currentTime)")
+                print("Duration: \(player.duration)")
+                if self.currentTime >= player.duration - 1 {
+                    print("Reset the timer")
+                    if self.isRepeating {
+                        self.currentTime = 0
+                        player.currentTime = 0
+                    }
+                }
+                
+                // if shuffle, play new song
             }
+            
         }
     }
     

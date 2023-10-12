@@ -17,6 +17,9 @@ struct SoundImageView: View {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFill()
+                    .aspectRatio(contentMode: .fill)
+                    .clipped()
+                    .contentShape(Rectangle())
             } else  {
                 ZStack {
                     ProgressView()
