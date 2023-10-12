@@ -29,12 +29,14 @@ class SongDataDownloadService {
         
         songSubscription = NetworkingManager.download(url: url)
             .tryMap({ (data) -> Data? in
+                print("download song tryMap")
                 return data
             })
     
             .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { [weak self] (returnedData) in
+                print("download song sink")
                 guard let self = self, let downloadedData = returnedData else { return }
-        
+
                 self.downloadedSound = downloadedData
                 self.songSubscription?.cancel()
                 
@@ -43,8 +45,13 @@ class SongDataDownloadService {
             })
           
         do {
-            let fileData = try Data(contentsOf: url)
-            downloadedSound = fileData
+            print("download song Do this")
+            URLSession.shared.dataTask(with: url) { (data, response, error) in
+         
+                self.downloadedSound = data
+            }
+//            let fileData = try Data(contentsOf: url)
+ 
         } catch {
             print("Error converting url into data")
         }
