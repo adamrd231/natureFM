@@ -14,12 +14,15 @@ class SongDataDownloadService {
     func getSound(sound: SoundsModel) {
         let soundName = sound.name
         if let savedSoundPath = fileManager.getSoundURL(soundName: soundName, folderName: folderName) {
+            print("Saved sound path: \(savedSoundPath)")
             let soundData = fileManager.getSound(url: savedSoundPath, soundName: soundName, folderName: folderName)
             downloadedSound = soundData
+        } else {
+            downloadSound(sound)
         }
     }
     
-    private func downloadSound(sound: SoundsModel) {
+    private func downloadSound(_ sound: SoundsModel) {
         print("Downloading sound")
         let soundName = sound.name
         guard let url = URL(string: sound.audioFileLink) else { return }
