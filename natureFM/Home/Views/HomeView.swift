@@ -7,7 +7,6 @@ struct HomeView: View {
     @StateObject var vm = HomeViewModel()
     // Store manager / in app purchases and subscriptions
     @StateObject var storeManager = StoreManager()
-
     @State var tabSelection = 1
     // Variable to control when to show the player view
     @State var showingPlayerView: Bool = false

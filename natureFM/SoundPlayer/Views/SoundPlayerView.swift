@@ -5,22 +5,20 @@ struct SoundPlayerView: View {
     @EnvironmentObject var homeVM: HomeViewModel
     private let buttonSize: CGFloat = 30
     @State var wasPlaying: Bool = false
+    @State var isDragging: Bool = false
     
     var drag: some Gesture {
         DragGesture()
             .onChanged { isChanging in
-                print("Changing \(isChanging.location)")
                 if let player = homeVM.audioPlayer {
                     if player.isPlaying {
                         homeVM.stopPlayer()
                         wasPlaying = true
                     }
+                    
                 }
             }
             .onEnded { isDragging in
-                print("width: \(UIScreen.main.bounds.width * 0.9)")
-                
-                print("New place: \((isDragging.location.x / UIScreen.main.bounds.width * 0.9))")
                 if let player = homeVM.audioPlayer {
                     let percentageToGoTo = isDragging.location.x / UIScreen.main.bounds.width * 0.9
                     player.currentTime = percentageToGoTo * player.duration
@@ -29,7 +27,6 @@ struct SoundPlayerView: View {
                         wasPlaying = false
                     }
                 }
-                
             }
     }
     
@@ -44,7 +41,6 @@ struct SoundPlayerView: View {
                             .aspectRatio(contentMode: .fill)
                             .clipped()
                             .contentShape(Rectangle())
-                            
                     }) {
                         ProgressView()
                     }
@@ -67,9 +63,7 @@ struct SoundPlayerView: View {
                         .foregroundColor(Color.theme.customBlue)
                         .frame(width: ((UIScreen.main.bounds.width * 0.9) * homeVM.percentagePlayed))
                         .gesture(drag)
-
                 }
-    
                 .frame(height: 5)
                 .cornerRadius(5)
                 .padding(.horizontal)
@@ -79,6 +73,7 @@ struct SoundPlayerView: View {
                         .frame(width: 10, height: 10)
                         .offset(x: (UIScreen.main.bounds.width * 0.9) * homeVM.percentagePlayed + 10)
                 }
+                
                 HStack {
                     ClockDisplayView(time: Int(homeVM.currentTime), font: .caption)
                     Spacer()
@@ -99,7 +94,6 @@ struct SoundPlayerView: View {
                
                 Button {
                     if homeVM.isPlaying {
-              
                         homeVM.stopPlayer()
                     } else {
                         homeVM.startPlayer()
