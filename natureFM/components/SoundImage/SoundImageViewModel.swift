@@ -10,11 +10,12 @@ class SoundImageViewModel: ObservableObject {
     
     private let sound: SoundsModel
     private let dataService: SoundImageService
-    private var cancellables = Set<AnyCancellable>()
+    private var cancellable = Set<AnyCancellable>()
     
     init(sound: SoundsModel) {
         self.isLoading = true
         self.sound = sound
+        print("Update data service: \(sound.name)")
         self.dataService = SoundImageService(soundModel: sound)
         self.addSubscribers()
     }
@@ -27,7 +28,7 @@ class SoundImageViewModel: ObservableObject {
             } receiveValue: { [weak self] (returnedImage) in
                 self?.image = returnedImage
             }
-            .store(in: &cancellables)
+            .store(in: &cancellable)
 
     }
 }

@@ -41,7 +41,7 @@ struct HorizontalScrollView: View {
                         }
                     }
                     else {
-                        ForEach(soundArray) { sound in
+                        ForEach(soundArray, id: \.id) { sound in
                             VStack(alignment: .leading, spacing: 10) {
                                 SoundImageView(sound: sound)
                                     .frame(width: 200, height: 120)

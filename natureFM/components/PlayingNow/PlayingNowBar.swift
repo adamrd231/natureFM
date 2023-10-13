@@ -1,10 +1,3 @@
-//
-//  PlayingNowBar.swift
-//  natureFM
-//
-//  Created by Adam Reed on 10/1/23.
-//
-
 import SwiftUI
 
 struct PlayingNowBar: View {
@@ -13,45 +6,25 @@ struct PlayingNowBar: View {
     
     var body: some View {
         HStack(spacing: 15) {
-
-            AsyncImage(
-                url: URL(string: homeVM.sound?.imageFileLink ?? ""),
-                content: { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .contentShape(Rectangle())
-                        .frame(height: 80)
-                        .frame(maxWidth: 90)
-                        .clipped()
-
-            }) {
-                ZStack {
-                    Rectangle()
-                         .frame(height: 80)
-                         .frame(maxWidth: 90)
-                         .foregroundColor(Color.theme.titleColor)
-                    ProgressView()
-                        .tint(Color.theme.backgroundColor)
-                  
-                }
-             
+            if let sound = homeVM.sound {
+                SoundImageView(sound: sound)
+                    .frame(height: 80)
+                    .frame(maxWidth: 90)
+                    .clipped()
+                    .overlay(alignment: .topLeading) {
+                        Button {
+                            homeVM.isViewingSongPlayerTab = false
+                        } label: {
+                            Image(systemName: "cross.circle.fill")
+                                .rotationEffect(Angle(degrees: 45))
+                                .foregroundColor(Color.theme.titleColor.opacity(0.8))
+                                .frame(width: 15, height: 15, alignment: .center)
+                                .padding(7)
+                        }
+                    }
             }
-            .overlay(alignment: .topLeading) {
-                Button {
-                    homeVM.isViewingSongPlayerTab = false
-                } label: {
-                    Image(systemName: "cross.circle.fill")
-                        .rotationEffect(Angle(degrees: 45))
-                        .foregroundColor(Color.theme.titleColor.opacity(0.8))
-                        .frame(width: 15, height: 15, alignment: .center)
-                        .padding(7)
-                }
-            }
-           
             
             VStack(alignment: .leading, spacing: 2) {
-
                 Text(homeVM.sound?.name ?? "")
                     .font(.callout)
                     .fontWeight(.heavy)

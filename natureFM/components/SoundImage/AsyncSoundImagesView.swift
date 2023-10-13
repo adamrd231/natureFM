@@ -1,17 +1,21 @@
-import SwiftUI
-import Combine
+//
+//  AsyncSoundImagesView.swift
+//  natureFM
+//
+//  Created by Adam Reed on 10/13/23.
+//
 
-struct SoundImageView: View {
-    let sound: SoundsModel
-    @StateObject var vm: SoundImageViewModel
-    private var cancellable = Set<AnyCancellable>()
-    
-    init(sound: SoundsModel) {
-        print("Init soundImageView")
-        self.sound = sound
-        _vm = StateObject(wrappedValue: SoundImageViewModel(sound: sound))
+import SwiftUI
+
+struct AsyncSoundImagesView: View {
+    let url: String
+    @StateObject var vm: AsyncSoundImageViewModel
+
+    init(url: String) {
+        self.url = url
+        _vm = StateObject(wrappedValue: AsyncSoundImageViewModel(url: url))
     }
-    
+
     var body: some View {
         ZStack {
             if let image = vm.image {
@@ -34,8 +38,8 @@ struct SoundImageView: View {
     }
 }
 
-struct SoundImageView_Previews: PreviewProvider {
+struct AsyncSoundImagesView_Previews: PreviewProvider {
     static var previews: some View {
-        SoundImageView(sound: dev.testSound)
+        AsyncSoundImagesView(url: "Test")
     }
 }

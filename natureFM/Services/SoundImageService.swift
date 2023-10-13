@@ -2,35 +2,40 @@ import Foundation
 import SwiftUI
 import Combine
 
+class AsyncSoundImageService {
+    @Published var image: UIImage? = nil
+    private var imageSubscription: AnyCancellable?
+    
+    
+}
+
+
 class SoundImageService {
     
     @Published var image: UIImage? = nil
     
     private var imageSubscription: AnyCancellable?
-    private let soundModel: SoundsModel
+    let soundModel: SoundsModel
     
     private let fileManager = LocalFileManager.instance
     private let folderName = "sound_images"
-    private let imageName: String
+    let imageName: String
     
     init(soundModel: SoundsModel) {
         self.soundModel = soundModel
         self.imageName = soundModel.name
-        getSoundImage()
+        getSoundImage(sound: soundModel)
     }
     
-    private func getSoundImage() {
-        if let savedImage = fileManager.getImage(imageName: imageName, folderName: folderName) {
+    private func getSoundImage(sound: SoundsModel) {
+        if let savedImage = fileManager.getImage(imageName: sound.name, folderName: folderName) {
             image = savedImage
-
         } else {
             downloadSoundImage()
-
         }
     }
     
     private func downloadSoundImage() {
-        
         guard let url = URL(string: soundModel.imageFileLink) else { return }
         
         imageSubscription = NetworkingManager.download(url: url)
