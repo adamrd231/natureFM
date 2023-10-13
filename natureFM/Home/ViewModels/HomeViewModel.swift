@@ -106,7 +106,7 @@ class HomeViewModel: ObservableObject {
     }
     
     func runTimer() {
-        self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true ) { _ in
+        self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true ) { _ in
             // Update timer elements
             if let player = self.audioPlayer {
                 self.currentTime = player.currentTime
