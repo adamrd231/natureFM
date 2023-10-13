@@ -68,8 +68,13 @@ struct HorizontalScrollView: View {
                                     VStack(alignment: .leading) {
                                         Button(action: {
                                             // select song and play
-                                            vm.sound = sound
-                                            vm.isViewingSongPlayerTab = true
+                                            if sound.freeSong || storeManager.purchasedSubscriptions.contains(where: { $0.displayName == StoreIDs.NatureFM }) {
+                                                vm.sound = sound
+                                                vm.isViewingSongPlayerTab = true
+                                            } else {
+                                                showingAlert = true
+                                            }
+                                          
 
                                         }) {
                                             VStack(alignment: .leading) {

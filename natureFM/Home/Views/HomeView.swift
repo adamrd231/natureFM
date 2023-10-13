@@ -47,6 +47,7 @@ struct HomeView: View {
                 }
                 .tag(4)
         }
+        .tint(Color.theme.customBlue)
         .navigationViewStyle(StackNavigationViewStyle())
 
     }

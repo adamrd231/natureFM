@@ -62,8 +62,10 @@ struct InAppStorePurchasesView: View {
                             } label: {
                                 if storeManager.purchasedNonConsumables.contains(where: {$0.id == product.id}) || storeManager.purchasedSubscriptions.contains(where: {$0.id ==  product.id }) {
                                     Text("purchased")
+                                        .foregroundColor(Color.theme.customBlue)
                                 } else {
                                     Text(product.displayPrice)
+                                        .foregroundColor(Color.theme.customBlue)
                                 }
                             }
                             .disabled(storeManager.purchasedNonConsumables.contains(where: {$0.id == product.id}) || storeManager.purchasedSubscriptions.contains(where: {$0.id ==  product.id })
@@ -79,6 +81,7 @@ struct InAppStorePurchasesView: View {
                         try await storeManager.restorePurchases()
                     }
                 }
+                .foregroundColor(Color.theme.customBlue)
             }
         }
     }
