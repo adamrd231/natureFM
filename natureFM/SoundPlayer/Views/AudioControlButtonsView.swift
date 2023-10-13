@@ -59,6 +59,7 @@ struct AudioControlButtonsView: View {
                     .frame(width: buttonSize - buttonAdjustment, height: buttonSize - buttonAdjustment)
             }
         }
+        .foregroundColor(Color.theme.customBlue)
         .padding()
     }
 }

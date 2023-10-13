@@ -29,19 +29,25 @@ struct SoundPlayerView: View {
                 if homeVM.portfolioSounds.count > 0 {
                     VStack(alignment: .leading) {
                         HStack {
-                            Text("Up next")
-                                .fontWeight(.medium)
+                            Image(systemName: "arrow.down")
+                                .foregroundColor(Color.theme.titleColor.opacity(0.6))
+                            Text(homeVM.isRepeating ? "playing next" : "library")
+                                .fontWeight(.heavy)
+                                .foregroundColor(Color.theme.titleColor.opacity(0.6))
                             Spacer()
-                            Button {
-                                homeVM.isRepeating.toggle()
-                            } label: {
-                                Image(systemName: homeVM.isRepeating ? "repeat.circle.fill" : "repeat")
+                            HStack {
+                                Button {
+                                    homeVM.isRepeating.toggle()
+                                } label: {
+                                    Image(systemName: homeVM.isRepeating ? "repeat.circle.fill" : "repeat")
+                                }
+                                Button {
+                                    homeVM.isShuffling.toggle()
+                                } label: {
+                                    Image(systemName: homeVM.isShuffling ? "shuffle.circle.fill" : "shuffle")
+                                }
                             }
-                            Button {
-                                homeVM.isShuffling.toggle()
-                            } label: {
-                                Image(systemName: homeVM.isShuffling ? "shuffle.circle.fill" : "shuffle")
-                            }
+                            .foregroundColor(Color.theme.customBlue)
                         }
                         .padding(.horizontal)
                         
@@ -54,6 +60,7 @@ struct SoundPlayerView: View {
                                     Text(sound.name)
                                     Spacer()
                                 }
+                                .foregroundColor(Color.theme.titleColor.opacity(0.9))
                                 .onTapGesture {
                                     homeVM.stopPlayer()
                                     homeVM.sound = sound

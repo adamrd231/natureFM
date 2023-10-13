@@ -142,11 +142,8 @@ class HomeViewModel: ObservableObject {
                             }
                         }
                     } else {
-                        print("Stop player")
                         self.stopPlayer()
                     }
-              
-                    
                 }
                 // if shuffle, play new song
             }
