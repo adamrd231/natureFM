@@ -43,24 +43,27 @@ struct HorizontalScrollView: View {
                     else {
                         ForEach(soundArray) { sound in
                             VStack(alignment: .leading, spacing: 10) {
-                                AsyncImage(
-                                    url: URL(string: sound.imageFileLink),
-                                    content: { image in
-                                        image
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fill)
-                                            .contentShape(Rectangle())
-                                            .frame(width: 200, height: 120)
-                                            .clipped()
-                                        
-                                    }) {
-                                        ZStack {
-                                            Rectangle()
-                                                .foregroundColor(Color.theme.backgroundColor)
-                                                .frame(width: 200, height: 120)
-                                            ProgressView()
-                                        }
-                                    }
+                                SoundImageView(sound: sound)
+                                    .frame(width: 200, height: 120)
+                                    .clipped()
+//                                AsyncImage(
+//                                    url: URL(string: sound.imageFileLink),
+//                                    content: { image in
+//                                        image
+//                                            .resizable()
+//                                            .aspectRatio(contentMode: .fill)
+//                                            .contentShape(Rectangle())
+//                                            .frame(width: 200, height: 120)
+//                                            .clipped()
+//
+//                                    }) {
+//                                        ZStack {
+//                                            Rectangle()
+//                                                .foregroundColor(Color.theme.backgroundColor)
+//                                                .frame(width: 200, height: 120)
+//                                            ProgressView()
+//                                        }
+//                                    }
      
                                 HStack(spacing: 5) {
                                     Button(action: {
