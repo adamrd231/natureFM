@@ -33,7 +33,6 @@ class HomeViewModel: ObservableObject {
     
     @Published var isRepeating: Bool = true
     @Published var isShuffling: Bool = false
-    @State var refresh: Bool = false
 
     // Player
     var audioPlayer: AVAudioPlayer?
@@ -83,7 +82,8 @@ class HomeViewModel: ObservableObject {
         $sound
             .sink { returnedSound in
                 if let unwrappedSound = returnedSound {
-                    
+                    self.currentTime = 0
+                    self.percentagePlayed = 0
                     self.songDataDownloadService.getSound(sound: unwrappedSound)
                 }
             }
@@ -106,14 +106,15 @@ class HomeViewModel: ObservableObject {
     }
     
     func runTimer() {
-        self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true ) { _ in
+        self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true ) { _ in
+            guard self.isPlaying == true else { return }
             // Update timer elements
             if let player = self.audioPlayer {
                 self.currentTime = player.currentTime
                 self.percentagePlayed = player.currentTime / player.duration
                 // Either reset song or play through next ones
                 // if repeat play song again
-                if self.currentTime >= player.duration - 1 {
+                if self.currentTime >= player.duration - 0.5 {
                     if self.isRepeating {
                         self.currentTime = 0
                         player.currentTime = 0
@@ -143,6 +144,8 @@ class HomeViewModel: ObservableObject {
             isPlaying = true
             runTimer()
             player.play()
+            currentTime = player.currentTime
+            percentagePlayed = player.currentTime / player.duration
         }
     }
     

@@ -44,7 +44,7 @@ struct ProgressBarView: View {
                 Rectangle()
                     .foregroundColor(Color.theme.customBlue)
                     .frame(width: ((UIScreen.main.bounds.width * 0.9) * homeVM.percentagePlayed))
-                    .gesture(drag)
+                   
             }
             .frame(height: 5)
             .cornerRadius(5)
@@ -54,12 +54,13 @@ struct ProgressBarView: View {
                     .foregroundColor(Color.theme.customBlue)
                     .frame(width: 10, height: 10)
                     .offset(x: (UIScreen.main.bounds.width * 0.9) * homeVM.percentagePlayed + 10)
+                    .gesture(drag)
             }
             
             HStack {
                 ClockDisplayView(time: Int(homeVM.currentTime), font: .caption)
                 Spacer()
-                ClockDisplayView(time: Int(homeVM.audioPlayer?.duration ?? 0), font: .caption)
+                ClockDisplayView(time: Int((homeVM.audioPlayer?.duration ?? 1) - 1), font: .caption)
             }
             .padding(.horizontal)
             .font(.caption)
