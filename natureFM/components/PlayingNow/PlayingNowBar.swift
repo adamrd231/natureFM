@@ -2,26 +2,16 @@ import SwiftUI
 
 struct PlayingNowBar: View {
     @EnvironmentObject var homeVM: HomeViewModel
-    @State var currentSound: SoundsModel?
     let buttonSize: CGFloat = 25
     
     var body: some View {
         HStack(spacing: 15) {
-            if let sound = currentSound {
+            if let sound = homeVM.sound {
                 // This image needs to update based on current sound selection...
                 SoundImageView(sound: sound)
                     .frame(height: 80)
                     .frame(maxWidth: 90)
                     .clipped()
-           
-                    .onChange(of: homeVM.sound, perform: { newValue in
-                        print("sound updating in soundImageView")
-                        if let sound = homeVM.sound {
-                            print("unwrapped")
-                            currentSound = sound
-                        }
-                   
-                    })
                     .overlay(alignment: .topLeading) {
                         Button {
                             homeVM.isViewingSongPlayerTab = false
@@ -42,12 +32,6 @@ struct PlayingNowBar: View {
                     .foregroundColor(Color.theme.titleColor)
                     .lineLimit(1)
                     .truncationMode(.tail)
-                    .onAppear(perform: {
-                        if let sound = homeVM.sound {
-                            print("on appear sound")
-                            currentSound = sound
-                        }
-                    })
             
                 HStack(spacing: 5) {
 //                    ClockDisplayView(

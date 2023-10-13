@@ -73,7 +73,6 @@ class StoreManager: ObservableObject {
     
     private func updateCurrentEntitlements() async {
         for await result in Transaction.currentEntitlements {
-            print("result \(result)")
             await self.handle(transactionVerification: result)
         }
     }
