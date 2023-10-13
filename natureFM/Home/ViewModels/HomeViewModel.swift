@@ -106,20 +106,47 @@ class HomeViewModel: ObservableObject {
     }
     
     func runTimer() {
+        print("timer started \(self.isPlaying)")
         self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true ) { _ in
+            print("timer \(self.isPlaying)")
             guard self.isPlaying == true else { return }
+            guard self.audioPlayer?.isPlaying == true else {
+                self.stopPlayer()
+                self.startPlayer()
+                return
+            }
             // Update timer elements
             if let player = self.audioPlayer {
                 self.currentTime = player.currentTime
                 self.percentagePlayed = player.currentTime / player.duration
                 // Either reset song or play through next ones
                 // if repeat play song again
-                if self.currentTime >= player.duration - 0.5 {
-                    if !self.isRepeating {
-                        self.stopPlayer()
-                    }
+                if self.currentTime >= player.duration - 1 {
                     self.currentTime = 0
                     player.currentTime = 0
+                    if self.isRepeating {
+                        if self.isShuffling {
+                            self.sound = self.portfolioSounds.randomElement()
+                        } else {
+                            if let s = self.sound {
+                                if let index = self.portfolioSounds.firstIndex(of: s) {
+                                    if index + 1 > self.portfolioSounds.count {
+                                        if let firstSound = self.portfolioSounds.first {
+                                            self.sound = firstSound
+                                        }
+                                        
+                                    } else {
+                                        self.sound = self.portfolioSounds[index + 1]
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        print("Stop player")
+                        self.stopPlayer()
+                    }
+              
+                    
                 }
                 // if shuffle, play new song
             }
