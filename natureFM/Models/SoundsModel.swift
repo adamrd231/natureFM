@@ -1,6 +1,6 @@
 import Foundation
 
-struct SoundsModel: Identifiable, Codable  {
+struct SoundsModel: Identifiable, Codable, Equatable  {
     
     static func == (lhs: SoundsModel, rhs: SoundsModel) -> Bool {
         return lhs.name == rhs.name

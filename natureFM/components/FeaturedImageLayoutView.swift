@@ -25,8 +25,6 @@ struct FeaturedImageLayoutView: View {
                     Button(action: {
                         let isSoundFree = sound.freeSong
                         let userHasSubscription = !storeManager.products.contains(where: { $0.id == StoreIDs.NatureFM })
-                        print("isFree: \(isSoundFree)")
-                        print("has subscription: \(userHasSubscription)")
                         
                         if isSoundFree || userHasSubscription {
                             vm.downloadedContentService.saveSound(sound: sound)

@@ -46,31 +46,11 @@ struct HorizontalScrollView: View {
                                 SoundImageView(sound: sound)
                                     .frame(width: 200, height: 120)
                                     .clipped()
-//                                AsyncImage(
-//                                    url: URL(string: sound.imageFileLink),
-//                                    content: { image in
-//                                        image
-//                                            .resizable()
-//                                            .aspectRatio(contentMode: .fill)
-//                                            .contentShape(Rectangle())
-//                                            .frame(width: 200, height: 120)
-//                                            .clipped()
-//
-//                                    }) {
-//                                        ZStack {
-//                                            Rectangle()
-//                                                .foregroundColor(Color.theme.backgroundColor)
-//                                                .frame(width: 200, height: 120)
-//                                            ProgressView()
-//                                        }
-//                                    }
-     
+
                                 HStack(spacing: 5) {
                                     Button(action: {
                                         let isSoundFree = sound.freeSong
                                         let userHasSubscription = !storeManager.products.contains(where: { $0.id == StoreIDs.NatureFM })
-                                        print("isFree: \(isSoundFree)")
-                                        print("has subscription: \(userHasSubscription)")
                                         
                                         if isSoundFree || userHasSubscription {
                                             vm.downloadedContentService.saveSound(sound: sound)
@@ -90,7 +70,7 @@ struct HorizontalScrollView: View {
                                             // select song and play
                                             vm.sound = sound
                                             vm.isViewingSongPlayerTab = true
-                                   
+
                                         }) {
                                             VStack(alignment: .leading) {
                                                 Text(sound.name).font(.subheadline)

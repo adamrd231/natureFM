@@ -31,10 +31,8 @@ class LocalFileManager {
         guard let url = getURLForImage(imageName: imageName, folderName: folderName),
               FileManager.default.fileExists(atPath: url.path)
         else {
-            print("Image return nil")
             return nil
         }
-        print("returning image")
         return UIImage(contentsOfFile: url.path)
     }
     

@@ -3,13 +3,12 @@ import Combine
 
 struct SoundImageView: View {
     let sound: SoundsModel
-    @StateObject var vm: SoundImageViewModel
+    @ObservedObject var vm: SoundImageViewModel
     private var cancellable = Set<AnyCancellable>()
     
     init(sound: SoundsModel) {
-        print("Init soundImageView")
         self.sound = sound
-        _vm = StateObject(wrappedValue: SoundImageViewModel(sound: sound))
+        _vm = ObservedObject(wrappedValue: SoundImageViewModel(sound: sound))
     }
     
     var body: some View {

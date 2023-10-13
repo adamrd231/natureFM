@@ -36,12 +36,9 @@ class DownloadedContentService {
     func saveSound(sound: SoundsModel) {
         
         if let entity = savedEntities.first(where: { $0.name == sound.name }) {
-            print("already saved")
             // Entity Already exists, return
             return
         }
-        
-        print("saving sound")
         let soundToSave = Sound(context: container.viewContext)
         soundToSave.name = sound.name
         soundToSave.audioFile = sound.audioFileLink

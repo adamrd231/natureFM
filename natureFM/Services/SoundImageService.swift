@@ -27,7 +27,7 @@ class SoundImageService {
         getSoundImage(sound: soundModel)
     }
     
-    private func getSoundImage(sound: SoundsModel) {
+    func getSoundImage(sound: SoundsModel) {
         if let savedImage = fileManager.getImage(imageName: sound.name, folderName: folderName) {
             image = savedImage
         } else {

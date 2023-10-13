@@ -15,9 +15,12 @@ class SoundImageViewModel: ObservableObject {
     init(sound: SoundsModel) {
         self.isLoading = true
         self.sound = sound
-        print("Update data service: \(sound.name)")
         self.dataService = SoundImageService(soundModel: sound)
         self.addSubscribers()
+    }
+    
+    func updateImage() {
+        dataService.getSoundImage(sound: sound)
     }
     
     private func addSubscribers() {
