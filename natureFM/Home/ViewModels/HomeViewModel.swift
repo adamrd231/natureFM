@@ -115,15 +115,14 @@ class HomeViewModel: ObservableObject {
                 // Either reset song or play through next ones
                 // if repeat play song again
                 if self.currentTime >= player.duration - 0.5 {
-                    if self.isRepeating {
-                        self.currentTime = 0
-                        player.currentTime = 0
+                    if !self.isRepeating {
+                        self.stopPlayer()
                     }
+                    self.currentTime = 0
+                    player.currentTime = 0
                 }
-                
                 // if shuffle, play new song
             }
-            
         }
     }
     
@@ -157,7 +156,6 @@ class HomeViewModel: ObservableObject {
                 player.currentTime += 15
             }
         }
-       
     }
     
     func skipBackward15() {
@@ -184,9 +182,6 @@ class HomeViewModel: ObservableObject {
             guard let s = portfolioSounds.first else { return }
             sound = s
         }
-        
-       
-        
     }
     
     func skipToPreviousSound() {
@@ -196,7 +191,7 @@ class HomeViewModel: ObservableObject {
         
         guard unwrappedIndex - 1 < 0 else {
             sound = portfolioSounds[unwrappedIndex - 1]
-            return 
+            return
         }
         guard let s = portfolioSounds.last else { return }
         sound = s
