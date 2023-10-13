@@ -4,7 +4,6 @@ import SwiftUI
 import AVKit
 import AVFoundation
 
-
 class HomeViewModel: ObservableObject {
     // Services
     private let natureSoundDataService = NatureSoundDataService()
@@ -22,25 +21,23 @@ class HomeViewModel: ObservableObject {
     @Published var isViewingSongPlayer: Bool = false
     @Published var isViewingSongPlayerTab: Bool = false
  
+    // Sound player
+    var audioPlayer: AVAudioPlayer?
     @Published var sound: SoundsModel?
     @Published var soundsPlaylist: [SoundsModel] = []
-    @Published var timer = Timer()
-    
     @Published var isPlaying: Bool = false
     @Published var percentagePlayed: Double = 0
-    @Published var currentTime: Double = 0
-    @Published var duration: Double = 0
-    
+    @Published var currentTime: Int = 0
+    @Published var duration: Int = 0
     @Published var isRepeating: Bool = true
     @Published var isShuffling: Bool = false
-
-    // Player
-    var audioPlayer: AVAudioPlayer?
+    
+    // Timer
+    @Published var timer = Timer()
     
     // Coins
-    @Published var natureFMCoins: Int = 0
+    @Published var natureFMCoins = 0
 
-    private var session = AVAudioSession.sharedInstance()
     // Cancellable
     private var cancellable = Set<AnyCancellable>()
     
@@ -84,6 +81,7 @@ class HomeViewModel: ObservableObject {
                 if let unwrappedSound = returnedSound {
                     self.currentTime = 0
                     self.percentagePlayed = 0
+                    self.duration = returnedSound?.duration ?? 0
                     self.songDataDownloadService.getSound(sound: unwrappedSound)
                 }
             }
@@ -98,17 +96,13 @@ class HomeViewModel: ObservableObject {
                     } catch {
                         print("Error setting up audio player HOMEVIEWMODEL")
                     }
-                   
-                    
                 }
             }
             .store(in: &cancellable)
     }
     
     func runTimer() {
-        print("timer started \(self.isPlaying)")
         self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true ) { _ in
-            print("timer \(self.isPlaying)")
             guard self.isPlaying == true else { return }
             guard self.audioPlayer?.isPlaying == true else {
                 self.stopPlayer()
@@ -117,11 +111,11 @@ class HomeViewModel: ObservableObject {
             }
             // Update timer elements
             if let player = self.audioPlayer {
-                self.currentTime = player.currentTime
+                self.currentTime = Int(player.currentTime)
                 self.percentagePlayed = player.currentTime / player.duration
                 // Either reset song or play through next ones
                 // if repeat play song again
-                if self.currentTime >= player.duration - 1 {
+                if self.currentTime >= Int(player.duration) - 1 {
                     self.currentTime = 0
                     player.currentTime = 0
                     if self.isRepeating {
@@ -145,7 +139,6 @@ class HomeViewModel: ObservableObject {
                         self.stopPlayer()
                     }
                 }
-                // if shuffle, play new song
             }
         }
     }
@@ -167,7 +160,7 @@ class HomeViewModel: ObservableObject {
             isPlaying = true
             runTimer()
             player.play()
-            currentTime = player.currentTime
+            currentTime = Int(player.currentTime)
             percentagePlayed = player.currentTime / player.duration
         }
     }

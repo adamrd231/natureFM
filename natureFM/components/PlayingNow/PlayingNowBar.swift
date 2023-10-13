@@ -37,8 +37,8 @@ struct PlayingNowBar: View {
 //                    ClockDisplayView(
 //                        time: Int(homeVM.audioPlayer.currentItem?.duration.seconds ?? 0 - homeVM.audioPlayer.currentTime().seconds),
 //                        font: .caption)
+                    ClockDisplayView(time: homeVM.duration - Int(homeVM.currentTime), font: .caption2)
                     Text("left")
-                   
                 }
             }
             .font(.caption2)
@@ -51,26 +51,39 @@ struct PlayingNowBar: View {
 
             Spacer()
 
-            // Play button
-            Button {
-                if homeVM.isPlaying {
-                    homeVM.stopPlayer()
-                } else {
-                    homeVM.startPlayer()
+            HStack(spacing: 25) {
+                // Play button
+                Button {
+                    if homeVM.isPlaying {
+                        homeVM.stopPlayer()
+                    } else {
+                        homeVM.startPlayer()
+                    }
+                   
+                } label: {
+                    if let player = homeVM.audioPlayer {
+                        Image(systemName: player.isPlaying ? "pause.fill" : "play.fill")
+                            .resizable()
+                            .frame(width: buttonSize, height: buttonSize, alignment: .center)
+                    } else {
+                        Image(systemName: "pause.fill")
+                            .resizable()
+                            .frame(width: buttonSize, height: buttonSize, alignment: .center)
+                    }
                 }
-               
-            } label: {
-                if let player = homeVM.audioPlayer {
-                    Image(systemName: player.isPlaying ? "pause.fill" : "play.fill")
-                        .resizable()
-                        .frame(width: buttonSize, height: buttonSize, alignment: .center)
-                } else {
-                    Image(systemName: "pause.fill")
-                        .resizable()
-                        .frame(width: buttonSize, height: buttonSize, alignment: .center)
+                if homeVM.portfolioSounds.count > 1 {
+                    Button {
+                        homeVM.skipToNextSound()
+                    } label: {
+                        Image(systemName: "forward.end")
+                            .resizable()
+                            .frame(width: buttonSize - 5, height: buttonSize - 5, alignment: .center)
+                    }
                 }
             }
+            .foregroundColor(Color.theme.customBlue)
             .padding(.trailing)
+            
         }
         .onTapGesture {
             homeVM.isViewingSongPlayer = true
