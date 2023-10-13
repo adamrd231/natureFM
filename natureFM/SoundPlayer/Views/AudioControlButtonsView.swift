@@ -10,9 +10,18 @@ import SwiftUI
 struct AudioControlButtonsView: View {
     @EnvironmentObject var homeVM: HomeViewModel
     private let buttonSize: CGFloat = 30
+    private let buttonAdjustment: CGFloat = 10
     
     var body: some View {
         HStack(spacing: 25) {
+            Button {
+                
+            } label: {
+                Image(systemName: "backward.end")
+                    .resizable()
+                    .frame(width: buttonSize - buttonAdjustment, height: buttonSize - buttonAdjustment)
+            }
+            Spacer()
             Button {
                 homeVM.skipBackward15()
             } label: {
@@ -29,9 +38,9 @@ struct AudioControlButtonsView: View {
                 }
                
             } label: {
-                Image(systemName: homeVM.isPlaying ? "pause.fill" : "play.fill")
+                Image(systemName: homeVM.isPlaying ? "pause.circle.fill" : "play.circle.fill")
                     .resizable()
-                    .frame(width: buttonSize, height: buttonSize)
+                    .frame(width: buttonSize + buttonAdjustment, height: buttonSize + buttonAdjustment)
             }
             Button {
                 homeVM.skipForward15()
@@ -39,6 +48,14 @@ struct AudioControlButtonsView: View {
                 Image(systemName: "goforward.15")
                     .resizable()
                     .frame(width: buttonSize, height: buttonSize)
+            }
+            Spacer()
+            Button {
+                
+            } label: {
+                Image(systemName: "forward.end")
+                    .resizable()
+                    .frame(width: buttonSize - buttonAdjustment, height: buttonSize - buttonAdjustment)
             }
         }
         .padding()
