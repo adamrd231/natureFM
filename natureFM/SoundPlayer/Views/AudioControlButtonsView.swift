@@ -15,7 +15,7 @@ struct AudioControlButtonsView: View {
     var body: some View {
         HStack(spacing: 25) {
             Button {
-                
+                homeVM.skipToPreviousSound()
             } label: {
                 Image(systemName: "backward.end")
                     .resizable()
@@ -51,7 +51,8 @@ struct AudioControlButtonsView: View {
             }
             Spacer()
             Button {
-                
+                // skip to next song
+                homeVM.skipToNextSound()
             } label: {
                 Image(systemName: "forward.end")
                     .resizable()

@@ -170,6 +170,34 @@ class HomeViewModel: ObservableObject {
         }
     }
     
+    func skipToNextSound() {
+        guard let unwrappedSound = sound else { return }
+        let currentIndex = portfolioSounds.firstIndex(of: unwrappedSound)
+        guard let unwrappedIndex = currentIndex else { return }
+        if unwrappedIndex + 1 >= portfolioSounds.count {
+            if let s = portfolioSounds.first {
+                sound = s
+            }
+        } else {
+            sound = portfolioSounds[unwrappedIndex + 1]
+        }
+        
+    }
+    
+    func skipToPreviousSound() {
+        guard let unwrappedSound = sound else { return }
+        let currentIndex = portfolioSounds.firstIndex(of: unwrappedSound)
+        guard let unwrappedIndex = currentIndex else { return }
+        if unwrappedIndex - 1 < 0 {
+            if let s = portfolioSounds.last {
+                sound = s
+            }
+        } else {
+            sound = portfolioSounds[unwrappedIndex - 1]
+        }
+        
+    }
+    
     func persist(coinCount: Int) {
         if let encoded = try? JSONEncoder().encode(coinCount) {
             UserDefaults.standard.set(encoded, forKey: "natureFMCoins")
