@@ -171,16 +171,21 @@ class HomeViewModel: ObservableObject {
     }
     
     func skipToNextSound() {
-        guard let unwrappedSound = sound else { return }
-        let currentIndex = portfolioSounds.firstIndex(of: unwrappedSound)
-        guard let unwrappedIndex = currentIndex else { return }
-        if unwrappedIndex + 1 >= portfolioSounds.count {
-            if let s = portfolioSounds.first {
-                sound = s
-            }
+        if isShuffling {
+            sound = portfolioSounds.randomElement()
         } else {
-            sound = portfolioSounds[unwrappedIndex + 1]
+            guard let unwrappedSound = sound else { return }
+            let currentIndex = portfolioSounds.firstIndex(of: unwrappedSound)
+            guard let unwrappedIndex = currentIndex else { return }
+            guard unwrappedIndex + 1 >= portfolioSounds.count else {
+                sound = portfolioSounds[unwrappedIndex + 1]
+                return
+            }
+            guard let s = portfolioSounds.first else { return }
+            sound = s
         }
+        
+       
         
     }
     
@@ -188,14 +193,13 @@ class HomeViewModel: ObservableObject {
         guard let unwrappedSound = sound else { return }
         let currentIndex = portfolioSounds.firstIndex(of: unwrappedSound)
         guard let unwrappedIndex = currentIndex else { return }
-        if unwrappedIndex - 1 < 0 {
-            if let s = portfolioSounds.last {
-                sound = s
-            }
-        } else {
-            sound = portfolioSounds[unwrappedIndex - 1]
-        }
         
+        guard unwrappedIndex - 1 < 0 else {
+            sound = portfolioSounds[unwrappedIndex - 1]
+            return 
+        }
+        guard let s = portfolioSounds.last else { return }
+        sound = s
     }
     
     func persist(coinCount: Int) {
