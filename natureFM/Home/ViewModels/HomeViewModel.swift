@@ -124,7 +124,7 @@ class HomeViewModel: ObservableObject {
                         } else {
                             if let s = self.sound {
                                 if let index = self.portfolioSounds.firstIndex(of: s) {
-                                    if index + 1 > self.portfolioSounds.count {
+                                    if index + 1 >= self.portfolioSounds.count {
                                         if let firstSound = self.portfolioSounds.first {
                                             self.sound = firstSound
                                         }
