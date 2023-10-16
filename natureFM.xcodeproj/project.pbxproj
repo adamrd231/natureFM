@@ -28,6 +28,10 @@
 		6685C6032AD24C7E005947A4 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6685C6022AD24C7E005947A4 /* LibraryView.swift */; };
 		6685C6072AD8A337005947A4 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6685C6062AD8A337005947A4 /* ProgressBarView.swift */; };
 		6685C6092AD8A3AC005947A4 /* AudioControlButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6685C6082AD8A3AC005947A4 /* AudioControlButtonsView.swift */; };
+		6685C6172ADD7B36005947A4 /* natureFMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6685C6162ADD7B36005947A4 /* natureFMTests.swift */; };
+		6685C62A2ADD8EBF005947A4 /* natureFMUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6685C6292ADD8EBF005947A4 /* natureFMUITestsLaunchTests.swift */; };
+		6685C6302ADD8EC4005947A4 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6685C61E2ADD7C0D005947A4 /* SnapshotHelper.swift */; };
+		6685C6322ADD992F005947A4 /* natureFMUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6685C6272ADD8EBF005947A4 /* natureFMUITests.swift */; };
 		6693C4AB2728EF4800D4FD17 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6693C4AA2728EF4800D4FD17 /* SearchBarView.swift */; };
 		6693C4AD2728EFCE00D4FD17 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6693C4AC2728EFCE00D4FD17 /* HeaderView.swift */; };
 		6693C4AF2728F06900D4FD17 /* CategoryPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6693C4AE2728F06900D4FD17 /* CategoryPickerView.swift */; };
@@ -56,6 +60,23 @@
 		FB482CB34D6A39FBEE55B8B9 /* libPods-natureFM.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2F0247C837BDF923BD78839 /* libPods-natureFM.a */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		6685C6182ADD7B36005947A4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 66E43FA026C6120000AE012E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 66E43FA726C6120000AE012E;
+			remoteInfo = natureFM;
+		};
+		6685C62B2ADD8EBF005947A4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 66E43FA026C6120000AE012E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 66E43FA726C6120000AE012E;
+			remoteInfo = natureFM;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		66098BFA27B1C622000041D9 /* NatureSoundDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NatureSoundDataService.swift; sourceTree = "<group>"; };
 		66098BFD27B1C73F000041D9 /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
@@ -80,6 +101,12 @@
 		6685C6022AD24C7E005947A4 /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
 		6685C6062AD8A337005947A4 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		6685C6082AD8A3AC005947A4 /* AudioControlButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioControlButtonsView.swift; sourceTree = "<group>"; };
+		6685C6142ADD7B36005947A4 /* natureFMTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = natureFMTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6685C6162ADD7B36005947A4 /* natureFMTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = natureFMTests.swift; sourceTree = "<group>"; };
+		6685C61E2ADD7C0D005947A4 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = natureFMUITests/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
+		6685C6252ADD8EBF005947A4 /* natureFMUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = natureFMUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6685C6272ADD8EBF005947A4 /* natureFMUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = natureFMUITests.swift; sourceTree = "<group>"; };
+		6685C6292ADD8EBF005947A4 /* natureFMUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = natureFMUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		6693C4AA2728EF4800D4FD17 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		6693C4AC2728EFCE00D4FD17 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		6693C4AE2728F06900D4FD17 /* CategoryPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerView.swift; sourceTree = "<group>"; };
@@ -111,6 +138,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		6685C6112ADD7B36005947A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6685C6222ADD8EBF005947A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		66E43FA526C6120000AE012E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -218,6 +259,24 @@
 			path = Library;
 			sourceTree = "<group>";
 		};
+		6685C6152ADD7B36005947A4 /* natureFMTests */ = {
+			isa = PBXGroup;
+			children = (
+				6685C6162ADD7B36005947A4 /* natureFMTests.swift */,
+			);
+			path = natureFMTests;
+			sourceTree = "<group>";
+		};
+		6685C6262ADD8EBF005947A4 /* natureFMUITests */ = {
+			isa = PBXGroup;
+			children = (
+				6685C61E2ADD7C0D005947A4 /* SnapshotHelper.swift */,
+				6685C6272ADD8EBF005947A4 /* natureFMUITests.swift */,
+				6685C6292ADD8EBF005947A4 /* natureFMUITestsLaunchTests.swift */,
+			);
+			path = natureFMUITests;
+			sourceTree = "<group>";
+		};
 		6691DE04279BAE6700B099D2 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -301,6 +360,8 @@
 			children = (
 				66E43FAB26C6120000AE012E /* natureFMApp.swift */,
 				66E43FAA26C6120000AE012E /* natureFM */,
+				6685C6152ADD7B36005947A4 /* natureFMTests */,
+				6685C6262ADD8EBF005947A4 /* natureFMUITests */,
 				66E43FA926C6120000AE012E /* Products */,
 				663E05B927139BFC006E0259 /* projectFonts */,
 				FCA19C66ECB9587E4A83521D /* Pods */,
@@ -312,6 +373,8 @@
 			isa = PBXGroup;
 			children = (
 				66E43FA826C6120000AE012E /* natureFM.app */,
+				6685C6142ADD7B36005947A4 /* natureFMTests.xctest */,
+				6685C6252ADD8EBF005947A4 /* natureFMUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -369,6 +432,42 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		6685C6132ADD7B36005947A4 /* natureFMTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6685C61A2ADD7B36005947A4 /* Build configuration list for PBXNativeTarget "natureFMTests" */;
+			buildPhases = (
+				6685C6102ADD7B36005947A4 /* Sources */,
+				6685C6112ADD7B36005947A4 /* Frameworks */,
+				6685C6122ADD7B36005947A4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6685C6192ADD7B36005947A4 /* PBXTargetDependency */,
+			);
+			name = natureFMTests;
+			productName = natureFMTests;
+			productReference = 6685C6142ADD7B36005947A4 /* natureFMTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		6685C6242ADD8EBF005947A4 /* natureFMUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6685C62D2ADD8EBF005947A4 /* Build configuration list for PBXNativeTarget "natureFMUITests" */;
+			buildPhases = (
+				6685C6212ADD8EBF005947A4 /* Sources */,
+				6685C6222ADD8EBF005947A4 /* Frameworks */,
+				6685C6232ADD8EBF005947A4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6685C62C2ADD8EBF005947A4 /* PBXTargetDependency */,
+			);
+			name = natureFMUITests;
+			productName = natureFMUITests;
+			productReference = 6685C6252ADD8EBF005947A4 /* natureFMUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		66E43FA726C6120000AE012E /* natureFM */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 66E43FB726C6120100AE012E /* Build configuration list for PBXNativeTarget "natureFM" */;
@@ -397,16 +496,24 @@
 		66E43FA026C6120000AE012E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1240;
+				LastSwiftUpdateCheck = 1410;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
+					6685C6132ADD7B36005947A4 = {
+						CreatedOnToolsVersion = 14.1;
+						TestTargetID = 66E43FA726C6120000AE012E;
+					};
+					6685C6242ADD8EBF005947A4 = {
+						CreatedOnToolsVersion = 14.1;
+						TestTargetID = 66E43FA726C6120000AE012E;
+					};
 					66E43FA726C6120000AE012E = {
 						CreatedOnToolsVersion = 12.4;
 					};
 				};
 			};
 			buildConfigurationList = 66E43FA326C6120000AE012E /* Build configuration list for PBXProject "natureFM" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -422,11 +529,27 @@
 			projectRoot = "";
 			targets = (
 				66E43FA726C6120000AE012E /* natureFM */,
+				6685C6132ADD7B36005947A4 /* natureFMTests */,
+				6685C6242ADD8EBF005947A4 /* natureFMUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		6685C6122ADD7B36005947A4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6685C6232ADD8EBF005947A4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		66E43FA626C6120000AE012E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -465,6 +588,24 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		6685C6102ADD7B36005947A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6685C6172ADD7B36005947A4 /* natureFMTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6685C6212ADD8EBF005947A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6685C6322ADD992F005947A4 /* natureFMUITests.swift in Sources */,
+				6685C62A2ADD8EBF005947A4 /* natureFMUITestsLaunchTests.swift in Sources */,
+				6685C6302ADD8EC4005947A4 /* SnapshotHelper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		66E43FA426C6120000AE012E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -514,7 +655,98 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		6685C6192ADD7B36005947A4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 66E43FA726C6120000AE012E /* natureFM */;
+			targetProxy = 6685C6182ADD7B36005947A4 /* PBXContainerItemProxy */;
+		};
+		6685C62C2ADD8EBF005947A4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 66E43FA726C6120000AE012E /* natureFM */;
+			targetProxy = 6685C62B2ADD8EBF005947A4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		6685C61B2ADD7B36005947A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6SFM579B5E;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = design.rdConcepts.natureFMTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/natureFM.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/natureFM";
+			};
+			name = Debug;
+		};
+		6685C61C2ADD7B36005947A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6SFM579B5E;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = design.rdConcepts.natureFMTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/natureFM.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/natureFM";
+			};
+			name = Release;
+		};
+		6685C62E2ADD8EBF005947A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6SFM579B5E;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = design.rdConcepts.natureFMUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = natureFM;
+			};
+			name = Debug;
+		};
+		6685C62F2ADD8EBF005947A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6SFM579B5E;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = design.rdConcepts.natureFMUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = natureFM;
+			};
+			name = Release;
+		};
 		66E43FB526C6120100AE012E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -642,7 +874,8 @@
 				DEVELOPMENT_TEAM = 6SFM579B5E;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = natureFM/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				INFOPLIST_KEY_CFBundleDisplayName = "Nature FM";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -650,6 +883,9 @@
 				MARKETING_VERSION = 3.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = design.rdconcepts.natureFM;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -666,7 +902,8 @@
 				DEVELOPMENT_TEAM = 6SFM579B5E;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = natureFM/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				INFOPLIST_KEY_CFBundleDisplayName = "Nature FM";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -674,6 +911,9 @@
 				MARKETING_VERSION = 3.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = design.rdconcepts.natureFM;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -682,6 +922,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		6685C61A2ADD7B36005947A4 /* Build configuration list for PBXNativeTarget "natureFMTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6685C61B2ADD7B36005947A4 /* Debug */,
+				6685C61C2ADD7B36005947A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6685C62D2ADD8EBF005947A4 /* Build configuration list for PBXNativeTarget "natureFMUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6685C62E2ADD8EBF005947A4 /* Debug */,
+				6685C62F2ADD8EBF005947A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		66E43FA326C6120000AE012E /* Build configuration list for PBXProject "natureFM" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

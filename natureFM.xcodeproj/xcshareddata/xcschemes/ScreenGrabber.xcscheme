@@ -20,20 +20,6 @@
                ReferencedContainer = "container:natureFM.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6685C6242ADD8EBF005947A4"
-               BuildableName = "natureFMUITests.xctest"
-               BlueprintName = "natureFMUITests"
-               ReferencedContainer = "container:natureFM.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -42,28 +28,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6685C6132ADD7B36005947A4"
-               BuildableName = "natureFMTests.xctest"
-               BlueprintName = "natureFMTests"
-               ReferencedContainer = "container:natureFM.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6685C6242ADD8EBF005947A4"
-               BuildableName = "natureFMUITests.xctest"
-               BlueprintName = "natureFMUITests"
-               ReferencedContainer = "container:natureFM.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -86,9 +50,6 @@
             ReferencedContainer = "container:natureFM.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <StoreKitConfigurationFileReference
-         identifier = "../natureFM/Monetizing/Products.storekit">
-      </StoreKitConfigurationFileReference>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
