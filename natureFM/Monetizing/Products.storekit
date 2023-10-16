@@ -1,0 +1,83 @@
+{
+  "identifier" : "51F81D8F",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "4.99",
+      "familyShareable" : false,
+      "internalID" : "6468933020",
+      "localizations" : [
+        {
+          "description" : "Removes advertising within this app",
+          "displayName" : "Remove advertising",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "natureRemoveAdvertising",
+      "referenceName" : "remove-advertising",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "0.99",
+      "familyShareable" : false,
+      "internalID" : "6468933295",
+      "localizations" : [
+        {
+          "description" : "Download any premium content one time use",
+          "displayName" : "One nature coin",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "natureSongDownload",
+      "referenceName" : "songDownload",
+      "type" : "Consumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "1576891060",
+    "_developerTeamID" : "6SFM579B5E",
+    "_lastSynchronizedDate" : 718470632.97299004
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "20888878",
+      "localizations" : [
+
+      ],
+      "name" : "NatureFM",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "0.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "1589120085",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "All access to content and remove advertising",
+              "displayName" : "Premium membership",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "natureFMsubscription",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "NatureFM Subscription",
+          "subscriptionGroupID" : "20888878",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 2,
+    "minor" : 0
+  }
+}
