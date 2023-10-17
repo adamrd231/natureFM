@@ -21,16 +21,14 @@ final class natureFMUITests: XCTestCase {
         snapshot("0Launch")
         let tabBar = XCUIApplication().tabBars
         let secondButton = tabBar.buttons.element(boundBy: 1)
-
-        XCUIDevice.shared.orientation = UIDeviceOrientation.landscapeLeft
-        snapshot("1LandscapeLeft")
-
-        secondButton.tap()
-        XCUIDevice.shared.orientation = UIDeviceOrientation.landscapeRight
-        snapshot("2LandscapeRight")
+        let thirdButton = tabBar.buttons.element(boundBy: 2)
 
         secondButton.tap()
         XCUIDevice.shared.orientation = UIDeviceOrientation.portrait
-        snapshot("3Portrait")
+        snapshot("1Portrait")
+        
+        thirdButton.tap()
+        XCUIDevice.shared.orientation = UIDeviceOrientation.portrait
+        snapshot("2Portrait")
     }
 }
