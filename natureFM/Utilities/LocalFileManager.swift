@@ -42,11 +42,8 @@ class LocalFileManager {
     func saveSound(soundData: Data, soundName: String, folderName: String) {
         createFolderIfNeeded(folderName: folderName)
         guard let url = getURLForAudio(audioName: soundName, folderName: folderName) else { return }
-        print("Creating url to save = \(url)")
-        
         do {
             try soundData.write(to: url)
-            print("Saved Audio Successfully")
         } catch let error {
             print("Error saving Audio: \(error)")
         }
