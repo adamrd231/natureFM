@@ -2,6 +2,7 @@ import SwiftUI
 
 struct LibraryView: View {
     @EnvironmentObject var vm: HomeViewModel
+    @StateObject var storeManager: StoreManager
     
     func delete(at offsets: IndexSet) {
         if let index = offsets.first {
@@ -85,13 +86,16 @@ struct LibraryView: View {
                     }
                 }
             )
+            if storeManager.isShowingAdvertising {
+                AdmobBanner()
+            }
         }
     }
 }
 
 struct Library_Previews: PreviewProvider {
     static var previews: some View {
-        LibraryView()
+        LibraryView(storeManager: StoreManager())
             .environmentObject(dev.homeVM)
     }
 }

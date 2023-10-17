@@ -22,7 +22,9 @@ struct HomeView: View {
                 .tag(1)
             
             // Library View
-            LibraryView()
+            LibraryView(
+                storeManager: storeManager
+            )
                 .environmentObject(vm)
                 .tabItem {
                     TabItemView(text: "Library", image: "music.note.house")
@@ -121,6 +123,9 @@ extension HomeView {
                         }
                     }
                 )
+                if storeManager.isShowingAdvertising {
+                    AdmobBanner()
+                }
             }
     }
 }

@@ -32,6 +32,7 @@
 		6685C62A2ADD8EBF005947A4 /* natureFMUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6685C6292ADD8EBF005947A4 /* natureFMUITestsLaunchTests.swift */; };
 		6685C6302ADD8EC4005947A4 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6685C61E2ADD7C0D005947A4 /* SnapshotHelper.swift */; };
 		6685C6322ADD992F005947A4 /* natureFMUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6685C6272ADD8EBF005947A4 /* natureFMUITests.swift */; };
+		6685C6392ADF1714005947A4 /* Banner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6685C6382ADF1714005947A4 /* Banner.swift */; };
 		6693C4AD2728EFCE00D4FD17 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6693C4AC2728EFCE00D4FD17 /* HeaderView.swift */; };
 		6693C4AF2728F06900D4FD17 /* CategoryPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6693C4AE2728F06900D4FD17 /* CategoryPickerView.swift */; };
 		66C3CC0A26FCD7FE00438A55 /* URLImageStore in Frameworks */ = {isa = PBXBuildFile; productRef = 66C3CC0926FCD7FE00438A55 /* URLImageStore */; };
@@ -103,6 +104,7 @@
 		6685C6252ADD8EBF005947A4 /* natureFMUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = natureFMUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6685C6272ADD8EBF005947A4 /* natureFMUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = natureFMUITests.swift; sourceTree = "<group>"; };
 		6685C6292ADD8EBF005947A4 /* natureFMUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = natureFMUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		6685C6382ADF1714005947A4 /* Banner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Banner.swift; sourceTree = "<group>"; };
 		6693C4AC2728EFCE00D4FD17 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		6693C4AE2728F06900D4FD17 /* CategoryPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerView.swift; sourceTree = "<group>"; };
 		66C3CC152703C3DF00438A55 /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
@@ -298,6 +300,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		6685C6372ADF1703005947A4 /* Admob */ = {
+			isa = PBXGroup;
+			children = (
+				6685C6382ADF1714005947A4 /* Banner.swift */,
+			);
+			path = Admob;
+			sourceTree = "<group>";
+		};
 		6691DE04279BAE6700B099D2 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -391,6 +401,7 @@
 		66E43FAA26C6120000AE012E /* natureFM */ = {
 			isa = PBXGroup;
 			children = (
+				6685C6372ADF1703005947A4 /* Admob */,
 				667CD62127B27090007965D7 /* Extensions */,
 				66098BFC27B1C731000041D9 /* Utilities */,
 				66098BF927B1C58E000041D9 /* Services */,
@@ -649,6 +660,7 @@
 				66E43FAC26C6120000AE012E /* natureFMApp.swift in Sources */,
 				6685C5FE2ACDA9FF005947A4 /* Preview.swift in Sources */,
 				6685C6072AD8A337005947A4 /* ProgressBarView.swift in Sources */,
+				6685C6392ADF1714005947A4 /* Banner.swift in Sources */,
 				6693C4AF2728F06900D4FD17 /* CategoryPickerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
