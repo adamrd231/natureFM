@@ -22,14 +22,16 @@ struct InAppStorePurchasesView: View {
             Section(header: Text("Purchases")) {
                 VStack(alignment: .leading, spacing: 5) {
                     HStack(spacing: 3) {
-                        Image(systemName: storeManager.purchasedSubscriptions.count > 0 ? "checkmark.circle.fill" : "xmark.circle.fill")
+                        Image(systemName: storeManager.hasSubscription ? "checkmark.circle.fill" : "xmark.circle.fill")
+                            .foregroundColor(storeManager.hasSubscription ? Color.theme.customBlue : Color.theme.customRed)
                             
                         Text("Member")
               
                       
                     }
                     HStack(spacing: 3) {
-                        Image(systemName: storeManager.purchasedNonConsumables.contains(where: { $0.id == StoreIDs.natureRemoveAdvertising}) ? "checkmark.circle.fill" : "xmark.circle.fill")
+                        Image(systemName: storeManager.hasPurchasedRemoveAds ? "checkmark.circle.fill" : "xmark.circle.fill")
+                            .foregroundColor(storeManager.hasPurchasedRemoveAds ? Color.theme.customBlue : Color.theme.customRed.opacity(0.66))
                         Text("Ads")
                   
                     }
@@ -51,11 +53,6 @@ struct InAppStorePurchasesView: View {
                                 // Buy product
                                 Task {
                                     try await storeManager.purchase(product)
-                                    if product.id == StoreIDs.natureSongDownload {
-                                        vm.natureFMCoins += 1
-                                        vm.persist(coinCount: vm.natureFMCoins)
-                                    }
-                                    
                                 }
                             } label: {
                                 if storeManager.purchasedNonConsumables.contains(where: {$0.id == product.id}) || storeManager.purchasedSubscriptions.contains(where: {$0.id ==  product.id }) {

@@ -21,6 +21,14 @@ class StoreManager: ObservableObject {
     @Published var purchasedConsumables: [Product] = []
     @Published var purchasedSubscriptions: Set<Product> = []
     
+    var hasSubscription: Bool {
+        return purchasedSubscriptions.contains(where: { $0.id == StoreIDs.NatureFM })
+    }
+    
+    var hasPurchasedRemoveAds: Bool {
+        return purchasedNonConsumables.contains(where: { $0.id == StoreIDs.natureRemoveAdvertising })
+    }
+    
     // Listen for transactions that might be successful but not recorded
     var transactionListener: Task <Void, Error>?
     private var cancellable = Set<AnyCancellable>()
