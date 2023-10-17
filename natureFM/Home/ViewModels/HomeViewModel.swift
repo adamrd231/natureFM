@@ -37,6 +37,9 @@ class HomeViewModel: ObservableObject {
     
     // Coins
     @Published var natureFMCoins = 0
+    
+    // tab selection
+    @Published var tabSelection = 1
 
     // Cancellable
     private var cancellable = Set<AnyCancellable>()
