@@ -41,10 +41,10 @@ struct HomeView: View {
                 }
                 .onAppear {
                     if storeManager.isShowingAdvertising {
-//                        #if DEBUG
-//                        #else
+                        #if DEBUG
+                        #else
                         adsViewModel.interstitialCount += 1
-//                        #endif
+                        #endif
                     }
                 }
                 .tag(2)
