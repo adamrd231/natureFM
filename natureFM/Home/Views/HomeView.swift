@@ -43,7 +43,7 @@ struct HomeView: View {
             ProfileView(storeManager: storeManager)
                 .environmentObject(vm)
                 .tabItem {
-                    TabItemView(text: "Profile", image: "person.crop.circle")
+                    TabItemView(text: "About", image: "person.crop.circle")
                 }
                 .tag(4)
         }

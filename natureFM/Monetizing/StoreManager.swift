@@ -29,6 +29,14 @@ class StoreManager: ObservableObject {
         return purchasedNonConsumables.contains(where: { $0.id == StoreIDs.natureRemoveAdvertising })
     }
     
+    var isShowingAdvertising: Bool {
+        if hasSubscription || hasPurchasedRemoveAds {
+            return false
+        } else {
+            return true
+        }
+    }
+    
     // Listen for transactions that might be successful but not recorded
     var transactionListener: Task <Void, Error>?
     private var cancellable = Set<AnyCancellable>()

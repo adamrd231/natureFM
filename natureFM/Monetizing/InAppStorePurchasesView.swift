@@ -19,25 +19,28 @@ struct InAppStorePurchasesView: View {
     
     var body: some View {
         List {
-            Section(header: Text("Purchases")) {
+            Section(header: Text("About me")) {
                 VStack(alignment: .leading, spacing: 5) {
-                    HStack(spacing: 3) {
-                        Image(systemName: storeManager.hasSubscription ? "checkmark.circle.fill" : "xmark.circle.fill")
-                            .foregroundColor(storeManager.hasSubscription ? Color.theme.customBlue : Color.theme.customRed)
-                            
-                        Text("Member")
-              
-                      
+                    Text("Whyyyy?")
+                        .font(.callout)
+                        .fontWeight(.heavy)
+                        .foregroundColor(Color.theme.titleColor)
+                    VStack(alignment: .leading) {
+                        Text(
+                            """
+                            I am a software engineer working towards supporting myself with revenue from the apps I develop. I use google admob to advertise on
+                            my platforms, and by advertising and offering in-app purchases, I can afford to spend more time on new features and apps. Purchasing the monthly subscription will remove the advertising as well as unlock premium content.
+                            """
+                        )
+                        Text("Thank you for supporting my on my journey!")
                     }
-                    HStack(spacing: 3) {
-                        Image(systemName: storeManager.hasPurchasedRemoveAds ? "checkmark.circle.fill" : "xmark.circle.fill")
-                            .foregroundColor(storeManager.hasPurchasedRemoveAds ? Color.theme.customBlue : Color.theme.customRed.opacity(0.66))
-                        Text("Ads")
-                  
+                    .font(.caption)
+                    Button("Learn more") {
+                        vm.tabSelection = 4
                     }
                 }
-                .font(.callout)
             }
+            
             Section(header: Text("Subscription")) {
                 if AppStore.canMakePayments {
                     ForEach(storeManager.products, id: \.id) { product in
@@ -69,6 +72,27 @@ struct InAppStorePurchasesView: View {
                     }
                 }
             }
+            
+            Section(header: Text("Purchases")) {
+                VStack(alignment: .leading, spacing: 5) {
+                    HStack(spacing: 3) {
+                        Image(systemName: storeManager.hasSubscription ? "checkmark.circle.fill" : "xmark.circle.fill")
+                            .foregroundColor(storeManager.hasSubscription ? Color.theme.customBlue : Color.theme.customRed)
+                        Text("Member")
+                    }
+                    HStack(spacing: 3) {
+                        Image(systemName: !storeManager.isShowingAdvertising ? "checkmark.circle.fill" : "xmark.circle.fill")
+                            .foregroundColor(!storeManager.isShowingAdvertising ? Color.theme.customBlue : Color.theme.customRed.opacity(0.66))
+                        Text("Ads")
+                        Text("--")
+                            .font(.caption2)
+                        Text(storeManager.isShowingAdvertising ? "Showing adverts" : "free from adverts")
+                            .font(.caption2)
+                    }
+                }
+                .font(.callout)
+            }
+            
             Section(header: Text("Restore")) {
                 Text("Already purchased these? Just click below to restore all the things.")
                 Button("Restore purchases") {
