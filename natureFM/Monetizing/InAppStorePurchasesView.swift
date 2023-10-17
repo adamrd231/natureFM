@@ -20,23 +20,21 @@ struct InAppStorePurchasesView: View {
     var body: some View {
         List {
             Section(header: Text("Purchases")) {
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text("Coins")
-                        ProductView(count: storeManager.purchasedConsumables.count, icon: "circle.fill")
-                    }
-                    
-                    Spacer()
-                    VStack(spacing: 3) {
-                        Text("Member")
+                VStack(alignment: .leading, spacing: 5) {
+                    HStack(spacing: 3) {
                         Image(systemName: storeManager.purchasedSubscriptions.count > 0 ? "checkmark.circle.fill" : "xmark.circle.fill")
+                            
+                        Text("Member")
+              
+                      
                     }
-                    Spacer()
-                    VStack {
-                        Text("Ads")
+                    HStack(spacing: 3) {
                         Image(systemName: storeManager.purchasedNonConsumables.contains(where: { $0.id == StoreIDs.natureRemoveAdvertising}) ? "checkmark.circle.fill" : "xmark.circle.fill")
+                        Text("Ads")
+                  
                     }
                 }
+                .font(.callout)
             }
             Section(header: Text("Subscription")) {
                 if AppStore.canMakePayments {
