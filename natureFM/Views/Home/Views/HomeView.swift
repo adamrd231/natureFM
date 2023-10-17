@@ -113,8 +113,6 @@ extension HomeView {
                 .sheet(isPresented: $vm.isViewingSongPlayer, content: {
                     SoundPlayerView()
                         .environmentObject(vm)
-                        .presentationDetents([.large])
-                    
                 })
                 .overlay(alignment: .bottom, content: {
                         if vm.isViewingSongPlayerTab {

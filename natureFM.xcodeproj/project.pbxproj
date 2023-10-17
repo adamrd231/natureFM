@@ -34,7 +34,6 @@
 		6685C6322ADD992F005947A4 /* natureFMUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6685C6272ADD8EBF005947A4 /* natureFMUITests.swift */; };
 		6693C4AD2728EFCE00D4FD17 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6693C4AC2728EFCE00D4FD17 /* HeaderView.swift */; };
 		6693C4AF2728F06900D4FD17 /* CategoryPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6693C4AE2728F06900D4FD17 /* CategoryPickerView.swift */; };
-		6693C4B32734575800D4FD17 /* TitleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6693C4B22734575800D4FD17 /* TitleTextView.swift */; };
 		66C3CC0A26FCD7FE00438A55 /* URLImageStore in Frameworks */ = {isa = PBXBuildFile; productRef = 66C3CC0926FCD7FE00438A55 /* URLImageStore */; };
 		66C3CC0C26FCD7FE00438A55 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = 66C3CC0B26FCD7FE00438A55 /* URLImage */; };
 		66C3CC162703C3DF00438A55 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3CC152703C3DF00438A55 /* CategoryModel.swift */; };
@@ -106,7 +105,6 @@
 		6685C6292ADD8EBF005947A4 /* natureFMUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = natureFMUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		6693C4AC2728EFCE00D4FD17 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		6693C4AE2728F06900D4FD17 /* CategoryPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerView.swift; sourceTree = "<group>"; };
-		6693C4B22734575800D4FD17 /* TitleTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTextView.swift; sourceTree = "<group>"; };
 		66C3CC152703C3DF00438A55 /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		66C3CC172703CB2500438A55 /* InAppStorePurchasesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppStorePurchasesView.swift; sourceTree = "<group>"; };
 		66C3CC192703EE8600438A55 /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
@@ -288,6 +286,18 @@
 			path = HorizontalScroller;
 			sourceTree = "<group>";
 		};
+		6685C6362ADF0C01005947A4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				66098BF827B1C385000041D9 /* Launch */,
+				6691DE04279BAE6700B099D2 /* Home */,
+				6685C6012AD24C6D005947A4 /* Library */,
+				66E85FE8270A88F8009F1AEF /* InAppPurchases */,
+				6685C6342ADF0B09005947A4 /* About */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		6691DE04279BAE6700B099D2 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -310,6 +320,8 @@
 			children = (
 				66E43FBB26C6125A00AE012E /* HomeView.swift */,
 				6661D71227BB067800481E3A /* FeaturedImageLayoutView.swift */,
+				6693C4AC2728EFCE00D4FD17 /* HeaderView.swift */,
+				6685C5D12ABCBC1C005947A4 /* TabItemView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -317,21 +329,12 @@
 		6693C4B02728F39D00D4FD17 /* components */ = {
 			isa = PBXGroup;
 			children = (
+				66CE6FFE27B4A7CD0031E7FE /* SoundPlayer */,
 				6685C6352ADF0B76005947A4 /* HorizontalScroller */,
 				6685C5FA2AC9D316005947A4 /* PlayingNow */,
 				664E8D9727B2459C00699C0B /* SoundImage */,
-				6693C4AC2728EFCE00D4FD17 /* HeaderView.swift */,
-				6685C5D12ABCBC1C005947A4 /* TabItemView.swift */,
 			);
 			path = components;
-			sourceTree = "<group>";
-		};
-		6693C4B12734573A00D4FD17 /* textStyles */ = {
-			isa = PBXGroup;
-			children = (
-				6693C4B22734575800D4FD17 /* TitleTextView.swift */,
-			);
-			path = textStyles;
 			sourceTree = "<group>";
 		};
 		66CE6FFE27B4A7CD0031E7FE /* SoundPlayer */ = {
@@ -388,18 +391,12 @@
 		66E43FAA26C6120000AE012E /* natureFM */ = {
 			isa = PBXGroup;
 			children = (
-				66098BF827B1C385000041D9 /* Launch */,
 				667CD62127B27090007965D7 /* Extensions */,
 				66098BFC27B1C731000041D9 /* Utilities */,
 				66098BF927B1C58E000041D9 /* Services */,
 				667F6E18271B377F007726D1 /* Models */,
-				6691DE04279BAE6700B099D2 /* Home */,
-				6685C6012AD24C6D005947A4 /* Library */,
-				6685C6342ADF0B09005947A4 /* About */,
-				66CE6FFE27B4A7CD0031E7FE /* SoundPlayer */,
+				6685C6362ADF0C01005947A4 /* Views */,
 				6693C4B02728F39D00D4FD17 /* components */,
-				66E85FE8270A88F8009F1AEF /* Monetizing */,
-				6693C4B12734573A00D4FD17 /* textStyles */,
 				66E8600C270E60E6009F1AEF /* Stash.xcdatamodeld */,
 				66E43FB426C6120100AE012E /* Info.plist */,
 				66E43FAF26C6120100AE012E /* Assets.xcassets */,
@@ -416,7 +413,7 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		66E85FE8270A88F8009F1AEF /* Monetizing */ = {
+		66E85FE8270A88F8009F1AEF /* InAppPurchases */ = {
 			isa = PBXGroup;
 			children = (
 				66C3CC192703EE8600438A55 /* StoreManager.swift */,
@@ -424,7 +421,7 @@
 				66E85FEB270A8924009F1AEF /* GoogleBannerAd.swift */,
 				66C3CC172703CB2500438A55 /* InAppStorePurchasesView.swift */,
 			);
-			path = Monetizing;
+			path = InAppPurchases;
 			sourceTree = "<group>";
 		};
 		FCA19C66ECB9587E4A83521D /* Pods */ = {
@@ -634,7 +631,6 @@
 				66E43FBC26C6125A00AE012E /* HomeView.swift in Sources */,
 				66CE6FFD27B46F760031E7FE /* SoundPlayerView.swift in Sources */,
 				66098BFB27B1C622000041D9 /* NatureSoundDataService.swift in Sources */,
-				6693C4B32734575800D4FD17 /* TitleTextView.swift in Sources */,
 				664E8D9427B243C900699C0B /* LocalFileManager.swift in Sources */,
 				667CD62027B2708B007965D7 /* Color.swift in Sources */,
 				66C3CC1A2703EE8600438A55 /* StoreManager.swift in Sources */,

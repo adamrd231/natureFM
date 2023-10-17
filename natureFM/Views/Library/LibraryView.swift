@@ -76,7 +76,6 @@ struct LibraryView: View {
             .sheet(isPresented: $vm.isViewingSongPlayer, content: {
                 SoundPlayerView()
                     .environmentObject(vm)
-                    .presentationDetents([.medium, .large])
                 
             })
             .overlay(alignment: .bottom, content: {
