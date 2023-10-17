@@ -14,6 +14,7 @@ struct PlayingNowBar: View {
                     .clipped()
                     .overlay(alignment: .topLeading) {
                         Button {
+                            homeVM.stopPlayer()
                             homeVM.isViewingSongPlayerTab = false
                         } label: {
                             Image(systemName: "cross.circle.fill")

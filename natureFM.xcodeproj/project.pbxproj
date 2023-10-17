@@ -307,9 +307,9 @@
 		6685C6372ADF1703005947A4 /* Admob */ = {
 			isa = PBXGroup;
 			children = (
+				6685C63C2ADF1A48005947A4 /* AdvertisingViewmodel.swift */,
 				6685C6382ADF1714005947A4 /* Banner.swift */,
 				6685C63A2ADF19BF005947A4 /* Interstitial.swift */,
-				6685C63C2ADF1A48005947A4 /* AdvertisingViewmodel.swift */,
 			);
 			path = Admob;
 			sourceTree = "<group>";
@@ -900,7 +900,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0.1;
+				MARKETING_VERSION = 3.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = design.rdconcepts.natureFM;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -928,7 +928,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0.1;
+				MARKETING_VERSION = 3.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = design.rdconcepts.natureFM;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
