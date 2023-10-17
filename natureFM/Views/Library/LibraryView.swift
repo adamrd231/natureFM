@@ -87,7 +87,10 @@ struct LibraryView: View {
                 }
             )
             if storeManager.isShowingAdvertising {
+                #if DEBUG
+                #else
                 AdmobBanner()
+                #endif
             }
         }
     }

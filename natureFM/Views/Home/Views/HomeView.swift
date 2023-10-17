@@ -7,6 +7,8 @@ struct HomeView: View {
     @StateObject var vm = HomeViewModel()
     // Store manager / in app purchases and subscriptions
     @StateObject var storeManager = StoreManager()
+    // Advertising viewmodel
+    @ObservedObject var adsViewModel = AdvertisingViewModel()
 
     // Variable to control when to show the player view
     @State var showingPlayerView: Bool = false
@@ -20,6 +22,14 @@ struct HomeView: View {
                     TabItemView(text: "Browse", image: "antenna.radiowaves.left.and.right")
                 }
                 .tag(1)
+                .onAppear {
+                    if storeManager.isShowingAdvertising {
+                        #if DEBUG
+                        #else
+                        adsViewModel.interstitialCount += 1
+                        #endif
+                    }
+                }
             
             // Library View
             LibraryView(
@@ -28,6 +38,14 @@ struct HomeView: View {
                 .environmentObject(vm)
                 .tabItem {
                     TabItemView(text: "Library", image: "music.note.house")
+                }
+                .onAppear {
+                    if storeManager.isShowingAdvertising {
+//                        #if DEBUG
+//                        #else
+                        adsViewModel.interstitialCount += 1
+//                        #endif
+                    }
                 }
                 .tag(2)
             
@@ -124,7 +142,11 @@ extension HomeView {
                     }
                 )
                 if storeManager.isShowingAdvertising {
+                    #if DEBUG
+                    #else
                     AdmobBanner()
+                    #endif
+                   
                 }
             }
     }

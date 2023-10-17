@@ -237,9 +237,7 @@ class HomeViewModel: ObservableObject {
         sortableCategories.sort(by: ({ $0.title < $1.title}))
         
         // get all current category names
-        var categories = portfolioSounds.map{ $0.categoryName }
-        categories.append("All")
-        
+        var categories = portfolioSounds.map { $0.categoryName }
         let filtered = sortableCategories.filter { categories.contains($0.title) }
         return filtered
     }
