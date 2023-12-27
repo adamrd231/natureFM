@@ -10,7 +10,7 @@ struct CatalogTitle: View {
     }
     var body: some View {
         Text(title)
-            .padding(.leading)
+//            .padding(.leading)
             .foregroundColor(color)
             .font(.title2)
             .fontWeight(.bold)
@@ -31,13 +31,13 @@ struct CatalogView: View {
                     // Sections Container
                     VStack(alignment: .leading) {
                         // Section One
-                        CatalogTitle(title: "Listen now")
+              
                         HorizontalScrollView(
+                            vm: vm,
                             soundChoice: .free,
                             storeManager: storeManager,
                             tabSelection: $vm.tabSelection
                         )
-                        .environmentObject(vm)
                         
                         VStack(alignment: .leading) {
                             Text("About Nature FM").bold()
@@ -57,17 +57,12 @@ struct CatalogView: View {
                         }
 
                         // Section Three
-                        Text("Tickets, please.")
-                            .foregroundColor(Color.theme.titleColor)
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .padding(.leading)
                         HorizontalScrollView(
+                            vm: vm,
                             soundChoice: .subscription,
                             storeManager: storeManager,
                             tabSelection: $vm.tabSelection
                         )
-                        .environmentObject(vm)
                         .padding(.bottom, 25)
                     }
                 }
