@@ -13,7 +13,7 @@ import StoreKit
 
 @main
 struct natureFMApp: App {
-    @State private var showLaunchView: Bool = true
+    @State private var showLaunchView: Bool = false
     
     var body: some Scene {
         WindowGroup {
