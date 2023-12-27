@@ -13,46 +13,21 @@ import StoreKit
 
 @main
 struct natureFMApp: App {
-    
-    // Product Id's from App Store Connect
-    var productIds = ["natureFMsubscription"]
-    
-
-    
-    @State private var showLaunchView:Bool = false
-    
-    // App Tracking Transparency - Request permission and play ads on open only
-    private func requestIDFA() {
-      ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
-        // Tracking authorization completed. Start loading ads here.
- 
-      })
-    }
+    @State private var showLaunchView: Bool = true
     
     var body: some Scene {
         WindowGroup {
             ZStack {
                 HomeView()
-//                    .onAppear(perform: {
-//                        SKPaymentQueue.default().add(storeManager)
-//                        storeManager.getProducts(productIDs: productIds)
-//                    })
-                
-                ZStack {
-                    if showLaunchView {
-                        LaunchScreenView(showLaunchView: $showLaunchView)
-                            .transition(.move(edge: .leading))
-                            
+                    .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+                        ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in })
                     }
+  
+                if showLaunchView {
+                    LaunchScreenView(showLaunchView: $showLaunchView)
+                        .transition(.move(edge: .leading))
                 }
-                .zIndex(2.0)
             }
-            .onAppear(perform: {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    requestIDFA()
-                }
-            })
-            
         }
     }
 }
