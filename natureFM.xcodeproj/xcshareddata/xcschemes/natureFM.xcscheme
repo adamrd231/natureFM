@@ -87,7 +87,7 @@
          </BuildableReference>
       </BuildableProductRunnable>
       <StoreKitConfigurationFileReference
-         identifier = "../natureFM/Monetizing/Products.storekit">
+         identifier = "../natureFM/Views/InAppPurchases/Products.storekit">
       </StoreKitConfigurationFileReference>
    </LaunchAction>
    <ProfileAction

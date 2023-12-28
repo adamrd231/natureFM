@@ -25,7 +25,7 @@ struct HorizontalScrollView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            CatalogTitle(title: soundChoice == .free ? "Listen now" : "Premium")
+            CatalogTitle(title: soundChoice == .free ? "Free sounds" : "Premium stuff")
             HStack(spacing: 50) {
                 ScrollView(.horizontal) {
                     HStack {

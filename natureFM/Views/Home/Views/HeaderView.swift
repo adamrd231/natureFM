@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct HeaderView: View {
+    
     let natureCoins: Int
     
     var body: some View {

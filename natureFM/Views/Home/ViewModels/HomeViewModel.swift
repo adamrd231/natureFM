@@ -53,6 +53,7 @@ class HomeViewModel: ObservableObject {
         natureSoundDataService.$allSounds
             .sink { [weak self] (returnedSounds) in
                 self?.allSounds = returnedSounds
+                self?.randomSound = returnedSounds.randomElement()
                 // Set up arrays for free and subscription sounds
                 for sound in returnedSounds {
                     if sound.freeSong == true {

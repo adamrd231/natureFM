@@ -27,7 +27,7 @@ struct SoundImageView: View {
                         .foregroundColor(.gray)
                         .opacity(0.2)
                 }
-                .frame(width: 117, height: 100)
+               
             }
         }
     }
