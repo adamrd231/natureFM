@@ -9,6 +9,8 @@ struct HomeView: View {
     @StateObject var storeManager = StoreManager()
     // Advertising viewmodel
     @ObservedObject var adsViewModel = AdvertisingViewModel()
+    
+    @StateObject var networkMonitor = NetworkMonitor()
 
     // Variable to control when to show the player view
     @State var showingPlayerView: Bool = false
@@ -17,7 +19,11 @@ struct HomeView: View {
     var body: some View {
         TabView(selection: $vm.tabSelection) {
             // Home View
-            CatalogView(vm: vm, storeManager: storeManager)
+            CatalogView(
+                vm: vm,
+                storeManager: storeManager,
+                network: networkMonitor
+            )
                 .tabItem {
                     TabItemView(text: "Browse", image: "antenna.radiowaves.left.and.right")
                 }
@@ -66,7 +72,6 @@ struct HomeView: View {
         }
         .tint(Color.theme.customBlue)
         .navigationViewStyle(StackNavigationViewStyle())
-
     }
 }
 
@@ -75,7 +80,6 @@ struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
             .environmentObject(HomeViewModel())
-
     }
 }
     
