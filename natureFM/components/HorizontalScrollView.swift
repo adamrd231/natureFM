@@ -7,6 +7,7 @@ enum SoundChoices {
 
 struct HorizontalScrollView: View {
     @ObservedObject var vm: HomeViewModel
+    @ObservedObject var playerVM: PlayerViewModel
     let soundChoice: SoundChoices
 
     // Store manager variable for in-app purchases
@@ -72,7 +73,8 @@ struct HorizontalScrollView: View {
                                             Button(action: {
                                                 // select song and play
                                                 if sound.freeSong || storeManager.purchasedSubscriptions.contains(where: { $0.id == StoreIDs.NatureFM }) {
-                                                    vm.sound = sound
+                                                    
+                                                    playerVM.sound = sound
                                                     vm.isViewingSongPlayerTab = true
                                                 } else {
                                                     showingAlert = true
@@ -120,6 +122,7 @@ struct HorizontalScrollView_Previews: PreviewProvider {
     static var previews: some View {
         HorizontalScrollView(
             vm: HomeViewModel(),
+            playerVM: PlayerViewModel(),
             soundChoice: .free,
             storeManager: StoreManager(),
             tabSelection: .constant(1)

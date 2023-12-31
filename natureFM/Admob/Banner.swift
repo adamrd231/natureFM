@@ -35,6 +35,6 @@ struct AdmobBanner:View{
 
 struct AdmobBanner_Previews: PreviewProvider {
     static var previews: some View {
-        Banner()
+        AdmobBanner()
     }
 }

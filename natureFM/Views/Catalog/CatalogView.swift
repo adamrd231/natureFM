@@ -2,6 +2,7 @@ import SwiftUI
 
 struct CatalogView: View {
     @ObservedObject var vm: HomeViewModel
+    @ObservedObject var playerVM: PlayerViewModel
     @ObservedObject var storeManager: StoreManager
     @ObservedObject var network: NetworkMonitor
     
@@ -10,12 +11,11 @@ struct CatalogView: View {
             if network.isConnected {
                 CatalogScrollView
                 .sheet(isPresented: $vm.isViewingSongPlayer, content: {
-                    SoundPlayerView()
-                        .environmentObject(vm)
+                    SoundPlayerView(homeVM: vm, playerVM: playerVM)
                 })
                 .overlay(alignment: .bottom, content: {
                     if vm.isViewingSongPlayerTab {
-                        PlayingNowBar()
+                        PlayingNowBar(playerVM: playerVM)
                             .environmentObject(vm)
                     }
                 })
@@ -30,6 +30,7 @@ struct CatalogView_Previews: PreviewProvider {
     static var previews: some View {
         CatalogView(
             vm: HomeViewModel(),
+            playerVM: PlayerViewModel(),
             storeManager: StoreManager(),
             network: NetworkMonitor()
         )
@@ -49,6 +50,7 @@ extension CatalogView {
             // Section One
             HorizontalScrollView(
                 vm: vm,
+                playerVM: playerVM,
                 soundChoice: .free,
                 storeManager: storeManager,
                 tabSelection: $vm.tabSelection
@@ -56,6 +58,7 @@ extension CatalogView {
             // Section Three
             HorizontalScrollView(
                 vm: vm,
+                playerVM: playerVM,
                 soundChoice: .subscription,
                 storeManager: storeManager,
                 tabSelection: $vm.tabSelection

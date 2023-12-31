@@ -5,11 +5,11 @@ import Combine
 struct HomeView: View {
     // View model for home / getting sounds
     @StateObject var vm = HomeViewModel()
+    @StateObject var playerVM = PlayerViewModel()
     // Store manager / in app purchases and subscriptions
     @StateObject var storeManager = StoreManager()
     // Advertising viewmodel
     @ObservedObject var adsViewModel = AdvertisingViewModel()
-    
     @StateObject var networkMonitor = NetworkMonitor()
 
     // Variable to control when to show the player view
@@ -21,6 +21,7 @@ struct HomeView: View {
             // Home View
             CatalogView(
                 vm: vm,
+                playerVM: playerVM,
                 storeManager: storeManager,
                 network: networkMonitor
             )
@@ -36,6 +37,7 @@ struct HomeView: View {
             
             // Library View
             LibraryView(
+                playerVM: playerVM,
                 storeManager: storeManager
             )
                 .environmentObject(vm)

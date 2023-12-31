@@ -2,11 +2,12 @@ import SwiftUI
 
 struct PlayingNowBar: View {
     @EnvironmentObject var homeVM: HomeViewModel
+    @ObservedObject var playerVM: PlayerViewModel
     let buttonSize: CGFloat = 25
     
     var body: some View {
         HStack(spacing: 15) {
-            if let sound = homeVM.sound {
+            if let sound = playerVM.sound {
                 // This image needs to update based on current sound selection...
                 SoundImageView(sound: sound)
                     .frame(height: 80)
@@ -14,7 +15,7 @@ struct PlayingNowBar: View {
                     .clipped()
                     .overlay(alignment: .topLeading) {
                         Button {
-                            homeVM.stopPlayer()
+                            playerVM.stopPlayer()
                             homeVM.isViewingSongPlayerTab = false
                         } label: {
                             Image(systemName: "cross.circle.fill")
@@ -27,7 +28,7 @@ struct PlayingNowBar: View {
             }
             
             VStack(alignment: .leading, spacing: 2) {
-                Text(homeVM.sound?.name ?? "")
+                Text(playerVM.sound?.name ?? "")
                     .font(.callout)
                     .fontWeight(.heavy)
                     .foregroundColor(Color.theme.titleColor)
@@ -38,7 +39,7 @@ struct PlayingNowBar: View {
 //                    ClockDisplayView(
 //                        time: Int(homeVM.audioPlayer.currentItem?.duration.seconds ?? 0 - homeVM.audioPlayer.currentTime().seconds),
 //                        font: .caption)
-                    ClockDisplayView(time: homeVM.duration - Int(homeVM.currentTime), font: .caption2)
+                    ClockDisplayView(time: playerVM.duration - Int(playerVM.currentTime), font: .caption2)
                     Text("left")
                 }
             }
@@ -55,14 +56,14 @@ struct PlayingNowBar: View {
             HStack(spacing: 25) {
                 // Play button
                 Button {
-                    if homeVM.isPlaying {
-                        homeVM.stopPlayer()
+                    if playerVM.isPlaying {
+                        playerVM.stopPlayer()
                     } else {
-                        homeVM.startPlayer()
+                        playerVM.startPlayer()
                     }
                    
                 } label: {
-                    if let player = homeVM.audioPlayer {
+                    if let player = playerVM.audioPlayer {
                         Image(systemName: player.isPlaying ? "pause.fill" : "play.fill")
                             .resizable()
                             .frame(width: buttonSize, height: buttonSize, alignment: .center)
@@ -74,7 +75,7 @@ struct PlayingNowBar: View {
                 }
                 if homeVM.portfolioSounds.count > 1 {
                     Button {
-                        homeVM.skipToNextSound()
+//                        homeVM.skipToNextSound()
                     } label: {
                         Image(systemName: "forward.end")
                             .resizable()
@@ -99,14 +100,11 @@ struct PlayingNowBar: View {
 struct PlayingNowBar_Previews: PreviewProvider {
     
     static var previews: some View {
-        PlayingNowBar()
-            .preferredColorScheme(.light)
-            .environmentObject(dev.homeVM)
-            .previewLayout(.sizeThatFits)
-        
-        PlayingNowBar()
-            .preferredColorScheme(.dark)
-            .environmentObject(dev.homeVM)
-            .previewLayout(.sizeThatFits)
+        PlayingNowBar(
+            playerVM: PlayerViewModel()
+        )
+        .preferredColorScheme(.light)
+        .environmentObject(dev.homeVM)
+        .previewLayout(.sizeThatFits)
     }
 }

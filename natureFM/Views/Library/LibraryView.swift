@@ -2,7 +2,8 @@ import SwiftUI
 
 struct LibraryView: View {
     @EnvironmentObject var vm: HomeViewModel
-    @StateObject var storeManager: StoreManager
+    @ObservedObject var playerVM: PlayerViewModel
+    @ObservedObject var storeManager: StoreManager
     
     func delete(at offsets: IndexSet) {
         if let index = offsets.first {
@@ -67,7 +68,7 @@ struct LibraryView: View {
                         if !vm.isViewingSongPlayerTab {
                             vm.isViewingSongPlayerTab = true
                         }
-                        vm.sound = sound
+                        playerVM.sound = sound
                     }
                 }
                 .onDelete(perform: delete)
@@ -75,13 +76,15 @@ struct LibraryView: View {
             }
             .listStyle(.plain)
             .sheet(isPresented: $vm.isViewingSongPlayer, content: {
-                SoundPlayerView()
-                    .environmentObject(vm)
+                SoundPlayerView(
+                    homeVM: vm,
+                    playerVM: playerVM
+                )
                 
             })
             .overlay(alignment: .bottom, content: {
                     if vm.isViewingSongPlayerTab {
-                        PlayingNowBar()
+                        PlayingNowBar(playerVM: playerVM)
                             .environmentObject(vm)
                     }
                 }
@@ -98,7 +101,10 @@ struct LibraryView: View {
 
 struct Library_Previews: PreviewProvider {
     static var previews: some View {
-        LibraryView(storeManager: StoreManager())
-            .environmentObject(dev.homeVM)
+        LibraryView(
+            playerVM: PlayerViewModel(),
+            storeManager: StoreManager()
+        )
+        .environmentObject(dev.homeVM)
     }
 }

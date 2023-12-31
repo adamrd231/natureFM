@@ -9,13 +9,14 @@ import SwiftUI
 
 struct AudioControlButtonsView: View {
     @EnvironmentObject var homeVM: HomeViewModel
+    let isPlaying: Bool
     private let buttonSize: CGFloat = 30
     private let buttonAdjustment: CGFloat = 10
     
     var body: some View {
         HStack(spacing: 25) {
             Button {
-                homeVM.skipToPreviousSound()
+                // Skip to next song
             } label: {
                 Image(systemName: "backward.end")
                     .resizable()
@@ -23,7 +24,7 @@ struct AudioControlButtonsView: View {
             }
             Spacer()
             Button {
-                homeVM.skipBackward15()
+                // Skip backward 15 sec
             } label: {
                 Image(systemName: "gobackward.15")
                     .resizable()
@@ -31,19 +32,19 @@ struct AudioControlButtonsView: View {
             }
            
             Button {
-                if homeVM.isPlaying {
-                    homeVM.stopPlayer()
+                if isPlaying {
+                   // stop player
                 } else {
-                    homeVM.startPlayer()
+                   // start player
                 }
                
             } label: {
-                Image(systemName: homeVM.isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                Image(systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill")
                     .resizable()
                     .frame(width: buttonSize + buttonAdjustment, height: buttonSize + buttonAdjustment)
             }
             Button {
-                homeVM.skipForward15()
+                // Skip forward 15
             } label: {
                 Image(systemName: "goforward.15")
                     .resizable()
@@ -52,7 +53,6 @@ struct AudioControlButtonsView: View {
             Spacer()
             Button {
                 // skip to next song
-                homeVM.skipToNextSound()
             } label: {
                 Image(systemName: "forward.end")
                     .resizable()
@@ -66,6 +66,8 @@ struct AudioControlButtonsView: View {
 
 struct AudioControlButtonsView_Previews: PreviewProvider {
     static var previews: some View {
-        AudioControlButtonsView()
+        AudioControlButtonsView(
+            isPlaying: false
+        )
     }
 }
