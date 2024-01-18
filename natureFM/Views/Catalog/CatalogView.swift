@@ -45,8 +45,8 @@ struct CatalogView_Previews: PreviewProvider {
 
 extension CatalogView {
     var CatalogScrollView: some View {
-        VStack {
-            ScrollView {
+        ScrollView {
+            VStack(spacing: 25) {
                 FeaturedImageLayoutView(
                     soundArray: catalogVM.allFreeSounds,
                     storeManager: storeManager,

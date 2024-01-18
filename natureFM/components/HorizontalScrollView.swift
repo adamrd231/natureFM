@@ -31,84 +31,69 @@ struct HorizontalScrollView: View {
             HStack(spacing: 50) {
                 ScrollView(.horizontal) {
                     HStack {
-                        if soundArray.count == 0 {
-                            HStack(spacing: 10) {
-                                ForEach(0..<Int.random(in: 1...3), id: \.self) { _ in
-                                    ZStack {
-                                        ProgressView()
-                                        Rectangle()
-                                            .foregroundColor(.gray)
-                                            .opacity(0.1)
-                                            .frame(width: 200, height: 120)
-                                    }
-                                }
-                            }
-                        }
-                        else {
-                            ForEach(soundArray, id: \.id) { sound in
-                                VStack(alignment: .leading, spacing: 10) {
-                                    SoundImageView(sound: sound)
-                                        .frame(width: 200, height: 120)
-                                        .clipped()
+                        ForEach(soundArray, id: \.id) { sound in
+                            VStack(alignment: .leading, spacing: 10) {
+                                SoundImageView(sound: sound)
+                                    .frame(width: 200, height: 120)
+                                    .clipped()
 
-                                    HStack(spacing: 5) {
-                                        Button(action: {
-                                            let isSoundFree = sound.freeSong
-                                            let userHasSubscription = !storeManager.products.contains(where: { $0.id == StoreIDs.NatureFM })
-                                            
-                                            if isSoundFree || userHasSubscription {
-                                                // Download sound is allowed
-                                            } else {
-                                                showingAlert.toggle()
-                                                // Could prompt user to subscription page
-                                            }
-                                        }) {
-                                            Image(systemName: "arrow.down.circle.fill")
-                                                .resizable()
-                                                .frame(width: 25, height: 25)
-                                        }
-                                        .foregroundColor(Color.theme.titleColor)
+                                HStack(spacing: 5) {
+                                    Button(action: {
+                                        let isSoundFree = sound.freeSong
+                                        let userHasSubscription = !storeManager.products.contains(where: { $0.id == StoreIDs.NatureFM })
                                         
-                                        VStack(alignment: .leading) {
-                                            Button(action: {
-                                                // select song and play
-                                                if sound.freeSong || storeManager.purchasedSubscriptions.contains(where: { $0.id == StoreIDs.NatureFM }) {
-                                                    
-                                                    playerVM.sound = sound
-                                                    vm.isViewingSongPlayerTab = true
-                                                } else {
-                                                    showingAlert = true
-                                                }
-                                              
+                                        if isSoundFree || userHasSubscription {
+                                            // Download sound is allowed
+                                        } else {
+                                            showingAlert.toggle()
+                                            // Could prompt user to subscription page
+                                        }
+                                    }) {
+                                        Image(systemName: "arrow.down.circle.fill")
+                                            .resizable()
+                                            .frame(width: 25, height: 25)
+                                    }
+                                    .foregroundColor(Color.theme.titleColor)
+                                    
+                                    VStack(alignment: .leading) {
+                                        Button(action: {
+                                            // select song and play
+                                            if sound.freeSong || storeManager.purchasedSubscriptions.contains(where: { $0.id == StoreIDs.NatureFM }) {
+                                                
+                                                playerVM.sound = sound
+                                                vm.isViewingSongPlayerTab = true
+                                            } else {
+                                                showingAlert = true
+                                            }
+                                          
 
-                                            }) {
-                                                VStack(alignment: .leading) {
-                                                    Text(sound.name).font(.subheadline)
-                                                    Text(sound.freeSong ? "Free" : "Subscription")
-                                                        .font(.caption2)
-                                                        .fontWeight(.bold)
-                                                        .padding(.horizontal, 5)
-                                                        .background(sound.freeSong ? Color.theme.customYellow : Color.theme.customBlue)
-                                                }
+                                        }) {
+                                            VStack(alignment: .leading) {
+                                                Text(sound.name).font(.subheadline)
+                                                Text(sound.freeSong ? "Free" : "Subscription")
+                                                    .font(.caption2)
+                                                    .fontWeight(.bold)
+                                                    .padding(.horizontal, 5)
+                                                    .background(sound.freeSong ? Color.theme.customYellow : Color.theme.customBlue)
                                             }
                                         }
-                                        .alert(isPresented: $showingAlert, content: {
-                                            // decide which alert to show
-                                            Alert(
-                                                title: Text("Currently not available"),
-                                                message: Text("You must have a subscription for this premium content."),
-                                                primaryButton: .default(Text("Store")) {
-                                                    tabSelection = 3
-                                                },
-                                                secondaryButton: .cancel(Text("No thanks"))
-                                            )
-                                            
-                                        })
-                                        .foregroundColor(Color.theme.titleColor)
                                     }
+                                    .alert(isPresented: $showingAlert, content: {
+                                        // decide which alert to show
+                                        Alert(
+                                            title: Text("Currently not available"),
+                                            message: Text("You must have a subscription for this premium content."),
+                                            primaryButton: .default(Text("Store")) {
+                                                tabSelection = 3
+                                            },
+                                            secondaryButton: .cancel(Text("No thanks"))
+                                        )
+                                        
+                                    })
+                                    .foregroundColor(Color.theme.titleColor)
                                 }
-                                .frame(maxWidth: 200)
                             }
+                            .frame(maxWidth: 200)
                         }
                     }
                 }
