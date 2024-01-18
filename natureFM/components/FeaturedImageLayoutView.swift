@@ -1,9 +1,25 @@
 import SwiftUI
 
+struct BorderButton: ButtonStyle {
+    let color: Color
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .foregroundColor(color)
+            .font(.callout)
+            .fontWeight(.bold)
+            .padding(.vertical, 10)
+            .padding(.horizontal, 15)
+            .overlay(
+                Capsule()
+                    .strokeBorder(color, lineWidth: 1)
+            )
+    }
+}
+
 struct FeaturedImageLayoutView: View {
     let soundArray: [SoundsModel]
-    // Store manager variable for in-app purchases
-    @State var storeManager: StoreManager
+    let userLibrary: [SoundsModel]
+    var saveSoundToLibrary: (SoundsModel) -> Void
     @State private var isShowingAlert: Bool = false
     @Binding var tabSelection: Int
     
@@ -14,15 +30,30 @@ struct FeaturedImageLayoutView: View {
                     SoundImageView(sound: sound)
                         .overlay(Color.black.opacity(0.5))
                     
-                    VStack(alignment: .center, spacing: 3) {
-                        Text(sound.name)
-                            .font(.title3)
-                            .fontWeight(.bold)
-                        Text(sound.locationName)
+                    VStack(alignment: .center, spacing: 10) {
+                        Text(sound.freeSong ? "Free" : "Requires Subscription")
                             .font(.caption)
-                        Text(sound.freeSong ? "Free" : "Subscription")
                             .padding(3)
                             .background(sound.freeSong ? Color.theme.customYellow : Color.theme.customBlue )
+                 
+                        Text(sound.name)
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .frame(maxWidth: UIScreen.main.bounds.width * 0.66)
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(Color.theme.backgroundColor)
+                      
+                        if userLibrary.contains(sound) {
+                            Text("In your library")
+                                .font(.caption)
+                                .fontWeight(.bold)
+                        } else {
+                            Button("Download") {
+                                saveSoundToLibrary(sound)
+                            }
+                            .buttonStyle(BorderButton(color: Color.theme.backgroundColor))
+                            
+                        }
                     }
                     .foregroundColor(Color.theme.backgroundColor)
                     .alert(isPresented: $isShowingAlert, content: {
@@ -51,7 +82,8 @@ struct FeaturedImageLayoutView_Previews: PreviewProvider {
     static var previews: some View {
         FeaturedImageLayoutView(
             soundArray: dev.homeVM.allFreeSounds,
-            storeManager: StoreManager(),
+            userLibrary: [],
+            saveSoundToLibrary: { _ in dev.testSound },
             tabSelection: .constant(1)
         )
     }

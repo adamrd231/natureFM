@@ -38,7 +38,7 @@ struct CategoryRowView: View {
                                             .padding(.horizontal, 10)
                                             .foregroundColor(.black)
                                         Capsule()
-                                            .strokeBorder(Color.black,lineWidth: 0.8)
+                                            .strokeBorder(Color.black, lineWidth: 0.8)
                                     }
                                 }
                                 .padding(.horizontal, 1)

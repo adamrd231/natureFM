@@ -3,6 +3,7 @@ import SwiftUI
 struct CatalogView: View {
     @ObservedObject var catalogVM: CatalogViewModel
     @ObservedObject var playerVM: PlayerViewModel
+    @ObservedObject var libraryVM: LibraryViewModel
     @ObservedObject var storeManager: StoreManager
     @ObservedObject var network: NetworkMonitor
     @Binding var tabSelection: Int
@@ -36,6 +37,7 @@ struct CatalogView_Previews: PreviewProvider {
         CatalogView(
             catalogVM: dev.homeVM,
             playerVM: PlayerViewModel(),
+            libraryVM: LibraryViewModel(),
             storeManager: StoreManager(),
             network: NetworkMonitor(),
             tabSelection: .constant(1)
@@ -49,20 +51,26 @@ extension CatalogView {
             VStack(spacing: 25) {
                 FeaturedImageLayoutView(
                     soundArray: catalogVM.allFreeSounds,
-                    storeManager: storeManager,
+                    userLibrary: libraryVM.mySounds,
+                    saveSoundToLibrary: libraryVM.saveSoundToLibrary,
                     tabSelection: $tabSelection
                 )
      
                 .frame(minHeight: UIScreen.main.bounds.height * 0.5)
                 HStack {
-                    VStack(alignment: .leading) {
+                    VStack(alignment: .leading, spacing: 10) {
                         Text(storeManager.hasSubscription ? "Member" : "Free Listener")
                             .font(.largeTitle)
+                            .fontWeight(.bold)
                         Text(storeManager.hasSubscription ? "Thanks you for supporting natureFM" : "You could be missing out, get the subscription today for access to all content.")
+                        Button("Get subscription") {
+                            tabSelection = 2
+                        }
+                        .buttonStyle(BorderButton(color: Color.theme.titleColor))
                     }
                     Spacer()
                 }
-                .padding()
+                .padding(.horizontal)
                 
                 CategoryRowView(
                     categories: catalogVM.categories,

@@ -23,6 +23,7 @@ struct HomeView: View {
             CatalogView(
                 catalogVM: catalogVM,
                 playerVM: playerVM,
+                libraryVM: libraryVM,
                 storeManager: storeManager,
                 network: networkMonitor,
                 tabSelection: $currentTab

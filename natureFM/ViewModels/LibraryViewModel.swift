@@ -15,6 +15,10 @@ class LibraryViewModel: ObservableObject {
         addSubscribers()
     }
     
+    func saveSoundToLibrary(_ sound: SoundsModel) {
+        downloadedContentService.saveSound(sound: sound)
+    }
+    
     func addSubscribers() {
         downloadedContentService.$savedEntities
             .combineLatest($selectedCategory)
