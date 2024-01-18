@@ -52,8 +52,24 @@ extension CatalogView {
                     storeManager: storeManager,
                     tabSelection: $tabSelection
                 )
+     
                 .frame(minHeight: UIScreen.main.bounds.height * 0.5)
-    
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(storeManager.hasSubscription ? "Member" : "Free Listener")
+                            .font(.largeTitle)
+                        Text(storeManager.hasSubscription ? "Thanks you for supporting natureFM" : "You could be missing out, get the subscription today for access to all content.")
+                    }
+                    Spacer()
+                }
+                .padding()
+                
+                CategoryRowView(
+                    categories: catalogVM.categories,
+                    selectedCategory: $catalogVM.selectedCategory
+                )
+ 
+                
                 // Section One
                 HorizontalScrollView(
                     vm: catalogVM,
@@ -72,6 +88,7 @@ extension CatalogView {
                 )
             }
         }
+        .edgesIgnoringSafeArea(.top)
     }
     
     
@@ -101,3 +118,4 @@ extension CatalogView {
         .multilineTextAlignment(.center)
     }
 }
+

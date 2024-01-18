@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct FeaturedImageLayoutView: View {
-    @EnvironmentObject var vm: CatalogViewModel
     let soundArray: [SoundsModel]
     // Store manager variable for in-app purchases
     @State var storeManager: StoreManager
@@ -44,6 +43,7 @@ struct FeaturedImageLayoutView: View {
             }
         }
         .tabViewStyle(.page)
+        .edgesIgnoringSafeArea(.top)
     }
 }
 
@@ -54,6 +54,5 @@ struct FeaturedImageLayoutView_Previews: PreviewProvider {
             storeManager: StoreManager(),
             tabSelection: .constant(1)
         )
-        .environmentObject(dev.homeVM)
     }
 }

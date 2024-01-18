@@ -14,7 +14,8 @@ class CatalogViewModel: ObservableObject {
     @Published var allFreeSounds: [SoundsModel] = []
     @Published var allSubscriptionSounds: [SoundsModel] = []
     @Published var randomSounds: [SoundsModel] = []
-    @Published var categories: [CategoryModel] = []
+    @Published var categories: [CategoryName] = [CategoryName(title: "All")]
+    @Published var selectedCategory: Int = 0
     @Published var randomSound: SoundsModel? = nil
 
     @Published var isViewingSongPlayer: Bool = false
@@ -32,23 +33,62 @@ class CatalogViewModel: ObservableObject {
             .sink { [weak self] (returnedSounds) in
                 self?.allSounds = returnedSounds
                 // Set up arrays for free and subscription sounds
+                var categoryArray:[CategoryName] = []
+                categoryArray.append(CategoryName(title: "All"))
                 for sound in returnedSounds {
                     if sound.freeSong == true {
                         self?.allFreeSounds.append(sound)
                     } else {
                         self?.allSubscriptionSounds.append(sound)
                     }
-                    self?.randomSound = returnedSounds.randomElement()
+                    // Setup category array
+                    let newCategory = CategoryName(title: sound.categoryName)
+                  
+                    if categoryArray.contains(where: { $0.title == sound.categoryName }) {
+                        print("Do nothing")
+                    } else {
+                        print("Append")
+                        categoryArray.append(newCategory)
+                    }
+                    
+                   
+                 
+             
                 }
+                self?.categories = categoryArray
             }
             .store(in: &cancellable)
         
-        categoryDataService.$allCategories
-            .map(sortCategories)
-            .sink { (returnedCategories) in
-                self.categories = returnedCategories
+        $selectedCategory
+
+            .sink { [weak self] newCategory in
+                print("Updating stuff")
+                if newCategory == 0 {
+                    print("0")
+                    self?.allFreeSounds = self!.allSounds.filter({ $0.freeSong == true })
+                    self?.allSubscriptionSounds = self!.allSounds.filter({ $0.freeSong == false })
+                } else {
+                    print("updating")
+                    if let all = self?.allSounds {
+                        self?.allFreeSounds = all.filter({ $0.categoryName == self?.categories[newCategory].title && $0.freeSong == true })
+                        self?.allSubscriptionSounds = all.filter({ $0.categoryName == self?.categories[newCategory].title  && $0.freeSong == false })
+                    }
+                    
+                
+                  
+                 
+                }
+                
+              
             }
             .store(in: &cancellable)
+        
+//        categoryDataService.$allCategories
+//            .map(sortCategories)
+//            .sink { (returnedCategories) in
+//                self.categories = returnedCategories
+//            }
+//            .store(in: &cancellable)
     }
 
     func sortCategories(returnedCategories: [CategoryModel]) -> [CategoryModel] {
@@ -60,6 +100,4 @@ class CatalogViewModel: ObservableObject {
         let filtered = sortableCategories.filter { categories.contains($0.title) }
         return filtered
     }
-    
-
 }

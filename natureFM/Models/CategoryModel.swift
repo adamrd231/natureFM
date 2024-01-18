@@ -9,3 +9,8 @@ class CategoryModel: ObservableObject, Identifiable, Codable {
     }
     
 }
+
+struct CategoryName: Identifiable, Hashable {
+    let id = UUID()
+    let title: String
+}
