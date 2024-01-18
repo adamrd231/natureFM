@@ -1,14 +1,7 @@
-//
-//  AudioControlButtonsView.swift
-//  natureFM
-//
-//  Created by Adam Reed on 10/12/23.
-//
-
 import SwiftUI
 
 struct AudioControlButtonsView: View {
-    @EnvironmentObject var homeVM: HomeViewModel
+    @EnvironmentObject var homeVM: CatalogViewModel
     let isPlaying: Bool
     private let buttonSize: CGFloat = 30
     private let buttonAdjustment: CGFloat = 10

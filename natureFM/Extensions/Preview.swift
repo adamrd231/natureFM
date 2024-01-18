@@ -13,11 +13,13 @@ class DeveloperPreview {
         
         // player
         playerVM.sound = testSound
+        
+        homeVM.allFreeSounds.append(testSound)
+        homeVM.allFreeSounds.append(testSound2)
     }
     
-
     let playerVM = PlayerViewModel()
-    let homeVM = HomeViewModel()
+    let homeVM = CatalogViewModel()
     let testSound = SoundsModel(
         name: "Adams song is a long title yo!",
         duration: 100,
@@ -25,6 +27,16 @@ class DeveloperPreview {
         imageFileLink: "http://via.placeholder.com/640x360",
         categoryName: "Rain",
         locationName: "Portland",
+        freeSong: false
+    )
+    
+    let testSound2 = SoundsModel(
+        name: "This is a different song",
+        duration: 53,
+        audioFileLink: "",
+        imageFileLink: URL(fileURLWithPath: "placeholder").absoluteString,
+        categoryName: "Not Rain",
+        locationName: "Not Portland",
         freeSong: false
     )
     

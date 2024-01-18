@@ -3,27 +3,29 @@ import GoogleMobileAds
 import Combine
 
 struct HomeView: View {
-    // View model for home / getting sounds
-    @StateObject var vm = HomeViewModel()
+    // Viewmodels to manage app data and services
+    @StateObject var catalogVM = CatalogViewModel()
     @StateObject var playerVM = PlayerViewModel()
-    // Store manager / in app purchases and subscriptions
-    @StateObject var storeManager = StoreManager()
-    // Advertising viewmodel
-    @ObservedObject var adsViewModel = AdvertisingViewModel()
+    @StateObject var libraryVM = LibraryViewModel()
+    @State var currentTab: Int = 1
+    
+    
+    // Network monitor, store and advertising managers
     @StateObject var networkMonitor = NetworkMonitor()
+    @StateObject var storeManager = StoreManager()
+    @ObservedObject var adsViewModel = AdvertisingViewModel()
 
-    // Variable to control when to show the player view
-    @State var showingPlayerView: Bool = false
     private var cancellable = Set<AnyCancellable>()
     
     var body: some View {
-        TabView(selection: $vm.tabSelection) {
+        TabView(selection: $currentTab) {
             // Home View
             CatalogView(
-                vm: vm,
+                catalogVM: catalogVM,
                 playerVM: playerVM,
                 storeManager: storeManager,
-                network: networkMonitor
+                network: networkMonitor,
+                tabSelection: $currentTab
             )
                 .tabItem {
                     TabItemView(text: "Browse", image: "antenna.radiowaves.left.and.right")
@@ -38,9 +40,11 @@ struct HomeView: View {
             // Library View
             LibraryView(
                 playerVM: playerVM,
-                storeManager: storeManager
+                libraryVM: libraryVM,
+                storeManager: storeManager,
+                currentTab: $currentTab
             )
-                .environmentObject(vm)
+                .environmentObject(catalogVM)
                 .tabItem {
                     TabItemView(text: "Library", image: "music.note.house")
                 }
@@ -56,9 +60,10 @@ struct HomeView: View {
             
             // In App Purchases
             InAppStorePurchasesView(
-                storeManager: storeManager
+                storeManager: storeManager,
+                currentTab: $currentTab
             )
-                .environmentObject(vm)
+                .environmentObject(catalogVM)
                 .tabItem {
                     TabItemView(text: "In-App Purchases", image: "creditcard")
                 }
@@ -66,7 +71,7 @@ struct HomeView: View {
                 
             // User profile and App Information
             ProfileView(storeManager: storeManager)
-                .environmentObject(vm)
+                .environmentObject(catalogVM)
                 .tabItem {
                     TabItemView(text: "About", image: "person.crop.circle")
                 }
@@ -81,7 +86,7 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
-            .environmentObject(HomeViewModel())
+            .environmentObject(CatalogViewModel())
     }
 }
     

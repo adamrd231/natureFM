@@ -1,29 +1,31 @@
 import SwiftUI
 
 struct LibraryView: View {
-    @EnvironmentObject var vm: HomeViewModel
+    @EnvironmentObject var vm: CatalogViewModel
     @ObservedObject var playerVM: PlayerViewModel
+    @ObservedObject var libraryVM: LibraryViewModel
     @ObservedObject var storeManager: StoreManager
+    @Binding var currentTab: Int
     
-    func delete(at offsets: IndexSet) {
-        if let index = offsets.first {
-            vm.downloadedContentService.deleteSound(sound: vm.portfolioSounds[index])
-        }
-    }
+//    func delete(at offsets: IndexSet) {
+//        if let index = offsets.first {
+//            // delete sound
+//        }
+//    }
     
     var body: some View {
         VStack(alignment: .leading) {
             // Title categry picker
             ScrollView(.horizontal) {
                 HStack {
-                    ForEach(vm.categories) { category in
+                    ForEach(libraryVM.categories) { category in
                         Text("\(category.title)")
-                            .fontWeight((category.title == vm.selectedCategory) ? .medium : .light)
+                            .fontWeight((category.title == libraryVM.selectedCategory) ? .medium : .light)
                             .padding(.horizontal)
-                            .offset(y: (category.title == vm.selectedCategory) ? -2.0 : 0)
-                            .scaleEffect((category.title == vm.selectedCategory ? 1.5 : 1.0))
+                            .offset(y: (category.title == libraryVM.selectedCategory) ? -2.0 : 0)
+                            .scaleEffect((category.title == libraryVM.selectedCategory ? 1.5 : 1.0))
                             .onTapGesture {
-                                vm.selectedCategory = category.title
+                                libraryVM.selectedCategory = category.title
                             }
                     }
                 }
@@ -31,7 +33,7 @@ struct LibraryView: View {
             }
             
             HStack {
-                Text("\(vm.portfolioSounds.count) Titles")
+                Text("\(libraryVM.mySounds.count) Titles")
                     .foregroundColor(Color.theme.titleColor)
                     .fontWeight(.bold)
                 Spacer()
@@ -40,7 +42,7 @@ struct LibraryView: View {
             .padding(.horizontal)
             
             List {
-                ForEach(vm.portfolioSounds) { sound in
+                ForEach(libraryVM.mySounds) { sound in
                     HStack(spacing: 10) {
                         SoundImageView(sound: sound)
                             .frame(width: 110, height: 75)
@@ -71,14 +73,14 @@ struct LibraryView: View {
                         playerVM.sound = sound
                     }
                 }
-                .onDelete(perform: delete)
            
             }
             .listStyle(.plain)
             .sheet(isPresented: $vm.isViewingSongPlayer, content: {
                 SoundPlayerView(
                     homeVM: vm,
-                    playerVM: playerVM
+                    playerVM: playerVM,
+                    tabSelection: $currentTab
                 )
                 
             })
@@ -103,7 +105,9 @@ struct Library_Previews: PreviewProvider {
     static var previews: some View {
         LibraryView(
             playerVM: PlayerViewModel(),
-            storeManager: StoreManager()
+            libraryVM: LibraryViewModel(),
+            storeManager: StoreManager(),
+            currentTab: .constant(1)
         )
         .environmentObject(dev.homeVM)
     }

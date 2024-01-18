@@ -6,7 +6,7 @@ enum SoundChoices {
 }
 
 struct HorizontalScrollView: View {
-    @ObservedObject var vm: HomeViewModel
+    @ObservedObject var vm: CatalogViewModel
     @ObservedObject var playerVM: PlayerViewModel
     let soundChoice: SoundChoices
 
@@ -57,7 +57,7 @@ struct HorizontalScrollView: View {
                                             let userHasSubscription = !storeManager.products.contains(where: { $0.id == StoreIDs.NatureFM })
                                             
                                             if isSoundFree || userHasSubscription {
-                                                vm.downloadedContentService.saveSound(sound: sound)
+                                                // Download sound is allowed
                                             } else {
                                                 showingAlert.toggle()
                                                 // Could prompt user to subscription page
@@ -121,7 +121,7 @@ struct HorizontalScrollView: View {
 struct HorizontalScrollView_Previews: PreviewProvider {
     static var previews: some View {
         HorizontalScrollView(
-            vm: HomeViewModel(),
+            vm: CatalogViewModel(),
             playerVM: PlayerViewModel(),
             soundChoice: .free,
             storeManager: StoreManager(),

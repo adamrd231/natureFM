@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ProfileView: View {
     
-    @EnvironmentObject var vm: HomeViewModel
+    @EnvironmentObject var vm: CatalogViewModel
     // Store manager variable for in-app purchases
     @StateObject var storeManager: StoreManager
     

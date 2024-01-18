@@ -15,7 +15,8 @@ struct ProductView: View {
 struct InAppStorePurchasesView: View {
     // Store Manager object for making in app purchases
     @StateObject var storeManager: StoreManager
-    @EnvironmentObject var vm: HomeViewModel
+    @EnvironmentObject var vm: CatalogViewModel
+    @Binding var currentTab: Int
     
     var body: some View {
         List {
@@ -36,7 +37,7 @@ struct InAppStorePurchasesView: View {
                     }
                     .font(.caption)
                     Button("Learn more") {
-                        vm.tabSelection = 4
+                        currentTab = 4
                     }
                 }
             }
@@ -108,6 +109,9 @@ struct InAppStorePurchasesView: View {
 
 struct InAppStorePurchasesView_Previews: PreviewProvider {
     static var previews: some View {
-        InAppStorePurchasesView(storeManager: StoreManager())
+        InAppStorePurchasesView(
+            storeManager: StoreManager(),
+            currentTab: .constant(1)
+        )
     }
 }

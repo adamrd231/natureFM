@@ -2,8 +2,9 @@ import SwiftUI
 import AVKit
 
 struct SoundPlayerView: View {
-    @ObservedObject var homeVM: HomeViewModel
+    @ObservedObject var homeVM: CatalogViewModel
     @ObservedObject var playerVM: PlayerViewModel
+    @Binding var tabSelection: Int
     // sound
     // array of sounds for playlist
     // isRepeating
@@ -57,7 +58,7 @@ struct SoundPlayerView: View {
                 
                 
                 // List of current songs available to play
-                if homeVM.portfolioSounds.count > 0 {
+                if homeVM.allSounds.count > 0 {
                     List {
                         Text("list")
                     }
@@ -66,7 +67,7 @@ struct SoundPlayerView: View {
                 } else {
                     Button("Download songs for your library") {
                       // Send user to library
-                        homeVM.tabSelection = 1
+                        tabSelection = 1
                         homeVM.isViewingSongPlayer = false
                     }
                 }
@@ -92,7 +93,8 @@ struct SoundPlayerView_Previews: PreviewProvider {
     static var previews: some View {
         SoundPlayerView(
             homeVM: dev.homeVM,
-            playerVM: dev.playerVM
+            playerVM: dev.playerVM,
+            tabSelection: .constant(1)
         )
     }
 }

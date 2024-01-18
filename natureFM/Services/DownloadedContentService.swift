@@ -2,7 +2,6 @@ import Foundation
 import CoreData
 
 class DownloadedContentService {
-    
     private let container: NSPersistentContainer
     private let containerName: String = "Stash"
     private let entityName: String = "Sound"
@@ -34,7 +33,6 @@ class DownloadedContentService {
     }
     
     func saveSound(sound: SoundsModel) {
-        
         if let entity = savedEntities.first(where: { $0.name == sound.name }) {
             // Entity Already exists, return
             return
@@ -49,10 +47,7 @@ class DownloadedContentService {
         soundToSave.locationName = sound.locationName
         
         applyChanges()
-        
     }
-    
-
     
     private func save() {
         do {
@@ -62,7 +57,6 @@ class DownloadedContentService {
             print("Error saving to Core Data. \(error)")
         }
     }
-    
     
     private func applyChanges() {
         save()
@@ -74,8 +68,5 @@ class DownloadedContentService {
             container.viewContext.delete(soundToDelete)
             applyChanges()
         }
-        
-        
     }
-    
 }

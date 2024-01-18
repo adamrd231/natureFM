@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct PlayingNowBar: View {
-    @EnvironmentObject var homeVM: HomeViewModel
+    @EnvironmentObject var homeVM: CatalogViewModel
     @ObservedObject var playerVM: PlayerViewModel
     let buttonSize: CGFloat = 25
     
@@ -73,7 +73,7 @@ struct PlayingNowBar: View {
                             .frame(width: buttonSize, height: buttonSize, alignment: .center)
                     }
                 }
-                if homeVM.portfolioSounds.count > 1 {
+                if homeVM.allSounds.count > 1 {
                     Button {
 //                        homeVM.skipToNextSound()
                     } label: {

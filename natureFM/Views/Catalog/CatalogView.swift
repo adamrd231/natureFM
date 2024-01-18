@@ -1,22 +1,27 @@
 import SwiftUI
 
 struct CatalogView: View {
-    @ObservedObject var vm: HomeViewModel
+    @ObservedObject var catalogVM: CatalogViewModel
     @ObservedObject var playerVM: PlayerViewModel
     @ObservedObject var storeManager: StoreManager
     @ObservedObject var network: NetworkMonitor
+    @Binding var tabSelection: Int
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             if network.isConnected {
                 CatalogScrollView
-                .sheet(isPresented: $vm.isViewingSongPlayer, content: {
-                    SoundPlayerView(homeVM: vm, playerVM: playerVM)
+                .sheet(isPresented: $catalogVM.isViewingSongPlayer, content: {
+                    SoundPlayerView(
+                        homeVM: catalogVM,
+                        playerVM: playerVM,
+                        tabSelection: $tabSelection
+                    )
                 })
                 .overlay(alignment: .bottom, content: {
-                    if vm.isViewingSongPlayerTab {
+                    if catalogVM.isViewingSongPlayerTab {
                         PlayingNowBar(playerVM: playerVM)
-                            .environmentObject(vm)
+                            .environmentObject(catalogVM)
                     }
                 })
             } else {
@@ -29,43 +34,44 @@ struct CatalogView: View {
 struct CatalogView_Previews: PreviewProvider {
     static var previews: some View {
         CatalogView(
-            vm: HomeViewModel(),
+            catalogVM: dev.homeVM,
             playerVM: PlayerViewModel(),
             storeManager: StoreManager(),
-            network: NetworkMonitor()
+            network: NetworkMonitor(),
+            tabSelection: .constant(1)
         )
     }
 }
 
 extension CatalogView {
     var CatalogScrollView: some View {
-        ScrollView {
-            if let randomSound = vm.randomSound {
+        VStack {
+            ScrollView {
                 FeaturedImageLayoutView(
-                    sound: randomSound,
+                    soundArray: catalogVM.allFreeSounds,
                     storeManager: storeManager,
-                    tabSelection: $vm.tabSelection
+                    tabSelection: $tabSelection
+                )
+                .frame(minHeight: UIScreen.main.bounds.height * 0.5)
+    
+                // Section One
+                HorizontalScrollView(
+                    vm: catalogVM,
+                    playerVM: playerVM,
+                    soundChoice: .free,
+                    storeManager: storeManager,
+                    tabSelection: $tabSelection
+                )
+                // Section Three
+                HorizontalScrollView(
+                    vm: catalogVM,
+                    playerVM: playerVM,
+                    soundChoice: .subscription,
+                    storeManager: storeManager,
+                    tabSelection: $tabSelection
                 )
             }
-            // Section One
-            HorizontalScrollView(
-                vm: vm,
-                playerVM: playerVM,
-                soundChoice: .free,
-                storeManager: storeManager,
-                tabSelection: $vm.tabSelection
-            )
-            // Section Three
-            HorizontalScrollView(
-                vm: vm,
-                playerVM: playerVM,
-                soundChoice: .subscription,
-                storeManager: storeManager,
-                tabSelection: $vm.tabSelection
-            )
-            .padding(.bottom, 25)
         }
-        .edgesIgnoringSafeArea(.top)
     }
     
     
@@ -79,7 +85,7 @@ extension CatalogView {
             Text("To view sounds and download items from the library, please connect to wifi or cellular data.")
                 .font(.caption)
             Button {
-                vm.tabSelection = 2
+                tabSelection = 2
             } label: {
                 Text("Library")
             }
