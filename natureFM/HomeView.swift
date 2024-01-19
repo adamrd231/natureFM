@@ -28,15 +28,15 @@ struct HomeView: View {
                 network: networkMonitor,
                 tabSelection: $currentTab
             )
-                .tabItem {
-                    TabItemView(text: "Browse", image: "antenna.radiowaves.left.and.right")
+            .tabItem {
+                TabItemView(text: "Browse", image: "antenna.radiowaves.left.and.right")
+            }
+            .tag(1)
+            .onAppear {
+                if storeManager.isShowingAdvertising {
+                    adsViewModel.interstitialCount += 1
                 }
-                .tag(1)
-                .onAppear {
-                    if storeManager.isShowingAdvertising {
-                        adsViewModel.interstitialCount += 1
-                    }
-                }
+            }
             
             // Library View
             LibraryView(
@@ -45,19 +45,19 @@ struct HomeView: View {
                 storeManager: storeManager,
                 currentTab: $currentTab
             )
-                .environmentObject(catalogVM)
-                .tabItem {
-                    TabItemView(text: "Library", image: "music.note.house")
+            .environmentObject(catalogVM)
+            .tabItem {
+                TabItemView(text: "Library", image: "music.note.house")
+            }
+            .onAppear {
+                if storeManager.isShowingAdvertising {
+                    #if DEBUG
+                    #else
+                    adsViewModel.interstitialCount += 1
+                    #endif
                 }
-                .onAppear {
-                    if storeManager.isShowingAdvertising {
-                        #if DEBUG
-                        #else
-                        adsViewModel.interstitialCount += 1
-                        #endif
-                    }
-                }
-                .tag(2)
+            }
+            .tag(2)
             
             // In App Purchases
             InAppStorePurchasesView(

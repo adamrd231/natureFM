@@ -62,8 +62,8 @@ struct FeaturedImageLayoutView: View {
                             Button("Download") {
                                 saveSoundToLibrary(sound)
                             }
-                            .buttonStyle(BorderButton(color: Color.theme.featuredTitleColor))
-                            
+                            .buttonStyle(BorderButton(color: Color.theme.titleColor))
+
                         }
                     }
                     .foregroundColor(Color.theme.titleColor)
@@ -82,8 +82,9 @@ struct FeaturedImageLayoutView: View {
                 .frame(width: UIScreen.main.bounds.width)
             }
         }
-        .tabViewStyle(.page)
+        .tabViewStyle(.page(indexDisplayMode: .always))
         .edgesIgnoringSafeArea(.top)
+        .frame(minHeight: UIScreen.main.bounds.height * 0.5)
     }
 }
 

@@ -12,19 +12,13 @@ struct CatalogView: View {
         VStack(alignment: .leading, spacing: 0) {
             if network.isConnected {
                 CatalogScrollView
-                .sheet(isPresented: $catalogVM.isViewingSongPlayer, content: {
-                    SoundPlayerView(
-                        homeVM: catalogVM,
-                        playerVM: playerVM,
-                        tabSelection: $tabSelection
-                    )
-                })
-                .overlay(alignment: .bottom, content: {
-                    if catalogVM.isViewingSongPlayerTab {
-                        PlayingNowBar(playerVM: playerVM)
-                            .environmentObject(catalogVM)
-                    }
-                })
+                    .sheet(isPresented: $catalogVM.isViewingSongPlayer, content: {
+                        SoundPlayerView(
+                            homeVM: catalogVM,
+                            playerVM: playerVM,
+                            tabSelection: $tabSelection
+                        )
+                    })
             } else {
                 NoInternetView
             }
@@ -47,7 +41,6 @@ struct CatalogView_Previews: PreviewProvider {
 
 extension CatalogView {
     var CatalogScrollView: some View {
-
         ScrollView {
             VStack(spacing: 25) {
                 FeaturedImageLayoutView(
@@ -56,29 +49,16 @@ extension CatalogView {
                     saveSoundToLibrary: libraryVM.saveSoundToLibrary,
                     tabSelection: $tabSelection
                 )
-            
-                .frame(minHeight: UIScreen.main.bounds.height * 0.5)
-                HStack {
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text(storeManager.hasSubscription ? "Member" : "Free Listener")
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
-                        Text(storeManager.hasSubscription ? "Thanks you for supporting natureFM" : "You could be missing out, get the subscription today for access to all content.")
-                        Button("Get subscription") {
-                            tabSelection = 3
-                        }
-                        .buttonStyle(BorderButton(color: Color.theme.titleColor))
-                    }
-                    Spacer()
-                }
-                .padding(.horizontal)
+        
+                UserListenerStatusView(
+                    hasSubscription: storeManager.hasSubscription,
+                    tabSelection: $tabSelection)
                 
                 CategoryRowView(
                     categories: catalogVM.categories,
                     selectedCategory: $catalogVM.selectedCategory
                 )
  
-                
                 // Section One
                 HorizontalScrollView(
                     vm: catalogVM,
@@ -96,7 +76,6 @@ extension CatalogView {
                     tabSelection: $tabSelection
                 )
             }
-
             .overlay(alignment: .topLeading) {
                 Text("natureFM")
                     .foregroundColor(Color.theme.titleColor)
@@ -105,9 +84,15 @@ extension CatalogView {
                     .padding(25)
                     .padding(.top, 25)
             }
+
         }
         .edgesIgnoringSafeArea(.top)
-        
+        .overlay(alignment: .bottom, content: {
+            if catalogVM.isViewingSongPlayerTab {
+                PlayingNowBar(playerVM: playerVM)
+                    .environmentObject(catalogVM)
+            }
+        })
     }
     
     
