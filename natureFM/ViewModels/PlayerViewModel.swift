@@ -14,6 +14,8 @@ class PlayerViewModel: ObservableObject {
     @Published var isRepeating: Bool = true
     @Published var isShuffling: Bool = false
     
+    @Published var isViewingSongPlayer: Bool = false
+    @Published var isViewingSongPlayerTab: Bool = false
     // Timer
     @Published var timer = Timer()
     

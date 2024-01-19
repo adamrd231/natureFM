@@ -67,8 +67,8 @@ struct LibraryView: View {
                     }
                    
                     .onTapGesture {
-                        if !vm.isViewingSongPlayerTab {
-                            vm.isViewingSongPlayerTab = true
+                        if !playerVM.isViewingSongPlayerTab {
+                            playerVM.isViewingSongPlayerTab = true
                         }
                         playerVM.sound = sound
                     }
@@ -76,7 +76,7 @@ struct LibraryView: View {
            
             }
             .listStyle(.plain)
-            .sheet(isPresented: $vm.isViewingSongPlayer, content: {
+            .sheet(isPresented: $playerVM.isViewingSongPlayer, content: {
                 SoundPlayerView(
                     homeVM: vm,
                     playerVM: playerVM,
@@ -85,7 +85,7 @@ struct LibraryView: View {
                 
             })
             .overlay(alignment: .bottom, content: {
-                    if vm.isViewingSongPlayerTab {
+                    if playerVM.isViewingSongPlayerTab {
                         PlayingNowBar(playerVM: playerVM)
                             .environmentObject(vm)
                     }

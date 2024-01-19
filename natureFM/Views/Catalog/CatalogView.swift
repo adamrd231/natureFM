@@ -12,7 +12,7 @@ struct CatalogView: View {
         VStack(alignment: .leading, spacing: 0) {
             if network.isConnected {
                 CatalogScrollView
-                    .sheet(isPresented: $catalogVM.isViewingSongPlayer, content: {
+                    .sheet(isPresented: $playerVM.isViewingSongPlayer, content: {
                         SoundPlayerView(
                             homeVM: catalogVM,
                             playerVM: playerVM,
@@ -61,18 +61,20 @@ extension CatalogView {
  
                 // Section One
                 HorizontalScrollView(
-                    vm: catalogVM,
-                    playerVM: playerVM,
+                    soundArray: catalogVM.allFreeSounds,
+                    userLibrary: libraryVM.mySounds,
+                    isViewingSongPlayerTab: $playerVM.isViewingSongPlayerTab,
                     soundChoice: .free,
-                    storeManager: storeManager,
+                    hasSubscription: storeManager.hasSubscription,
                     tabSelection: $tabSelection
                 )
                 // Section Three
                 HorizontalScrollView(
-                    vm: catalogVM,
-                    playerVM: playerVM,
+                    soundArray: catalogVM.allSubscriptionSounds,
+                    userLibrary: libraryVM.mySounds,
+                    isViewingSongPlayerTab: $playerVM.isViewingSongPlayerTab,
                     soundChoice: .subscription,
-                    storeManager: storeManager,
+                    hasSubscription: storeManager.hasSubscription,
                     tabSelection: $tabSelection
                 )
             }
@@ -88,7 +90,7 @@ extension CatalogView {
         }
         .edgesIgnoringSafeArea(.top)
         .overlay(alignment: .bottom, content: {
-            if catalogVM.isViewingSongPlayerTab {
+            if playerVM.isViewingSongPlayerTab {
                 PlayingNowBar(playerVM: playerVM)
                     .environmentObject(catalogVM)
             }

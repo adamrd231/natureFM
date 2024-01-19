@@ -16,7 +16,7 @@ struct PlayingNowBar: View {
                     .overlay(alignment: .topLeading) {
                         Button {
                             playerVM.stopPlayer()
-                            homeVM.isViewingSongPlayerTab = false
+                            playerVM.isViewingSongPlayerTab = false
                         } label: {
                             Image(systemName: "cross.circle.fill")
                                 .rotationEffect(Angle(degrees: 45))
@@ -47,7 +47,7 @@ struct PlayingNowBar: View {
             .gesture(
                 DragGesture()
                     .onEnded { drag in
-                        homeVM.isViewingSongPlayer = true
+                        playerVM.isViewingSongPlayer = true
                     }
             )
 
@@ -88,7 +88,7 @@ struct PlayingNowBar: View {
             
         }
         .onTapGesture {
-            homeVM.isViewingSongPlayer = true
+            playerVM.isViewingSongPlayer = true
         }
 
         .frame(width: UIScreen.main.bounds.width, height: 80)

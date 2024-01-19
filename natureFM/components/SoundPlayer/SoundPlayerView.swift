@@ -68,7 +68,7 @@ struct SoundPlayerView: View {
                     Button("Download songs for your library") {
                       // Send user to library
                         tabSelection = 1
-                        homeVM.isViewingSongPlayer = false
+                        playerVM.isViewingSongPlayer = false
                     }
                 }
             }

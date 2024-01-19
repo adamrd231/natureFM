@@ -15,9 +15,9 @@ import StoreKit
 struct natureFMApp: App {
     @State private var showLaunchView: Bool = false
     
-    init() {
-        UIScrollView.appearance().isPagingEnabled = true
-    }
+//    init() {
+//        UIScrollView.appearance().isPagingEnabled = true
+//    }
     
     var body: some Scene {
         WindowGroup {

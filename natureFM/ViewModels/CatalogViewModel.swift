@@ -18,8 +18,7 @@ class CatalogViewModel: ObservableObject {
     @Published var selectedCategory: Int = 0
     @Published var randomSound: SoundsModel? = nil
 
-    @Published var isViewingSongPlayer: Bool = false
-    @Published var isViewingSongPlayerTab: Bool = false
+
 
     // Cancellable
     private var cancellable = Set<AnyCancellable>()
