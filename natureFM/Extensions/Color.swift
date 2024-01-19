@@ -9,6 +9,7 @@ extension Color {
 struct ColorTheme {
     
     let titleColor = Color("titleColor")
+    let featuredTitleColor = Color("featuredTitleColor")
     let customBlue = Color("customBlue")
     let customRed = Color("customRed")
     let customYellow = Color("customYellow")

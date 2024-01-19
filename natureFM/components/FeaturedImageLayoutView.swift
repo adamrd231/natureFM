@@ -59,11 +59,11 @@ struct FeaturedImageLayoutView: View {
                             Button("Download") {
                                 saveSoundToLibrary(sound)
                             }
-                            .buttonStyle(BorderButton(color: Color.theme.backgroundColor))
+                            .buttonStyle(BorderButton(color: Color.theme.featuredTitleColor))
                             
                         }
                     }
-                    .foregroundColor(Color.theme.backgroundColor)
+                    .foregroundColor(Color.theme.featuredTitleColor)
                     .alert(isPresented: $isShowingAlert, content: {
                         // decide which alert to show
                         Alert(
