@@ -50,7 +50,7 @@ extension CatalogView {
         ScrollView {
             VStack(spacing: 25) {
                 FeaturedImageLayoutView(
-                    soundArray: catalogVM.allFreeSounds,
+                    soundArray: catalogVM.allSounds,
                     userLibrary: libraryVM.mySounds,
                     saveSoundToLibrary: libraryVM.saveSoundToLibrary,
                     tabSelection: $tabSelection
@@ -64,7 +64,7 @@ extension CatalogView {
                             .fontWeight(.bold)
                         Text(storeManager.hasSubscription ? "Thanks you for supporting natureFM" : "You could be missing out, get the subscription today for access to all content.")
                         Button("Get subscription") {
-                            tabSelection = 2
+                            tabSelection = 3
                         }
                         .buttonStyle(BorderButton(color: Color.theme.titleColor))
                     }

@@ -17,33 +17,37 @@ struct CategoryRowView: View {
             HStack {
                 HStack(alignment: .center) {
                     OverflowLayout(spacing: 10) {
-                        ForEach(categories.indices, id: \.self) { index in
-                            Button {
+                        ForEach(Array(zip(categories.indices, categories)), id: \.0) { index, category in
+                            Button(categories[index].title) {
                                 selectedCategory = index
-                            } label: {
-                                ZStack {
-                                    if selectedCategory == index {
-                                        Capsule()
-                                            .foregroundColor(.blue)
-                                        Text(categories[index].title)
-                                            .foregroundColor(.white)
-                                            .fontWeight(.bold)
-                                            .padding(10)
-                                            .padding(.horizontal, 10)
-                                       
-                                    } else {
-                                        Text(categories[index].title)
-                             
-                                            .padding(10)
-                                            .padding(.horizontal, 10)
-                                            .foregroundColor(.black)
-                                        Capsule()
-                                            .strokeBorder(Color.black, lineWidth: 0.8)
-                                    }
-                                }
-                                .padding(.horizontal, 1)
-                                .font(.caption)
                             }
+                            .buttonStyle(BorderButton(color: Color.theme.titleColor, isSelected: category.title == categories[selectedCategory].title))
+//                            Button {
+//                                selectedCategory = index
+//                            } label: {
+//                                ZStack {
+//                                    if selectedCategory == index {
+//                                        Capsule()
+//                                            .foregroundColor(.blue)
+//                                        Text(categories[index].title)
+//                                            .foregroundColor(.white)
+//                                            .fontWeight(.bold)
+//                                            .padding(10)
+//                                            .padding(.horizontal, 10)
+//
+//                                    } else {
+//                                        Text(categories[index].title)
+//
+//                                            .padding(10)
+//                                            .padding(.horizontal, 10)
+//                                            .foregroundColor(.black)
+//                                        Capsule()
+//                                            .strokeBorder(Color.black, lineWidth: 0.8)
+//                                    }
+//                                }
+//                                .padding(.horizontal, 1)
+//                                .font(.caption)
+//                            }
                         }
                     }
                 }
