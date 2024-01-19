@@ -36,14 +36,15 @@ struct HorizontalScrollSoundView: View {
                 }) {
                     HStack(spacing: 5) {
                         if userOwnsSound {
+                            Text("In your library")
+                                .font(.caption2)
+                           
+                        } else {
                             Image(systemName: "arrow.down")
                                 .resizable()
                                 .frame(width: 15, height: 15)
                                 .fontWeight(.bold)
                             Text("Download")
-                                .font(.caption2)
-                        } else {
-                            Text("In your library")
                                 .font(.caption2)
                         }
                         
