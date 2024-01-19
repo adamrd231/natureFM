@@ -36,6 +36,7 @@ struct FeaturedImageLayoutView: View {
                 ZStack {
                     SoundImageView(sound: sound)
                         .overlay(Color.black.opacity(0.5))
+         
                     
                     VStack(alignment: .center, spacing: 10) {
                         Text(sound.freeSong ? "Free" : "Requires Subscription")
@@ -76,8 +77,6 @@ struct FeaturedImageLayoutView: View {
                     })
                 }
                 .frame(width: UIScreen.main.bounds.width)
-                .frame(minWidth: 0, maxWidth: .infinity)
-
             }
         }
         .tabViewStyle(.page)

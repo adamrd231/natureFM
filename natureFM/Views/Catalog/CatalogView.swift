@@ -47,56 +47,70 @@ struct CatalogView_Previews: PreviewProvider {
 
 extension CatalogView {
     var CatalogScrollView: some View {
-        ScrollView {
-            VStack(spacing: 25) {
-                FeaturedImageLayoutView(
-                    soundArray: catalogVM.allSounds,
-                    userLibrary: libraryVM.mySounds,
-                    saveSoundToLibrary: libraryVM.saveSoundToLibrary,
-                    tabSelection: $tabSelection
-                )
-     
-                .frame(minHeight: UIScreen.main.bounds.height * 0.5)
-                HStack {
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text(storeManager.hasSubscription ? "Member" : "Free Listener")
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
-                        Text(storeManager.hasSubscription ? "Thanks you for supporting natureFM" : "You could be missing out, get the subscription today for access to all content.")
-                        Button("Get subscription") {
-                            tabSelection = 3
+        NavigationStack {
+            ScrollView {
+                VStack(spacing: 25) {
+                    FeaturedImageLayoutView(
+                        soundArray: catalogVM.allSounds,
+                        userLibrary: libraryVM.mySounds,
+                        saveSoundToLibrary: libraryVM.saveSoundToLibrary,
+                        tabSelection: $tabSelection
+                    )
+
+                    .frame(minHeight: UIScreen.main.bounds.height * 0.5)
+                    HStack {
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text(storeManager.hasSubscription ? "Member" : "Free Listener")
+                                .font(.largeTitle)
+                                .fontWeight(.bold)
+                            Text(storeManager.hasSubscription ? "Thanks you for supporting natureFM" : "You could be missing out, get the subscription today for access to all content.")
+                            Button("Get subscription") {
+                                tabSelection = 3
+                            }
+                            .buttonStyle(BorderButton(color: Color.theme.titleColor))
                         }
-                        .buttonStyle(BorderButton(color: Color.theme.titleColor))
+                        Spacer()
                     }
-                    Spacer()
+                    .padding(.horizontal)
+                    
+                    CategoryRowView(
+                        categories: catalogVM.categories,
+                        selectedCategory: $catalogVM.selectedCategory
+                    )
+     
+                    
+                    // Section One
+                    HorizontalScrollView(
+                        vm: catalogVM,
+                        playerVM: playerVM,
+                        soundChoice: .free,
+                        storeManager: storeManager,
+                        tabSelection: $tabSelection
+                    )
+                    // Section Three
+                    HorizontalScrollView(
+                        vm: catalogVM,
+                        playerVM: playerVM,
+                        soundChoice: .subscription,
+                        storeManager: storeManager,
+                        tabSelection: $tabSelection
+                    )
                 }
-                .padding(.horizontal)
-                
-                CategoryRowView(
-                    categories: catalogVM.categories,
-                    selectedCategory: $catalogVM.selectedCategory
-                )
- 
-                
-                // Section One
-                HorizontalScrollView(
-                    vm: catalogVM,
-                    playerVM: playerVM,
-                    soundChoice: .free,
-                    storeManager: storeManager,
-                    tabSelection: $tabSelection
-                )
-                // Section Three
-                HorizontalScrollView(
-                    vm: catalogVM,
-                    playerVM: playerVM,
-                    soundChoice: .subscription,
-                    storeManager: storeManager,
-                    tabSelection: $tabSelection
-                )
+
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Text("rdConcepts")
+                            .foregroundColor(Color.theme.backgroundColor)
+                            .font(.caption2)
+                            .fontWeight(.heavy)
+                            .padding()
+                    }
+                }
             }
+            .edgesIgnoringSafeArea(.top)
+   
         }
-        .edgesIgnoringSafeArea(.top)
+        
     }
     
     
