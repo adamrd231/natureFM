@@ -47,69 +47,66 @@ struct CatalogView_Previews: PreviewProvider {
 
 extension CatalogView {
     var CatalogScrollView: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(spacing: 25) {
-                    FeaturedImageLayoutView(
-                        soundArray: catalogVM.allSounds,
-                        userLibrary: libraryVM.mySounds,
-                        saveSoundToLibrary: libraryVM.saveSoundToLibrary,
-                        tabSelection: $tabSelection
-                    )
 
-                    .frame(minHeight: UIScreen.main.bounds.height * 0.5)
-                    HStack {
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text(storeManager.hasSubscription ? "Member" : "Free Listener")
-                                .font(.largeTitle)
-                                .fontWeight(.bold)
-                            Text(storeManager.hasSubscription ? "Thanks you for supporting natureFM" : "You could be missing out, get the subscription today for access to all content.")
-                            Button("Get subscription") {
-                                tabSelection = 3
-                            }
-                            .buttonStyle(BorderButton(color: Color.theme.titleColor))
+        ScrollView {
+            VStack(spacing: 25) {
+                FeaturedImageLayoutView(
+                    soundArray: catalogVM.allSounds,
+                    userLibrary: libraryVM.mySounds,
+                    saveSoundToLibrary: libraryVM.saveSoundToLibrary,
+                    tabSelection: $tabSelection
+                )
+            
+                .frame(minHeight: UIScreen.main.bounds.height * 0.5)
+                HStack {
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text(storeManager.hasSubscription ? "Member" : "Free Listener")
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                        Text(storeManager.hasSubscription ? "Thanks you for supporting natureFM" : "You could be missing out, get the subscription today for access to all content.")
+                        Button("Get subscription") {
+                            tabSelection = 3
                         }
-                        Spacer()
+                        .buttonStyle(BorderButton(color: Color.theme.titleColor))
                     }
-                    .padding(.horizontal)
-                    
-                    CategoryRowView(
-                        categories: catalogVM.categories,
-                        selectedCategory: $catalogVM.selectedCategory
-                    )
-     
-                    
-                    // Section One
-                    HorizontalScrollView(
-                        vm: catalogVM,
-                        playerVM: playerVM,
-                        soundChoice: .free,
-                        storeManager: storeManager,
-                        tabSelection: $tabSelection
-                    )
-                    // Section Three
-                    HorizontalScrollView(
-                        vm: catalogVM,
-                        playerVM: playerVM,
-                        soundChoice: .subscription,
-                        storeManager: storeManager,
-                        tabSelection: $tabSelection
-                    )
+                    Spacer()
                 }
-
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Text("rdConcepts")
-                            .foregroundColor(Color.theme.backgroundColor)
-                            .font(.caption2)
-                            .fontWeight(.heavy)
-                            .padding()
-                    }
-                }
+                .padding(.horizontal)
+                
+                CategoryRowView(
+                    categories: catalogVM.categories,
+                    selectedCategory: $catalogVM.selectedCategory
+                )
+ 
+                
+                // Section One
+                HorizontalScrollView(
+                    vm: catalogVM,
+                    playerVM: playerVM,
+                    soundChoice: .free,
+                    storeManager: storeManager,
+                    tabSelection: $tabSelection
+                )
+                // Section Three
+                HorizontalScrollView(
+                    vm: catalogVM,
+                    playerVM: playerVM,
+                    soundChoice: .subscription,
+                    storeManager: storeManager,
+                    tabSelection: $tabSelection
+                )
             }
-            .edgesIgnoringSafeArea(.top)
-   
+
+            .overlay(alignment: .topLeading) {
+                Text("natureFM")
+                    .foregroundColor(Color.theme.backgroundColor)
+                    .font(.caption2)
+                    .fontWeight(.heavy)
+                    .padding(25)
+                    .padding(.top, 25)
+            }
         }
+        .edgesIgnoringSafeArea(.top)
         
     }
     
