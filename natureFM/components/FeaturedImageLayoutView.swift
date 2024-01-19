@@ -35,7 +35,10 @@ struct FeaturedImageLayoutView: View {
             ForEach(soundArray, id: \.id) { sound in
                 ZStack {
                     SoundImageView(sound: sound)
-                        .overlay(Color.black.opacity(0.5))
+                        .overlay(
+                            LinearGradient(colors: [Color.theme.backgroundColor, Color.theme.backgroundColor.opacity(0)], startPoint: .top, endPoint: .bottom)
+//                            .opacity(0.66)
+                        )
          
                     
                     VStack(alignment: .center, spacing: 10) {
@@ -63,7 +66,7 @@ struct FeaturedImageLayoutView: View {
                             
                         }
                     }
-                    .foregroundColor(Color.theme.featuredTitleColor)
+                    .foregroundColor(Color.theme.titleColor)
                     .alert(isPresented: $isShowingAlert, content: {
                         // decide which alert to show
                         Alert(

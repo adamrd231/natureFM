@@ -99,7 +99,7 @@ extension CatalogView {
 
             .overlay(alignment: .topLeading) {
                 Text("natureFM")
-                    .foregroundColor(Color.theme.featuredTitleColor)
+                    .foregroundColor(Color.theme.titleColor)
                     .font(.caption2)
                     .fontWeight(.heavy)
                     .padding(25)
