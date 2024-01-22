@@ -41,61 +41,61 @@ struct CatalogView_Previews: PreviewProvider {
 
 extension CatalogView {
     var CatalogScrollView: some View {
-        ScrollView {
-            VStack(spacing: 25) {
-                FeaturedImageLayoutView(
-                    soundArray: catalogVM.allSounds,
-                    userLibrary: libraryVM.mySounds,
-                    saveSoundToLibrary: libraryVM.saveSoundToLibrary,
-                    tabSelection: $tabSelection
-                )
-        
-                UserListenerStatusView(
-                    hasSubscription: storeManager.hasSubscription,
-                    tabSelection: $tabSelection)
-                
-                CategoryRowView(
-                    categories: catalogVM.categories,
-                    selectedCategory: $catalogVM.selectedCategory
-                )
- 
-                // Section One
-                HorizontalScrollView(
-                    soundArray: catalogVM.allFreeSounds,
-                    userLibrary: libraryVM.mySounds,
-                    isViewingSongPlayerTab: $playerVM.isViewingSongPlayerTab,
-                    soundChoice: .free,
-                    hasSubscription: storeManager.hasSubscription,
-                    tabSelection: $tabSelection
-                )
-                // Section Three
-                HorizontalScrollView(
-                    soundArray: catalogVM.allSubscriptionSounds,
-                    userLibrary: libraryVM.mySounds,
-                    isViewingSongPlayerTab: $playerVM.isViewingSongPlayerTab,
-                    soundChoice: .subscription,
-                    hasSubscription: storeManager.hasSubscription,
-                    tabSelection: $tabSelection
-                )
-            }
-            .overlay(alignment: .topLeading) {
-                Text("natureFM")
-                    .foregroundColor(Color.theme.titleColor)
-                    .font(.caption2)
-                    .fontWeight(.heavy)
-                    .padding(25)
-                    .padding(.top, 25)
-            }
+        VStack {
+            ScrollView {
+                VStack(spacing: 25) {
+                    FeaturedImageLayoutView(
+                        soundArray: catalogVM.allSounds,
+                        userLibrary: libraryVM.mySounds,
+                        saveSoundToLibrary: libraryVM.saveSoundToLibrary,
+                        tabSelection: $tabSelection
+                    )
+            
+                    UserListenerStatusView(
+                        hasSubscription: storeManager.hasSubscription,
+                        tabSelection: $tabSelection)
+                    
+                    CategoryRowView(
+                        categories: catalogVM.categories,
+                        selectedCategory: $catalogVM.selectedCategory
+                    )
+     
+                    // Section One
+                    HorizontalScrollView(
+                        soundArray: catalogVM.allFreeSounds,
+                        userLibrary: libraryVM.mySounds,
+                        isViewingSongPlayerTab: $playerVM.isViewingSongPlayerTab,
+                        soundChoice: .free,
+                        hasSubscription: storeManager.hasSubscription,
+                        tabSelection: $tabSelection
+                    )
+                    // Section Three
+                    HorizontalScrollView(
+                        soundArray: catalogVM.allSubscriptionSounds,
+                        userLibrary: libraryVM.mySounds,
+                        isViewingSongPlayerTab: $playerVM.isViewingSongPlayerTab,
+                        soundChoice: .subscription,
+                        hasSubscription: storeManager.hasSubscription,
+                        tabSelection: $tabSelection
+                    )
+                }
+                .overlay(alignment: .topLeading) {
+                    Text("natureFM")
+                        .foregroundColor(Color.theme.titleColor)
+                        .font(.caption2)
+                        .fontWeight(.heavy)
+                        .padding(25)
+                        .padding(.top, 25)
+                }
 
-        }
-        .edgesIgnoringSafeArea(.top)
-        .overlay(alignment: .bottom, content: {
+            }
             if playerVM.isViewingSongPlayerTab {
                 PlayingNowBar(playerVM: playerVM)
                     .environmentObject(catalogVM)
             }
-        })
+        }
     }
+    
     
     
     var NoInternetView: some View {

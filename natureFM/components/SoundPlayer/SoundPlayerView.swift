@@ -78,9 +78,9 @@ struct SoundPlayerView: View {
                 .environmentObject(homeVM)
             ProgressBarView(
                 stopPlayer: { print("Stop player") },
-                startPlayer: { print("Start player") },
-                currentTime: $playerVM.currentTime,
-                duration: playerVM.duration
+                startPlayer: { print("Start player") }
+//                currentTime: $playerVM.currentTime,
+//                duration: playerVM.duration
             )
               .environmentObject(homeVM)
               .padding(.bottom)

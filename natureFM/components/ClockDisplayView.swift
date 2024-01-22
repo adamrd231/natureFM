@@ -17,6 +17,7 @@ struct ClockDisplayView: View {
                 Text(time % 60, format: .number)
                 Text("s")
             }
+            Text("left")
         }
         .font(font)
     }

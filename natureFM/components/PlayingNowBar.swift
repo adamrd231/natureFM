@@ -1,14 +1,13 @@
 import SwiftUI
 
 struct PlayingNowBar: View {
-    @EnvironmentObject var homeVM: CatalogViewModel
     @ObservedObject var playerVM: PlayerViewModel
+    
     let buttonSize: CGFloat = 25
     
     var body: some View {
         HStack(spacing: 15) {
             if let sound = playerVM.sound {
-                // This image needs to update based on current sound selection...
                 SoundImageView(sound: sound)
                     .frame(height: 80)
                     .frame(maxWidth: 90)
@@ -25,31 +24,29 @@ struct PlayingNowBar: View {
                                 .padding(7)
                         }
                     }
-            }
-            
-            VStack(alignment: .leading, spacing: 2) {
-                Text(playerVM.sound?.name ?? "")
-                    .font(.callout)
-                    .fontWeight(.heavy)
-                    .foregroundColor(Color.theme.titleColor)
-                    .lineLimit(1)
-                    .truncationMode(.tail)
-            
-                HStack(spacing: 5) {
-//                    ClockDisplayView(
-//                        time: Int(homeVM.audioPlayer.currentItem?.duration.seconds ?? 0 - homeVM.audioPlayer.currentTime().seconds),
-//                        font: .caption)
-                    ClockDisplayView(time: playerVM.duration - Int(playerVM.currentTime), font: .caption2)
-                    Text("left")
-                }
-            }
-            .font(.caption2)
-            .gesture(
-                DragGesture()
-                    .onEnded { drag in
-                        playerVM.isViewingSongPlayer = true
+                
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(sound.name)
+                        .font(.callout)
+                        .fontWeight(.heavy)
+                        .foregroundColor(Color.theme.titleColor)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                
+                    HStack(spacing: 5) {
+                        ClockDisplayView(
+                            time: Int(Double(playerVM.duration) - playerVM.currentTime),
+                            font: .caption2
+                        )
                     }
-            )
+                }
+                .font(.caption2)
+
+            } else {
+                Text("Loading")
+            }
+            
+            
 
             Spacer()
 
@@ -73,15 +70,15 @@ struct PlayingNowBar: View {
                             .frame(width: buttonSize, height: buttonSize, alignment: .center)
                     }
                 }
-                if homeVM.allSounds.count > 1 {
-                    Button {
-//                        homeVM.skipToNextSound()
-                    } label: {
-                        Image(systemName: "forward.end")
-                            .resizable()
-                            .frame(width: buttonSize - 5, height: buttonSize - 5, alignment: .center)
-                    }
-                }
+//                if homeVM.allSounds.count > 1 {
+//                    Button {
+////                        homeVM.skipToNextSound()
+//                    } label: {
+//                        Image(systemName: "forward.end")
+//                            .resizable()
+//                            .frame(width: buttonSize - 5, height: buttonSize - 5, alignment: .center)
+//                    }
+//                }
             }
             .foregroundColor(Color.theme.customBlue)
             .padding(.trailing)
@@ -101,7 +98,7 @@ struct PlayingNowBar_Previews: PreviewProvider {
     
     static var previews: some View {
         PlayingNowBar(
-            playerVM: PlayerViewModel()
+            playerVM: dev.playerVM
         )
         .preferredColorScheme(.light)
         .environmentObject(dev.homeVM)
