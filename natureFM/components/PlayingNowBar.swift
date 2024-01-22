@@ -46,13 +46,12 @@ struct PlayingNowBar: View {
                 Text("Loading")
             }
             
-            
-
             Spacer()
 
             HStack(spacing: 25) {
                 // Play button
                 Button {
+                    print("Player is: \(playerVM.isPlaying)")
                     if playerVM.isPlaying {
                         playerVM.stopPlayer()
                     } else {

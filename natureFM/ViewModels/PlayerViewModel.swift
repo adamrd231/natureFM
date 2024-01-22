@@ -6,17 +6,12 @@ import Combine
 class PlayerViewModel: ObservableObject {
     // Sound player
     var audioPlayer: AVAudioPlayer?
+    @Published var songDataDownloadService = SongDataDownloadService()
     @Published var sound: SoundsModel?
     @Published var soundsPlaylist: [SoundsModel] = []
     @Published var isPlaying: Bool = false
     @Published var percentagePlayed: Double = 0
-    var currentTime: Double {
-        if let player = audioPlayer {
-            return player.currentTime
-        } else {
-            return 0
-        }
-    }
+    @Published var currentTime: Double = 0
     @Published var duration: Int = 0
 
     @Published var isRepeating: Bool = true
@@ -34,12 +29,25 @@ class PlayerViewModel: ObservableObject {
     
     func addSubscribers() {
         $sound
-            .sink { [weak self] returnedSound in
-                print("Updated sound")
-                if let duration = returnedSound?.duration {
-                    self?.duration = duration
+            .sink { returnedSound in
+                if let unwrappedSound = returnedSound {
+                    self.currentTime = 0
+                    self.percentagePlayed = 0
+                    self.duration = returnedSound?.duration ?? 0
+                    self.songDataDownloadService.getSound(sound: unwrappedSound)
                 }
-                
+            }
+            .store(in: &cancellable)
+        
+        songDataDownloadService.$downloadedSound
+            .sink { returnedPlayerData in
+                if let data = returnedPlayerData {
+                    do {
+                        try self.audioPlayer = AVAudioPlayer(data: data)
+                    } catch {
+                        print("Error setting up audio player HOMEVIEWMODEL")
+                    }
+                }
             }
             .store(in: &cancellable)
     }
@@ -53,7 +61,9 @@ class PlayerViewModel: ObservableObject {
                 return
             }
             // Update timer elements
-            
+            if let unwrappedPlayer = self.audioPlayer {
+                self.currentTime = unwrappedPlayer.currentTime
+            }
         }
     }
     
@@ -61,6 +71,14 @@ class PlayerViewModel: ObservableObject {
         self.timer.invalidate()
     }
     
+    func toggleTimer() {
+        if let player = audioPlayer {
+            switch player.isPlaying {
+            case true: print("Stop player")
+            case false: print("Start player")
+            }
+        }
+    }
     func stopPlayer() {
         if let player = audioPlayer {
             isPlaying = false
@@ -74,7 +92,6 @@ class PlayerViewModel: ObservableObject {
             isPlaying = true
             runTimer()
             player.play()
-
         }
     }
     
