@@ -14,8 +14,8 @@ struct CatalogView: View {
                 CatalogScrollView
                     .sheet(isPresented: $playerVM.isViewingSongPlayer, content: {
                         SoundPlayerView(
-                            homeVM: catalogVM,
                             playerVM: playerVM,
+                            libraryVM: libraryVM,
                             tabSelection: $tabSelection
                         )
                     })
@@ -91,7 +91,6 @@ extension CatalogView {
             }
             if playerVM.isViewingSongPlayerTab {
                 PlayingNowBar(playerVM: playerVM)
-                    .environmentObject(catalogVM)
             }
         }
     }

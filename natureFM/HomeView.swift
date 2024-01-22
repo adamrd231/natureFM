@@ -80,6 +80,13 @@ struct HomeView: View {
         }
         .tint(Color.theme.customBlue)
         .navigationViewStyle(StackNavigationViewStyle())
+        .fullScreenCover(isPresented: $playerVM.isViewingSongPlayer, content: {
+            SoundPlayerView(
+                playerVM: playerVM,
+                libraryVM: libraryVM,
+                tabSelection: $currentTab
+            )
+        })
     }
 }
 

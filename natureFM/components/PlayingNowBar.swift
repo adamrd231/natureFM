@@ -100,7 +100,6 @@ struct PlayingNowBar_Previews: PreviewProvider {
             playerVM: dev.playerVM
         )
         .preferredColorScheme(.light)
-        .environmentObject(dev.homeVM)
         .previewLayout(.sizeThatFits)
     }
 }

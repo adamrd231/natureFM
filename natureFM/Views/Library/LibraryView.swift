@@ -76,14 +76,6 @@ struct LibraryView: View {
            
             }
             .listStyle(.plain)
-            .sheet(isPresented: $playerVM.isViewingSongPlayer, content: {
-                SoundPlayerView(
-                    homeVM: vm,
-                    playerVM: playerVM,
-                    tabSelection: $currentTab
-                )
-                
-            })
             .overlay(alignment: .bottom, content: {
                     if playerVM.isViewingSongPlayerTab {
                         PlayingNowBar(playerVM: playerVM)
