@@ -12,13 +12,6 @@ struct CatalogView: View {
         VStack(alignment: .leading, spacing: 0) {
             if network.isConnected {
                 CatalogScrollView
-                    .sheet(isPresented: $playerVM.isViewingSongPlayer, content: {
-                        SoundPlayerView(
-                            playerVM: playerVM,
-                            libraryVM: libraryVM,
-                            tabSelection: $tabSelection
-                        )
-                    })
             } else {
                 NoInternetView
             }
@@ -89,6 +82,7 @@ extension CatalogView {
                 }
 
             }
+            
             if playerVM.isViewingSongPlayerTab {
                 PlayingNowBar(playerVM: playerVM)
             }

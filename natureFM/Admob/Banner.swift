@@ -12,12 +12,15 @@ private struct BannerVC: UIViewControllerRepresentable  {
     }
 
     func makeUIViewController(context: Context) -> UIViewController {
-        let view = GADBannerView(adSize: kGADAdSizeBanner)
+        let size = CGSize(width: UIScreen.main.bounds.width, height: 50)
+        
+        let view = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
         let viewController = UIViewController()
         view.adUnitID = BannerAdMobConstant.bannerID
         view.rootViewController = viewController
         viewController.view.addSubview(view)
-        viewController.view.frame = CGRect(origin: .zero, size: kGADAdSizeBanner.size)
+ 
+        viewController.view.frame = CGRect(origin: .zero, size: size)
         view.load(GADRequest())
         return viewController
     }
@@ -28,8 +31,7 @@ private struct BannerVC: UIViewControllerRepresentable  {
 struct AdmobBanner:View{
     var body: some View{
         BannerVC()
-            .frame(width: 320, height: 70, alignment: .center)
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: .infinity, maxHeight: 50)
     }
 }
 

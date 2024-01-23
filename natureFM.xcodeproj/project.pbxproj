@@ -61,6 +61,7 @@
 		66E43FBF26C6146000AE012E /* SoundsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E43FBE26C6146000AE012E /* SoundsModel.swift */; };
 		66E85FF0270E2AFD009F1AEF /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66E85FEF270E2AFD009F1AEF /* StoreKit.framework */; };
 		66E8600E270E60E6009F1AEF /* Stash.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 66E8600C270E60E6009F1AEF /* Stash.xcdatamodeld */; };
+		66F241D62B6030BD00E26769 /* NoInternetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F241D52B6030BD00E26769 /* NoInternetView.swift */; };
 		66F94AE427B31FDC00B50D28 /* CategoryDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F94AE327B31FDC00B50D28 /* CategoryDataService.swift */; };
 		FB482CB34D6A39FBEE55B8B9 /* libPods-natureFM.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2F0247C837BDF923BD78839 /* libPods-natureFM.a */; };
 /* End PBXBuildFile section */
@@ -141,6 +142,7 @@
 		66E43FBE26C6146000AE012E /* SoundsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundsModel.swift; sourceTree = "<group>"; };
 		66E85FEF270E2AFD009F1AEF /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		66E8600D270E60E6009F1AEF /* Stash.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Stash.xcdatamodel; sourceTree = "<group>"; };
+		66F241D52B6030BD00E26769 /* NoInternetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoInternetView.swift; sourceTree = "<group>"; };
 		66F94AE327B31FDC00B50D28 /* CategoryDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDataService.swift; sourceTree = "<group>"; };
 		69100EA3012BDB2D287C73B9 /* Pods-natureFM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-natureFM.release.xcconfig"; path = "Target Support Files/Pods-natureFM/Pods-natureFM.release.xcconfig"; sourceTree = "<group>"; };
 		7866A4F15E09940DE7E1541E /* Pods-natureFM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-natureFM.debug.xcconfig"; path = "Target Support Files/Pods-natureFM/Pods-natureFM.debug.xcconfig"; sourceTree = "<group>"; };
@@ -351,6 +353,7 @@
 				66CE6FFE27B4A7CD0031E7FE /* SoundPlayer */,
 				664F0BD72B59B19A002D1E2A /* CategoryRowView.swift */,
 				664F0BE62B5AF9EF002D1E2A /* UserListenerStatusView.swift */,
+				66F241D52B6030BD00E26769 /* NoInternetView.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -661,6 +664,7 @@
 				6685C6072AD8A337005947A4 /* ProgressBarView.swift in Sources */,
 				6685C6392ADF1714005947A4 /* Banner.swift in Sources */,
 				6693C4AF2728F06900D4FD17 /* CategoryPickerView.swift in Sources */,
+				66F241D62B6030BD00E26769 /* NoInternetView.swift in Sources */,
 				6682760F2B3C9F8500B5B548 /* CatalogTitle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
