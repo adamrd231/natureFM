@@ -52,6 +52,11 @@ class PlayerViewModel: ObservableObject {
             .store(in: &cancellable)
     }
     
+    func selectSound(newSound: SoundsModel) {
+        self.sound = newSound
+        self.isViewingSongPlayerTab = true
+    }
+    
     func runTimer() {
         self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true ) { _ in
             guard self.isPlaying == true else { return }

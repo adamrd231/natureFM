@@ -10,20 +10,8 @@ struct PlayingNowBar: View {
             if let sound = playerVM.sound {
                 SoundImageView(sound: sound)
                     .frame(height: 80)
-                    .frame(maxWidth: 90)
+                    .frame(maxWidth: 120)
                     .clipped()
-                    .overlay(alignment: .topLeading) {
-                        Button {
-                            playerVM.stopPlayer()
-                            playerVM.isViewingSongPlayerTab = false
-                        } label: {
-                            Image(systemName: "cross.circle.fill")
-                                .rotationEffect(Angle(degrees: 45))
-                                .foregroundColor(Color.theme.titleColor.opacity(0.8))
-                                .frame(width: 15, height: 15, alignment: .center)
-                                .padding(7)
-                        }
-                    }
                 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(sound.name)
@@ -88,7 +76,7 @@ struct PlayingNowBar: View {
         }
 
         .frame(width: UIScreen.main.bounds.width, height: 80)
-        .background(Color.theme.backgroundColor.opacity(0.9))
+
     }
 
 }

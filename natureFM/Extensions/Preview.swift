@@ -13,6 +13,7 @@ class DeveloperPreview {
         
         // player
         playerVM.sound = testSound
+        playerVM.isViewingSongPlayerTab = true
         
         homeVM.allFreeSounds.append(testSound)
         homeVM.allFreeSounds.append(testSound2)

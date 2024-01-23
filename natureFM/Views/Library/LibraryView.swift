@@ -47,13 +47,14 @@ struct LibraryView: View {
                 ForEach(libraryVM.filteredSounds) { sound in
                     LibraryItemView(
                         sound: sound,
+                        selectSound: playerVM.selectSound,
                         removeFromLibrary: libraryVM.removeFromLibrary
                     )
                 }
-           
+                .listRowSeparator(.hidden)
             }
             .listStyle(.plain)
-            .listRowSeparator(.hidden)
+ 
 
             if playerVM.isViewingSongPlayerTab {
                 PlayingNowBar(playerVM: playerVM)

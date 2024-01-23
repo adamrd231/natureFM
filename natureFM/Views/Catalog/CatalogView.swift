@@ -23,7 +23,7 @@ struct CatalogView_Previews: PreviewProvider {
     static var previews: some View {
         CatalogView(
             catalogVM: dev.homeVM,
-            playerVM: PlayerViewModel(),
+            playerVM: dev.playerVM,
             libraryVM: LibraryViewModel(),
             storeManager: StoreManager(),
             network: NetworkMonitor(),
@@ -34,7 +34,7 @@ struct CatalogView_Previews: PreviewProvider {
 
 extension CatalogView {
     var CatalogScrollView: some View {
-        VStack {
+        VStack(spacing: 0) {
             ScrollView {
                 VStack(spacing: 25) {
                     FeaturedImageLayoutView(
@@ -85,6 +85,7 @@ extension CatalogView {
             
             if playerVM.isViewingSongPlayerTab {
                 PlayingNowBar(playerVM: playerVM)
+              
             }
         }
     }
