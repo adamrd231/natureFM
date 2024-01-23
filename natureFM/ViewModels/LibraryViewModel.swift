@@ -5,7 +5,15 @@ class LibraryViewModel: ObservableObject {
     let downloadedContentService = DownloadedContentService()
     
     @Published var mySounds: [SoundsModel] = []
-    @Published var categories: [CategoryModel] = []
+    var filteredSounds: [SoundsModel] {
+        if selectedCategory == "All" {
+            return mySounds
+        } else {
+            return mySounds.filter({ $0.categoryName == selectedCategory })
+        }
+        
+    }
+    @Published var categories: [CategoryName] = []
     @Published var selectedCategory: String = "All"
     
     // Cancellable
@@ -25,6 +33,21 @@ class LibraryViewModel: ObservableObject {
             .map(mapDownloadedContent)
             .sink { [weak self] (returnedSounds) in
                 self?.mySounds = returnedSounds
+                
+                // Gather all categories from sounds
+                var categoryArray:[CategoryName] = []
+                categoryArray.append(CategoryName(title: "All"))
+                for sound in returnedSounds {
+                    // Setup category array
+                    let newCategory = CategoryName(title: sound.categoryName)
+                    if categoryArray.contains(where: { $0.title == sound.categoryName }) {
+                        print("Do nothing")
+                    } else {
+                        print("Append")
+                        categoryArray.append(newCategory)
+                    }
+                }
+                self?.categories = categoryArray
             }
             .store(in: &cancellable)
     }
@@ -41,12 +64,14 @@ class LibraryViewModel: ObservableObject {
                 locationName: sound.locationName ?? "",
                 freeSong: sound.freeSong
             )
-            
-            if newSound.categoryName == currentCategory || currentCategory == "All" {
-                sounds.append(newSound)
-            }
+            sounds.append(newSound)
         }
         sounds.sort(by: { $0.name < $1.name })
         return sounds
+    }
+    
+    func removeFromLibrary(sound: SoundsModel) {
+        print("Remove from library \(sound.name)")
+        downloadedContentService.deleteSound(sound: sound)
     }
 }

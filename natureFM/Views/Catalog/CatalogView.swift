@@ -13,7 +13,7 @@ struct CatalogView: View {
             if network.isConnected {
                 CatalogScrollView
             } else {
-                NoInternetView
+                NoInternetView(tabSelection: $tabSelection)
             }
         }
     }
@@ -87,34 +87,6 @@ extension CatalogView {
                 PlayingNowBar(playerVM: playerVM)
             }
         }
-    }
-    
-    
-    
-    var NoInternetView: some View {
-        VStack(alignment: .center) {
-            Image(systemName: "wifi.slash")
-                .resizable()
-                .frame(width: 25, height: 25)
-            Text("No internet connection available")
-                .bold()
-            Text("To view sounds and download items from the library, please connect to wifi or cellular data.")
-                .font(.caption)
-            Button {
-                tabSelection = 2
-            } label: {
-                Text("Library")
-            }
-            .tint(Color.black.opacity(0.4))
-            .buttonStyle(.bordered)
-
-        }
-        .padding()
-        .background(Color.theme.backgroundColor)
-        .foregroundColor(Color.theme.titleColor)
-        .cornerRadius(10)
-        .padding()
-        .multilineTextAlignment(.center)
     }
 }
 
