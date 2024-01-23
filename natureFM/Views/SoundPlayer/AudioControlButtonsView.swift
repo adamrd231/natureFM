@@ -11,16 +11,7 @@ struct AudioControlButtonsView: View {
         HStack(spacing: 25) {
             Button {
                 // Skip backward a song
-                if let s = playerVM.sound {
-                    if let currentIndex = libraryVM.mySounds.firstIndex(of: s) {
-                        let previousIndex = libraryVM.mySounds.index(before: currentIndex)
-                        if previousIndex < 0 {
-                            playerVM.sound = libraryVM.mySounds.last
-                        } else {
-                            playerVM.sound = libraryVM.mySounds[previousIndex]
-                        }
-                    }
-                }
+                playerVM.skipSongBackwards()
                
             } label: {
                 Image(systemName: "backward.end")
@@ -62,16 +53,7 @@ struct AudioControlButtonsView: View {
             Spacer()
             Button {
                 // skip to next song
-                if let s = playerVM.sound {
-                    if let currentIndex = libraryVM.mySounds.firstIndex(of: s) {
-                        let nextIndex = libraryVM.mySounds.index(after: currentIndex)
-                        if nextIndex > libraryVM.mySounds.count - 1 {
-                            playerVM.sound = libraryVM.mySounds.first
-                        } else {
-                            playerVM.sound = libraryVM.mySounds[nextIndex]
-                        }
-                    }
-                }
+                playerVM.skipSongForward()
             } label: {
                 Image(systemName: "forward.end")
                     .resizable()

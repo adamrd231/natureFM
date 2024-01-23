@@ -49,11 +49,11 @@ struct SoundPlayerView: View {
                             } label: {
                                 Image(systemName: playerVM.isRepeating ? "repeat.circle.fill" : "repeat")
                             }
-                            Button {
-                                playerVM.isShuffling.toggle()
-                            } label: {
-                                Image(systemName: playerVM.isShuffling ? "shuffle.circle.fill" : "shuffle")
-                            }
+//                            Button {
+//                                playerVM.isShuffling.toggle()
+//                            } label: {
+//                                Image(systemName: playerVM.isShuffling ? "shuffle.circle.fill" : "shuffle")
+//                            }
                         }
                         .foregroundColor(Color.theme.customBlue)
                     }
@@ -64,8 +64,9 @@ struct SoundPlayerView: View {
                     
                     List {
                         if libraryVM.mySounds.count > 0 {
-                            ForEach(libraryVM.mySounds.filter({ $0 != playerVM.sound }), id: \.id) { sound in
+                            ForEach(playerVM.soundsPlaylist, id: \.id) { sound in
                                 Text(sound.name)
+                                    .fontWeight(sound == playerVM.sound ? .bold : .regular)
                             }
                             .listRowSeparator(.hidden)
                            

@@ -14,7 +14,7 @@ class PlayerViewModel: ObservableObject {
     @Published var currentTime: Double = 0
     @Published var duration: Int = 0
 
-    @Published var isRepeating: Bool = false
+    @Published var isRepeating: Bool = true
     @Published var isShuffling: Bool = false
     
     @Published var isViewingSongPlayer: Bool = false
@@ -58,11 +58,25 @@ class PlayerViewModel: ObservableObject {
     }
     
     func runTimer() {
+
+        print("Start timer")
         self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true ) { _ in
-            guard self.isPlaying == true else { return }
+            print("guard checks timer")
+            guard self.isPlaying == true else {
+                print("return at isplaying")
+                return
+                
+            }
             guard self.audioPlayer?.isPlaying == true else {
                 self.stopPlayer()
-                self.startPlayer()
+                if self.isRepeating {
+                    self.startPlayer()
+                } else {
+                    
+                    self.currentTime = 0
+                } 
+               
+                print("Return at audio player is playing")
                 return
             }
             // Update timer elements
@@ -70,6 +84,36 @@ class PlayerViewModel: ObservableObject {
                 self.currentTime = unwrappedPlayer.currentTime
             }
         }
+    }
+    
+    func skipSongForward() {
+        if let s = sound {
+            if let currentIndex = soundsPlaylist.firstIndex(of: s) {
+                let nextIndex = soundsPlaylist.index(after: currentIndex)
+                if nextIndex > soundsPlaylist.count - 1 {
+                    sound = soundsPlaylist.first
+                } else {
+                    sound = soundsPlaylist[nextIndex]
+                }
+            }
+        }
+    }
+        
+    func skipSongBackwards() {
+        if let s = sound {
+            if let currentIndex = soundsPlaylist.firstIndex(of: s) {
+                let previousIndex = soundsPlaylist.index(before: currentIndex)
+                if previousIndex < 0 {
+                    sound = soundsPlaylist.last
+                } else {
+                    sound = soundsPlaylist[previousIndex]
+                }
+            }
+        }
+    }
+    
+    func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
+        print("Finished")
     }
     
     func stopTimer() {

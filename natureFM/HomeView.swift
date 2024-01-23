@@ -87,6 +87,9 @@ struct HomeView: View {
                 tabSelection: $currentTab
             )
         })
+        .onAppear {
+            playerVM.soundsPlaylist = libraryVM.mySounds
+        }
     }
 }
 
