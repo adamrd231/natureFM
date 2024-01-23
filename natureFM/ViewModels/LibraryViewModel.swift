@@ -2,7 +2,7 @@ import Foundation
 import Combine
 
 class LibraryViewModel: ObservableObject {
-    let downloadedContentService = DownloadedContentService()
+    private let downloadedContentService = DownloadedContentService()
     
     @Published var mySounds: [SoundsModel] = []
     var filteredSounds: [SoundsModel] {
@@ -41,9 +41,7 @@ class LibraryViewModel: ObservableObject {
                     // Setup category array
                     let newCategory = CategoryName(title: sound.categoryName)
                     if categoryArray.contains(where: { $0.title == sound.categoryName }) {
-                        print("Do nothing")
                     } else {
-                        print("Append")
                         categoryArray.append(newCategory)
                     }
                 }
@@ -71,7 +69,6 @@ class LibraryViewModel: ObservableObject {
     }
     
     func removeFromLibrary(sound: SoundsModel) {
-        print("Remove from library \(sound.name)")
         downloadedContentService.deleteSound(sound: sound)
     }
 }

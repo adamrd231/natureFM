@@ -16,8 +16,11 @@ class DeveloperPreview {
         
         homeVM.allFreeSounds.append(testSound)
         homeVM.allFreeSounds.append(testSound2)
+        
+        libraryVM.mySounds.append(testSound)
+        libraryVM.mySounds.append(testSound2)
     }
-    
+    let libraryVM = LibraryViewModel()
     let playerVM = PlayerViewModel()
     let homeVM = CatalogViewModel()
     let testSound = SoundsModel(

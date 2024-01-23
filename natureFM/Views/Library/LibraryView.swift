@@ -53,6 +53,7 @@ struct LibraryView: View {
            
             }
             .listStyle(.plain)
+            .listRowSeparator(.hidden)
 
             if playerVM.isViewingSongPlayerTab {
                 PlayingNowBar(playerVM: playerVM)
@@ -65,7 +66,7 @@ struct Library_Previews: PreviewProvider {
     static var previews: some View {
         LibraryView(
             playerVM: PlayerViewModel(),
-            libraryVM: LibraryViewModel(),
+            libraryVM: dev.libraryVM,
             storeManager: StoreManager(),
             currentTab: .constant(1)
         )

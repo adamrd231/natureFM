@@ -60,7 +60,6 @@ struct LibraryItemView: View {
                 Image(systemName: "menucard")
             }
         }
-        .padding(.horizontal)
     }
 }
 
