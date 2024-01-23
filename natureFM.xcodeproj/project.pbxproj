@@ -316,6 +316,7 @@
 			isa = PBXGroup;
 			children = (
 				664F0BE82B5AFD6F002D1E2A /* HorizontalScrollView */,
+				66CE6FFE27B4A7CD0031E7FE /* SoundPlayer */,
 				66098BF827B1C385000041D9 /* Launch */,
 				6682760B2B3C9C5700B5B548 /* Catalog */,
 				6685C6012AD24C6D005947A4 /* Library */,
@@ -353,7 +354,6 @@
 				6685C5FF2AD06732005947A4 /* ClockDisplayView.swift */,
 				6685C5D12ABCBC1C005947A4 /* TabItemView.swift */,
 				6685C5FB2AC9D326005947A4 /* PlayingNowBar.swift */,
-				66CE6FFE27B4A7CD0031E7FE /* SoundPlayer */,
 				664F0BD72B59B19A002D1E2A /* CategoryRowView.swift */,
 				664F0BE62B5AF9EF002D1E2A /* UserListenerStatusView.swift */,
 				66F241D52B6030BD00E26769 /* NoInternetView.swift */,

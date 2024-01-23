@@ -10,14 +10,14 @@ struct ProgressBarView: View {
     // start player
     @State var startPlayer: () -> Void
 //    // current time -- BINDING
-//    @Binding var currentTime: Int
+    @Binding var currentTime: Double
 //    // duration
-//    @State var duration: Int
+    @State var duration: Int
 //
 //    // percentage played -- COMPUTED from current time and duration
-//    var percentagePlayed: Double {
-//        return Double(currentTime) / Double(duration)
-//    }
+    var percentagePlayed: Double {
+        return Double(currentTime) / Double(duration)
+    }
     
     var drag: some Gesture {
         DragGesture()
@@ -29,7 +29,7 @@ struct ProgressBarView: View {
                 // Update current time
                 // start player
                 let percentageToGoTo = isDragging.location.x / UIScreen.main.bounds.width * 0.9
-//                currentTime = Int(percentageToGoTo * CGFloat(duration))
+                currentTime = percentageToGoTo * CGFloat(duration)
                 startPlayer()
 
             }
@@ -43,7 +43,7 @@ struct ProgressBarView: View {
                     .frame(width: UIScreen.main.bounds.width * 0.9)
                 Rectangle()
                     .foregroundColor(Color.theme.customBlue)
-//                    .frame(width: ((UIScreen.main.bounds.width * 0.9) * percentagePlayed))
+                    .frame(width: ((UIScreen.main.bounds.width * 0.9) * percentagePlayed))
                    
             }
             .frame(height: 5)
@@ -53,17 +53,17 @@ struct ProgressBarView: View {
                 Circle()
                     .foregroundColor(Color.theme.customBlue)
                     .frame(width: 15, height: 15)
-//                    .offset(x: (UIScreen.main.bounds.width * 0.9) * percentagePlayed + 10)
+                    .offset(x: (UIScreen.main.bounds.width * 0.9) * percentagePlayed + 10)
                     .gesture(drag)
             }
             
-//            HStack {
-//                ClockDisplayView(time: Int(currentTime), font: .caption)
-//                Spacer()
-//                ClockDisplayView(time: Int((duration) - 1), font: .caption)
-//            }
-//            .padding(.horizontal)
-//            .font(.caption)
+            HStack {
+                ClockDisplayView(time: Int(currentTime), font: .caption)
+                Spacer()
+                ClockDisplayView(time: Int((duration) - 1), font: .caption)
+            }
+            .padding(.horizontal)
+            .font(.caption)
         }
     }
 }
@@ -72,9 +72,9 @@ struct ProgressBarView_Previews: PreviewProvider {
     static var previews: some View {
         ProgressBarView(
             stopPlayer: {},
-            startPlayer: {}
-//            currentTime: .constant(45),
-//            duration: 60
+            startPlayer: {},
+            currentTime: .constant(45),
+            duration: 60
         )
     }
 }

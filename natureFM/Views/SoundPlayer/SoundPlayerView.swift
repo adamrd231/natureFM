@@ -9,35 +9,39 @@ struct SoundPlayerView: View {
 
     var body: some View {
         NavigationStack {
-            VStack {
+            VStack(spacing: 10) {
                 // Image
                 if let sound = playerVM.sound {
                     SoundImageView(sound: sound)
-                        .frame(maxHeight: UIScreen.main.bounds.height * 0.33)
+                        .frame(maxWidth: UIScreen.main.bounds.width * 0.75, maxHeight: UIScreen.main.bounds.height * 0.35)
+                        .cornerRadius(15)
+                        .shadow(color: Color.theme.backgroundColor, radius: 2)
+                    
+                    // Sound title header
+                    VStack {
+                        Text(sound.name)
+                            .font(.title2)
+                            .fontWeight(.heavy)
+                            .foregroundColor(Color.theme.titleColor)
+                        HStack {
+                            Text(sound.categoryName)
+                            Text("|")
+                            Text(sound.locationName)
+                        }
+                        .font(.caption)
+                        .fontWeight(.medium)
+                        .foregroundColor(Color.theme.titleColor)
+                    }
                 }
                 
-                // Sound title header
-                VStack {
-                    Text(playerVM.sound?.name ?? "N/A")
-                        .font(.title2)
-                        .fontWeight(.heavy)
-                        .foregroundColor(Color.theme.titleColor)
-                    HStack {
-                        Text(playerVM.sound?.categoryName ?? "n/a")
-                        Text("|")
-                        Text(playerVM.sound?.locationName ?? "n/a")
-                    }
-                    .font(.caption)
-                    .fontWeight(.medium)
-                    .foregroundColor(Color.theme.titleColor)
-                }
+                
                 
                 // Playing next component
-                VStack(alignment: .leading, spacing: 10) {
+                VStack(alignment: .leading) {
                     // Playing next header
                     HStack(spacing: 5) {
                         Image(systemName: "arrow.down")
-                        Text(playerVM.isRepeating ? "playing next" : "library")
+                        Text("library")
                         Spacer()
                         HStack {
                             Button {
@@ -57,35 +61,47 @@ struct SoundPlayerView: View {
                     
                     
                     // List of current songs available to play
-                    if libraryVM.mySounds.count > 0 {
-                        List {
-                            Text("list")
-                        }
-                        .listStyle(.plain)
-                        
-                    } else {
-                        Button("Download songs for your library") {
-                            // Send user to library
-                            tabSelection = 1
-                            playerVM.isViewingSongPlayer = false
+                    
+                    List {
+                        if libraryVM.mySounds.count > 0 {
+                            ForEach(libraryVM.mySounds.filter({ $0 != playerVM.sound }), id: \.id) { sound in
+                                Text(sound.name)
+                            }
+                            .listRowSeparator(.hidden)
+                           
+                        } else {
+                            Button("Download songs for your library") {
+                                // Send user to library
+                                tabSelection = 1
+                                playerVM.isViewingSongPlayer = false
+                            }
+                            .listRowSeparator(.hidden)
                         }
                     }
+                    .listStyle(.plain)
                 }
-                Spacer()
-                AudioControlButtonsView(isPlaying: playerVM.isPlaying)
                 ProgressBarView(
                     stopPlayer: { print("Stop player") },
-                    startPlayer: { print("Start player") }
-                    //                currentTime: $playerVM.currentTime,
-                    //                duration: playerVM.duration
+                    startPlayer: { print("Start player") },
+                    currentTime: $playerVM.currentTime,
+                    duration: playerVM.duration
                 )
+     
+                AudioControlButtonsView(
+                    playerVM: playerVM,
+                    libraryVM: libraryVM
+                )
+                
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Button {
-                            presentationMode.wrappedValue.dismiss()
+//                            presentationMode.wrappedValue.dismiss()
+                            playerVM.isViewingSongPlayerTab = true
+                            playerVM.isViewingSongPlayer = false
                         } label: {
                             Image(systemName: "chevron.down.circle.fill")
                         }
+                        .foregroundColor(Color.theme.customBlue)
                     }
                 }
             }
@@ -100,6 +116,7 @@ struct SoundPlayerView_Previews: PreviewProvider {
         SoundPlayerView(
             playerVM: dev.playerVM,
             libraryVM: LibraryViewModel(),
+//            libraryVM: dev.libraryVM,
             tabSelection: .constant(1)
         )
     }

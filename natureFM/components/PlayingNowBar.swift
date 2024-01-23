@@ -6,12 +6,13 @@ struct PlayingNowBar: View {
     let buttonSize: CGFloat = 25
     
     var body: some View {
-        HStack(spacing: 15) {
+        HStack(spacing: 0) {
             if let sound = playerVM.sound {
                 SoundImageView(sound: sound)
-                    .frame(height: 80)
-                    .frame(maxWidth: 120)
+                    .frame(maxWidth: 90, maxHeight: 70)
                     .clipped()
+                    .cornerRadius(10)
+                    .padding()
                 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(sound.name)
@@ -31,15 +32,23 @@ struct PlayingNowBar: View {
                 .font(.caption2)
 
             } else {
-                Text("Loading")
+                ProgressView()
             }
             
             Spacer()
 
             HStack(spacing: 25) {
+                Button {
+                    playerVM.isViewingSongPlayer = true
+                    playerVM.isViewingSongPlayerTab = false
+                } label: {
+                    Image(systemName: "arrow.up.left.and.arrow.down.right")
+                        .resizable()
+                        .frame(width: buttonSize, height: buttonSize, alignment: .center)
+                }
+                
                 // Play button
                 Button {
-                    print("Player is: \(playerVM.isPlaying)")
                     if playerVM.isPlaying {
                         playerVM.stopPlayer()
                     } else {
@@ -57,26 +66,12 @@ struct PlayingNowBar: View {
                             .frame(width: buttonSize, height: buttonSize, alignment: .center)
                     }
                 }
-//                if homeVM.allSounds.count > 1 {
-//                    Button {
-////                        homeVM.skipToNextSound()
-//                    } label: {
-//                        Image(systemName: "forward.end")
-//                            .resizable()
-//                            .frame(width: buttonSize - 5, height: buttonSize - 5, alignment: .center)
-//                    }
-//                }
             }
             .foregroundColor(Color.theme.customBlue)
             .padding(.trailing)
             
         }
-        .onTapGesture {
-            playerVM.isViewingSongPlayer = true
-        }
-
         .frame(width: UIScreen.main.bounds.width, height: 80)
-
     }
 
 }
