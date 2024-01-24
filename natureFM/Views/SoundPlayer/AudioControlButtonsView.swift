@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct AudioControlButtonsView: View {
-    @ObservedObject var playerVM: PlayerViewModel
     @ObservedObject var libraryVM: LibraryViewModel
 
     private let buttonSize: CGFloat = 30
@@ -11,7 +10,7 @@ struct AudioControlButtonsView: View {
         HStack(spacing: 25) {
             Button {
                 // Skip backward a song
-                playerVM.skipSongBackwards()
+                libraryVM.skipSongBackwards()
                
             } label: {
                 Image(systemName: "backward.end")
@@ -21,7 +20,7 @@ struct AudioControlButtonsView: View {
             Spacer()
             Button {
                 // Skip backward 15 sec
-                playerVM.skipBackward15()
+                libraryVM.skipBackward15()
             } label: {
                 Image(systemName: "gobackward.15")
                     .resizable()
@@ -29,22 +28,22 @@ struct AudioControlButtonsView: View {
             }
            
             Button {
-                if playerVM.isPlaying {
+                if libraryVM.isPlaying {
                    // stop player
-                    playerVM.stopPlayer()
+                    libraryVM.stopPlayer()
                 } else {
                    // start player
-                    playerVM.startPlayer()
+                    libraryVM.startPlayer()
                 }
                
             } label: {
-                Image(systemName: playerVM.isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                Image(systemName: libraryVM.isPlaying ? "pause.circle.fill" : "play.circle.fill")
                     .resizable()
                     .frame(width: buttonSize + buttonAdjustment, height: buttonSize + buttonAdjustment)
             }
             Button {
                 // Skip forward 15
-                playerVM.skipForward15()
+                libraryVM.skipForward15()
             } label: {
                 Image(systemName: "goforward.15")
                     .resizable()
@@ -53,7 +52,7 @@ struct AudioControlButtonsView: View {
             Spacer()
             Button {
                 // skip to next song
-                playerVM.skipSongForward()
+                libraryVM.skipSongForward()
             } label: {
                 Image(systemName: "forward.end")
                     .resizable()
@@ -68,7 +67,6 @@ struct AudioControlButtonsView: View {
 struct AudioControlButtonsView_Previews: PreviewProvider {
     static var previews: some View {
         AudioControlButtonsView(
-            playerVM: dev.playerVM,
             libraryVM: dev.libraryVM
         )
     }

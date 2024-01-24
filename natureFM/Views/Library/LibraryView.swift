@@ -2,7 +2,6 @@ import SwiftUI
 
 struct LibraryView: View {
     @EnvironmentObject var catalogVM: CatalogViewModel
-    @ObservedObject var playerVM: PlayerViewModel
     @ObservedObject var libraryVM: LibraryViewModel
     @ObservedObject var storeManager: StoreManager
     @Binding var currentTab: Int
@@ -47,7 +46,7 @@ struct LibraryView: View {
                 ForEach(libraryVM.filteredSounds) { sound in
                     LibraryItemView(
                         sound: sound,
-                        selectSound: playerVM.selectSound,
+                        selectSound: libraryVM.selectSound,
                         removeFromLibrary: libraryVM.removeFromLibrary
                     )
                 }
@@ -56,8 +55,8 @@ struct LibraryView: View {
             .listStyle(.plain)
  
 
-            if playerVM.isViewingSongPlayerTab {
-                PlayingNowBar(playerVM: playerVM)
+            if libraryVM.isViewingSongPlayerTab {
+                PlayingNowBar(libraryVM: libraryVM)
             }
         }
     }
@@ -66,7 +65,6 @@ struct LibraryView: View {
 struct Library_Previews: PreviewProvider {
     static var previews: some View {
         LibraryView(
-            playerVM: PlayerViewModel(),
             libraryVM: dev.libraryVM,
             storeManager: StoreManager(),
             currentTab: .constant(1)

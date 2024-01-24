@@ -2,7 +2,6 @@ import SwiftUI
 import AVKit
 
 struct SoundPlayerView: View {
-    @ObservedObject var playerVM: PlayerViewModel
     @ObservedObject var libraryVM: LibraryViewModel
     @Environment(\.presentationMode) var presentationMode
     @Binding var tabSelection: Int
@@ -11,7 +10,7 @@ struct SoundPlayerView: View {
         NavigationStack {
             VStack(spacing: 10) {
                 // Image
-                if let sound = playerVM.sound {
+                if let sound = libraryVM.sound {
                     SoundImageView(sound: sound)
                         .frame(maxWidth: UIScreen.main.bounds.width * 0.75, maxHeight: UIScreen.main.bounds.height * 0.35)
                         .cornerRadius(15)
@@ -45,9 +44,9 @@ struct SoundPlayerView: View {
                         Spacer()
                         HStack {
                             Button {
-                                playerVM.isRepeating.toggle()
+                                libraryVM.isRepeating.toggle()
                             } label: {
-                                Image(systemName: playerVM.isRepeating ? "repeat.circle.fill" : "repeat")
+                                Image(systemName: libraryVM.isRepeating ? "repeat.circle.fill" : "repeat")
                             }
 //                            Button {
 //                                playerVM.isShuffling.toggle()
@@ -64,9 +63,9 @@ struct SoundPlayerView: View {
                     
                     List {
                         if libraryVM.mySounds.count > 0 {
-                            ForEach(playerVM.soundsPlaylist, id: \.id) { sound in
+                            ForEach(libraryVM.soundsPlaylist, id: \.id) { sound in
                                 Text(sound.name)
-                                    .fontWeight(sound == playerVM.sound ? .bold : .regular)
+                                    .fontWeight(sound == libraryVM.sound ? .bold : .regular)
                             }
                             .listRowSeparator(.hidden)
                            
@@ -74,7 +73,7 @@ struct SoundPlayerView: View {
                             Button("Download songs for your library") {
                                 // Send user to library
                                 tabSelection = 1
-                                playerVM.isViewingSongPlayer = false
+                                libraryVM.isViewingSongPlayer = false
                             }
                             .listRowSeparator(.hidden)
                         }
@@ -84,12 +83,11 @@ struct SoundPlayerView: View {
                 ProgressBarView(
                     stopPlayer: { print("Stop player") },
                     startPlayer: { print("Start player") },
-                    currentTime: $playerVM.currentTime,
-                    duration: playerVM.duration
+                    currentTime: $libraryVM.currentTime,
+                    duration: libraryVM.duration
                 )
      
                 AudioControlButtonsView(
-                    playerVM: playerVM,
                     libraryVM: libraryVM
                 )
                 
@@ -97,8 +95,8 @@ struct SoundPlayerView: View {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Button {
 //                            presentationMode.wrappedValue.dismiss()
-                            playerVM.isViewingSongPlayerTab = true
-                            playerVM.isViewingSongPlayer = false
+                            libraryVM.isViewingSongPlayerTab = true
+                            libraryVM.isViewingSongPlayer = false
                         } label: {
                             Image(systemName: "chevron.down.circle.fill")
                         }
@@ -115,7 +113,6 @@ struct SoundPlayerView: View {
 struct SoundPlayerView_Previews: PreviewProvider {
     static var previews: some View {
         SoundPlayerView(
-            playerVM: dev.playerVM,
             libraryVM: LibraryViewModel(),
 //            libraryVM: dev.libraryVM,
             tabSelection: .constant(1)

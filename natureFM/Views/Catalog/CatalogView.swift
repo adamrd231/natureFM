@@ -2,7 +2,6 @@ import SwiftUI
 
 struct CatalogView: View {
     @ObservedObject var catalogVM: CatalogViewModel
-    @ObservedObject var playerVM: PlayerViewModel
     @ObservedObject var libraryVM: LibraryViewModel
     @ObservedObject var storeManager: StoreManager
     @ObservedObject var network: NetworkMonitor
@@ -23,7 +22,6 @@ struct CatalogView_Previews: PreviewProvider {
     static var previews: some View {
         CatalogView(
             catalogVM: dev.homeVM,
-            playerVM: dev.playerVM,
             libraryVM: LibraryViewModel(),
             storeManager: StoreManager(),
             network: NetworkMonitor(),
@@ -58,7 +56,7 @@ extension CatalogView {
                         soundArray: catalogVM.allFreeSounds,
                         userLibrary: libraryVM.mySounds,
                         downloadSoundToLibrary: libraryVM.saveSoundToLibrary,
-                        isViewingSongPlayerTab: $playerVM.isViewingSongPlayerTab,
+                        isViewingSongPlayerTab: $libraryVM.isViewingSongPlayerTab,
                         soundChoice: .free,
                         hasSubscription: storeManager.hasSubscription,
                         tabSelection: $tabSelection
@@ -68,7 +66,7 @@ extension CatalogView {
                         soundArray: catalogVM.allSubscriptionSounds,
                         userLibrary: libraryVM.mySounds,
                         downloadSoundToLibrary: libraryVM.saveSoundToLibrary,
-                        isViewingSongPlayerTab: $playerVM.isViewingSongPlayerTab,
+                        isViewingSongPlayerTab: $libraryVM.isViewingSongPlayerTab,
                         soundChoice: .subscription,
                         hasSubscription: storeManager.hasSubscription,
                         tabSelection: $tabSelection
@@ -85,8 +83,8 @@ extension CatalogView {
 
             }
             
-            if playerVM.isViewingSongPlayerTab {
-                PlayingNowBar(playerVM: playerVM)
+            if libraryVM.isViewingSongPlayerTab {
+                PlayingNowBar(libraryVM: libraryVM)
               
             }
         }

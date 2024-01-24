@@ -1,13 +1,13 @@
 import SwiftUI
 
 struct PlayingNowBar: View {
-    @ObservedObject var playerVM: PlayerViewModel
+    @ObservedObject var libraryVM: LibraryViewModel
     
     let buttonSize: CGFloat = 25
     
     var body: some View {
         HStack(spacing: 0) {
-            if let sound = playerVM.sound {
+            if let sound = libraryVM.sound {
                 SoundImageView(sound: sound)
                     .frame(maxWidth: 90, maxHeight: 70)
                     .clipped()
@@ -24,7 +24,7 @@ struct PlayingNowBar: View {
                 
                     HStack(spacing: 5) {
                         ClockDisplayView(
-                            time: Int(Double(playerVM.duration) - playerVM.currentTime),
+                            time: Int(Double(libraryVM.duration) - libraryVM.currentTime),
                             font: .caption2
                         )
                     }
@@ -39,8 +39,8 @@ struct PlayingNowBar: View {
 
             HStack(spacing: 25) {
                 Button {
-                    playerVM.isViewingSongPlayer = true
-                    playerVM.isViewingSongPlayerTab = false
+                    libraryVM.isViewingSongPlayer = true
+                    libraryVM.isViewingSongPlayerTab = false
                 } label: {
                     Image(systemName: "arrow.up.left.and.arrow.down.right")
                         .resizable()
@@ -49,14 +49,14 @@ struct PlayingNowBar: View {
                 
                 // Play button
                 Button {
-                    if playerVM.isPlaying {
-                        playerVM.stopPlayer()
+                    if libraryVM.isPlaying {
+                        libraryVM.stopPlayer()
                     } else {
-                        playerVM.startPlayer()
+                        libraryVM.startPlayer()
                     }
                    
                 } label: {
-                    if let player = playerVM.audioPlayer {
+                    if let player = libraryVM.audioPlayer {
                         Image(systemName: player.isPlaying ? "pause.fill" : "play.fill")
                             .resizable()
                             .frame(width: buttonSize, height: buttonSize, alignment: .center)
@@ -80,7 +80,7 @@ struct PlayingNowBar_Previews: PreviewProvider {
     
     static var previews: some View {
         PlayingNowBar(
-            playerVM: dev.playerVM
+            libraryVM: dev.libraryVM
         )
         .preferredColorScheme(.light)
         .previewLayout(.sizeThatFits)

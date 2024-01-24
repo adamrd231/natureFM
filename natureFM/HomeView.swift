@@ -5,7 +5,6 @@ import Combine
 struct HomeView: View {
     // Viewmodels to manage app data and services
     @StateObject var catalogVM = CatalogViewModel()
-    @StateObject var playerVM = PlayerViewModel()
     @StateObject var libraryVM = LibraryViewModel()
     @State var currentTab: Int = 1
     
@@ -22,7 +21,6 @@ struct HomeView: View {
             // Home View
             CatalogView(
                 catalogVM: catalogVM,
-                playerVM: playerVM,
                 libraryVM: libraryVM,
                 storeManager: storeManager,
                 network: networkMonitor,
@@ -40,7 +38,6 @@ struct HomeView: View {
             
             // Library View
             LibraryView(
-                playerVM: playerVM,
                 libraryVM: libraryVM,
                 storeManager: storeManager,
                 currentTab: $currentTab
@@ -80,16 +77,12 @@ struct HomeView: View {
         }
         .tint(Color.theme.customBlue)
         .navigationViewStyle(StackNavigationViewStyle())
-        .fullScreenCover(isPresented: $playerVM.isViewingSongPlayer, content: {
+        .fullScreenCover(isPresented: $libraryVM.isViewingSongPlayer, content: {
             SoundPlayerView(
-                playerVM: playerVM,
                 libraryVM: libraryVM,
                 tabSelection: $currentTab
             )
         })
-        .onAppear {
-            playerVM.soundsPlaylist = libraryVM.mySounds
-        }
     }
 }
 
