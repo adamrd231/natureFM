@@ -4,38 +4,37 @@ import AVKit
 import AVFoundation
 
 class LibraryViewModel: ObservableObject {
-
-    @Published var songDataDownloadService = SongDataDownloadService()
-    @Published var sound: SoundsModel?
-    @Published var soundsPlaylist: [SoundsModel] = []
-    @Published var isPlaying: Bool = false
-    @Published var percentagePlayed: Double = 0
-    @Published var currentTime: Double = 0
-    @Published var duration: Int = 0
-
-    @Published var isRepeating: Bool = true
-    @Published var isShuffling: Bool = false
-    
-    @Published var isViewingSongPlayer: Bool = false
-    @Published var isViewingSongPlayerTab: Bool = false
-    // Timer
-    @Published var timer = Timer()
-    
-    var audioPlayer: AVAudioPlayer?
-    private let downloadedContentService = DownloadedContentService()
-    
+    // MARK: Library --
     @Published var mySounds: [SoundsModel] = []
+    @Published var categories: [CategoryName] = []
+    @Published var selectedCategory: String = "All"
+    
     var filteredSounds: [SoundsModel] {
         if selectedCategory == "All" {
             return mySounds
         } else {
             return mySounds.filter({ $0.categoryName == selectedCategory })
         }
-        
     }
-    @Published var categories: [CategoryName] = []
-    @Published var selectedCategory: String = "All"
+    // Service to download song from database and save to Coredata / filemanager
+    private let downloadedContentService = DownloadedContentService()
     
+    // MARK: Sound Player
+    @Published var sound: SoundsModel?
+    var audioPlayer: AVAudioPlayer?
+    // Service to get song data from CoreData / filemanager
+    @Published var songDataDownloadService = SongDataDownloadService()
+    // Information to display to user
+    @Published var isPlaying: Bool = false
+    @Published var percentagePlayed: Double = 0
+    @Published var currentTime: Double = 0
+    @Published var duration: Int = 0
+    @Published var isRepeating: Bool = true
+    @Published var isShuffling: Bool = false
+    @Published var timer = Timer()
+    // Controls view
+    @Published var isViewingSongPlayer: Bool = false
+    @Published var isViewingSongPlayerTab: Bool = false
     // Cancellable
     private var cancellable = Set<AnyCancellable>()
     
@@ -53,12 +52,9 @@ class LibraryViewModel: ObservableObject {
             .map(mapDownloadedContent)
             .sink { [weak self] (returnedSounds) in
                 self?.mySounds = returnedSounds
-                
-                // Gather all categories from sounds
                 var categoryArray:[CategoryName] = []
                 categoryArray.append(CategoryName(title: "All"))
                 for sound in returnedSounds {
-                    // Setup category array
                     let newCategory = CategoryName(title: sound.categoryName)
                     if categoryArray.contains(where: { $0.title == sound.categoryName }) {
                     } else {
@@ -120,6 +116,22 @@ class LibraryViewModel: ObservableObject {
         self.isViewingSongPlayerTab = true
     }
     
+    func startPlayer() {
+        if let player = audioPlayer {
+            isPlaying = true
+            runTimer()
+            player.play()
+        }
+    }
+    
+    func stopPlayer() {
+        if let player = audioPlayer {
+            isPlaying = false
+            stopTimer()
+            player.pause()
+        }
+    }
+    
     func runTimer() {
         self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true ) { _ in
             guard self.isPlaying == true else {
@@ -141,14 +153,18 @@ class LibraryViewModel: ObservableObject {
         }
     }
     
+    func stopTimer() {
+        self.timer.invalidate()
+    }
+    
     func skipSongForward() {
         if let s = sound {
-            if let currentIndex = soundsPlaylist.firstIndex(of: s) {
-                let nextIndex = soundsPlaylist.index(after: currentIndex)
-                if nextIndex > soundsPlaylist.count - 1 {
-                    sound = soundsPlaylist.first
+            if let currentIndex = mySounds.firstIndex(of: s) {
+                let nextIndex = mySounds.index(after: currentIndex)
+                if nextIndex > mySounds.count - 1 {
+                    sound = mySounds.first
                 } else {
-                    sound = soundsPlaylist[nextIndex]
+                    sound = mySounds[nextIndex]
                 }
             }
         }
@@ -156,36 +172,20 @@ class LibraryViewModel: ObservableObject {
         
     func skipSongBackwards() {
         if let s = sound {
-            if let currentIndex = soundsPlaylist.firstIndex(of: s) {
-                let previousIndex = soundsPlaylist.index(before: currentIndex)
+            if let currentIndex = mySounds.firstIndex(of: s) {
+                let previousIndex = mySounds.index(before: currentIndex)
                 if previousIndex < 0 {
-                    sound = soundsPlaylist.last
+                    sound = mySounds.last
                 } else {
-                    sound = soundsPlaylist[previousIndex]
+                    sound = mySounds[previousIndex]
                 }
             }
         }
     }
     
-    func stopTimer() {
-        self.timer.invalidate()
-    }
+
     
-    func stopPlayer() {
-        if let player = audioPlayer {
-            isPlaying = false
-            stopTimer()
-            player.pause()
-        }
-    }
-    
-    func startPlayer() {
-        if let player = audioPlayer {
-            isPlaying = true
-            runTimer()
-            player.play()
-        }
-    }
+
     
     func skipForward15() {
         if let player = audioPlayer {

@@ -5,11 +5,7 @@ struct LibraryView: View {
     @ObservedObject var libraryVM: LibraryViewModel
     @ObservedObject var storeManager: StoreManager
     @Binding var currentTab: Int
-//    func delete(at offsets: IndexSet) {
-//        if let index = offsets.first {
-//            // delete sound
-//        }
-//    }
+
     var body: some View {
         VStack(alignment: .leading) {
             // Title categry picker
