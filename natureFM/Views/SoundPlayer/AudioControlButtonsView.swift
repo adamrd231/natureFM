@@ -3,8 +3,8 @@ import SwiftUI
 struct AudioControlButtonsView: View {
     @ObservedObject var libraryVM: LibraryViewModel
 
-    private let buttonSize: CGFloat = 30
-    private let buttonAdjustment: CGFloat = 10
+    private let buttonSize: CGFloat = 40
+    private let buttonAdjustment: CGFloat = 20
     
     var body: some View {
         HStack(spacing: 25) {

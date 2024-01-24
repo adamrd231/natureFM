@@ -11,10 +11,6 @@ class DeveloperPreview {
     private init() {
         homeVM.allSubscriptionSounds.append(testSound)
         
-        // player
-        playerVM.sound = testSound
-        playerVM.isViewingSongPlayerTab = true
-        
         homeVM.allFreeSounds.append(testSound)
         homeVM.allFreeSounds.append(testSound2)
         
@@ -22,7 +18,6 @@ class DeveloperPreview {
         libraryVM.mySounds.append(testSound2)
     }
     let libraryVM = LibraryViewModel()
-    let playerVM = PlayerViewModel()
     let homeVM = CatalogViewModel()
     let testSound = SoundsModel(
         name: "Adams song is a long title yo!",
