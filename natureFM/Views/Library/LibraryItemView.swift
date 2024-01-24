@@ -62,8 +62,8 @@ extension LibraryItemView {
                    
                 }
                 HStack {
-                    Image(systemName: "play")
-                    Button("Play in tab player") {
+                    Image(systemName: "play.square.fill")
+                    Button("Play Tab Player") {
                         print("1")
                         selectSound(sound)
                         isViewingTabPlayerView = true
@@ -71,8 +71,8 @@ extension LibraryItemView {
                     }
                 }
                 HStack {
-                    Image(systemName: "play")
-                    Button("Play in full player") {
+                    Image(systemName: "play.rectangle.on.rectangle.fill")
+                    Button("Play Full Player") {
                         selectSound(sound)
                         print("2")
                         isViewingMenu = false
