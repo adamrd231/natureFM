@@ -4,6 +4,8 @@ struct LibraryItemView: View {
     let sound: SoundsModel
     let selectSound: (SoundsModel) -> Void
     let removeFromLibrary: (SoundsModel) -> Void
+    @Binding var isViewingTabPlayerView: Bool
+    @Binding var isViewingFullPlayerView: Bool
     @State var isViewingMenu: Bool = false
     
     var body: some View {
@@ -40,7 +42,7 @@ struct LibraryItemView: View {
         }
         .sheet(isPresented: $isViewingMenu) {
             menu
-            .presentationDetents([.fraction(0.25)])
+            .presentationDetents([.fraction(0.35)])
         }
     }
 }
@@ -58,6 +60,25 @@ extension LibraryItemView {
                         Text(sound.locationName).font(.caption)
                     }
                    
+                }
+                HStack {
+                    Image(systemName: "play")
+                    Button("Play in tab player") {
+                        print("1")
+                        selectSound(sound)
+                        isViewingTabPlayerView = true
+                        isViewingMenu = false
+                    }
+                }
+                HStack {
+                    Image(systemName: "play")
+                    Button("Play in full player") {
+                        selectSound(sound)
+                        print("2")
+                        isViewingMenu = false
+                        isViewingFullPlayerView = true
+                 
+                    }
                 }
                 HStack {
                     Image(systemName: "trash")
@@ -78,7 +99,10 @@ struct LibraryItemView_Previews: PreviewProvider {
             sound: dev.testSound,
             selectSound: { _ in },
             removeFromLibrary: { _ in },
+            isViewingTabPlayerView: .constant(false),
+            isViewingFullPlayerView: .constant(false),
             isViewingMenu: false
+      
         )
     }
 }

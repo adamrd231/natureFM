@@ -43,7 +43,9 @@ struct LibraryView: View {
                     LibraryItemView(
                         sound: sound,
                         selectSound: libraryVM.selectSound,
-                        removeFromLibrary: libraryVM.removeFromLibrary
+                        removeFromLibrary: libraryVM.removeFromLibrary,
+                        isViewingTabPlayerView: $libraryVM.isViewingSongPlayerTab,
+                        isViewingFullPlayerView: $libraryVM.isViewingSongPlayer
                     )
                 }
                 .listRowSeparator(.hidden)
@@ -55,6 +57,12 @@ struct LibraryView: View {
                 PlayingNowBar(libraryVM: libraryVM)
             }
         }
+        .fullScreenCover(isPresented: $libraryVM.isViewingSongPlayer, content: {
+            SoundPlayerView(
+                libraryVM: libraryVM,
+                tabSelection: $currentTab
+            )
+        })
     }
 }
 

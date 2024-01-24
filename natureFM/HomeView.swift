@@ -3,17 +3,14 @@ import GoogleMobileAds
 import Combine
 
 struct HomeView: View {
-    // Viewmodels to manage app data and services
+    // VMs to manage app data and services
     @StateObject var catalogVM = CatalogViewModel()
     @StateObject var libraryVM = LibraryViewModel()
     @State var currentTab: Int = 1
-    
-    
     // Network monitor, store and advertising managers
     @StateObject var networkMonitor = NetworkMonitor()
     @StateObject var storeManager = StoreManager()
     @ObservedObject var adsViewModel = AdvertisingViewModel()
-
     private var cancellable = Set<AnyCancellable>()
     
     var body: some View {
@@ -77,12 +74,6 @@ struct HomeView: View {
         }
         .tint(Color.theme.customBlue)
         .navigationViewStyle(StackNavigationViewStyle())
-        .fullScreenCover(isPresented: $libraryVM.isViewingSongPlayer, content: {
-            SoundPlayerView(
-                libraryVM: libraryVM,
-                tabSelection: $currentTab
-            )
-        })
     }
 }
 

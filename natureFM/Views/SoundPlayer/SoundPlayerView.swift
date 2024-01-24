@@ -63,7 +63,7 @@ struct SoundPlayerView: View {
                     
                     List {
                         if libraryVM.mySounds.count > 0 {
-                            ForEach(libraryVM.soundsPlaylist, id: \.id) { sound in
+                            ForEach(libraryVM.mySounds, id: \.id) { sound in
                                 Text(sound.name)
                                     .fontWeight(sound == libraryVM.sound ? .bold : .regular)
                             }
