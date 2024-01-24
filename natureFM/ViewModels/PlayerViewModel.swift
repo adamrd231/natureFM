@@ -58,25 +58,17 @@ class PlayerViewModel: ObservableObject {
     }
     
     func runTimer() {
-
-        print("Start timer")
         self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true ) { _ in
-            print("guard checks timer")
             guard self.isPlaying == true else {
-                print("return at isplaying")
                 return
-                
             }
             guard self.audioPlayer?.isPlaying == true else {
                 self.stopPlayer()
                 if self.isRepeating {
                     self.startPlayer()
                 } else {
-                    
                     self.currentTime = 0
-                } 
-               
-                print("Return at audio player is playing")
+                }
                 return
             }
             // Update timer elements
@@ -112,22 +104,10 @@ class PlayerViewModel: ObservableObject {
         }
     }
     
-    func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
-        print("Finished")
-    }
-    
     func stopTimer() {
         self.timer.invalidate()
     }
     
-    func toggleTimer() {
-        if let player = audioPlayer {
-            switch player.isPlaying {
-            case true: print("Stop player")
-            case false: print("Start player")
-            }
-        }
-    }
     func stopPlayer() {
         if let player = audioPlayer {
             isPlaying = false
@@ -162,18 +142,5 @@ class PlayerViewModel: ObservableObject {
                 player.currentTime -= 15
             }
         }
-    }
-    
-    func skipToNextSound() {
-        if isShuffling {
-            print("Shuffle")
-        } else {
-            print("Next song")
-     
-        }
-    }
-    
-    func skipToPreviousSound() {
-        print("Skip backwards")
     }
 }

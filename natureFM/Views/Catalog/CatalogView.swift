@@ -57,6 +57,7 @@ extension CatalogView {
                     HorizontalScrollView(
                         soundArray: catalogVM.allFreeSounds,
                         userLibrary: libraryVM.mySounds,
+                        downloadSoundToLibrary: libraryVM.saveSoundToLibrary,
                         isViewingSongPlayerTab: $playerVM.isViewingSongPlayerTab,
                         soundChoice: .free,
                         hasSubscription: storeManager.hasSubscription,
@@ -66,6 +67,7 @@ extension CatalogView {
                     HorizontalScrollView(
                         soundArray: catalogVM.allSubscriptionSounds,
                         userLibrary: libraryVM.mySounds,
+                        downloadSoundToLibrary: libraryVM.saveSoundToLibrary,
                         isViewingSongPlayerTab: $playerVM.isViewingSongPlayerTab,
                         soundChoice: .subscription,
                         hasSubscription: storeManager.hasSubscription,

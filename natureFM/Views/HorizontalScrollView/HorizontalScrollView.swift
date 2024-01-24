@@ -8,6 +8,7 @@ enum SoundChoices {
 struct HorizontalScrollView: View {
     let soundArray: [SoundsModel]
     let userLibrary: [SoundsModel]
+    let downloadSoundToLibrary: (SoundsModel) -> Void
     @Binding var isViewingSongPlayerTab: Bool
     let soundChoice: SoundChoices
     let hasSubscription: Bool
@@ -27,6 +28,7 @@ struct HorizontalScrollView: View {
                                 sound: sound,
                                 hasSubscription: hasSubscription,
                                 userOwnsSound: userLibrary.contains(where: { $0.name == sound.name }),
+                                downloadSoundToLibrary: downloadSoundToLibrary,
                                 isViewingSongPlayerTab: $isViewingSongPlayerTab,
                                 tabSelection: $tabSelection
                             )
@@ -44,6 +46,7 @@ struct HorizontalScrollView_Previews: PreviewProvider {
         HorizontalScrollView(
             soundArray: [dev.testSound, dev.testSound2],
             userLibrary: [dev.testSound],
+            downloadSoundToLibrary: { _ in },
             isViewingSongPlayerTab: .constant(false),
             soundChoice: .free,
             hasSubscription: false,

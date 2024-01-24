@@ -1,16 +1,10 @@
-//
-//  HorizontalScrollSoundView.swift
-//  natureFM
-//
-//  Created by Adam Reed on 1/19/24.
-//
-
 import SwiftUI
 
 struct HorizontalScrollSoundView: View {
     let sound: SoundsModel
     let hasSubscription: Bool
     let userOwnsSound: Bool
+    let downloadSoundToLibrary: (SoundsModel) -> Void
     @Binding var isViewingSongPlayerTab: Bool
     @Binding var tabSelection: Int
     
@@ -20,63 +14,35 @@ struct HorizontalScrollSoundView: View {
         // This should be it's own component
         VStack(alignment: .leading, spacing: 5) {
             SoundImageView(sound: sound)
-//                .frame(width: 250, height: 150)
                 .frame(width: 300, height: 150)
                 .clipped()
                 .shadow(radius: 5)
 
-            HStack {
-                Button(action: {
-                    if sound.freeSong || hasSubscription {
-                        // Download sound is allowed
-                    } else {
-                        showingAlert.toggle()
-                        // Could prompt user to subscription page
-                    }
-                }) {
-                    HStack(spacing: 5) {
-                        if userOwnsSound {
-                            Text("In your library")
-                                .font(.caption2)
-                           
-                        } else {
-                            Image(systemName: "arrow.down")
-                                .resizable()
-                                .frame(width: 15, height: 15)
-                                .fontWeight(.bold)
-                            Text("Download")
-                                .font(.caption2)
-                        }
-                        
-                    }
-                    .frame(minWidth: 0, maxWidth: .infinity)
-                    
+  
+            Button(action: {
+                if sound.freeSong || hasSubscription {
+                    // Download sound is allowed
+                    downloadSoundToLibrary(sound)
+                } else {
+                    showingAlert.toggle()
+                    // Could prompt user to subscription page
                 }
-                .disabled(userOwnsSound)
-                .buttonStyle(BorderButton(color: Color.theme.titleColor))
-                Spacer()
-                Button(action: {
-                    if sound.freeSong || hasSubscription {
-                        // Download sound is allowed
+            }) {
+                HStack(spacing: 7) {
+                    if userOwnsSound {
+                        Image(systemName: "checkmark.circle")
+                        Text("In your library")
                     } else {
-                        showingAlert.toggle()
-                        // Could prompt user to subscription page
+                        Image(systemName: "arrow.down")
+                        Text("Download")
+             
                     }
-                }) {
-                    HStack(spacing: 5) {
-                        Image(systemName: "dot.radiowaves.left.and.right")
-                            .resizable()
-                            .frame(width: 15, height: 15)
-                            .fontWeight(.bold)
-                        Text("Listen")
-                            .font(.caption2)
-                    }
-                    .frame(minWidth: 0, maxWidth: .infinity)
                 }
-                .buttonStyle(BorderButton(color: Color.theme.titleColor))
+                .font(.callout)
+                .frame(minWidth: 0, maxWidth: .infinity)
             }
-            .padding(.vertical, 5)
-            .foregroundColor(Color.theme.titleColor)
+            .disabled(userOwnsSound)
+            .buttonStyle(BorderButton(color: Color.theme.titleColor))
             
             Text(sound.name).bold()
             Text("length: \(sound.duration.returnClockFormatAsString())")
@@ -111,6 +77,7 @@ struct HorizontalScrollSoundView_Previews: PreviewProvider {
             sound: dev.testSound,
             hasSubscription: false,
             userOwnsSound: true,
+            downloadSoundToLibrary: { _ in },
             isViewingSongPlayerTab: .constant(true),
             tabSelection: .constant(2)
         )
