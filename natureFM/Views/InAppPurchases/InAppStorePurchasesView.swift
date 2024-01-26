@@ -43,7 +43,7 @@ struct InAppStorePurchasesView: View {
                     
                     Section(header: Text("About me")) {
                         VStack(alignment: .leading, spacing: 5) {
-                            Text("Whyyyy?")
+                            Text("Why In-App Purchases?")
                                 .font(.callout)
                                 .fontWeight(.heavy)
                                 .foregroundColor(Color.theme.titleColor)
