@@ -7,6 +7,14 @@ struct CatalogView: View {
     @ObservedObject var network: NetworkMonitor
     @Binding var tabSelection: Int
     
+    func saveFeaturedImageToLibrary(sound: SoundsModel) {
+        if sound.freeSong || storeManager.hasSubscription {
+            
+        } else {
+            
+        }
+    }
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             if network.isConnected {

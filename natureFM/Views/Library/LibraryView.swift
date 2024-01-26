@@ -11,11 +11,11 @@ struct LibraryView: View {
             // Title categry picker
             ScrollView(.horizontal) {
                 VStack {
-                    HStack {
+                    HStack(spacing: 15) {
                         ForEach(libraryVM.categories) { category in
                             Text("\(category.title)")
                                 .fontWeight((category.title == libraryVM.selectedCategory) ? .medium : .light)
-                                .padding(.horizontal)
+             
                                 .offset(y: (category.title == libraryVM.selectedCategory) ? -2.0 : 0)
                                 .scaleEffect((category.title == libraryVM.selectedCategory ? 1.5 : 1.0))
                                 .onTapGesture {
