@@ -1,35 +1,6 @@
 import SwiftUI
 import StoreKit
 
-struct ProductView: View {
-    let product: Product
-    let hasPurchased: Bool
-    @ObservedObject var storeManager: StoreManager
-    
-    var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text(product.displayName)
-                    .bold()
-                Text(product.description)
-                    .font(.footnote)
-            }
-            Spacer()
-            Button {
-                // Buy product
-                Task {
-                    try await storeManager.purchase(product)
-                }
-            } label: {
-                Text(hasPurchased ? "purchased" : product.displayPrice)
-                    .foregroundColor(Color.theme.customBlue)
-            }
-            .disabled(hasPurchased)
-        }
-    }
-}
-
-
 struct InAppStorePurchasesView: View {
     // Store Manager object for making in app purchases
     @StateObject var storeManager: StoreManager
@@ -42,7 +13,7 @@ struct InAppStorePurchasesView: View {
                 if AppStore.canMakePayments {
                     Section(header: Text("Subscriptions")) {
                         ForEach(storeManager.subscriptions, id: \.id) { product in
-                            ProductView(
+                            ProductRowView(
                                 product: product,
                                 hasPurchased: storeManager.hasSubscription,
                                 storeManager: storeManager
@@ -51,10 +22,10 @@ struct InAppStorePurchasesView: View {
                     }
                     
                     Section(header: Text("In-App Purchases")) {
-                        ForEach(storeManager.subscriptions, id: \.id) { product in
-                            ProductView(
+                        ForEach(storeManager.nonConsumableProducts, id: \.id) { product in
+                            ProductRowView(
                                 product: product,
-                                hasPurchased: storeManager.hasSubscription,
+                                hasPurchased: storeManager.purchasedNonConsumables.contains(product),
                                 storeManager: storeManager
                             )
                         }

@@ -20,6 +20,9 @@ class StoreManager: ObservableObject {
     var subscriptions: [Product] {
         products.filter({ $0.type == .autoRenewable })
     }
+    var nonConsumableProducts: [Product] {
+        products.filter({ $0.type == .nonConsumable })
+    }
     @Published var purchasedNonConsumables: Set<Product> = []
     @Published var purchasedConsumables: [Product] = []
     @Published var purchasedSubscriptions: Set<Product> = []

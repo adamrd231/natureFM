@@ -20,7 +20,7 @@ struct ProfileView: View {
                 HStack {
                     VStack(alignment: .leading) {
                         Text("Share this app.")
-                        Text("Send NatureFM to friends/family.")
+                        Text("Help support my app and share NatureFM to friends/family. Let's tune in to the outdoors together!")
                             .font(.caption)
                     }
                     
@@ -33,111 +33,71 @@ struct ProfileView: View {
                             .foregroundColor(Color.theme.titleColor)
                     }
                     
-                }.padding()
+                }
+                .padding(5)
             }
             
             Section(header: Text("About")) {
-                VStack(spacing: 10) {
+                HStack(alignment: .top, spacing: 15) {
                     Image("adam")
                         .resizable()
-                        .frame(width: 100, height: 100)
-                        .cornerRadius(20)
+                        .scaledToFill()
+                        .frame(width: 85, height: 85)
+                        .cornerRadius(10)
                         .clipped()
-                    
-                    VStack(spacing: 10) {
-                        Text("Thanks for using my app.")
-                            .fontWeight(.medium)
-                            .font(.caption)
+                    VStack(alignment: .leading, spacing: 5) {
+                        Text("iOS Engineer Adam Reed.")
+                            .fontWeight(.bold)
                         Text("Please visit my website, leave a review, make an in-app purchase or download some of my other apps on the App Store.")
-                           
                     }
                 }
-                .padding()
+                .font(.caption)
+                .padding(5)
             }
             
             Section(header: Text("Github")) {
-                VStack {
-                    if colorScheme == .dark {
-                        Link(destination: URL(string: "https://github.com/adamrd231")!, label: {
-                            Image("github-light")
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 30, height: 30)
-                        })
-                        
-                    } else {
-                        Link(destination: URL(string: "https://github.com/adamrd231")!, label: {
-                            Image("github-dark")
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 30, height: 30)
-                        })
-                    }
-                    
-                    VStack {
-                        Text("Dev Projects")
-                        Text("Swift, iOS, Xcode, Python, React, HTML, CSS, Javascript.")
-                        
-                            .font(.caption)
-                    }
-                    
+                VStack(alignment: .leading) {
+                    Link(destination: URL(string: "https://github.com/adamrd231")!, label: {
+                        Image(colorScheme == .dark ? "github-light" : "github-dark")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 30, height: 30)
+                    })
+                    Text("Dev Projects")
+                    Text("Swift, iOS, Xcode, Python, React, HTML, CSS, Javascript.")
+                        .font(.caption)
                 }
-                .padding()
+                .padding(5)
             }
             
             Section(header: Text("Website")) {
-                VStack {
-                    if colorScheme == .dark {
-                        Link(destination: URL(string: "https://rdconcepts.design/")!, label: {
-                            Image("web-light")
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 30, height: 30)
-                        })
-                    } else {
-                        Link(destination: URL(string: "https://rdconcepts.design/")!, label: {
-                            Image("web-dark")
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 30, height: 30)
-                        })
-                    }
-                    VStack {
-                        Text("Portfolio Website")
-                        Text("My recent projects and blogs, built with React.js, backend hosted on Heroku and built with Python and Django.")
-                        
-                            .font(.caption)
-                        
-                    }
+                VStack(alignment: .leading) {
+                    Link(destination: URL(string: "https://rdconcepts.design/")!, label: {
+                        Image(colorScheme == .dark ? "web-light" : "web-dark")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 30, height: 30)
+                    })
+                    Text("Portfolio Website")
+                    Text("My recent projects and blogs, built with React.js, backend hosted on Heroku and built with Python and Django.")
+                        .font(.caption)
                 }
-                .padding()
+                .padding(5)
             }
             
             Section(header: Text("rdConcepts on App Store")) {
-                VStack {
-                    if colorScheme == .dark {
-                        Link(destination: URL(string: "https://apps.apple.com/us/developer/rd-concepts/id1293498470")!, label: {
-                            Image("app-store-light")
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 30, height: 30)
-                        })
-                    } else {
-                        Link(destination: URL(string: "https://apps.apple.com/us/developer/rd-concepts/id1293498470")!, label: {
-                            Image("app-store-dark")
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 30, height: 30)
-                        })
-                    }
-                    VStack {
-                        Text("All Apps I've Developed.")
-                        Text("I have launched eight applications to the App Store, calculators, workout timers, crypto trading games and more.")
-                            .font(.caption)
-                        
-                    }
+                VStack(alignment: .leading) {
+                    Link(destination: URL(string: "https://apps.apple.com/us/developer/rd-concepts/id1293498470")!, label: {
+                        Image(colorScheme == .dark ? "app-store-light" : "app-store-dark")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 30, height: 30)
+                    })
+                    Text("All Apps I've Developed.")
+                    Text("I have launched twelve applications to the App Store, calculators, workout timers, crypto trading games and more.")
+                        .font(.caption)
                 }
-                .padding()
+                .padding(5)
             }
         }
     }
