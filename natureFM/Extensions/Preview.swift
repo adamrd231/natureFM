@@ -10,10 +10,10 @@ extension PreviewProvider {
 class DeveloperPreview {
     static let instance = DeveloperPreview()
     private init() {
-        homeVM.allSubscriptionSounds.append(testSound)
+        homeVM.allSounds.append(testSound)
         
-        homeVM.allFreeSounds.append(testSound)
-        homeVM.allFreeSounds.append(testSound2)
+        homeVM.allSounds.append(testSound)
+        homeVM.allSounds.append(testSound2)
         
         libraryVM.mySounds.append(testSound)
         libraryVM.mySounds.append(testSound2)

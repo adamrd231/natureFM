@@ -85,7 +85,7 @@ struct FeaturedImageLayoutView: View {
 struct FeaturedImageLayoutView_Previews: PreviewProvider {
     static var previews: some View {
         FeaturedImageLayoutView(
-            soundArray: dev.homeVM.allFreeSounds,
+            soundArray: dev.homeVM.allSounds,
             userLibrary: [],
             saveSoundToLibrary: { _ in dev.testSound },
             isLoading: true,

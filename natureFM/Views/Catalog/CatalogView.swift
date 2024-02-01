@@ -56,25 +56,12 @@ extension CatalogView {
                     )
      
                     // Section One
-                    HorizontalScrollView(
-                        soundArray: catalogVM.allFreeSounds,
-                        userLibrary: libraryVM.mySounds,
-                        downloadSoundToLibrary: libraryVM.saveSoundToLibrary,
-                        isViewingSongPlayerTab: $libraryVM.isViewingSongPlayerTab,
-                        soundChoice: .free,
+                    CatalogSoundsView(
+                        catalogVM: catalogVM,
                         hasSubscription: storeManager.hasSubscription,
                         tabSelection: $tabSelection
                     )
-                    // Section Three
-                    HorizontalScrollView(
-                        soundArray: catalogVM.allSubscriptionSounds,
-                        userLibrary: libraryVM.mySounds,
-                        downloadSoundToLibrary: libraryVM.saveSoundToLibrary,
-                        isViewingSongPlayerTab: $libraryVM.isViewingSongPlayerTab,
-                        soundChoice: .subscription,
-                        hasSubscription: storeManager.hasSubscription,
-                        tabSelection: $tabSelection
-                    )
+                 
                 }
                 .overlay(alignment: .topLeading) {
                     Text("natureFM")

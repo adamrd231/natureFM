@@ -44,13 +44,15 @@
 		6685C63B2ADF19BF005947A4 /* Interstitial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6685C63A2ADF19BF005947A4 /* Interstitial.swift */; };
 		6685C63D2ADF1A48005947A4 /* AdvertisingViewmodel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6685C63C2ADF1A48005947A4 /* AdvertisingViewmodel.swift */; };
 		668843CC2B6C26A3000BCAE5 /* BorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668843CB2B6C26A3000BCAE5 /* BorderButton.swift */; };
+		668843CE2B6C2D14000BCAE5 /* CatalogSoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668843CD2B6C2D14000BCAE5 /* CatalogSoundView.swift */; };
+		668843D02B6C2E23000BCAE5 /* SoundDetailStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668843CF2B6C2E23000BCAE5 /* SoundDetailStackView.swift */; };
 		6693C4AF2728F06900D4FD17 /* CategoryPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6693C4AE2728F06900D4FD17 /* CategoryPickerView.swift */; };
 		66C3CC0A26FCD7FE00438A55 /* URLImageStore in Frameworks */ = {isa = PBXBuildFile; productRef = 66C3CC0926FCD7FE00438A55 /* URLImageStore */; };
 		66C3CC0C26FCD7FE00438A55 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = 66C3CC0B26FCD7FE00438A55 /* URLImage */; };
 		66C3CC162703C3DF00438A55 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3CC152703C3DF00438A55 /* CategoryModel.swift */; };
 		66C3CC182703CB2500438A55 /* InAppStorePurchasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3CC172703CB2500438A55 /* InAppStorePurchasesView.swift */; };
 		66C3CC1A2703EE8600438A55 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3CC192703EE8600438A55 /* StoreManager.swift */; };
-		66CE6FF727B36A440031E7FE /* HorizontalScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CE6FF627B36A440031E7FE /* HorizontalScrollView.swift */; };
+		66CE6FF727B36A440031E7FE /* CatalogSoundsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CE6FF627B36A440031E7FE /* CatalogSoundsView.swift */; };
 		66CE6FF927B3C6380031E7FE /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CE6FF827B3C6380031E7FE /* Int.swift */; };
 		66CE6FFD27B46F760031E7FE /* SoundPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CE6FFC27B46F760031E7FE /* SoundPlayerView.swift */; };
 		66CE700627B4A96A0031E7FE /* SongDownloadDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CE700527B4A96A0031E7FE /* SongDownloadDataService.swift */; };
@@ -127,11 +129,13 @@
 		6685C63A2ADF19BF005947A4 /* Interstitial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interstitial.swift; sourceTree = "<group>"; };
 		6685C63C2ADF1A48005947A4 /* AdvertisingViewmodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisingViewmodel.swift; sourceTree = "<group>"; };
 		668843CB2B6C26A3000BCAE5 /* BorderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderButton.swift; sourceTree = "<group>"; };
+		668843CD2B6C2D14000BCAE5 /* CatalogSoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogSoundView.swift; sourceTree = "<group>"; };
+		668843CF2B6C2E23000BCAE5 /* SoundDetailStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundDetailStackView.swift; sourceTree = "<group>"; };
 		6693C4AE2728F06900D4FD17 /* CategoryPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerView.swift; sourceTree = "<group>"; };
 		66C3CC152703C3DF00438A55 /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		66C3CC172703CB2500438A55 /* InAppStorePurchasesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppStorePurchasesView.swift; sourceTree = "<group>"; };
 		66C3CC192703EE8600438A55 /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
-		66CE6FF627B36A440031E7FE /* HorizontalScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalScrollView.swift; sourceTree = "<group>"; };
+		66CE6FF627B36A440031E7FE /* CatalogSoundsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogSoundsView.swift; sourceTree = "<group>"; };
 		66CE6FF827B3C6380031E7FE /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		66CE6FFC27B46F760031E7FE /* SoundPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundPlayerView.swift; sourceTree = "<group>"; };
 		66CE700527B4A96A0031E7FE /* SongDownloadDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongDownloadDataService.swift; sourceTree = "<group>"; };
@@ -230,13 +234,14 @@
 			path = projectFonts;
 			sourceTree = "<group>";
 		};
-		664F0BE82B5AFD6F002D1E2A /* HorizontalScrollView */ = {
+		664F0BE82B5AFD6F002D1E2A /* CatalogSoundsView */ = {
 			isa = PBXGroup;
 			children = (
-				66CE6FF627B36A440031E7FE /* HorizontalScrollView.swift */,
+				66CE6FF627B36A440031E7FE /* CatalogSoundsView.swift */,
 				664F0BE92B5AFD8D002D1E2A /* HorizontalScrollSoundView.swift */,
+				668843CD2B6C2D14000BCAE5 /* CatalogSoundView.swift */,
 			);
-			path = HorizontalScrollView;
+			path = CatalogSoundsView;
 			sourceTree = "<group>";
 		};
 		667CD62127B27090007965D7 /* Extensions */ = {
@@ -318,7 +323,7 @@
 			isa = PBXGroup;
 			children = (
 				668843C92B6C267E000BCAE5 /* FeaturedImageTabView */,
-				664F0BE82B5AFD6F002D1E2A /* HorizontalScrollView */,
+				664F0BE82B5AFD6F002D1E2A /* CatalogSoundsView */,
 				66CE6FFE27B4A7CD0031E7FE /* SoundPlayer */,
 				66098BF827B1C385000041D9 /* Launch */,
 				6682760B2B3C9C5700B5B548 /* Catalog */,
@@ -374,6 +379,7 @@
 				664F0BD72B59B19A002D1E2A /* CategoryRowView.swift */,
 				664F0BE62B5AF9EF002D1E2A /* UserListenerStatusView.swift */,
 				66F241D52B6030BD00E26769 /* NoInternetView.swift */,
+				668843CF2B6C2E23000BCAE5 /* SoundDetailStackView.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -645,7 +651,8 @@
 				66CE700627B4A96A0031E7FE /* SongDownloadDataService.swift in Sources */,
 				6685C5D22ABCBC1C005947A4 /* TabItemView.swift in Sources */,
 				662D25BE27B6ED26003727C8 /* TimeInterval.swift in Sources */,
-				66CE6FF727B36A440031E7FE /* HorizontalScrollView.swift in Sources */,
+				66CE6FF727B36A440031E7FE /* CatalogSoundsView.swift in Sources */,
+				668843D02B6C2E23000BCAE5 /* SoundDetailStackView.swift in Sources */,
 				66E43FBF26C6146000AE012E /* SoundsModel.swift in Sources */,
 				664E8D9227B2436B00699C0B /* SoundImageService.swift in Sources */,
 				66C3CC162703C3DF00438A55 /* CategoryModel.swift in Sources */,
@@ -688,6 +695,7 @@
 				6685C6072AD8A337005947A4 /* ProgressBarView.swift in Sources */,
 				6685C6392ADF1714005947A4 /* Banner.swift in Sources */,
 				6693C4AF2728F06900D4FD17 /* CategoryPickerView.swift in Sources */,
+				668843CE2B6C2D14000BCAE5 /* CatalogSoundView.swift in Sources */,
 				66F241D62B6030BD00E26769 /* NoInternetView.swift in Sources */,
 				6682760F2B3C9F8500B5B548 /* CatalogTitle.swift in Sources */,
 			);

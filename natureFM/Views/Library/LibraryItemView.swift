@@ -15,27 +15,16 @@ struct LibraryItemView: View {
                 .cornerRadius(5)
                 .clipped()
                 .shadow(radius: 3)
+            SoundDetailStackView(sound: sound)
             
-            VStack(alignment: .leading, spacing: 2) {
-                Text(sound.name)
-                    .font(.subheadline)
-                    .fontWeight(.bold)
-                Text(sound.categoryName)
-                    .font(.footnote)
-                HStack(spacing: 5) {
-                    Text("Length:")
-                        .font(.footnote)
-                    Text(sound.duration.returnClockFormatAsString())
-                        .font(.footnote)
-                }
-            }
-            .foregroundColor(Color.theme.titleColor)
             Spacer()
             Button {
                 isViewingMenu.toggle()
             } label: {
                 Image(systemName: "menucard")
-            }.buttonStyle(.borderless)
+                    .padding()
+            }
+            .buttonStyle(.borderless)
         }
         .onTapGesture {
             selectSound(sound)
