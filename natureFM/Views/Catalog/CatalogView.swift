@@ -7,14 +7,6 @@ struct CatalogView: View {
     @ObservedObject var network: NetworkMonitor
     @Binding var tabSelection: Int
     
-    func saveFeaturedImageToLibrary(sound: SoundsModel) {
-        if sound.freeSong || storeManager.hasSubscription {
-            
-        } else {
-            
-        }
-    }
-    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             if network.isConnected {
@@ -43,12 +35,17 @@ extension CatalogView {
         VStack(spacing: 0) {
             ScrollView {
                 VStack(spacing: 25) {
-                    FeaturedImageLayoutView(
-                        soundArray: catalogVM.allSounds,
-                        userLibrary: libraryVM.mySounds,
-                        saveSoundToLibrary: libraryVM.saveSoundToLibrary,
-                        tabSelection: $tabSelection
-                    )
+                    if catalogVM.isLoadingSounds {
+                        Text("Is loading")
+                    } else {
+                        FeaturedImageLayoutView(
+                            soundArray: catalogVM.allSounds,
+                            userLibrary: libraryVM.mySounds,
+                            saveSoundToLibrary: libraryVM.saveSoundToLibrary,
+                            tabSelection: $tabSelection
+                        )
+                    }
+                   
             
                     UserListenerStatusView(
                         hasSubscription: storeManager.hasSubscription,

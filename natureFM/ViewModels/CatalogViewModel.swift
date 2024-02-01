@@ -11,6 +11,7 @@ class CatalogViewModel: ObservableObject {
     @Published var allFreeSounds: [SoundsModel] = []
     @Published var allSubscriptionSounds: [SoundsModel] = []
     @Published var randomSounds: [SoundsModel] = []
+    @Published var isLoadingSounds: Bool = false
     @Published var categories: [CategoryName] = [CategoryName(title: "All")]
     @Published var selectedCategory: Int = 0
     @Published var randomSound: SoundsModel? = nil
@@ -21,6 +22,12 @@ class CatalogViewModel: ObservableObject {
     }
     
     func addSubscribers() {
+        natureSoundDataService.$isLoading
+            .sink { [weak self] (returnedIsLoadingState) in
+                self?.isLoadingSounds = returnedIsLoadingState
+            }
+            .store(in: &cancellable)
+        
         natureSoundDataService.$allSounds
             .sink { [weak self] (returnedSounds) in
                 self?.allSounds = returnedSounds
