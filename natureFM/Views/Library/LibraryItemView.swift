@@ -9,7 +9,7 @@ struct LibraryItemView: View {
     @State var isViewingMenu: Bool = false
     
     var body: some View {
-        HStack(spacing: 15) {
+        HStack(spacing: 10) {
             SoundImageView(sound: sound)
                 .frame(width: 66, height: 75)
                 .cornerRadius(5)
@@ -23,8 +23,7 @@ struct LibraryItemView: View {
             } label: {
                 Image(systemName: "menucard")
                     .padding()
-            }
-            .buttonStyle(.borderless)
+            }.buttonStyle(.borderless)
         }
         .onTapGesture {
             selectSound(sound)

@@ -1,13 +1,7 @@
 import SwiftUI
 
-enum SoundChoices {
-    case free
-    case subscription
-}
-
 struct CatalogSoundsView: View {
     @ObservedObject var catalogVM: CatalogViewModel
-    
     let hasSubscription: Bool
     // Tab selection
     @Binding var tabSelection: Int
@@ -17,7 +11,7 @@ struct CatalogSoundsView: View {
         VStack(alignment: .leading) {
             CatalogTitle(title: "Catalog")
             CatalogSubtitle(text: "Browse white noise inspired from nature")
-            List(catalogVM.allSounds, id: \.id) { sound in
+            ForEach(catalogVM.allSounds, id: \.id) { sound in
                 CatalogSoundView(sound: sound) 
                 
             }

@@ -44,8 +44,6 @@ extension CatalogView {
                         tabSelection: $tabSelection
                     )
                     
-                   
-            
                     UserListenerStatusView(
                         hasSubscription: storeManager.hasSubscription,
                         tabSelection: $tabSelection)

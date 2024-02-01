@@ -20,7 +20,7 @@ struct SoundDetailStackView: View {
                     .foregroundColor(Color.theme.backgroundColor)
                     .fontWeight(.bold)
                     .padding(5)
-                    .background(sound.freeSong ? Color.theme.customBlue : Color.theme.customRed)
+                    .background(sound.freeSong ? Color.theme.customBlue : Color.theme.customYellow)
                 Text("|")
                 Text(sound.categoryName)
                    
