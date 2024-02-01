@@ -40,6 +40,7 @@ extension CatalogView {
                         soundArray: catalogVM.allSounds,
                         userLibrary: libraryVM.mySounds,
                         saveSoundToLibrary: libraryVM.saveSoundToLibrary,
+                        userHasSubscription: storeManager.hasSubscription,
                         isLoading: catalogVM.isLoadingSounds,
                         tabSelection: $tabSelection
                     )
@@ -56,6 +57,7 @@ extension CatalogView {
                     // Section One
                     CatalogSoundsView(
                         catalogVM: catalogVM,
+                        libraryVM: libraryVM,
                         hasSubscription: storeManager.hasSubscription,
                         tabSelection: $tabSelection
                     )

@@ -4,6 +4,7 @@ struct FeaturedImageLayoutView: View {
     let soundArray: [SoundsModel]
     let userLibrary: [SoundsModel]
     var saveSoundToLibrary: (SoundsModel) -> Void
+    let userHasSubscription: Bool
     let isLoading: Bool
     @State private var isShowingAlert: Bool = false
     @Binding var tabSelection: Int
@@ -38,7 +39,7 @@ struct FeaturedImageLayoutView: View {
                             Text(sound.freeSong ? "Free" : "Requires Subscription")
                                 .font(.caption)
                                 .padding(3)
-                                .background(sound.freeSong ? Color.theme.customYellow : Color.theme.customBlue )
+                                .background(sound.freeSong ? Color.theme.customBlue : Color.theme.customYellow)
                      
                             Text(sound.name)
                                 .font(.largeTitle)
@@ -52,7 +53,11 @@ struct FeaturedImageLayoutView: View {
                                     .fontWeight(.bold)
                             } else {
                                 Button("Download") {
-                                    saveSoundToLibrary(sound)
+                                    if userHasSubscription || sound.freeSong {
+                                        saveSoundToLibrary(sound)
+                                    } else {
+                                        isShowingAlert = true
+                                    }
                                 }
                                 .buttonStyle(BorderButton(color: Color.theme.titleColor))
 
@@ -88,6 +93,7 @@ struct FeaturedImageLayoutView_Previews: PreviewProvider {
             soundArray: dev.homeVM.allSounds,
             userLibrary: [],
             saveSoundToLibrary: { _ in dev.testSound },
+            userHasSubscription: false,
             isLoading: true,
             tabSelection: .constant(1)
         )

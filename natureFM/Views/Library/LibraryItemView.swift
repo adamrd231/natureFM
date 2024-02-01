@@ -30,7 +30,51 @@ struct LibraryItemView: View {
         }
         .sheet(isPresented: $isViewingMenu) {
             menu
-            .presentationDetents([.fraction(0.35)])
+            .presentationDetents([.fraction(0.4)])
+        }
+    }
+}
+
+struct MenuTitleRowView: View {
+    let icon: String
+    let sound: SoundsModel
+    let action: () -> Void
+    
+    var body: some View {
+        HStack {
+            Image(systemName: icon)
+                .frame(minWidth: 30)
+            Button {
+                action()
+            } label: {
+                VStack(alignment: .leading) {
+                    Text(sound.name)
+                        .bold()
+                    Text(sound.categoryName).font(.caption)
+                    Text(sound.locationName).font(.caption)
+                }
+            }
+        }
+    }
+}
+
+
+struct MenuRowView: View {
+    let icon: String
+    let text: String
+    let action: () -> Void
+    
+    var body: some View {
+        HStack {
+            Image(systemName: icon)
+                .frame(minWidth: 30)
+            Button {
+                action()
+            } label: {
+                Text(text)
+            }
+            .foregroundColor(Color.theme.titleColor)
+            .buttonStyle(.borderless)
         }
     }
 }
@@ -39,45 +83,44 @@ extension LibraryItemView {
     var menu: some View {
         VStack {
             List {
-                HStack {
-                    Image(systemName: "mic")
-                    VStack(alignment: .leading) {
-                        Text(sound.name)
-                            .bold()
-                        Text(sound.categoryName).font(.caption)
-                        Text(sound.locationName).font(.caption)
+                MenuTitleRowView(
+                    icon: "mic",
+                    sound: sound,
+                    action: {
+                        isViewingMenu = false
                     }
-                   
-                }
-                HStack {
-                    Image(systemName: "play.square.fill")
-                    Button("Play Tab Player") {
-                        print("1")
+                )
+                MenuRowView(
+                    icon: "play.square.fill",
+                    text: "Play in tab bar player",
+                    action: {
                         selectSound(sound)
                         isViewingTabPlayerView = true
                         isViewingMenu = false
                     }
-                }
-                HStack {
-                    Image(systemName: "play.rectangle.on.rectangle.fill")
-                    Button("Play Full Player") {
+                )
+                MenuRowView(
+                    icon: "play.rectangle.on.rectangle.fill",
+                    text: "Play in full screen player",
+                    action: {
                         selectSound(sound)
-                        print("2")
                         isViewingMenu = false
                         isViewingFullPlayerView = true
-                 
                     }
-                }
-                HStack {
-                    Image(systemName: "trash")
-                    Button("Delete from library") {
+                )
+                MenuRowView(
+                    icon: "trash",
+                    text: "Delete from library",
+                    action: {
                         removeFromLibrary(sound)
                         isViewingMenu = false
+                        isViewingFullPlayerView = false
                     }
-                }
+                )
             }
             .listStyle(.plain)
             Button("Close") { isViewingMenu.toggle() }
+                .padding()
         }
     }
 }
