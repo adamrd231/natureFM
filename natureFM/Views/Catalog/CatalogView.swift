@@ -35,16 +35,15 @@ extension CatalogView {
         VStack(spacing: 0) {
             ScrollView {
                 VStack(spacing: 25) {
-                    if catalogVM.isLoadingSounds {
-                        Text("Is loading")
-                    } else {
-                        FeaturedImageLayoutView(
-                            soundArray: catalogVM.allSounds,
-                            userLibrary: libraryVM.mySounds,
-                            saveSoundToLibrary: libraryVM.saveSoundToLibrary,
-                            tabSelection: $tabSelection
-                        )
-                    }
+   
+                    FeaturedImageLayoutView(
+                        soundArray: catalogVM.allSounds,
+                        userLibrary: libraryVM.mySounds,
+                        saveSoundToLibrary: libraryVM.saveSoundToLibrary,
+                        isLoading: catalogVM.isLoadingSounds,
+                        tabSelection: $tabSelection
+                    )
+                    
                    
             
                     UserListenerStatusView(
