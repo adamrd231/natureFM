@@ -11,10 +11,20 @@ struct FeaturedImageLayoutView: View {
     var body: some View {
         TabView {
             if isLoading {
-                VStack {
-                    ProgressView()
-                    Text("Loading sounds")
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10)
+                        .foregroundColor(Color.theme.backgroundColor)
+                    VStack {
+                        ProgressView()
+                            .tint(Color.theme.customBlue)
+                        Text("Loading")
+                            .fontWeight(.bold)
+                            
+                    }
+                    .padding()
                 }
+                .fixedSize()
+                .foregroundColor(Color.theme.customBlue)
                 
             } else {
                 ForEach(soundArray, id: \.id) { sound in
