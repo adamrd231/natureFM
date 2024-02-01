@@ -12,7 +12,7 @@ struct CatalogSoundsView: View {
         VStack(alignment: .leading) {
             CatalogTitle(title: "Catalog")
             CatalogSubtitle(text: "Browse white noise inspired from nature")
-            VStack(spacing: 25) {
+            VStack(spacing: 15) {
                 ForEach(catalogVM.filteredSounds, id: \.id) { sound in
                     CatalogSoundView(
                         sound: sound,

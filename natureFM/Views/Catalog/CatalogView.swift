@@ -35,7 +35,6 @@ extension CatalogView {
         VStack(spacing: 0) {
             ScrollView {
                 VStack(spacing: 25) {
-   
                     FeaturedImageLayoutView(
                         soundArray: catalogVM.allSounds,
                         userLibrary: libraryVM.mySounds,
@@ -79,6 +78,7 @@ extension CatalogView {
               
             }
         }
+        .edgesIgnoringSafeArea(.top)
     }
 }
 
