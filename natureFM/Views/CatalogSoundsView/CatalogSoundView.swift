@@ -18,7 +18,8 @@ struct CatalogSoundView: View {
     var body: some View {
         HStack {
             SoundImageView(sound: sound)
-                .frame(width: 100, height: 66)
+                .frame(width: 100, height: 90)
+                .cornerRadius(15)
                 .clipped()
             SoundDetailStackView(sound: sound)
             
@@ -32,7 +33,7 @@ struct CatalogSoundView: View {
         }
         .sheet(isPresented: $isViewingMenu) {
             menu
-            .presentationDetents([.fraction(0.5)])
+            .presentationDetents([.fraction(0.25)])
         }
     }
 }
