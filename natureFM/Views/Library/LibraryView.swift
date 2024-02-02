@@ -49,6 +49,16 @@ struct LibraryView: View {
                     )
                 }
                 .listRowSeparator(.hidden)
+                VStack(alignment: .leading) {
+                    Text("Need more sounds?").bold()
+                    Button {
+                        currentTab = 1
+                    } label: {
+                        Text("Head to catalog")
+                    }
+                    .foregroundColor(Color.theme.customBlue)
+                    .buttonStyle(.borderless)
+                }
             }
             .listStyle(.plain)
  

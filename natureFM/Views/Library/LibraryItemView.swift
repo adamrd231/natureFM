@@ -23,7 +23,9 @@ struct LibraryItemView: View {
             } label: {
                 Image(systemName: "menucard")
                     .padding()
-            }.buttonStyle(.borderless)
+            }
+            .foregroundColor(Color.theme.customBlue)
+            .buttonStyle(.borderless)
         }
         .onTapGesture {
             selectSound(sound)
