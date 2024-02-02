@@ -31,6 +31,7 @@ struct ProductRowView: View {
             }
             .disabled(hasPurchased)
         }
+        .padding(3)
     }
 }
 

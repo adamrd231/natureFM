@@ -13,18 +13,21 @@ struct FeaturedImageLayoutView: View {
         TabView {
             if isLoading {
                 ZStack {
-                    RoundedRectangle(cornerRadius: 10)
-                        .foregroundColor(Color.theme.backgroundColor)
+                    Rectangle()
+                        .foregroundColor(Color.theme.backgroundColor.opacity(0.33))
                     VStack {
                         ProgressView()
+                            .progressViewStyle(.circular)
                             .tint(Color.theme.customBlue)
                         Text("Loading")
                             .fontWeight(.bold)
                             
                     }
                     .padding()
+                    .background(Color.theme.backgroundColor.opacity(0.66))
+                    .cornerRadius(15)
                 }
-                .fixedSize()
+  
                 .foregroundColor(Color.theme.customBlue)
                 
             } else {

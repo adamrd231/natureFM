@@ -237,6 +237,7 @@
 		664F0BE82B5AFD6F002D1E2A /* CatalogSoundsView */ = {
 			isa = PBXGroup;
 			children = (
+				664F0BE62B5AF9EF002D1E2A /* UserListenerStatusView.swift */,
 				66CE6FF627B36A440031E7FE /* CatalogSoundsView.swift */,
 				664F0BE92B5AFD8D002D1E2A /* HorizontalScrollSoundView.swift */,
 				668843CD2B6C2D14000BCAE5 /* CatalogSoundView.swift */,
@@ -360,6 +361,30 @@
 			path = ButtonStyles;
 			sourceTree = "<group>";
 		};
+		668843D12B6D6147000BCAE5 /* FullPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				66CE6FFC27B46F760031E7FE /* SoundPlayerView.swift */,
+			);
+			path = FullPlayer;
+			sourceTree = "<group>";
+		};
+		668843D22B6D615E000BCAE5 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				664E8D9527B2455D00699C0B /* SoundImageView.swift */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		668843D32B6D6177000BCAE5 /* TabBarPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				6685C5FB2AC9D326005947A4 /* PlayingNowBar.swift */,
+			);
+			path = TabBarPlayer;
+			sourceTree = "<group>";
+		};
 		6691DE05279BAE7900B099D2 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -373,11 +398,10 @@
 		6693C4B02728F39D00D4FD17 /* components */ = {
 			isa = PBXGroup;
 			children = (
+				668843D22B6D615E000BCAE5 /* Images */,
 				6685C5FF2AD06732005947A4 /* ClockDisplayView.swift */,
 				6685C5D12ABCBC1C005947A4 /* TabItemView.swift */,
-				6685C5FB2AC9D326005947A4 /* PlayingNowBar.swift */,
 				664F0BD72B59B19A002D1E2A /* CategoryRowView.swift */,
-				664F0BE62B5AF9EF002D1E2A /* UserListenerStatusView.swift */,
 				66F241D52B6030BD00E26769 /* NoInternetView.swift */,
 				668843CF2B6C2E23000BCAE5 /* SoundDetailStackView.swift */,
 			);
@@ -387,8 +411,8 @@
 		66CE6FFE27B4A7CD0031E7FE /* SoundPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				66CE6FFC27B46F760031E7FE /* SoundPlayerView.swift */,
-				664E8D9527B2455D00699C0B /* SoundImageView.swift */,
+				668843D32B6D6177000BCAE5 /* TabBarPlayer */,
+				668843D12B6D6147000BCAE5 /* FullPlayer */,
 				6685C6062AD8A337005947A4 /* ProgressBarView.swift */,
 				6685C6082AD8A3AC005947A4 /* AudioControlButtonsView.swift */,
 			);
@@ -421,9 +445,9 @@
 		66E43FAA26C6120000AE012E /* natureFM */ = {
 			isa = PBXGroup;
 			children = (
-				668843CA2B6C2697000BCAE5 /* ButtonStyles */,
 				66E43FAB26C6120000AE012E /* natureFMApp.swift */,
 				66E43FBB26C6125A00AE012E /* HomeView.swift */,
+				668843CA2B6C2697000BCAE5 /* ButtonStyles */,
 				6685C6372ADF1703005947A4 /* Admob */,
 				667CD62127B27090007965D7 /* Extensions */,
 				66098BFC27B1C731000041D9 /* Utilities */,
