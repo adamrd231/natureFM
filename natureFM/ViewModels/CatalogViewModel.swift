@@ -9,6 +9,7 @@ class CatalogViewModel: ObservableObject {
     var filteredSounds: [SoundsModel] = []
     @Published var randomSounds: [SoundsModel] = []
     @Published var isLoadingSounds: Bool = false
+    @Published var hasError: Error? = nil
     // Create list of categories from sounds download
     @Published var categories: [CategoryName] = [CategoryName(title: "All")]
     @Published var selectedCategory: Int = 0
@@ -20,6 +21,13 @@ class CatalogViewModel: ObservableObject {
     }
     
     func addSubscribers() {
+        
+        natureSoundDataService.$hasError
+            .sink{ [weak self] (returnedHasError) in
+                self?.hasError = returnedHasError
+            }
+            .store(in: &cancellable)
+        
         natureSoundDataService.$isLoading
             .sink { [weak self] (returnedIsLoadingState) in
                 self?.isLoadingSounds = returnedIsLoadingState

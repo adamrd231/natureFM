@@ -1,37 +1,22 @@
 import SwiftUI
 
 struct FeaturedImageLayoutView: View {
-    let soundArray: [SoundsModel]
-    let userLibrary: [SoundsModel]
-    var saveSoundToLibrary: (SoundsModel) -> Void
+    // Passed parameters
+    @ObservedObject var catalogVM: CatalogViewModel
+    @ObservedObject var libraryVM: LibraryViewModel
     let userHasSubscription: Bool
-    let isLoading: Bool
+    // State variables
     @State private var isShowingAlert: Bool = false
     @Binding var tabSelection: Int
     
     var body: some View {
         TabView {
-            if isLoading {
-                ZStack {
-                    Rectangle()
-                        .foregroundColor(Color.theme.backgroundColor.opacity(0.33))
-                    VStack {
-                        ProgressView()
-                            .progressViewStyle(.circular)
-                            .tint(Color.theme.customBlue)
-                        Text("Loading")
-                            .fontWeight(.bold)
-                            
-                    }
-                    .padding()
-                    .background(Color.theme.backgroundColor.opacity(0.66))
-                    .cornerRadius(15)
-                }
-  
-                .foregroundColor(Color.theme.customBlue)
-                
+            if (catalogVM.hasError != nil) {
+                Text("ERRRRRROR")
+            } else if catalogVM.isLoadingSounds {
+               LoadingFullScreenView()
             } else {
-                ForEach(soundArray, id: \.id) { sound in
+                ForEach(catalogVM.allSounds, id: \.id) { sound in
                     ZStack {
                         SoundImageView(sound: sound)
                             .overlay(
@@ -50,14 +35,14 @@ struct FeaturedImageLayoutView: View {
                                 .frame(maxWidth: UIScreen.main.bounds.width * 0.66)
                                 .multilineTextAlignment(.center)
                                 
-                            if userLibrary.contains(sound) {
+                            if libraryVM.mySounds.contains(sound) {
                                 Text("In your library")
                                     .font(.caption)
                                     .fontWeight(.bold)
                             } else {
                                 Button("Download") {
                                     if userHasSubscription || sound.freeSong {
-                                        saveSoundToLibrary(sound)
+                                        libraryVM.saveSoundToLibrary(sound)
                                     } else {
                                         isShowingAlert = true
                                     }
@@ -82,7 +67,6 @@ struct FeaturedImageLayoutView: View {
                     .frame(width: UIScreen.main.bounds.width)
                 }
             }
-            
         }
         .tabViewStyle(.page(indexDisplayMode: .always))
         .edgesIgnoringSafeArea(.top)
@@ -93,11 +77,9 @@ struct FeaturedImageLayoutView: View {
 struct FeaturedImageLayoutView_Previews: PreviewProvider {
     static var previews: some View {
         FeaturedImageLayoutView(
-            soundArray: dev.homeVM.allSounds,
-            userLibrary: [],
-            saveSoundToLibrary: { _ in dev.testSound },
+            catalogVM: dev.homeVM,
+            libraryVM: dev.libraryVM,
             userHasSubscription: false,
-            isLoading: true,
             tabSelection: .constant(1)
         )
     }

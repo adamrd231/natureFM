@@ -36,11 +36,9 @@ extension CatalogView {
             ScrollView {
                 VStack(spacing: 25) {
                     FeaturedImageLayoutView(
-                        soundArray: catalogVM.allSounds,
-                        userLibrary: libraryVM.mySounds,
-                        saveSoundToLibrary: libraryVM.saveSoundToLibrary,
+                        catalogVM: catalogVM,
+                        libraryVM: libraryVM,
                         userHasSubscription: storeManager.hasSubscription,
-                        isLoading: catalogVM.isLoadingSounds,
                         tabSelection: $tabSelection
                     )
                     

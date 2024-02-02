@@ -4,7 +4,9 @@ import Combine
 class NatureSoundDataService {
     @Published var allSounds: [SoundsModel] = []
     @Published var isLoading: Bool = false
-    var soundSubcription: AnyCancellable?
+    @Published var hasError: Error?
+    
+    var soundSubscription: AnyCancellable?
     
     init() {
         isLoading = true
@@ -13,18 +15,24 @@ class NatureSoundDataService {
     
     func getSounds() {
         // Download sounds from backend
-        guard let url = URL(string: "https://nature-fm.herokuapp.com/app/sound/")
-     else {
+        guard let url = URL(string: "https://nature-fm.herokuapp.com/app/sound/s") else {
+            // Handle Failure to create URL String
             print("Error getting URL String")
             isLoading = false
             return
         }
         
-        soundSubcription = NetworkingManager.download(url: url)
+        soundSubscription = NetworkingManager.download(url: url)
             .decode(type: [SoundsModel].self, decoder: JSONDecoder())
-            .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { (returnedSounds) in
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                    case .finished: break
+                    case .failure(let error): self.hasError = error
+                }
+                
+            }, receiveValue: { (returnedSounds) in
                 self.allSounds = returnedSounds
-                self.soundSubcription?.cancel()
+                self.soundSubscription?.cancel()
                 self.isLoading = false
             })
     }

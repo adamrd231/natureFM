@@ -13,9 +13,7 @@ class NetworkingManager {
             case .unknown: return "[⛔️] Uknown error occured"
             }
         }
-        
     }
-    
     
     static func download(url: URL) -> AnyPublisher<Data, Error> {
         return URLSession.shared.dataTaskPublisher(for: url)
