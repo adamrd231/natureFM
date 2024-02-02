@@ -18,8 +18,8 @@ class NatureSoundDataService {
         guard let url = URL(string: "https://nature-fm.herokuapp.com/app/sound/") else {
             // Handle Failure to create URL String
             print("Error getting URL String")
-//            isLoading = false
-            isLoading = true
+            isLoading = false
+
             return
         }
         
@@ -34,7 +34,7 @@ class NatureSoundDataService {
             }, receiveValue: { (returnedSounds) in
                 self.allSounds = returnedSounds
                 self.soundSubscription?.cancel()
-//                self.isLoading = false
+                self.isLoading = false
             })
     }
     

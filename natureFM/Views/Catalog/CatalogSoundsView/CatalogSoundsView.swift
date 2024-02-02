@@ -16,8 +16,12 @@ struct CatalogSoundsView: View {
             CatalogSubtitle(text: "Browse white noise inspired from nature")
             VStack(spacing: 15) {
                 if catalogVM.isLoadingSounds {
-                    SkeletonCatalogView()
-                        .blinking(duration: 1)
+                    VStack(spacing: 15) {
+                        SkeletonCatalogView()
+                        SkeletonCatalogView()
+                        SkeletonCatalogView()
+                    }
+                    .blinking(duration: 1)
                 } else {
                     ForEach(catalogVM.filteredSounds, id: \.id) { sound in
                         CatalogSoundView(
