@@ -47,6 +47,7 @@
 		668843CE2B6C2D14000BCAE5 /* CatalogSoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668843CD2B6C2D14000BCAE5 /* CatalogSoundView.swift */; };
 		668843D02B6C2E23000BCAE5 /* SoundDetailStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668843CF2B6C2E23000BCAE5 /* SoundDetailStackView.swift */; };
 		668843D52B6D6AFE000BCAE5 /* LoadingFullScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668843D42B6D6AFE000BCAE5 /* LoadingFullScreenView.swift */; };
+		668843D72B6D708D000BCAE5 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668843D62B6D708D000BCAE5 /* ErrorView.swift */; };
 		6693C4AF2728F06900D4FD17 /* CategoryPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6693C4AE2728F06900D4FD17 /* CategoryPickerView.swift */; };
 		66C3CC0A26FCD7FE00438A55 /* URLImageStore in Frameworks */ = {isa = PBXBuildFile; productRef = 66C3CC0926FCD7FE00438A55 /* URLImageStore */; };
 		66C3CC0C26FCD7FE00438A55 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = 66C3CC0B26FCD7FE00438A55 /* URLImage */; };
@@ -133,6 +134,7 @@
 		668843CD2B6C2D14000BCAE5 /* CatalogSoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogSoundView.swift; sourceTree = "<group>"; };
 		668843CF2B6C2E23000BCAE5 /* SoundDetailStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundDetailStackView.swift; sourceTree = "<group>"; };
 		668843D42B6D6AFE000BCAE5 /* LoadingFullScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFullScreenView.swift; sourceTree = "<group>"; };
+		668843D62B6D708D000BCAE5 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		6693C4AE2728F06900D4FD17 /* CategoryPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerView.swift; sourceTree = "<group>"; };
 		66C3CC152703C3DF00438A55 /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		66C3CC172703CB2500438A55 /* InAppStorePurchasesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppStorePurchasesView.swift; sourceTree = "<group>"; };
@@ -407,6 +409,7 @@
 				66F241D52B6030BD00E26769 /* NoInternetView.swift */,
 				668843CF2B6C2E23000BCAE5 /* SoundDetailStackView.swift */,
 				668843D42B6D6AFE000BCAE5 /* LoadingFullScreenView.swift */,
+				668843D62B6D708D000BCAE5 /* ErrorView.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -686,6 +689,7 @@
 				66C3CC162703C3DF00438A55 /* CategoryModel.swift in Sources */,
 				66589EBA27BDA2BE0026F7A3 /* LaunchScreenView.swift in Sources */,
 				66098C0027B1C8E4000041D9 /* CatalogViewModel.swift in Sources */,
+				668843D72B6D708D000BCAE5 /* ErrorView.swift in Sources */,
 				664E8D9927B245BC00699C0B /* SoundImageViewModel.swift in Sources */,
 				66CE6FF927B3C6380031E7FE /* Int.swift in Sources */,
 				66F241D82B60336300E26769 /* LibraryItemView.swift in Sources */,

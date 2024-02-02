@@ -15,7 +15,7 @@ class NatureSoundDataService {
     
     func getSounds() {
         // Download sounds from backend
-        guard let url = URL(string: "https://nature-fm.herokuapp.com/app/sound/s") else {
+        guard let url = URL(string: "https://nature-fm.herokuapp.com/app/sound/") else {
             // Handle Failure to create URL String
             print("Error getting URL String")
             isLoading = false

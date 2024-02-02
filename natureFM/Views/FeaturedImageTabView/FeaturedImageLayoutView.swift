@@ -11,8 +11,8 @@ struct FeaturedImageLayoutView: View {
     
     var body: some View {
         TabView {
-            if (catalogVM.hasError != nil) {
-                Text("ERRRRRROR")
+            if let error = catalogVM.hasError {
+                ErrorView(error: error)
             } else if catalogVM.isLoadingSounds {
                LoadingFullScreenView()
             } else {
