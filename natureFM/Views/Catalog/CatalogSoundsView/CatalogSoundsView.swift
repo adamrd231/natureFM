@@ -1,5 +1,7 @@
 import SwiftUI
 
+
+
 struct CatalogSoundsView: View {
     @ObservedObject var catalogVM: CatalogViewModel
     @ObservedObject var libraryVM: LibraryViewModel
@@ -13,16 +15,21 @@ struct CatalogSoundsView: View {
             CatalogTitle(title: "Catalog")
             CatalogSubtitle(text: "Browse white noise inspired from nature")
             VStack(spacing: 15) {
-                ForEach(catalogVM.filteredSounds, id: \.id) { sound in
-                    CatalogSoundView(
-                        sound: sound,
-                        hasSubscription: hasSubscription,
-                        libraryVM: libraryVM,
-                        tabSelection: $tabSelection
-                    )
-                    
+                if catalogVM.isLoadingSounds {
+                    SkeletonCatalogView()
+                        .blinking(duration: 1)
+                } else {
+                    ForEach(catalogVM.filteredSounds, id: \.id) { sound in
+                        CatalogSoundView(
+                            sound: sound,
+                            hasSubscription: hasSubscription,
+                            libraryVM: libraryVM,
+                            tabSelection: $tabSelection
+                        )
+                        
+                    }
                 }
-                .listStyle(.plain)
+                
             }
         }
         .padding(.leading)
