@@ -18,7 +18,6 @@
 		664E8D9927B245BC00699C0B /* SoundImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664E8D9827B245BC00699C0B /* SoundImageViewModel.swift */; };
 		664F0BD82B59B19A002D1E2A /* CategoryRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664F0BD72B59B19A002D1E2A /* CategoryRowView.swift */; };
 		664F0BE72B5AF9EF002D1E2A /* UserListenerStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664F0BE62B5AF9EF002D1E2A /* UserListenerStatusView.swift */; };
-		664F0BEA2B5AFD8D002D1E2A /* HorizontalScrollSoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664F0BE92B5AFD8D002D1E2A /* HorizontalScrollSoundView.swift */; };
 		66589EBA27BDA2BE0026F7A3 /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66589EB927BDA2BE0026F7A3 /* LaunchScreenView.swift */; };
 		6661D71327BB067800481E3A /* FeaturedImageLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6661D71227BB067800481E3A /* FeaturedImageLayoutView.swift */; };
 		6661D71527BCE5C900481E3A /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6661D71427BCE5C900481E3A /* ProfileView.swift */; };
@@ -102,7 +101,6 @@
 		664E8D9827B245BC00699C0B /* SoundImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundImageViewModel.swift; sourceTree = "<group>"; };
 		664F0BD72B59B19A002D1E2A /* CategoryRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRowView.swift; sourceTree = "<group>"; };
 		664F0BE62B5AF9EF002D1E2A /* UserListenerStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListenerStatusView.swift; sourceTree = "<group>"; };
-		664F0BE92B5AFD8D002D1E2A /* HorizontalScrollSoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalScrollSoundView.swift; sourceTree = "<group>"; };
 		66589EB927BDA2BE0026F7A3 /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
 		6661D71227BB067800481E3A /* FeaturedImageLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedImageLayoutView.swift; sourceTree = "<group>"; };
 		6661D71427BCE5C900481E3A /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -241,9 +239,7 @@
 		664F0BE82B5AFD6F002D1E2A /* CatalogSoundsView */ = {
 			isa = PBXGroup;
 			children = (
-				664F0BE62B5AF9EF002D1E2A /* UserListenerStatusView.swift */,
 				66CE6FF627B36A440031E7FE /* CatalogSoundsView.swift */,
-				664F0BE92B5AFD8D002D1E2A /* HorizontalScrollSoundView.swift */,
 				668843CD2B6C2D14000BCAE5 /* CatalogSoundView.swift */,
 			);
 			path = CatalogSoundsView;
@@ -272,9 +268,11 @@
 		6682760B2B3C9C5700B5B548 /* Catalog */ = {
 			isa = PBXGroup;
 			children = (
+				664F0BE82B5AFD6F002D1E2A /* CatalogSoundsView */,
 				6682760C2B3C9C6D00B5B548 /* CatalogView.swift */,
 				6682760E2B3C9F8500B5B548 /* CatalogTitle.swift */,
 				668276102B3E155000B5B548 /* CatalogSubtitle.swift */,
+				664F0BE62B5AF9EF002D1E2A /* UserListenerStatusView.swift */,
 			);
 			path = Catalog;
 			sourceTree = "<group>";
@@ -328,7 +326,6 @@
 			isa = PBXGroup;
 			children = (
 				668843C92B6C267E000BCAE5 /* FeaturedImageTabView */,
-				664F0BE82B5AFD6F002D1E2A /* CatalogSoundsView */,
 				66CE6FFE27B4A7CD0031E7FE /* SoundPlayer */,
 				66098BF827B1C385000041D9 /* Launch */,
 				6682760B2B3C9C5700B5B548 /* Catalog */,
@@ -714,7 +711,6 @@
 				66C3CC182703CB2500438A55 /* InAppStorePurchasesView.swift in Sources */,
 				664F0BD82B59B19A002D1E2A /* CategoryRowView.swift in Sources */,
 				668276182B41FBE000B5B548 /* LibraryViewModel.swift in Sources */,
-				664F0BEA2B5AFD8D002D1E2A /* HorizontalScrollSoundView.swift in Sources */,
 				668276132B40A6BB00B5B548 /* NetworkMonitor.swift in Sources */,
 				6661D71327BB067800481E3A /* FeaturedImageLayoutView.swift in Sources */,
 				668276112B3E155100B5B548 /* CatalogSubtitle.swift in Sources */,
