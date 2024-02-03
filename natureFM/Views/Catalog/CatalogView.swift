@@ -11,7 +11,7 @@ struct CatalogView: View {
         NavigationStack {
             if network.isConnected {
                 CatalogScrollView
-                    .navigationTitle("natureFM")
+                    .navigationBarTitle(Text("NatureFM").font(.callout), displayMode: .automatic)
             } else {
                 NoInternetView(tabSelection: $tabSelection)
             }

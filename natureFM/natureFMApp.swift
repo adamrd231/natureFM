@@ -15,6 +15,14 @@ import StoreKit
 struct natureFMApp: App {
     @State private var showLaunchView: Bool = false
     
+    init() {
+            //Use this if NavigationBarTitle is with Large Font
+        UINavigationBar.appearance().largeTitleTextAttributes = [.font : UIFont.systemFont(ofSize: 14, weight: .bold)]
+
+            //Use this if NavigationBarTitle is with displayMode = .inline
+            //UINavigationBar.appearance().titleTextAttributes = [.font : UIFont(name: "Georgia-Bold", size: 20)!]
+        }
+    
     var body: some Scene {
         WindowGroup {
             ZStack {
