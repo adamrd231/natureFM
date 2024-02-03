@@ -273,11 +273,11 @@
 		6682760B2B3C9C5700B5B548 /* Catalog */ = {
 			isa = PBXGroup;
 			children = (
-				664F0BE82B5AFD6F002D1E2A /* CatalogSoundsView */,
 				6682760C2B3C9C6D00B5B548 /* CatalogView.swift */,
 				6682760E2B3C9F8500B5B548 /* CatalogTitle.swift */,
 				668276102B3E155000B5B548 /* CatalogSubtitle.swift */,
 				664F0BE62B5AF9EF002D1E2A /* UserListenerStatusView.swift */,
+				664F0BE82B5AFD6F002D1E2A /* CatalogSoundsView */,
 			);
 			path = Catalog;
 			sourceTree = "<group>";

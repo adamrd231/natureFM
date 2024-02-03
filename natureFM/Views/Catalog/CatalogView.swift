@@ -8,13 +8,16 @@ struct CatalogView: View {
     @Binding var tabSelection: Int
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        NavigationStack {
             if network.isConnected {
                 CatalogScrollView
+                    .navigationTitle("natureFM")
             } else {
                 NoInternetView(tabSelection: $tabSelection)
             }
+                
         }
+       
     }
 }
 
@@ -60,20 +63,10 @@ extension CatalogView {
                     )
                  
                 }
-                .overlay(alignment: .topLeading) {
-                    Text("natureFM")
-                        .foregroundColor(Color.theme.titleColor)
-                        .font(.caption2)
-                        .fontWeight(.heavy)
-                        .padding(25)
-                        .padding(.top, 25)
-                }
-
             }
             
             if libraryVM.isViewingSongPlayerTab {
                 PlayingNowBar(libraryVM: libraryVM)
-              
             }
         }
         .edgesIgnoringSafeArea(.top)
