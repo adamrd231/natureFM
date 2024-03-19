@@ -39,73 +39,15 @@ class LibraryViewModel: ObservableObject {
     private var cancellable = Set<AnyCancellable>()
     
     init() {
-        addSubscribers()
+       
     }
     
     func saveSoundToLibrary(_ sound: SoundsModel) {
         downloadedContentService.saveSound(sound: sound)
     }
     
-    func addSubscribers() {
-        downloadedContentService.$savedEntities
-            .combineLatest($selectedCategory)
-            .map(mapDownloadedContent)
-            .sink { [weak self] (returnedSounds) in
-                self?.mySounds = returnedSounds
-                var categoryArray:[CategoryName] = []
-                categoryArray.append(CategoryName(title: "All"))
-                for sound in returnedSounds {
-                    let newCategory = CategoryName(title: sound.categoryName)
-                    if categoryArray.contains(where: { $0.title == sound.categoryName }) {
-                    } else {
-                        categoryArray.append(newCategory)
-                    }
-                }
-                self?.categories = categoryArray
-            }
-            .store(in: &cancellable)
-        
-        $sound
-            .sink { returnedSound in
-                if let unwrappedSound = returnedSound {
-                    self.currentTime = 0
-                    self.percentagePlayed = 0
-                    self.duration = returnedSound?.duration ?? 0
-                    self.songDataDownloadService.getSound(sound: unwrappedSound)
-                }
-            }
-            .store(in: &cancellable)
-        
-        songDataDownloadService.$downloadedSound
-            .sink { returnedPlayerData in
-                if let data = returnedPlayerData {
-                    do {
-                        try self.audioPlayer = AVAudioPlayer(data: data)
-                    } catch {
-                        print("Error setting up audio player HOMEVIEWMODEL")
-                    }
-                }
-            }
-            .store(in: &cancellable)
-    }
     
-    func mapDownloadedContent(returnedSounds: [Sound], currentCategory: String) -> [SoundsModel] {
-        var sounds: [SoundsModel] = []
-        for sound in returnedSounds {
-            let newSound = SoundsModel(
-                name: sound.name ?? "",
-                duration: Int(sound.duration),
-                audioFileLink: sound.audioFile ?? "",
-                imageFileLink: sound.imageFileLink ?? "",
-                categoryName: sound.categoryName ?? "",
-                locationName: sound.locationName ?? "",
-                freeSong: sound.freeSong
-            )
-            sounds.append(newSound)
-        }
-        sounds.sort(by: { $0.name < $1.name })
-        return sounds
-    }
+
     
     func removeFromLibrary(sound: SoundsModel) {
         downloadedContentService.deleteSound(sound: sound)

@@ -11,36 +11,12 @@ class DeveloperPreview {
     static let instance = DeveloperPreview()
     private init() {
         homeVM.allSounds.append(testSound)
-        
-        homeVM.allSounds.append(testSound)
-        homeVM.allSounds.append(testSound2)
-        
         libraryVM.mySounds.append(testSound)
-        libraryVM.mySounds.append(testSound2)
     }
 
     let libraryVM = LibraryViewModel()
     let homeVM = CatalogViewModel()
-    let testSound = SoundsModel(
-        name: "Adams song is a long title yo!",
-        duration: 100,
-        audioFileLink: "",
-        imageFileLink: "http://via.placeholder.com/640x360",
-        categoryName: "Rain",
-        locationName: "Portland",
-        freeSong: false
-    )
-    
-    let testSound2 = SoundsModel(
-        name: "This is a different song",
-        duration: 53,
-        audioFileLink: "",
-        imageFileLink: URL(fileURLWithPath: "placeholder").absoluteString,
-        categoryName: "Not Rain",
-        locationName: "Not Portland",
-        freeSong: false
-    )
-    
+    let testSound = SoundsModel(id: 1, name: "Boomhower's Beat", description: "Boomhower goes all the way in on this one.", artist: Artist(id: 1, name: "Boomhower"), audioFileLink: "", imageFileLink: "", duration: 100, categoryName: "Beats", locationName: "Arlen", averageRating: 4.98, freeSong: true)
     
     let audioLink = Bundle.main.path(forResource: "launchimage", ofType: "jpg")
     let imageFileLink = ""
