@@ -19,12 +19,19 @@ enum APIMethod: String {
     case POST
 }
 
+//    var devURL = "http://127.0.0.1:8000/admin/App/sound/"
+//    let prodURL = "https://nature-fm.herokuapp.com/app/sound/"
+
+enum URLs: String {
+    case getSounds = "http://127.0.0.1:8000/admin/App/sound/"
+}
+
 
 protocol APINetworking {
     func request(with url: URL, method: APIMethod, parameters: [String: Any]?, completion: @escaping (Data?, URLResponse?, Error?) -> Void)
 }
 
-protocol SoundDownloadService {
+protocol NatureSoundDataProtocol {
     func downloadSounds(completion: @escaping(Result<[SoundsModel], APIError>) -> Void)
 }
 
@@ -43,4 +50,20 @@ class APINetworkService: APINetworking {
         }
         task.resume()
     }
+}
+
+class NatureSoundDataService: NatureSoundDataProtocol {
+    let networkService: APINetworkService
+    
+    init(networkService: APINetworkService) {
+        self.networkService = networkService
+    }
+    
+    func downloadSounds(completion: @escaping (Result<[SoundsModel], APIError>) -> Void) {
+        guard let url = URL(string: URLs.getSounds.rawValue) else {
+            completion(.failure(.invalidURL))
+            return
+        }
+    }
+    
 }
