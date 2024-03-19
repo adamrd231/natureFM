@@ -1,46 +1,42 @@
-//import Foundation
-//import Combine
-//
-//
-//
-//class NatureSoundDataService {
-//    @Published var allSounds: [SoundsModel] = []
-//    @Published var isLoading: Bool = false
-//    @Published var hasError: Error?
-//    
-//    var soundSubscription: AnyCancellable?
-//    
-//    var devURL = "http://127.0.0.1:8000/admin/App/sound/"
-//    let prodURL = "https://nature-fm.herokuapp.com/app/sound/"
-//    
-//    init() {
-//        isLoading = true
-//        getSounds()
-//    }
-//    
-//    func getSounds() {
-//        // Download sounds from backend
-//        guard let url = URL(string: devURL) else {
-//            // Handle Failure to create URL String
-//            print("Error getting URL String")
-//            isLoading = false
-//
-//            return
-//        }
-//        
-//        soundSubscription = NetworkingManager.download(url: url)
-//            .decode(type: [SoundsModel].self, decoder: JSONDecoder())
-//            .sink(receiveCompletion: { completion in
-//                switch completion {
-//                    case .finished: break
-//                    case .failure(let error): self.hasError = error
-//                }
-//                
-//            }, receiveValue: { (returnedSounds) in
-//                self.allSounds = returnedSounds
-//                self.soundSubscription?.cancel()
-//                self.isLoading = false
-//            })
-//    }
-//    
-//}
+import Foundation
+
+class NatureSoundDataService: NatureSoundDataProtocol {
+    let networkService: APINetworkService
+    
+    init(networkService: APINetworkService) {
+        self.networkService = networkService
+    }
+    
+    func getCatalogSounds(completion: @escaping (Result<[SoundsModel], APIError>) -> Void) {
+        guard let url = URL(string: URLs.getSounds.rawValue) else {
+            completion(.failure(.invalidURL))
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            // Check for errors
+            guard let unwrappedData = data, error == nil else {
+                print("Error")
+                completion(.failure(.requestFailed))
+                return
+            }
+            guard let httpResponse = response as? HTTPURLResponse else {
+                completion(.failure(.invalidResponse))
+                return
+            }
+            guard (200..<300).contains(httpResponse.statusCode) else {
+                completion(.failure(.statusCodeError))
+                return
+            }
+            
+            do {
+                let decoder = JSONDecoder()
+                let decodedData = try decoder.decode([SoundsModel].self, from: unwrappedData)
+                completion(.success(decodedData))
+            } catch let error {
+                completion(.failure(.decodingJSONDataFailure))
+            }
+        }.resume()
+    }
+}
+

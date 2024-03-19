@@ -7,26 +7,6 @@
 
 import Foundation
 
-enum APIError: Error {
-    case invalidURL
-    case requestFailed
-    case encodingParametersFailed
-    case decodingJSONDataFailure
-}
-
-enum APIMethod: String {
-    case GET
-    case POST
-}
-
-//    var devURL = "http://127.0.0.1:8000/admin/App/sound/"
-//    let prodURL = "https://nature-fm.herokuapp.com/app/sound/"
-
-enum URLs: String {
-    case getSounds = "http://127.0.0.1:8000/app/sound/"
-}
-
-
 protocol APINetworking {
     func request(with url: URL, method: APIMethod, parameters: [String: Any]?, completion: @escaping (Data?, URLResponse?, Error?) -> Void)
 }
@@ -52,38 +32,3 @@ class APINetworkService: APINetworking {
     }
 }
 
-class NatureSoundDataService: NatureSoundDataProtocol {
-    let networkService: APINetworkService
-    
-    init(networkService: APINetworkService) {
-        self.networkService = networkService
-    }
-    
-    func getCatalogSounds(completion: @escaping (Result<[SoundsModel], APIError>) -> Void) {
-        guard let url = URL(string: URLs.getSounds.rawValue) else {
-            completion(.failure(.invalidURL))
-            return
-        }
-        
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            // Check for errors
-            guard let unwrappedData = data, error == nil else {
-                print("Error")
-                completion(.failure(.requestFailed))
-                return
-            }
-            // Check response is valid
-            if let httpResponse = response as? HTTPURLResponse {
-                print("Response: \(httpResponse.statusCode)")
-            }
-            
-            do {
-                let decoder = JSONDecoder()
-                let decodedData = try decoder.decode([SoundsModel].self, from: unwrappedData)
-                completion(.success(decodedData))
-            } catch let error {
-                completion(.failure(.decodingJSONDataFailure))
-            }
-        }.resume()
-    }
-}

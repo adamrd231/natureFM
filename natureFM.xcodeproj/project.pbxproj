@@ -22,6 +22,9 @@
 		6661D71327BB067800481E3A /* FeaturedImageLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6661D71227BB067800481E3A /* FeaturedImageLayoutView.swift */; };
 		6661D71527BCE5C900481E3A /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6661D71427BCE5C900481E3A /* ProfileView.swift */; };
 		666BE7A62BAA14AA002ABF97 /* APINetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666BE7A52BAA14AA002ABF97 /* APINetworkService.swift */; };
+		666BE7A92BAA473D002ABF97 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666BE7A82BAA473D002ABF97 /* APIError.swift */; };
+		666BE7AB2BAA474E002ABF97 /* APIMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666BE7AA2BAA474E002ABF97 /* APIMethod.swift */; };
+		666BE7AD2BAA475E002ABF97 /* APIurls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666BE7AC2BAA475E002ABF97 /* APIurls.swift */; };
 		667CD62027B2708B007965D7 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667CD61F27B2708B007965D7 /* Color.swift */; };
 		667F6E132718E810007726D1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 667F6E122718E810007726D1 /* Launch Screen.storyboard */; };
 		6682760D2B3C9C6D00B5B548 /* CatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6682760C2B3C9C6D00B5B548 /* CatalogView.swift */; };
@@ -108,6 +111,9 @@
 		6661D71227BB067800481E3A /* FeaturedImageLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedImageLayoutView.swift; sourceTree = "<group>"; };
 		6661D71427BCE5C900481E3A /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		666BE7A52BAA14AA002ABF97 /* APINetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APINetworkService.swift; sourceTree = "<group>"; };
+		666BE7A82BAA473D002ABF97 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		666BE7AA2BAA474E002ABF97 /* APIMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIMethod.swift; sourceTree = "<group>"; };
+		666BE7AC2BAA475E002ABF97 /* APIurls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIurls.swift; sourceTree = "<group>"; };
 		667CD61F27B2708B007965D7 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		667F6E122718E810007726D1 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		6682760C2B3C9C6D00B5B548 /* CatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogView.swift; sourceTree = "<group>"; };
@@ -215,6 +221,7 @@
 		66098BF927B1C58E000041D9 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				666BE7A72BAA472E002ABF97 /* Constants */,
 				66098BFA27B1C622000041D9 /* NatureSoundDataService.swift */,
 				66F94AE327B31FDC00B50D28 /* CategoryDataService.swift */,
 				664E8D8F27B22E9100699C0B /* DownloadedContentService.swift */,
@@ -250,6 +257,16 @@
 				668843CD2B6C2D14000BCAE5 /* CatalogSoundView.swift */,
 			);
 			path = CatalogSoundsView;
+			sourceTree = "<group>";
+		};
+		666BE7A72BAA472E002ABF97 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				666BE7A82BAA473D002ABF97 /* APIError.swift */,
+				666BE7AA2BAA474E002ABF97 /* APIMethod.swift */,
+				666BE7AC2BAA475E002ABF97 /* APIurls.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		667CD62127B27090007965D7 /* Extensions */ = {
@@ -689,6 +706,7 @@
 				662D25BE27B6ED26003727C8 /* TimeInterval.swift in Sources */,
 				66CE6FF727B36A440031E7FE /* CatalogSoundsView.swift in Sources */,
 				668843D02B6C2E23000BCAE5 /* SoundDetailStackView.swift in Sources */,
+				666BE7AD2BAA475E002ABF97 /* APIurls.swift in Sources */,
 				66E43FBF26C6146000AE012E /* SoundsModel.swift in Sources */,
 				664E8D9227B2436B00699C0B /* SoundImageService.swift in Sources */,
 				668843D52B6D6AFE000BCAE5 /* LoadingFullScreenView.swift in Sources */,
@@ -721,12 +739,14 @@
 				66C3CC182703CB2500438A55 /* InAppStorePurchasesView.swift in Sources */,
 				664F0BD82B59B19A002D1E2A /* CategoryRowView.swift in Sources */,
 				668276182B41FBE000B5B548 /* LibraryViewModel.swift in Sources */,
+				666BE7AB2BAA474E002ABF97 /* APIMethod.swift in Sources */,
 				668276132B40A6BB00B5B548 /* NetworkMonitor.swift in Sources */,
 				6661D71327BB067800481E3A /* FeaturedImageLayoutView.swift in Sources */,
 				666BE7A62BAA14AA002ABF97 /* APINetworkService.swift in Sources */,
 				668276112B3E155100B5B548 /* CatalogSubtitle.swift in Sources */,
 				668843D92B6D743E000BCAE5 /* SkeletonCatalogView.swift in Sources */,
 				66098BFE27B1C73F000041D9 /* NetworkingManager.swift in Sources */,
+				666BE7A92BAA473D002ABF97 /* APIError.swift in Sources */,
 				664E8D9627B2455D00699C0B /* SoundImageView.swift in Sources */,
 				6685C6002AD06732005947A4 /* ClockDisplayView.swift in Sources */,
 				6682760D2B3C9C6D00B5B548 /* CatalogView.swift in Sources */,
