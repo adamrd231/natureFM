@@ -8,9 +8,10 @@ struct FeaturedImageLayoutView: View {
     // State variables
     @State private var isShowingAlert: Bool = false
     @Binding var tabSelection: Int
+    @State var previewTabSelection: Int = 1
     
     var body: some View {
-        TabView {
+        TabView(selection: $previewTabSelection) {
             if let error = catalogVM.hasError {
                 ErrorView(error: error)
             } else if catalogVM.isLoadingSounds {
@@ -64,13 +65,15 @@ struct FeaturedImageLayoutView: View {
                             )
                         })
                     }
+                    .tag(sound.id)
                     .frame(width: UIScreen.main.bounds.width)
                 }
             }
         }
-        .tabViewStyle(.page(indexDisplayMode: .always))
-        .edgesIgnoringSafeArea(.top)
+        .tabViewStyle(.page(indexDisplayMode: .never))
+        .animation(.default, value: previewTabSelection)
         .frame(minHeight: UIScreen.main.bounds.height * 0.5)
+//        .edgesIgnoringSafeArea(.top)
     }
 }
 

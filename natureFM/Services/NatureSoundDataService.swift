@@ -8,6 +8,9 @@ class NatureSoundDataService {
     
     var soundSubscription: AnyCancellable?
     
+    var devURL = "http://127.0.0.1:8000/admin/App/sound/"
+    let prodURL = "https://nature-fm.herokuapp.com/app/sound/"
+    
     init() {
         isLoading = true
         getSounds()
@@ -15,7 +18,7 @@ class NatureSoundDataService {
     
     func getSounds() {
         // Download sounds from backend
-        guard let url = URL(string: "https://nature-fm.herokuapp.com/app/sound/") else {
+        guard let url = URL(string: devURL) else {
             // Handle Failure to create URL String
             print("Error getting URL String")
             isLoading = false
