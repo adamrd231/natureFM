@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -21,6 +21,7 @@
 		66589EBA27BDA2BE0026F7A3 /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66589EB927BDA2BE0026F7A3 /* LaunchScreenView.swift */; };
 		6661D71327BB067800481E3A /* FeaturedImageLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6661D71227BB067800481E3A /* FeaturedImageLayoutView.swift */; };
 		6661D71527BCE5C900481E3A /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6661D71427BCE5C900481E3A /* ProfileView.swift */; };
+		666BE7A62BAA14AA002ABF97 /* APINetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666BE7A52BAA14AA002ABF97 /* APINetworkService.swift */; };
 		667CD62027B2708B007965D7 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667CD61F27B2708B007965D7 /* Color.swift */; };
 		667F6E132718E810007726D1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 667F6E122718E810007726D1 /* Launch Screen.storyboard */; };
 		6682760D2B3C9C6D00B5B548 /* CatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6682760C2B3C9C6D00B5B548 /* CatalogView.swift */; };
@@ -106,6 +107,7 @@
 		66589EB927BDA2BE0026F7A3 /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
 		6661D71227BB067800481E3A /* FeaturedImageLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedImageLayoutView.swift; sourceTree = "<group>"; };
 		6661D71427BCE5C900481E3A /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		666BE7A52BAA14AA002ABF97 /* APINetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APINetworkService.swift; sourceTree = "<group>"; };
 		667CD61F27B2708B007965D7 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		667F6E122718E810007726D1 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		6682760C2B3C9C6D00B5B548 /* CatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogView.swift; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				664E8D9127B2436B00699C0B /* SoundImageService.swift */,
 				66CE700527B4A96A0031E7FE /* SongDownloadDataService.swift */,
 				668276122B40A6BB00B5B548 /* NetworkMonitor.swift */,
+				666BE7A52BAA14AA002ABF97 /* APINetworkService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -720,6 +723,7 @@
 				668276182B41FBE000B5B548 /* LibraryViewModel.swift in Sources */,
 				668276132B40A6BB00B5B548 /* NetworkMonitor.swift in Sources */,
 				6661D71327BB067800481E3A /* FeaturedImageLayoutView.swift in Sources */,
+				666BE7A62BAA14AA002ABF97 /* APINetworkService.swift in Sources */,
 				668276112B3E155100B5B548 /* CatalogSubtitle.swift in Sources */,
 				668843D92B6D743E000BCAE5 /* SkeletonCatalogView.swift in Sources */,
 				66098BFE27B1C73F000041D9 /* NetworkingManager.swift in Sources */,
