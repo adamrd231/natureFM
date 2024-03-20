@@ -1,7 +1,7 @@
 import Foundation
 import CoreData
 
-class DownloadedContentService {
+class CoreDataService {
     private let container: NSPersistentContainer
     private let containerName: String = "Stash"
     private let entityName: String = "Sound"
@@ -39,12 +39,13 @@ class DownloadedContentService {
         }
         let soundToSave = Sound(context: container.viewContext)
         soundToSave.name = sound.name
+//        soundToSave.description = sound.description
         soundToSave.audioFile = sound.audioFileLink
         soundToSave.imageFileLink = sound.imageFileLink
         soundToSave.freeSong = sound.freeSong
         soundToSave.duration = Int64(sound.duration)
-        soundToSave.categoryName = sound.categoryName
-        soundToSave.locationName = sound.locationName
+//        soundToSave.categoryName = sound.categoryName
+//        soundToSave.locationName = sound.locationName
         
         applyChanges()
     }

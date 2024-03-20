@@ -11,18 +11,17 @@ struct SoundsModel: Identifiable, Codable, Equatable  {
     }
     
     let id: Int
-    var name: String
+    let name: String
     let description: String?
     let artist: Artist?
-    var audioFileLink: String
-    var imageFileLink: String
-    var duration: Int
-    var category: Int?
-    var location: Int?
-    var categoryName: String
-    var locationName: String
-    let averageRating: Double?
-    var freeSong: Bool
+    let audioFileLink: String
+    let imageFileLink: String
+    let duration: Int
+    let category: SoundCategory?
+    let location: SoundLocation?
+    let numberOfRatings: Int
+    let averageRating: Double
+    let freeSong: Bool
     
     enum CodingKeys: String, CodingKey {
         // Complete set of coding keys
@@ -35,11 +34,20 @@ struct SoundsModel: Identifiable, Codable, Equatable  {
         case duration
         case category
         case location
-        case categoryName = "category_name"
-        case locationName = "location_name"
+        case numberOfRatings = "rating_count"
         case averageRating = "average_rating"
         case freeSong = "free_song"
     }
+}
+
+struct SoundCategory: Codable {
+    let id: Int
+    let title: String
+}
+
+struct SoundLocation: Codable {
+    let id: Int
+    let title: String
 }
 
 struct Artist: Codable {

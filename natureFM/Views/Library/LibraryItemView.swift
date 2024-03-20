@@ -52,8 +52,13 @@ struct MenuTitleRowView: View {
                 VStack(alignment: .leading) {
                     Text(sound.name)
                         .bold()
-                    Text(sound.categoryName).font(.caption)
-                    Text(sound.locationName).font(.caption)
+                    if let category = sound.category {
+                        Text(category.title).font(.caption)
+                    }
+                    if let location = sound.location {
+                        Text(location.title).font(.caption)
+                    }
+                    
                 }
             }
         }

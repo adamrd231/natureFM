@@ -5,13 +5,14 @@ import SwiftUI
 class CatalogViewModel: ObservableObject {
     // Sound Download service
     private let natureSoundDataService = NatureSoundDataService(networkService: APINetworkService.shared)
+    private let coreData = CoreDataService()
     
     @Published var allSounds: [SoundsModel] = []
     var filteredSounds: [SoundsModel] {
         if selectedCategory.title == "All" {
             return allSounds
         } else {
-            return allSounds.filter({ $0.categoryName == selectedCategory.title })
+            return allSounds.filter({ $0.category?.title == selectedCategory.title })
         }
     }
     @Published var randomSounds: [SoundsModel] = []

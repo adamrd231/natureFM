@@ -22,7 +22,10 @@ struct SoundDetailStackView: View {
                     .padding(5)
                     .background(sound.freeSong ? Color.theme.customBlue : Color.theme.customYellow)
                 Text("|")
-                Text(sound.categoryName)
+                if let category = sound.category {
+                    Text(category.title)
+                }
+                
                    
             }
             .font(.footnote)

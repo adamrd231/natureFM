@@ -33,7 +33,7 @@ struct FeaturedImageLayoutView: View {
                             Text(sound.name)
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
-                                .frame(maxWidth: UIScreen.main.bounds.width * 0.66)
+                                
                                 .multilineTextAlignment(.center)
                             
                             if let description = sound.description {
@@ -57,6 +57,7 @@ struct FeaturedImageLayoutView: View {
 
                             }
                         }
+                        .frame(maxWidth: UIScreen.main.bounds.width * 0.66)
                         .foregroundColor(Color.theme.titleColor)
                         .alert(isPresented: $isShowingAlert, content: {
                             // decide which alert to show

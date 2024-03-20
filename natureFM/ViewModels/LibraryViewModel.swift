@@ -10,14 +10,10 @@ class LibraryViewModel: ObservableObject {
     @Published var selectedCategory: String = "All"
     
     var filteredSounds: [SoundsModel] {
-        if selectedCategory == "All" {
-            return mySounds
-        } else {
-            return mySounds.filter({ $0.categoryName == selectedCategory })
-        }
+        return mySounds
     }
     // Service to download song from database and save to Coredata / filemanager
-    private let downloadedContentService = DownloadedContentService()
+    private let downloadedContentService = CoreDataService()
     
     // MARK: Sound Player
     @Published var sound: SoundsModel?

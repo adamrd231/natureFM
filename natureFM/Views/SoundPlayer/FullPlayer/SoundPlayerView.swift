@@ -23,17 +23,20 @@ struct SoundPlayerView: View {
                             .fontWeight(.heavy)
                             .foregroundColor(Color.theme.titleColor)
                         HStack {
-                            Text(sound.categoryName)
+                            if let category = sound.category {
+                                Text(category.title)
+                            }
+                           
                             Text("|")
-                            Text(sound.locationName)
+                            if let location = sound.location {
+                                Text(location.title)
+                            }
                         }
                         .font(.caption)
                         .fontWeight(.medium)
                         .foregroundColor(Color.theme.titleColor)
                     }
                 }
-                
-                
                 
                 // Playing next component
                 VStack(alignment: .leading) {

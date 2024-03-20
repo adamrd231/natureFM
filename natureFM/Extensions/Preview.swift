@@ -16,7 +16,20 @@ class DeveloperPreview {
 
     let libraryVM = LibraryViewModel()
     let homeVM = CatalogViewModel()
-    let testSound = SoundsModel(id: 1, name: "Boomhower's Beat", description: "Boomhower goes all the way in on this one.", artist: Artist(id: 1, name: "Boomhower"), audioFileLink: "", imageFileLink: "", duration: 100, categoryName: "Beats", locationName: "Arlen", averageRating: 4.98, freeSong: true)
+    let testSound = SoundsModel(
+        id: 1,
+        name: "Dale's Beat Boxing",
+        description: "The one where he goes ha-cha-cha a lot.",
+        artist: Artist(id: 1, name: "Dale Gribble"),
+        audioFileLink: "",
+        imageFileLink: "",
+        duration: 100,
+        category: SoundCategory(id: 1, title: "Doing stuff"),
+        location: SoundLocation(id: 2, title: "Arlen"),
+        numberOfRatings: 10,
+        averageRating: 5,
+        freeSong: true
+    )
     
     let audioLink = Bundle.main.path(forResource: "launchimage", ofType: "jpg")
     let imageFileLink = ""
