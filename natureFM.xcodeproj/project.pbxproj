@@ -293,6 +293,7 @@
 		6682760B2B3C9C5700B5B548 /* Catalog */ = {
 			isa = PBXGroup;
 			children = (
+				66098BFF27B1C8E4000041D9 /* CatalogViewModel.swift */,
 				6682760C2B3C9C6D00B5B548 /* CatalogView.swift */,
 				6682760E2B3C9F8500B5B548 /* CatalogTitle.swift */,
 				668276102B3E155000B5B548 /* CatalogSubtitle.swift */,
@@ -314,6 +315,7 @@
 		6685C6012AD24C6D005947A4 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				668276172B41FBE000B5B548 /* LibraryViewModel.swift */,
 				6685C6022AD24C7E005947A4 /* LibraryView.swift */,
 				6693C4AE2728F06900D4FD17 /* CategoryPickerView.swift */,
 				66F241D72B60336300E26769 /* LibraryItemView.swift */,
@@ -413,15 +415,6 @@
 			path = TabBarPlayer;
 			sourceTree = "<group>";
 		};
-		6691DE05279BAE7900B099D2 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				66098BFF27B1C8E4000041D9 /* CatalogViewModel.swift */,
-				668276172B41FBE000B5B548 /* LibraryViewModel.swift */,
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
 		6693C4B02728F39D00D4FD17 /* components */ = {
 			isa = PBXGroup;
 			children = (
@@ -482,7 +475,6 @@
 				66098BFC27B1C731000041D9 /* Utilities */,
 				66098BF927B1C58E000041D9 /* Services */,
 				667F6E18271B377F007726D1 /* Models */,
-				6691DE05279BAE7900B099D2 /* ViewModels */,
 				668276162B41FA6B00B5B548 /* StoreManager */,
 				6685C6362ADF0C01005947A4 /* Views */,
 				6693C4B02728F39D00D4FD17 /* components */,

@@ -18,7 +18,7 @@ class LibraryViewModel: ObservableObject {
     // MARK: Sound Player
     @Published var sound: SoundsModel?
     var audioPlayer: AVAudioPlayer?
-    // Service to get song data from CoreData / filemanager
+    // Service to either retrieve sounds from coredata, or download the song if needed
     @Published var songDataDownloadService = SongDataDownloadService()
     // Information to display to user
     @Published var isPlaying: Bool = false
