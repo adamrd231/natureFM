@@ -5,6 +5,7 @@ struct CatalogView: View {
     @ObservedObject var libraryVM: LibraryViewModel
     @ObservedObject var storeManager: StoreManager
     @ObservedObject var network: NetworkMonitor
+    
     @Binding var tabSelection: Int
     
     var body: some View {
@@ -15,9 +16,7 @@ struct CatalogView: View {
             } else {
                 NoInternetView(tabSelection: $tabSelection)
             }
-                
         }
-       
     }
 }
 
@@ -61,7 +60,6 @@ extension CatalogView {
                         hasSubscription: storeManager.hasSubscription,
                         tabSelection: $tabSelection
                     )
-                 
                 }
             }
             

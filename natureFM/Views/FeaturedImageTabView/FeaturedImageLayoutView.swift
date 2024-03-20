@@ -35,6 +35,11 @@ struct FeaturedImageLayoutView: View {
                                 .fontWeight(.bold)
                                 .frame(maxWidth: UIScreen.main.bounds.width * 0.66)
                                 .multilineTextAlignment(.center)
+                            
+                            if let description = sound.description {
+                                Text(description)
+                            }
+                           
                                 
                             if libraryVM.mySounds.contains(sound) {
                                 Text("In your library")

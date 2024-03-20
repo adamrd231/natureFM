@@ -350,6 +350,7 @@
 		6685C6362ADF0C01005947A4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				668843D22B6D615E000BCAE5 /* Images */,
 				668843C92B6C267E000BCAE5 /* FeaturedImageTabView */,
 				66CE6FFE27B4A7CD0031E7FE /* SoundPlayer */,
 				66098BF827B1C385000041D9 /* Launch */,
@@ -398,6 +399,7 @@
 		668843D22B6D615E000BCAE5 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				664E8D9827B245BC00699C0B /* SoundImageViewModel.swift */,
 				664E8D9527B2455D00699C0B /* SoundImageView.swift */,
 			);
 			path = Images;
@@ -415,7 +417,6 @@
 			isa = PBXGroup;
 			children = (
 				66098BFF27B1C8E4000041D9 /* CatalogViewModel.swift */,
-				664E8D9827B245BC00699C0B /* SoundImageViewModel.swift */,
 				668276172B41FBE000B5B548 /* LibraryViewModel.swift */,
 			);
 			path = ViewModels;
@@ -424,7 +425,6 @@
 		6693C4B02728F39D00D4FD17 /* components */ = {
 			isa = PBXGroup;
 			children = (
-				668843D22B6D615E000BCAE5 /* Images */,
 				6685C5FF2AD06732005947A4 /* ClockDisplayView.swift */,
 				6685C5D12ABCBC1C005947A4 /* TabItemView.swift */,
 				664F0BD72B59B19A002D1E2A /* CategoryRowView.swift */,

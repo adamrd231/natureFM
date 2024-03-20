@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct CategoryRowView: View {
-    let categories: [CategoryName]
-    @Binding var selectedCategory: Int
+    let categories: Set<CategoryName>
+    @Binding var selectedCategory: CategoryName
     var body: some View {
         VStack(alignment: .leading) {
             Divider()
@@ -19,9 +19,9 @@ struct CategoryRowView: View {
                     OverflowLayout(spacing: 10) {
                         ForEach(Array(zip(categories.indices, categories)), id: \.0) { index, category in
                             Button(categories[index].title) {
-                                selectedCategory = index
+                                selectedCategory = category
                             }
-                            .buttonStyle(BorderButton(color: Color.theme.titleColor, isSelected: category.title == categories[selectedCategory].title))
+                            .buttonStyle(BorderButton(color: Color.theme.titleColor, isSelected: category == selectedCategory))
 //                            Button {
 //                                selectedCategory = index
 //                            } label: {
@@ -61,14 +61,14 @@ struct CategoryRowView: View {
 
 struct CategoryRowView_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryRowView(categories: [
-            CategoryName(title: "all"),
-            CategoryName(title: "Basic b"),
-            CategoryName(title: "Basic b")
-//            CategoryName(title: "Basic b"),
-//            CategoryName(title: "Basic b"),
-//            CategoryName(title: "Basic b")
-        ], selectedCategory: .constant(0))
+        CategoryRowView(
+            categories: [
+                CategoryName(title: "all"),
+                CategoryName(title: "Basic b"),
+                CategoryName(title: "Basic b")
+            ], 
+            selectedCategory: .constant(CategoryName(title: "All"))
+        )
     }
 }
 

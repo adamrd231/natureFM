@@ -7,14 +7,20 @@ class CatalogViewModel: ObservableObject {
     private let natureSoundDataService = NatureSoundDataService(networkService: APINetworkService.shared)
     
     @Published var allSounds: [SoundsModel] = []
-    var filteredSounds: [SoundsModel] = []
+    var filteredSounds: [SoundsModel] {
+        if selectedCategory.title == "All" {
+            return allSounds
+        } else {
+            return allSounds.filter({ $0.categoryName == selectedCategory.title })
+        }
+    }
     @Published var randomSounds: [SoundsModel] = []
     
     @Published var isLoadingSounds: Bool = false
     @Published var hasError: String? = nil
     // Create list of categories from sounds download
-    @Published var categories: [CategoryName] = [CategoryName(title: "All")]
-    @Published var selectedCategory: Int = 0
+    @Published var categories: Set<CategoryName> = [CategoryName(title: "All")]
+    @Published var selectedCategory: CategoryName = CategoryName(title: "All")
     // Combine
     private var cancellable = Set<AnyCancellable>()
     
@@ -31,6 +37,9 @@ class CatalogViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     self.isLoadingSounds = false
                     self.allSounds = sounds
+//                    for sound in sounds {
+//                        self.categories.insert(CategoryName(title: sound.categoryName))
+//                    }
                 }
             case .failure(let error):
                 print("error \(error)")
